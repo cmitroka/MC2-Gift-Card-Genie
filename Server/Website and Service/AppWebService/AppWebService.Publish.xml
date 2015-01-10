@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="Z:\WebSites\Gift Card Genie" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="False">
+    <file relUrl="bin/AppWebService.dll" publishTime="10/28/2012 22:46:45" />
+    <file relUrl="bin/GCGCommon.dll" publishTime="10/28/2012 22:46:44" />
+    <file relUrl="Web.config" publishTime="10/28/2012 22:46:54" />
+    <file relUrl="bin/GCGCommon.pdb" publishTime="10/28/2012 22:46:44" />
+    <file relUrl="bin/CJMUtilities.dll" publishTime="10/28/2012 22:46:43" />
+    <file relUrl="bin/AppWebService.pdb" publishTime="10/28/2012 22:46:45" />
+    <file relUrl="bin/CJMUtilities.pdb" publishTime="10/28/2012 22:46:43" />
+    <file relUrl="WebService.asmx" publishTime="09/24/2012 00:54:43" />
+  </publishProfile>
+  <publishProfile publishUrl="\\WEBSERVER-VM\gcg\Gift Card Genie" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile2" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="bin/HtmlAgilityPack.dll" publishTime="08/02/2013 02:59:16" />
+    <file relUrl="bin/GCGCommon.dll" publishTime="11/08/2013 02:47:27" />
+    <file relUrl="Web.config" publishTime="11/08/2013 02:47:40" />
+    <file relUrl="bin/GCGCommon.pdb" publishTime="11/08/2013 02:47:27" />
+    <file relUrl="bin/AppWebService.pdb" publishTime="11/10/2013 00:35:22" />
+    <file relUrl="bin/AppWebService.dll" publishTime="11/10/2013 00:35:23" />
+    <file relUrl="WebService.asmx" publishTime="08/13/2013 21:54:47" />
+    <file relUrl="bin/Interop.SHDocVw.dll" publishTime="11/08/2013 02:47:26" />
+  </publishProfile>
+</publishData>

@@ -1,0 +1,132 @@
+dsCrypt-CLI (command-line interface)
+Copyright (c)2004 Dariusz Stanislawek
+freezip(at)bigfoot,com
+
+
+dsCrypt is a file encryption program.
+
+
+
+USAGE
+
+dsc keyfile e|d source destination
+
+Keyfile must contain 64 hexadecimal bytes.
+Encryption example: dsc a:\my.key e d:\x\data.zip data.enc
+Decryption example: dsc my.key d data.enc c:\tmp\data.zip
+
+"C:\Users\chmitro\Desktop\EncDec\dsc.exe" "C:\Users\chmitro\Desktop\EncDec\test.key" e "C:\Matt.jpg" "C:\Matt.enc"
+
+"C:\Users\chmitro\Desktop\EncDec\dsc.exe" "C:\Users\chmitro\Desktop\EncDec\test.key" e "C:\All\a.txt" "C:\All\a.enc"
+
+"C:\Users\chmitro\Desktop\EncDec\dsc.exe" "C:\Users\chmitro\Desktop\EncDec\test.key" d "C:\All\a.enc" "C:\All\a2.txt"
+
+NOTES
+
+Use double-quotes for file names with spaces.
+
+Press Ctrl+C to abort processing, then manually delete leftover files.
+
+The best way to create a key file is to run dsCrypt-GUI, enter a password and
+press F4 (v1.10+). All files encrypted with the GUI version can be decrypted
+with the CLI version. Files encrypted with the CLI version can be decrypted
+with the GUI version if CRC is not used (v1.10+). Passfiles and keyfiles are
+closely related but not compatible and you will need to press F4 and save a
+keyfile after opening a passfile to ensure proper encryption or decryption of
+CLI/GUI files. BTW, since the keyfiles are hexadecimal, they can be archived
+in text files using eg. Notepad.
+
+The best performance is achieved when source and destination files are on
+physically separate drives.
+
+
+
+MULTI-FILE PROCESSING
+
+Create the following file and folder structure:
+
+dsc.exe
+my.key
+TMP\ (folder for processed files)
+   |
+   |-file-for-encryption
+   |-file-for-encryption
+   |-...
+   |-TMP\ (sub-folder for encrypted files)
+
+then type on the command-line:
+for %f in (tmp\*.*) do dsc my.key e "%f" "tmp\%f"
+
+
+If you prefer to add and remove the "dsc" extension when en/de/crypting,
+try the following W2k/XP batch script (thanks to Sebastian Juergens).
+
+----------batchdsc.cmd----------
+@echo off
+setlocal
+
+if not exist tmp\tmp md tmp\tmp
+if "%1"=="e" goto _encryption
+if "%1"=="d" goto _decryption
+echo.
+echo Usage: batchdsc e^|d
+goto _end
+
+:_encryption
+for %%f in (tmp\*.*) do dsc my.key e "%%f" "tmp\%%f.dsc"
+goto _end
+
+:_decryption
+for %%f in (tmp\*.dsc) do call :_sub_decryption "%%f"
+goto _end
+
+:_sub_decryption
+  set _decrypted_file=%1
+  set _decrypted_file=%_decrypted_file:"=%
+  set _decrypted_file="tmp\%_decrypted_file:~0,-4%"
+  dsc my.key d %1 %_decrypted_file%
+goto :eof
+
+:_end
+endlocal
+----------batchdsc.cmd----------
+
+
+
+IMPLEMENTATION
+
+Cipher: AES (Rijndael)
+Mode: CBC
+Key: 256 bit
+IV: 16 bytes
+Max File Size: 2GB
+Cipher File Structure:
+[cipherdata] + [padding <= 16 bytes] + [IV = 16 random bytes]
+
+The source code and a compatible Windows-GUI version are available from:
+http://www.ozemail.com.au/~nulifetv/freezip/freeware/
+http://freezip.cjb.net/freeware/
+
+
+
+FREEWARE SOFTWARE
+
+Free for private or business use. Free for distribution and publication,
+but in unmodified package. It can be freely bundled with any product or
+application. Individual permissions are not required and will not be given.
+
+
+
+DISCLAIMER
+=========================================================================
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+=========================================================================

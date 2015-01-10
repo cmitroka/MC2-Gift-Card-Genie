@@ -1,0 +1,88 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.Master.cs" Inherits="AppAdminSite.AdminMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head runat="server">
+    <title>
+        <asp:Literal ID="Literal1" runat="server" Text="GCG Admin - " />
+        <asp:ContentPlaceHolder ID="titleContent" runat="server" /> 
+    </title>
+    <script type="text/javascript">
+        function OpenSimulatorV202() {
+        window.open('PopupSimulator.aspx', null, 'toolbar=no,location=no,directories=no,status=no, menubar=no,scrollbars=no,resizable=no,width=400,height=300');
+        void (0);
+        //return false;
+    }
+    function OpenSimulatorV203() {
+        window.open('PopupSimulator01.aspx', null, 'toolbar=no,location=no,directories=no,status=no, menubar=no,scrollbars=no,resizable=no,width=400,height=350');
+        void (0);
+        //return false;
+    }
+    function OpenUploader() {
+        window.open('PopupIAMerchantUploader.aspx', null, 'toolbar=no,location=no,directories=no,status=no, menubar=no,scrollbars=no,resizable=no,width=400,height=150');
+        void (0);
+        //return false;
+    }
+
+    </script>
+    <link href="~/Styles/Admin.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form runat="server">
+    <div class="page">
+        <div class="header">
+            <div class="title">
+                <h1>
+                    GIFT CARD GENIE ADMIN AREA
+                   </h1>
+            </div>
+            <div class="loginDisplay">
+                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="http://gcg.mc2techservices.com/Default.aspx">User Page</asp:HyperLink>
+            </div>
+            <div class="clear hideSkiplink">
+                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
+                    <Items>
+                        <asp:MenuItem NavigateUrl="~/Metrics.aspx" Text="Home"/>
+                        <asp:MenuItem Text="Simulators" >
+                            <asp:MenuItem NavigateUrl="javascript:OpenSimulatorV202();" Text="Simulator V2.0.2" />
+                            <asp:MenuItem NavigateUrl="javascript:OpenSimulatorV203();" Text="Simulator V2.0.3" />
+                            <asp:MenuItem NavigateUrl="GCGWeb.htm" Text="GCG V3" />
+                        </asp:MenuItem>
+                        <asp:MenuItem Text="Interactions" >
+                            <asp:MenuItem NavigateUrl="~/IAMerchantsData.aspx" Text="Modify Merchants" />
+                            <asp:MenuItem NavigateUrl="~/IASystemParamsData.aspx" Text="Modify System Parameters" />
+                            <asp:MenuItem NavigateUrl="~/UUIDPurchaseDetails.aspx" Text="Modify Purchase Details" />
+                            <asp:MenuItem NavigateUrl="javascript:OpenUploader();" Text="Upload Merchant EXE" />
+                            <asp:MenuItem NavigateUrl="~/ShowVendorsToAdd.aspx" Text="Show Vendors to Add" />
+                            <asp:MenuItem NavigateUrl="~/Message.aspx" Text="Messaging" />
+                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/ShowDatagridsNumericOnly.aspx" Text="Data Reporting" >
+                            <asp:MenuItem NavigateUrl="~/ShowDatagrids.aspx" Text="Show Rq/Rs Log" />
+                            <asp:MenuItem NavigateUrl="~/DailyUUIDs.aspx" Text="Show Todays UUIDs" />
+                            <asp:MenuItem NavigateUrl="~/UUIDLookupsAndPurchases.aspx" Text="Show Purchase/Lookup Counts" />
+                            <asp:MenuItem NavigateUrl="~/ShowDownloadDetails.aspx" Text="Show Downloads Per Day" />
+                            <asp:MenuItem NavigateUrl="~/AllUUIDsWVersion.aspx" Text="Show All Downloaders w/ Version" />
+                        </asp:MenuItem>
+                        <asp:MenuItem Text="Web Services" >
+                            <asp:MenuItem NavigateUrl="~/WebService.asmx" Text="Web Service V01" />
+                            <asp:MenuItem NavigateUrl="~/GCGWebWS.asmx" Text="Web Service V02" />
+                        </asp:MenuItem>
+                    </Items>
+                </asp:Menu>
+            </div>
+        </div>
+        <div class="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" onload="Page_Load">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="footer">
+        
+    </div>
+    </form>
+</body>
+</html>

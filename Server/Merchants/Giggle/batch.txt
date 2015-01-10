@@ -1,0 +1,5 @@
+"C:\Program Files\Microsoft\ILMerge\ILMerge.exe" /out:"$(TargetDir)$(TargetName).exe" "$(TargetDir)$(TargetName).exe" "$(TargetDir)*.dll" /target:exe /targetplatform:v4,C:\Windows\Microsoft.NET\Framework\v4.0.30319 /wildcards /allowDup
+del "$(TargetDir)$(TargetName).exe"
+rename "$(TargetDir)$(TargetName).all.exe" "$(TargetName).exe"
+xcopy "$(TargetDir)$(TargetName).exe" "C:\MerchantEXEs" /i /d /y
+xcopy "$(TargetDir)*.dll" "C:\MerchantEXEs" /i /d /y

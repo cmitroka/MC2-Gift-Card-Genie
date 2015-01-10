@@ -1,0 +1,77 @@
+﻿How to do a click with an <a> tag...
+GCGMethods.SimInput(webBrowser1, HTMLEnumTagNames.a, HTMLEnumAttributes.InnerText, "Check Balance");
+
+Get Balanace w/ Manual "Select All"...
+                string test = DoManualCopyAndPaste();
+                string balanceResult = GetBalance("Card Balance", "as", test);
+                if (balanceResult == "")
+                {
+                    RetryCnt++;
+                    if (RetryCnt < 3)
+                    {
+                        GCGMethods.WriteTextBoxLog(txtLog, "Retrying the page for a balance...");
+                        Instruction--;
+                        DoDelay(1, true);
+                        return;
+                    }
+                }
+
+Get Balanace w/ Webbrowser1
+				string test = GCGMethods.GetWBDocumentText(webBrowser1);
+                string balanceResult = GetBalance("Card Balance", "as", test);
+                if (balanceResult == "")
+                {
+                    RetryCnt++;
+                    if (RetryCnt < 3)
+                    {
+                        GCGMethods.WriteTextBoxLog(txtLog, "Retrying the page for a balance...");
+                        Instruction--;
+                        DoDelay(1, true);
+                        return;
+                    }
+                }
+
+CAPTCHA handling...
+OK = DoHandleRqRs(GCTypes.GCCAPTCHA, "WBServlet?jsessionid");
+HandleInstruction(OK);
+
+Changing the focus...
+Use ChangeFocus method
+
+Simulating Input
+else if (Instruction == 3)
+{
+    ChangeFocus(HTMLEnumAttributes.name, "TextBoxCardNumber", FocusTypes.Focus);
+    DoDelay(1, true);
+}
+else if (Instruction == 4)
+{
+    SendKeys.Send("{tab}");
+    DoDelay(1, true);
+}
+
+How to do a Combobox/Dropdown...
+GCGMethods.SimInput(webBrowser1, HTMLEnumTagNames.select, HTMLEnumAttributes.name, "country", "US");
+
+Wait around a bit, then come back...
+DoDelay(30,true);
+
+Get last few characters of Card Number...
+                string lfour = "";
+                try
+                {
+				    lfour = txtCardNumber.Text.Substring(txtCardNumber.TextLength-4, 4);
+                }
+                catch (Exception) { }
+
+Same element name/id on different forms...
+OK = GCGMethods.SimInput(webBrowser1, HTMLEnumTagNames.input, HTMLEnumAttributes.name, "inquire_balance", "", 1);
+
+For CAPTCHA's, either use the WebBrowser or a Frame...
+                    IHTMLDocument2 doc = null;
+                    /*
+                    mshtml.HTMLDocument htmlDoc = (HTMLDocument)webBrowser1.Document.DomDocument;
+                    IHTMLWindow2 htmlWindow = (IHTMLWindow2)htmlDoc.frames.item(0);
+                    IHTMLDocument2 doc = CrossFrameIE.GetDocumentFromWindow(htmlWindow);
+                    */                    
+                    //mshtml.IHTMLDocument2 doc = (mshtml.IHTMLDocument2)webBrowser1.Document.DomDocument;

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Barciode Generator", "Barcode Generator\Barcode Generator.csproj", "{3BE8A5DA-4D7D-4681-A2F3-ABF3F657DCEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BE8A5DA-4D7D-4681-A2F3-ABF3F657DCEA}.Debug|x86.ActiveCfg = Debug|x86
+		{3BE8A5DA-4D7D-4681-A2F3-ABF3F657DCEA}.Debug|x86.Build.0 = Debug|x86
+		{3BE8A5DA-4D7D-4681-A2F3-ABF3F657DCEA}.Release|x86.ActiveCfg = Release|x86
+		{3BE8A5DA-4D7D-4681-A2F3-ABF3F657DCEA}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

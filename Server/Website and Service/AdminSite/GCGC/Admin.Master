@@ -1,0 +1,62 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.Master.cs" Inherits="GCGC.Admin" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>GCG Cloud Admin</title>
+    <link href="Admin.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <form runat="server">
+    <div class="page">
+        <div class="header">
+    <table class="headarea">
+        <tr>
+            <td>
+                <h1>
+                GCG CLOUD ADMIN AREA
+                </h1>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+    </table>
+            <div class="clear hideSkiplink">
+                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
+                    <Items>
+                        <asp:MenuItem NavigateUrl="~/GCGCMain.aspx" Text="Home"/>
+                        <asp:MenuItem Text="Simulator" >
+                            <asp:MenuItem NavigateUrl="GCGWebLogin.htm" Text="Login Page" />
+                            <asp:MenuItem NavigateUrl="GCGWebReg.htm" Text="Registration Page" />
+                        </asp:MenuItem>
+                        <asp:MenuItem Text="Tables" >
+                            <asp:MenuItem NavigateUrl="~/IAMerchantsData.aspx" Text="Modify Merchants" />
+                            <asp:MenuItem NavigateUrl="~/IASystemParamsData.aspx" Text="Modify System Parameters" />
+                            <asp:MenuItem NavigateUrl="~/UUIDPurchaseDetails.aspx" Text="Modify Purchase Details" />
+                            <asp:MenuItem NavigateUrl="javascript:OpenUploader();" Text="Upload Merchant EXE" />
+                            <asp:MenuItem NavigateUrl="~/ShowVendorsToAdd.aspx" Text="Show Vendors to Add" />
+                            <asp:MenuItem NavigateUrl="~/Message.aspx" Text="Messaging" />
+                        </asp:MenuItem>
+                        <asp:MenuItem Text="Views" >
+                            <asp:MenuItem NavigateUrl="~/ShowDatagrids.aspx" Text="Show Rq/Rs Log" />
+                            <asp:MenuItem NavigateUrl="~/DailyUUIDs.aspx" Text="Show Todays UUIDs" />
+                            <asp:MenuItem NavigateUrl="~/UUIDLookupsAndPurchases.aspx" Text="Show Purchase/Lookup Counts" />
+                            <asp:MenuItem NavigateUrl="~/ShowDownloadDetails.aspx" Text="Show Downloads Per Day" />
+                            <asp:MenuItem NavigateUrl="~/AllUUIDsWVersion.aspx" Text="Show All Downloaders w/ Version" />
+                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="../GCGWebWS.asmx" Text="Web Service"/>
+                    </Items>
+                </asp:Menu>
+            </div>
+    <div class="mainarea">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" OnLoad="Page_Load">
+        </asp:ContentPlaceHolder>
+    </div>
+    </div>
+    </div>
+    </form>
+
+</body>
+</html>

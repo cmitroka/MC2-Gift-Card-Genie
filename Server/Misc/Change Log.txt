@@ -1,0 +1,15 @@
+???
+Backup/Restore and Show UUID (last 6)
+The 'Add Card', 'Unlisted - Manually Enter' now optionally can accept your email.  With this, we can let you know when the vendor is ready.
+
+
+1.1->1.2
+Added more merchants
+Many existing lookups were enhanced for better support.
+Version number on splash screen.
+You'll get warned if you try to go back before saving a card.
+Less crashing after multiple lookups.
+Offline Popup won't flash twice.
+Specific alerts activated.  If we need to get your attention for some reason, we can do so now.
+
+New Version Column

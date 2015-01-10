@@ -1,0 +1,15 @@
+IE9 Configuration
+
+1.Going  to Tools->Internet Options->Security
+2.Select the Security tab
+3.Click on the Internet zone icon at the top of the tab page
+4.Click the Custom Level button
+5.In the Miscellaneous section change Display mixed content to Enable
+
+Tools->Internet Options | Advanced | Browsing | Enable automatice crash recovery*
+
+
+Tools->Internet Options | Security| Custom Level | Scripting | Allow Programmatic Access to Clipboard
+ 
+
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\regasm.exe "C:\gcg\MerchantEXEs\Microsoft.mshtml.dll"

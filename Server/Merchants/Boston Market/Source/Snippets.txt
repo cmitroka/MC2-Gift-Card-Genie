@@ -1,0 +1,26 @@
+﻿How to do a click with an <a> tag...
+GCGMethods.SimInput(webBrowser1, HTMLEnumTagNames.a, HTMLEnumAttributes.InnerText, "Check Balance");
+
+CAPTCHA handling...
+DoHandleRqRs(GCTypes.GCCAPTCHA, "WBServlet?jsessionid");
+
+Changing the focus...
+Use ChangeFocus method
+
+Simulating Input
+else if (Instruction == 3)
+{
+    ChangeFocus(HTMLEnumAttributes.name, "TextBoxCardNumber", FocusTypes.Focus);
+    DoDelay(1, true);
+}
+else if (Instruction == 4)
+{
+    SendKeys.Send("{tab}");
+    DoDelay(1, true);
+}
+
+How to do a Combobox/Dropdown...
+GCGMethods.SimInput(webBrowser1, HTMLEnumTagNames.select, HTMLEnumAttributes.name, "country", "US");
+
+Wait around a bit, then come back...
+DoDelay(30,true);
