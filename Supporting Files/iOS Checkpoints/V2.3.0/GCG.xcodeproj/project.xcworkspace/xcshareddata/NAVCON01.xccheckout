@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>42FC9979-A131-43BC-A5FC-371AA839E0F1</string>
+	<key>IDESourceControlProjectName</key>
+	<string>NAVCON01</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5B5E0C4A-66B1-4B29-A47E-30B9F607853D</key>
+		<string>svn://www.mc2techservices.com/Gift%20Card%20Genie/iPhone%20App/V2.1.1</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>NAVCON01.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5B5E0C4A-66B1-4B29-A47E-30B9F607853D</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>5B5E0C4A-66B1-4B29-A47E-30B9F607853D</key>
+		<string>svn://www.mc2techservices.com/Gift%20Card%20Genie</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>svn://www.mc2techservices.com/Gift%20Card%20Genie/iPhone%20App/V2.1.1/NAVCON01.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5B5E0C4A-66B1-4B29-A47E-30B9F607853D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5B5E0C4A-66B1-4B29-A47E-30B9F607853D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>GCG 2.1.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>
