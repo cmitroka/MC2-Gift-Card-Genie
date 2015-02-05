@@ -20,13 +20,15 @@ namespace DVB
 {
     public static class UIFunc_DoManualCopyAndPaste
     {
+        private static SHDocVw.InternetExplorer _IE;
         public static Main _m;
         public static int CopyPasteCnt = 0;
         public static string CopyAndPasteResult = "";
         public static Timer _t = null;
 
-        public static string DoManualCopyAndPaste(Main m)
+        public static string DoManualCopyAndPaste(Main m, SHDocVw.InternetExplorer IE)
         {
+            _IE = IE;
             _m = m;
             _m.tmrRunning.Enabled = false;
             Timer t = new Timer();
@@ -48,18 +50,19 @@ namespace DVB
         public static void tmrCopyPaste_Tick(object sender, EventArgs e)
         {
             CopyPasteCnt++;
+            mshtml.IHTMLDocument2 document2 = _IE.Document as mshtml.IHTMLDocument2;
             try
             {
                 if (CopyPasteCnt == 1)
                 {
-                    _m.webBrowser1.Document.ExecCommand("SelectAll", false, null);
+                    document2.execCommand("SelectAll", false, null);
                     GCGMethods.WriteTextBoxLog(_m.txtLog, "tmrCopyPaste Select");
                     //System.Diagnostics.Debug.WriteLine("tmrCopyPaste Select");
                     _t.Interval = 500;
                 }
                 else if (CopyPasteCnt == 2)
                 {
-                    _m.webBrowser1.Document.ExecCommand("Copy", false, null);
+                    document2.execCommand("Copy", false, null);
                     GCGMethods.WriteTextBoxLog(_m.txtLog, "tmrCopyPaste Copy");
                     //System.Diagnostics.Debug.WriteLine("tmrCopyPaste Copy");
                     //The copy takes a while, maybe a second, otherwise it may exception

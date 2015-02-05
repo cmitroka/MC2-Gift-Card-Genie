@@ -10,6 +10,7 @@ using System.IO;
 using mshtml;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
+using System.Text.RegularExpressions;
 using System.Diagnostics;
 namespace DVB
 {
@@ -84,6 +85,42 @@ namespace DVB
                     }
                     int b = endloc - a;
                     string temphtml = EnitreHTML.Substring(a, b);
+                    retVal = temphtml;
+                    return retVal;
+                } while (true);
+            }
+            catch (Exception ex)
+            {
+                retVal = "";
+            }
+            return retVal;
+        }
+        public static string RoughExtractAlphaNumOnly(string StringInStart, string StringInStop, string EnitreHTML)
+        {
+            string CSEnitreHTML = EnitreHTML;
+            Regex rgx = new Regex("[^a-zA-Z0-9 -]");
+            EnitreHTML = EnitreHTML.ToUpper();
+            StringInStart = StringInStart.ToUpper();
+            StringInStop = StringInStop.ToUpper();
+            int index = 0;
+            int startloc = 0;
+            int endloc = 0;
+            string retVal = "";
+            try
+            {
+                do
+                {
+                    startloc = EnitreHTML.IndexOf(StringInStart, startloc + 1);
+                    if (startloc == -1) break;
+                    int a = startloc + StringInStart.Length;
+                    endloc = EnitreHTML.IndexOf(StringInStop, a + 1);
+                    if (StringInStop == "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                    {
+                        endloc = EnitreHTML.Length;
+                    }
+                    int b = endloc - a;
+                    string temphtml = CSEnitreHTML.Substring(a, b);
+                    temphtml = rgx.Replace(temphtml, "");
                     retVal = temphtml;
                     return retVal;
                 } while (true);
@@ -320,6 +357,18 @@ namespace DVB
             }
             return retVal;
         }
+        public static string GetHTMLFromHTMLDocument(HTMLDocument FrameDoc)
+        {
+            string retVal = "";
+            try
+            {
+                retVal = FrameDoc.body.innerHTML;
+            }
+            catch (Exception ex)
+            {
+            }
+            return retVal;
+        }
         public static string ElementExists(IHTMLDocument2 FrameDoc, HTMLEnumTagNames HTMLEnumTagNames, HTMLEnumAttributes zHTMLEnumAttributes, string attName)
         {
             string retVal = "-1";
@@ -378,8 +427,11 @@ namespace DVB
                     foreachcount++;
                     if (c.length == 0) break;
                     System.Diagnostics.Debug.WriteLine("foreachcount: " + foreachcount.ToString() + " of " + c.length.ToString());
-                    //System.Diagnostics.Debug.WriteLine("OutterHTML: " + div.outerHTML);
-                    //System.Diagnostics.Debug.WriteLine("OutterText: " + div.outerText);
+                    System.Diagnostics.Debug.WriteLine("OutterHTML: " + div.outerHTML);
+                    System.Diagnostics.Debug.WriteLine("OutterText: " + div.outerText);
+                    System.Diagnostics.Debug.WriteLine("InnerHTML: " + div.innerText);
+                    System.Diagnostics.Debug.WriteLine("InnerText: " + div.innerHTML);
+
                     //System.Diagnostics.Debug.WriteLine("Name: " + element.GetAttribute("name"));
                     System.Diagnostics.Debug.WriteLine("ID: " + div.id);
                     bool TryIt = false;

@@ -23,7 +23,7 @@ namespace DVB
 
         public AllDetails ad;
         static int SecondsPassed;
-        
+
         bool CAPTCHAFound;
         public int SpecificRetryCnt, SpecificRetryCntMax;
         public int RetryCnt, RetryCntMax;
@@ -37,9 +37,8 @@ namespace DVB
         string CAPTCHAName;
         int CAPTCHAFrame;
         mshtml.IHTMLControlRange imgRange;
-        SHDocVw.InternetExplorer IE = new SHDocVw.InternetExplorer();
+        SHDocVw.InternetExplorer IE;
         public static IHTMLDocument2 FrameDoc;
-        System.Reflection.Assembly _assembly = System.Reflection.Assembly.GetExecutingAssembly();
         int IEQuit;
         private void ProcessInstructions()
         {
@@ -49,7 +48,7 @@ namespace DVB
             Instruction++;
             //IHTMLDocument2 FrameDoc = null;
             GCGMethods.WriteTextBoxLog(txtLog, "Inst " + Instruction.ToString());
-            if ((RetryCnt >= RetryCntMax) || (SpecificRetryCnt >= SpecificRetryCntMax))
+            if (RetryCnt >= RetryCntMax)
             {
                 txtCardBalance.Text = "N/A";
                 SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCERR.ToString(), "The retry count went above " + RetryCntMax, ad.RsPathAndFileToWrite);
@@ -58,166 +57,126 @@ namespace DVB
                 MaybeExitApp();
                 return;
             }
-            DetectPageErrors();
             if (Instruction == 1)
             {
+                IE = new SHDocVw.InternetExplorer();
                 IE.Visible = true;
+                DoGCGDelay(10, true);
                 IE.Navigate2(txtBaseURL.Text);
             }
             else if (Instruction == 2)
             {
-                int SubFrame = GCGMethods.FindWhatFrameItsIn(IE, "login-username");
-                FrameDoc = GCGMethods.ConvertIEToIHTMLDocument(IE, SubFrame);
-                //OK = DoHandleCAPTCHARqRs("SecurityImage.do", 999);
-                if (FrameDoc==null)
-                {
-                    OK = "-1";
-                }
+                OK = WebpageLib00.CAPTCHAGetImage(IE, "sub_generic_login/SecurityImage.do", ad.CAPTCHAPathAndFileToWrite);
+                if (OK == "1") OK = DoHandleCAPTCHARqRs();
                 HandleInstruction(OK);
             }
-
             else if (Instruction == 3)
             {
-                OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.input, HTMLEnumAttributes.name, "login-username", txtLogin.Text);
-                if (OK != "-1") OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.input, HTMLEnumAttributes.name, "login-password", txtPassword.Text);
-                if (OK != "-1") OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.button, HTMLEnumAttributes.classs, "btn login-sign-in-btn js-login-sign-in ", "");
+                OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "captchaResponse", txtCAPTCHAAnswer.Text, 1);
+                //if (OK != "-1") OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "gcpin", txtCardPIN.Text, 1);
+                if (OK != "-1") OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "cardNumber", txtCardNumber.Text, 1);
+                if (OK != "-1") OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "pin", txtCardPIN.Text, 1);
+                if (OK != "-1") OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "GetCardBalance", "", 1);
                 HandleInstruction(OK);
             }
             else if (Instruction == 4)
             {
-                System.Reflection.Assembly myAssembly = System.Reflection.Assembly.GetExecutingAssembly();
-                Stream _imageStream = myAssembly.GetManifestResourceStream("DVB.Bitmap1.bmp");
-                Bitmap image = new Bitmap(_imageStream);
-                //PathToWriteCAPTCHA = ad.CAPTCHAPathAndFileToWrite;
-                //image.Save(PathToWriteCAPTCHA); //img.nameProp
-                //GetAndSaveCAPTCHAResult = "1";
-                Clipboard.SetImage(image);
-                image.Save(ad.NextRqPathAndFileToRead);  //writes fake resp
-                OK = DoHandleCAPTCHARqRs();
-                OK = "1";
-                HandleInstruction(OK);
             }
-            else if (Instruction == 5)
+            else
             {
-                OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.a, HTMLEnumAttributes.href, "*%yourGiftCardsAndOffers.do", "");
-                HandleInstruction(OK);
-
-            }
-            else if (Instruction == 6)
-            {
-                OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.a, HTMLEnumAttributes.href, "*%?registerAnotherGiftCardButton", "");
-                HandleInstruction(OK);
-            }
-            else if (Instruction == 7)
-            {
-                OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.input, HTMLEnumAttributes.name, "cardNumber", txtCardNumber.Text);
-                if (OK != "-1") OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.input, HTMLEnumAttributes.name, "pin", txtCardPIN.Text);
-                if (OK != "-1") OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.input, HTMLEnumAttributes.name, "saveGiftCardButton", "");
-                HandleInstruction(OK);
-            }
-            else if (Instruction == 8)
-            {
-                
+                OK = "-1";
+                string testi = "";
+                string testo = "";
                 string balanceResult = "";
-                string test = GCGMethods.GetHTML(FrameDoc);
+                mshtml.HTMLDocument FrameDoc = WebpageLib00.ConvertIEtoHTMLDocument(IE);
+                string test = GCGMethods.GetHTMLFromHTMLDocument(FrameDoc);
                 test = GCGMethods.GetPlainTextFromHTML(test);
-                //GCGMethods.WriteFile("C:\\test.txt", test, true);
-                balanceResult = GetBalance("-xxxx", "history", test);
+                try
+                {
+                    testi = FrameDoc.body.innerHTML;
+                    testo = FrameDoc.body.outerHTML;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                    return;
+                }
+                System.Diagnostics.Debug.WriteLine("Eval Source?");
+                //sGCGMethods.WriteFile("C:\\testi.txt", testi, true);
+                //GCGMethods.WriteFile("C:\\testo.txt", testo, true);
+                balanceResult = GetBalance("Your current balance is: ", "</span>", testi);  //<span class=\"Body4XLRed\">
+                    try 
+	                {
+                        balanceResult = balanceResult.Substring(2, balanceResult.Length - 2);
+                        balanceResult = "$" + balanceResult;
+	                }
+	                catch (Exception)
+	                {
+	                }
                 if (balanceResult == "")
                 {
-                    OK = "-1";
-                    if (test.Contains("That Gift Card already exists in your account"))
+                    SpecificRetryCnt++;
+                    GCGMethods.WriteTextBoxLog(txtLog, "SpecificRetryCnt: " + SpecificRetryCnt.ToString());
+                    if (SpecificRetryCnt>=10)
                     {
-                        OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.a, HTMLEnumAttributes.href, "*%yourGiftCardsAndOffers.do", "");
-                        OK = "-1";
-                        //txtCardBalance.Text = "InvCN";
-                        //SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "Sorry, we couldn't get the balance.", ad.RsPathAndFileToWrite);
+                        txtCardBalance.Text = "Error";
+                        SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "Sorry, we couldn't get the balance for some reason.", ad.RsPathAndFileToWrite);
+                        OK = "1";
                     }
-                    else if (test.Contains("do not match our records"))
+                    else if (test.Contains("Please enter the characters exactly as they appear"))
                     {
-                        OK = "-1";
+                        //GCGMethods.WriteFile("C:\\test.txt", test, true);
+                        //string exactmessage = GCGMethods.RoughExtractAlphaNumOnly("Check Card Balance", "Enter your card number and PIN below", test);
+                        //exactmessage = exactmessage.Trim();
+                        txtCardBalance.Text = "InvCAPTCHA";
+                        SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "The CAPTCHA you entered was wrong, try again.", ad.RsPathAndFileToWrite);
+                        OK = "1";
+                    }
+                    else if (test.Contains("We did not recognize "))
+                    {
                         txtCardBalance.Text = "InvCN";
-                        SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "Sorry, Invalid Card or PIN", ad.RsPathAndFileToWrite);
-                        Instruction = 11;
+                        SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "Invalid Card # or PIN", ad.RsPathAndFileToWrite);
+                        OK = "1";
                     }
-                    if (OK == "-1") HandleInstruction(OK);
+                    /*
+                    else if (test.Contains("The code you entered is invalid"))
+                    {
+                        txtCardBalance.Text = "InvCAPTCHA";
+                        SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "Sorry, Invalid Card or PIN", ad.RsPathAndFileToWrite);
+                        OK = "1";
+                    }
+                     */
                 }
                 else
                 {
                     txtCardBalance.Text = balanceResult;
-                    SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCBALANCE.ToString(), balanceResult, ad.RsPathAndFileToWrite);
+                    if (balanceResult=="$999999.00")
+                    {
+                        balanceResult = "$0 or re-check your Card/PIN";
+                        SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), balanceResult, ad.RsPathAndFileToWrite);
+                    }
+                    else
+                    {
+                        SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCBALANCE.ToString(), balanceResult, ad.RsPathAndFileToWrite);
+                    }
+                    OK = "1";
                 }
                 if (OK == "1")
                 {
                     if (CLIrqFile == "") File.Delete(ad.RsPathAndFileToWrite);
+                    DoGCGDelay(10, true);
+                    tmrRunning.Enabled = false;
+                    tmrTimeout.Enabled = false;
+                    MaybeExitApp();                    
                 }
-            }
-            else if (Instruction == 9)
-            {
-                if (OK != "-1") OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.a, HTMLEnumAttributes.OuterText, "Delete", "");
-                HandleInstruction(OK);
-            }
-            else if (Instruction == 10)
-            {
-                int SubFrame = GCGMethods.FindWhatFrameItsIn(IE, "BTN_yes_blue.gif");
-                System.Diagnostics.Debug.WriteLine("SubFrame: " + SubFrame.ToString());
-                FrameDoc = GCGMethods.ConvertIEToIHTMLDocument(IE, SubFrame);
-                //OK = DoHandleCAPTCHARqRs("SecurityImage.do", 999);
-                if (FrameDoc == null)
-                {
-                    OK = "-1";
+                else {
+                    HandleInstruction(OK);
                 }
-                else
-                {
-                    OK = "1";
-                }
-                if (OK != "-1") OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.img, HTMLEnumAttributes.src, "*%BTN_yes_blue.gif", "");
-                HandleInstruction(OK);
-            }
-            else if (Instruction == 11)
-            {
-                DoGCGDelay(50,true);
-                IE.Quit();
-                tmrRunning.Enabled = false;
-                tmrTimeout.Enabled = false;
-                MaybeExitApp();
-            }
 
-
-        }
-        private void DetectPageErrors()
-        {
-            try
-            {
-                bool Error = false;
-                if (webBrowser1.Document.Url.ToString().StartsWith("res://ieframe.dll")) Error = true;
-                if (Error == true)
-                {
-                    Instruction--;
-                    if (Instruction < 0) Instruction = 0;
-                }
-            }
-            catch (Exception ex)
-            {
             }
         }
         private void HandleInstruction(string OK)
         {
-            if (Instruction == 2)
-            {
-                if (OK != "1")
-                {
-                    SpecificRetryCnt++;
-                    if (SpecificRetryCnt >= 25)
-                    {
-                        SpecificRetryCnt = 0;
-                        Instruction = 0;
-                        GCGMethods.WriteTextBoxLog(txtLog, "Re-Requesting URL");
-                        return;
-                    }
-                }
-            }
-
             if (OK == "1")
             {
                 RetryCnt = 0;
@@ -233,7 +192,6 @@ namespace DVB
         {
             InitializeComponent();
             ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ValidateRemoteCertificate);
-            webBrowser1.ScriptErrorsSuppressed = true;
         }
 
         public Main(string[] commands)
@@ -257,10 +215,14 @@ namespace DVB
         private void Main_Load(object sender, EventArgs e)
         {
             this.Location = new Point(0, 0);
-            this.Size = new Size(973, 800);
+            this.Size = new Size(980,250);
             AppName = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
             this.Text = "Balance Extractor - " + AppName;
-            string result = AuxFunctions.LoadEverything(this);
+            SpecificRetryCntMax = 999;
+            RetryCntMax = 30;
+            SaveLoad.LoadSettingsFromRegistry(this);
+            SaveLoad.LoadSettingsFromDB(this);
+            string result = LoadCLIrqFile();
             if (result != "1")
             {
                 SupportMethods.WriteToWindowsEventLog(AppName, "No CLIrqFileIn was sent.", "W");
@@ -272,6 +234,38 @@ namespace DVB
                 tmrRunning.Enabled = true;
             }
         }
+        private string LoadCLIrqFile()
+        {
+            string retVal = "1";
+            bool faulted = false;
+            try
+            {
+                StreamReader s = new StreamReader(CLIrqFile);
+                string CardType = s.ReadLine();
+                txtCardNumber.Text = s.ReadLine();
+                txtCardPIN.Text = s.ReadLine();
+                //txtLogin.Text = s.ReadLine();
+                //txtPassword.Text = s.ReadLine();
+                txtLogin.Text = "temp1@mc2techservices.com";
+                txtPassword.Text = "Temppass1";
+                s.Close();
+            }
+            catch (Exception e)
+            {
+                faulted = true;
+                retVal = "LoadCLIrqFile() Error - " + e.Message;
+            }
+
+            if (faulted == true)
+            {
+                CLIrqFile = txtRqRsPath.Text + "\\test-0rq-" + AppName + ".txt";
+                CLIrqFile = CLIrqFile.Replace("\\\\", "\\");
+                GCGMethods.WriteTextBoxLog(txtLog, "A CLIrqFile WASN'T loaded; simulating with webservice data.");
+            }
+            ad = new GCGCommon.AllDetails(CLIrqFile, txtCAPTCHAPath.Text);
+            return retVal;
+        }
+
         public static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
             return true;
@@ -470,7 +464,6 @@ namespace DVB
             GetAndSaveCAPTCHAResult = "";
             GetCAPTCHACnt = 0;
             tmrGetCAPTCHA.Enabled = true;
-            bool a = webBrowser1.IsBusy;
             do
             {
                 Application.DoEvents();
@@ -516,31 +509,31 @@ namespace DVB
             {
                 try
                 {
-                    webBrowser1 = (System.Windows.Forms.WebBrowser)IE;
-                    HtmlElementCollection imgs = webBrowser1.Document.GetElementsByTagName("img");
-                    string temp = "";
-                    for (int i = 0; i < imgs.Count; i++)
-                    {
-                        Console.WriteLine(temp);
-                    }
                     GCGMethods.WriteTextBoxLog(txtLog, "SaveCAPTCHA grabbing doc");
-                    IHTMLDocument2 doc = null;
-                    mshtml.HTMLDocument htmlDoc = null;
-                    IHTMLWindow2 htmlWindow = null;
+                    mshtml.IHTMLDocument2 document2 = IE.Document as mshtml.IHTMLDocument2;
+                    mshtml.HTMLDocument document = IE.Document as mshtml.HTMLDocument;
+                    
+                    //if (!document.activeElement.isTextEdit)
+                    //{
+                    //    MessageBox.Show("Active element is not a text-input system");
+                    //}
+
+                    IHTMLDocument2 doc2 = null;
+                    IHTMLWindow2 htmlWindow2 = null;
                     if (CAPTCHAFrame == -1)
                     {
-                        doc = (mshtml.IHTMLDocument2)webBrowser1.Document.DomDocument;
+                        doc2 = document2;
+                        //doc = (mshtml.IHTMLDocument2)webBrowser1.Document.DomDocument;
                     }
                     else
                     {
-                        htmlDoc = (HTMLDocument)webBrowser1.Document.DomDocument;
-                        htmlWindow = (IHTMLWindow2)htmlDoc.frames.item(CAPTCHAFrame);
-                        doc = CrossFrameIE.GetDocumentFromWindow(htmlWindow);
+                        htmlWindow2 = (IHTMLWindow2)document.frames.item(CAPTCHAFrame);
+                        doc2 = CrossFrameIE.GetDocumentFromWindow(htmlWindow2);
                     }
 
                     GCGMethods.WriteTextBoxLog(txtLog, "SaveCAPTCHA making imgRange");
-                    imgRange = (mshtml.IHTMLControlRange)((mshtml.HTMLBody)doc.body).createControlRange();
-                    foreach (mshtml.IHTMLImgElement img in doc.images)
+                    imgRange = (mshtml.IHTMLControlRange)((mshtml.HTMLBody)doc2.body).createControlRange();
+                    foreach (mshtml.IHTMLImgElement img in doc2.images)
                     {
                         //System.Diagnostics.Debug.WriteLine(img.nameProp);
                         string ImageDetails = img.src.ToUpper();
@@ -603,7 +596,23 @@ namespace DVB
 
         private void cmdGo_Click(object sender, EventArgs e)
         {
-            webBrowser1.Navigate(txtBaseURL.Text);
+            string retVal = "-1";
+            IE = new SHDocVw.InternetExplorer();
+            IE.Visible = true;
+            do
+            {
+                try
+                {
+                    DoGCGDelay(10, false);
+                    IE.Navigate2(txtBaseURL.Text);
+                    retVal = "1";
+                }
+                catch (Exception ex)
+                {
+
+                }
+                Application.DoEvents();
+            } while (retVal=="-1");
         }
         private void cmdViewLog_Click(object sender, EventArgs e)
         {
@@ -619,7 +628,7 @@ namespace DVB
         private void cmdReloadRequest_Click(object sender, EventArgs e)
         {
             CLIrqFile = "";
-            AuxFunctions.LoadEverything(this);
+            //AuxFunctions.LoadEverything(this);
         }
 
         private void cmdUpdate_Click(object sender, EventArgs e)
@@ -769,6 +778,41 @@ namespace DVB
         {
             SaveLoad.LoadSettingsFromRegistry(this);
         }
-
+        private void InspectIt(string test, string contains)
+        {
+            if (test.Contains(contains))
+            {
+                GCGMethods.WriteFile("C:\\test.txt", test, true);
+            }
+        }
+        private string GrabCorrectPageOrFrame(string WhatToLookFor)
+        {
+            string OK;
+            int SubFrame = GCGMethods.FindWhatFrameItsIn(IE, WhatToLookFor);
+            if (SubFrame == -1)
+            {
+                System.Diagnostics.Debug.WriteLine("It's in the main page");
+                SubFrame = 0;
+                FrameDoc = GCGMethods.ConvertIEToIHTMLDocument(IE, SubFrame);
+            }
+            else if (SubFrame >= 0)
+            {
+                System.Diagnostics.Debug.WriteLine("It's in a frame");
+                FrameDoc = GCGMethods.ConvertIEToIHTMLDocument(IE, SubFrame);
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("SubFrame: " + SubFrame.ToString());
+            }
+            if (FrameDoc == null)
+            {
+                OK = "-1";
+            }
+            else
+            {
+                OK = "1";
+            }
+            return OK;
+        }
     }
 }
