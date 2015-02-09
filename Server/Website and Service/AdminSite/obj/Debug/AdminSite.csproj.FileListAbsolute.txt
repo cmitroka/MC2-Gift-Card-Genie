@@ -1,0 +1,10 @@
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service\AdminSite\bin\AppAdminSite.dll.config
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service\AdminSite\bin\AppAdminSite.dll
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service\AdminSite\bin\AppAdminSite.pdb
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service\AdminSite\bin\GCGCommon.dll
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service\AdminSite\bin\Interop.SHDocVw.dll
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service\AdminSite\bin\HtmlAgilityPack.dll
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service\AdminSite\bin\GCGCommon.pdb
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service\AdminSite\obj\Debug\AdminSite.csprojResolveAssemblyReference.cache
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service\AdminSite\obj\Debug\AppAdminSite.dll
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service\AdminSite\obj\Debug\AppAdminSite.pdb
