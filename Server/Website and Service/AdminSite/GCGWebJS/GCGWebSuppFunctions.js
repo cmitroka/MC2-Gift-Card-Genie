@@ -79,7 +79,9 @@ function GCGHandleResponse(resptype, respdetails, respadditionaldetails) {
         //$.mobile.changePage("#MyCards");
     }
     else if (resptype == "OUTOFLOOKUPS") {
-        DoCustomPopup01("Purchase?", 'You are out of free lookups.  To continue use, please restart the app and purchase more through the initial screen.');
+        $.mobile.changePage("#PleasePurchaseGCG");
+        //$.mobile.changePage("#PleasePurchaseGCG", { transition: "slideup" });
+        //DoCustomPopup01("Purchase?", 'You are out of free lookups.  To continue use, please restart the app and purchase more through the initial screen.');
         //$.mobile.changePage("#MyCards");
     }
     else if (resptype == "POPUPTEST00") {

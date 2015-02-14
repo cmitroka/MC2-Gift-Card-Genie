@@ -15,8 +15,10 @@ namespace AppAdminSite
         string gloPathToMerchantEXEs;
         string gloCAPTCHAURLPrefix;
         string gloWebserviceTimeout;
+        public string gloHacker;
         int gloiWebserviceTimeout;
         GCGCommon.SQLHelper sqlh;
+
         public GCGWebWSBL()
         {
             sqlh = new GCGCommon.SQLHelper(GCGCommon.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
@@ -26,6 +28,32 @@ namespace AppAdminSite
             gloCAPTCHAURLPrefix = ConfigParams[2];
             gloWebserviceTimeout = ConfigParams[3];
             gloiWebserviceTimeout = Convert.ToInt16(gloWebserviceTimeout);
+
+            string VisitorsIPAddr = GetUser_IP();
+            int OK = sqlh.ExecuteSQLParamed("INSERT INTO tblTraffic (RecdIP, DateLogged) VALUES (@P0, @P1)", VisitorsIPAddr, DateTime.Now.ToString());
+            DateTime dtminusone = DateTime.Now.AddDays(-1);
+            string[][] data = sqlh.GetMultiValuesOfSQL("SELECT Count(*) FROM tblTraffic WHERE RecdIP=@P0 AND DateLogged>@P1", VisitorsIPAddr, dtminusone.ToString());
+            string Amnt = data[0][0];
+            int iAmnt = Convert.ToInt16(Amnt);
+            if (iAmnt>100)
+            {
+                sqlh.ExecuteSQLParamed("INSERT INTO tblErrorLog (ErrorDescription,OtherInfo1,DateLogged) VALUES (@P0,@P1,@P2)", "Hack Attempt", VisitorsIPAddr, DateTime.Now.ToString());
+                gloHacker="1";
+            }
+            
+        }
+        private string GetUser_IP()
+        {
+            string VisitorsIPAddr = string.Empty;
+            if (HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] != null)
+            {
+                VisitorsIPAddr = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].ToString();
+            }
+            else if (HttpContext.Current.Request.UserHostAddress.Length != 0)
+            {
+                VisitorsIPAddr = HttpContext.Current.Request.UserHostAddress;
+            }
+            return VisitorsIPAddr;
         }
         public void CloseIt()
         {

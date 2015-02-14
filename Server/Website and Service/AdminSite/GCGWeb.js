@@ -75,6 +75,13 @@ function DoMyProfileSel() {
         }
     });
 }
+
+function DoPleasePurchaseGCG() {
+    $.mobile.changePage("#PleasePurchaseGCG", { transition: "slideup" });
+}
+
+
+
 function MulitReqDelAndRefresh() {
     var ChangeScreen = DoRUCardDataMod('delete');
     if (ChangeScreen == 0) {

@@ -31,7 +31,10 @@ namespace AppAdminSite
         {
             string retVal = "";
             GCGWebWSBL bl = new GCGWebWSBL();
-            retVal = bl.RegisterUserIns(pGCGLogin, pGCGPassword, pUsersName, pUsersEmail);
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.RegisterUserIns(pGCGLogin, pGCGPassword, pUsersName, pUsersEmail);
+            }
             bl.CloseIt();
             return retVal;
         }
@@ -40,7 +43,10 @@ namespace AppAdminSite
         {
             string retVal = "";
             GCGWebWSBL bl = new GCGWebWSBL();
-            retVal = bl.DemoGCG(pIP);
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.DemoGCG(pIP);
+            }
             bl.CloseIt();
             return retVal;
         }
@@ -50,7 +56,10 @@ namespace AppAdminSite
         {
             string retVal = "";
             GCGWebWSBL bl = new GCGWebWSBL();
-            retVal=bl.ChangePassword(pGCGKey, pOldPassword, pNewPassword);
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.ChangePassword(pGCGKey, pOldPassword, pNewPassword);
+            }
             bl.CloseIt();
             return retVal;
         }
@@ -59,7 +68,10 @@ namespace AppAdminSite
         {
             string retVal = "";
             GCGWebWSBL bl = new GCGWebWSBL();
-            retVal = bl.GCGLogin(pGCGLogin, pGCGPassword);
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.GCGLogin(pGCGLogin, pGCGPassword);
+            }
             bl.CloseIt();
             return retVal;
         }
@@ -68,7 +80,10 @@ namespace AppAdminSite
         {
             string retVal = "";
             GCGWebWSBL bl = new GCGWebWSBL();
-            retVal = bl.CardBalSummarySel(pGCGKey);
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.CardBalSummarySel(pGCGKey);
+            }
             bl.CloseIt();
             //GCGCommon.SupportMethods.WriteFile("C:/Output.txt", retVal, true);
             return retVal;
@@ -78,7 +93,10 @@ namespace AppAdminSite
         {
             string retVal = "";
             GCGWebWSBL bl = new GCGWebWSBL();
-            retVal = bl.MyCardsDataSel(pGCGKey);
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.MyCardsDataSel(pGCGKey);
+            }
             bl.CloseIt();
             return retVal;
         }
@@ -87,7 +105,10 @@ namespace AppAdminSite
         {
             string retVal = "";
             GCGWebWSBL bl = new GCGWebWSBL();
-            retVal = bl.GetSupportedCards(pGCGKey);
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.GetSupportedCards(pGCGKey);
+            }
             bl.CloseIt();
             return retVal;
         }
@@ -96,7 +117,10 @@ namespace AppAdminSite
         {
             string retVal = "";
             GCGWebWSBL bl = new GCGWebWSBL();
-            retVal = bl.RUCardDataMod(pGCGKey,CardID,CardType,CardNumber,CardPIN,CardLogin,CardPass,LastKnownBalance,LastKnownBalanceDate);
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.RUCardDataMod(pGCGKey, CardID, CardType, CardNumber, CardPIN, CardLogin, CardPass, LastKnownBalance, LastKnownBalanceDate);
+            }
             bl.CloseIt();
             return retVal;
         }
@@ -107,7 +131,10 @@ namespace AppAdminSite
             //retVal = "OUTOFLOOKUPS^)(OUT OF LOOKUPS";
             //retVal = "GCBALANCE^)($11.00";
             GCGWebWSBL bl = new GCGWebWSBL();
-            retVal = bl.NewRequest(pGCGKey, pCardType, pCardNumber, pPIN, pLogin, pPassword);
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.NewRequest(pGCGKey, pCardType, pCardNumber, pPIN, pLogin, pPassword);
+            }
             bl.CloseIt();
             return retVal;
         }
@@ -116,7 +143,10 @@ namespace AppAdminSite
         {
             string retVal = "";
             GCGWebWSBL bl = new GCGWebWSBL();
-            retVal = bl.ContinueRequest(pGCGKey, pIDFileName, pAnswer);
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.ContinueRequest(pGCGKey, pIDFileName, pAnswer);
+            }
             bl.CloseIt();
             return retVal;
         }
@@ -125,7 +155,10 @@ namespace AppAdminSite
         {
             string retVal = "";
             GCGWebWSBL bl = new GCGWebWSBL();
-            retVal = bl.LogPurchase(pGCGKey, pPurchType, pKey, pChannel);
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.LogPurchase(pGCGKey, pPurchType, pKey, pChannel);
+            }
             bl.CloseIt();
             return retVal;
         }
@@ -134,7 +167,10 @@ namespace AppAdminSite
         {
             string retVal = "";
             GCGWebWSBL bl = new GCGWebWSBL();
-            retVal = bl.MyProfileSel(pGCGKey);
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.MyProfileSel(pGCGKey);
+            }
             bl.CloseIt();
             return retVal;
         }

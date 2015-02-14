@@ -29,6 +29,7 @@ namespace AppAdminSite
             sqlh = new SQLHelper("App.mdb");
             LogLevel = GetSystemParam("LogLevel");
             LogLevel = LogLevel;
+
         }
         public void CloseIt()
         {

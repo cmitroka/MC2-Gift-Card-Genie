@@ -13,7 +13,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <StartPageUrl>GCGWebWS.asmx</StartPageUrl>
+          <StartPageUrl>GCGWeb.htm</StartPageUrl>
           <StartAction>SpecificPage</StartAction>
           <AspNetDebugging>True</AspNetDebugging>
           <SilverlightDebugging>False</SilverlightDebugging>
@@ -33,7 +33,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58881</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:5018</IISUrl>
+          <IISUrl>http://localhost:5019</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>https://gcg.mc2techservices.com</CustomServerUrl>
