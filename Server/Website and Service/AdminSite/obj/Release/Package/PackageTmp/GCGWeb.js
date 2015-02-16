@@ -491,6 +491,9 @@ function DoRUCardDataMod(action) {
     if (pCardPINMin == "") pCardPINMin = -1;
     if (pCardPINMax == "") pCardPINMax = 999;
     var alertmsg = "";
+    if (pCardType.length < 1) {
+        alertmsg = "Can't save - you need to have something for the Card Type.";
+    }
     if (pCardNumber.length < pCardNumMin) {
         alertmsg ="Can't save; the card number length has to be at least " + pCardNumMin + " numbers - you've entered " + pCardNumber.length;
     }

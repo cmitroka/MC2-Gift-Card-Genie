@@ -30,17 +30,27 @@ namespace AppAdminSite
             gloiWebserviceTimeout = Convert.ToInt16(gloWebserviceTimeout);
 
             string VisitorsIPAddr = GetUser_IP();
-            int OK = sqlh.ExecuteSQLParamed("INSERT INTO tblTraffic (RecdIP, DateLogged) VALUES (@P0, @P1)", VisitorsIPAddr, DateTime.Now.ToString());
-            DateTime dtminusone = DateTime.Now.AddDays(-1);
-            string[][] data = sqlh.GetMultiValuesOfSQL("SELECT Count(*) FROM tblTraffic WHERE RecdIP=@P0 AND DateLogged>@P1", VisitorsIPAddr, dtminusone.ToString());
+            DateTime adjDate = DateTime.Now.AddDays(-7);
+            sqlh.ExecuteSQLParamed("DELETE * FROM tblTraffic WHERE DateLogged<@P0", adjDate.ToString());
+
+            string[][] data = sqlh.GetMultiValuesOfSQL("SELECT Count(*) FROM tblBlockedIPs WHERE BlockedIP=@P0", VisitorsIPAddr);
             string Amnt = data[0][0];
             int iAmnt = Convert.ToInt16(Amnt);
-            if (iAmnt>100)
+            if (iAmnt > 0)
             {
-                sqlh.ExecuteSQLParamed("INSERT INTO tblErrorLog (ErrorDescription,OtherInfo1,DateLogged) VALUES (@P0,@P1,@P2)", "Hack Attempt", VisitorsIPAddr, DateTime.Now.ToString());
+                gloHacker = "1";
+                return;
+            }
+            sqlh.ExecuteSQLParamed("INSERT INTO tblTraffic (RecdIP, DateLogged) VALUES (@P0, @P1)", VisitorsIPAddr, DateTime.Now.ToString());
+            adjDate = DateTime.Now.AddDays(-1);
+            data = sqlh.GetMultiValuesOfSQL("SELECT Count(*) FROM tblTraffic WHERE RecdIP=@P0 AND DateLogged>@P1", VisitorsIPAddr, adjDate.ToString());
+            Amnt = data[0][0];
+            iAmnt = Convert.ToInt16(Amnt);
+            if (iAmnt>99)
+            {
+                sqlh.ExecuteSQLParamed("INSERT INTO tblBlockedIPs (BlockedIP,DateLogged) VALUES (@P0,@P1)", VisitorsIPAddr, DateTime.Now.ToString());
                 gloHacker="1";
             }
-            
         }
         private string GetUser_IP()
         {
@@ -254,7 +264,7 @@ namespace AppAdminSite
                 else
                 {
                     //template = template + "<a onclick=\"DoLoadAddModCardScreen(document.getElementById('MyCard" + CardInfoID + "').value, '~_~0~_~998~_~0~_~996~_~0')\">";
-                    template = template + "<a href=\"javascript:DoLoadAddModCardScreen(document.getElementById('MyCard" + CardInfoID + "').value, '~_~0~_~998~_~0~_~996~_~0')\">" +
+                    template = template + "<a href=\"javascript:DoLoadAddModCardScreen(document.getElementById('MyCard" + CardInfoID + "').value, '~_~3~_~998~_~0~_~996~_~0')\">" +
                     "<h3><span style=\"color: #FF3300\">" + CardType + "</span></h3>";
                 }
 

@@ -8,3 +8,13 @@ C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service\AdminSite\bin\GCGCo
 C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service\AdminSite\obj\Release\AdminSite.csprojResolveAssemblyReference.cache
 C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service\AdminSite\obj\Release\AppAdminSite.dll
 C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service\AdminSite\obj\Release\AppAdminSite.pdb
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service N\AdminSite\bin\AppAdminSite.dll.config
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service N\AdminSite\bin\AppAdminSite.dll
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service N\AdminSite\bin\AppAdminSite.pdb
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service N\AdminSite\bin\GCGCommon.dll
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service N\AdminSite\bin\Interop.SHDocVw.dll
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service N\AdminSite\bin\HtmlAgilityPack.dll
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service N\AdminSite\bin\GCGCommon.pdb
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service N\AdminSite\obj\Release\AdminSite.csprojResolveAssemblyReference.cache
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service N\AdminSite\obj\Release\AppAdminSite.dll
+C:\Users\chmitro\Desktop\GCG Windows Dev\Website and Service N\AdminSite\obj\Release\AppAdminSite.pdb
