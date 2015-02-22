@@ -415,6 +415,9 @@ function DoRUCardDataModDelete()
 function DoRUCardDataModBal() {
     var pGCGID = document.getElementById('hdnGCGID').value;
     var pCardID = document.getElementById('hdnCardID').value;
+    if (pCardID == "NA") {
+        return;
+    }
     var pLastKnownBalance = document.getElementById('txtCardBalance').value;
     $.ajax({
         type: "POST",
@@ -434,6 +437,12 @@ function DoRUCardDataModBal() {
 function DoRUCardDataModBalThenRefresh(change) {
     var pGCGID = document.getElementById('hdnGCGID').value;
     var pCardID = document.getElementById('hdnCardID').value;
+    if (pCardID == "NA") {
+        alertmsg = "Can't save; this card entry is incomplete.";
+        alert(alertmsg);
+        MyCardsDataSel();
+        return;
+    }
     var pLastKnownBalance = document.getElementById('txtCardBalance').value;
     $.ajax({
         type: "POST",
@@ -486,31 +495,35 @@ function DoRUCardDataMod(action) {
             return 0;
         }
     }
-    if (pCardNumMin == "") pCardNumMin = -1;
-    if (pCardNumMax == "") pCardNumMax = 999;
-    if (pCardPINMin == "") pCardPINMin = -1;
-    if (pCardPINMax == "") pCardPINMax = 999;
-    var alertmsg = "";
-    if (pCardType.length < 1) {
-        alertmsg = "Can't save - you need to have something for the Card Type.";
-    }
-    if (pCardNumber.length < pCardNumMin) {
-        alertmsg ="Can't save; the card number length has to be at least " + pCardNumMin + " numbers - you've entered " + pCardNumber.length;
-    }
-    if (pCardNumber.length > pCardNumMax) {
-        alertmsg = "Can't save; the card number length should be less than " + pCardNumMax + " numbers - you've entered " + pCardNumber.length;
-    }
-    if (pCardPIN.length < pCardPINMin) {
-        alertmsg = "Can't save; the card PIN length has to be at least " + pCardPINMin + " numbers - you've entered " + pCardPIN.length;
-    }
-    if (pCardPIN.length > pCardPINMax) {
-        alertmsg = "Can't save; the card PIN length should be less than " + pCardPINMax + " numbers - you've entered " + pCardPIN.length;
-    }
-    if (alertmsg != "") {
+    else
+    {
+        if (pCardNumMin == "") pCardNumMin = -1;
+        if (pCardNumMax == "") pCardNumMax = 999;
+        if (pCardPINMin == "") pCardPINMin = -1;
+        if (pCardPINMax == "") pCardPINMax = 999;
+        var alertmsg = "";
+        if (pCardType.length < 1) {
+            alertmsg = "Can't save - you need to have something for the Card Type.";
+        }
+        if (pCardNumber.length < pCardNumMin) {
+            alertmsg ="Can't save; the card number length has to be at least " + pCardNumMin + " numbers - you've entered " + pCardNumber.length;
+        }
+        if (pCardNumber.length > pCardNumMax) {
+            alertmsg = "Can't save; the card number length should be less than " + pCardNumMax + " numbers - you've entered " + pCardNumber.length;
+        }
+        if (pCardPIN.length < pCardPINMin) {
+            alertmsg = "Can't save; the card PIN length has to be at least " + pCardPINMin + " numbers - you've entered " + pCardPIN.length;
+        }
+        if (pCardPIN.length > pCardPINMax) {
+            alertmsg = "Can't save; the card PIN length should be less than " + pCardPINMax + " numbers - you've entered " + pCardPIN.length;
+        }
+        if (alertmsg != "") {
 
-        alert(alertmsg);
-        return 0;
+            alert(alertmsg);
+            return 0;
+        }
     }
+
     $.ajax({
         type: "POST",
         url: "GCGWebWS.asmx/RUCardDataMod",
