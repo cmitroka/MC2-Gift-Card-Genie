@@ -746,7 +746,6 @@
     <Content Include="TestPage.aspx" />
     <Content Include="Metrics.aspx" />
     <Content Include="WebService.asmx" />
-    <Content Include="GCGWork.htm" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin.Master.cs">
