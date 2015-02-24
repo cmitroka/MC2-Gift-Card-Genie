@@ -29,11 +29,7 @@ namespace AppAdminSite
         public bool Login(string UserName, string Password)
         {
             bool retVal = false;
-            if (UserName.ToUpper() == "CJM" && Password.ToUpper() == "GCG")
-            {
-                retVal = true;
-            }
-            if (UserName.ToUpper() == "BETA" && Password.ToUpper() == "BETA1")
+            if (UserName.ToUpper() == "CJMX" && Password.ToUpper() == "GCGX")
             {
                 retVal = true;
             }

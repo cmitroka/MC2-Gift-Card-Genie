@@ -200,6 +200,14 @@ namespace AppAdminSite
             }
             return retVal;
         }
+        public string GCGLogUser(string pGCGKey, string pChannel)
+        {
+            string retVal = "";
+            string GCGID = GCGWebWSSM.GCGKeyToGCGUsersID(pGCGKey);
+            int temp1 = sqlh.ExecuteSQLParamed("INSERT INTO tblUserLog (GCGUsersID, Channel, DateLogged) VALUES (@P0,@P1,@P2)", GCGID, pChannel, DateTime.Now.ToString());
+            return retVal;
+        }
+        
         public string CardBalSummarySel(string pGCGKey)
         {
             string retVal = "";

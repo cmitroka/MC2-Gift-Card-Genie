@@ -50,20 +50,21 @@
                             <asp:MenuItem NavigateUrl="javascript:OpenSimulatorV203();" Text="Simulator V2.0.3" />
                             <asp:MenuItem NavigateUrl="GCGWeb.htm" Text="GCG V3" />
                         </asp:MenuItem>
-                        <asp:MenuItem Text="Interactions" >
+                        <asp:MenuItem NavigateUrl="~/ShowDatagridsNumericOnly.aspx" Text="GCG" >
                             <asp:MenuItem NavigateUrl="~/IAMerchantsData.aspx" Text="Modify Merchants" />
                             <asp:MenuItem NavigateUrl="~/IASystemParamsData.aspx" Text="Modify System Parameters" />
                             <asp:MenuItem NavigateUrl="~/UUIDPurchaseDetails.aspx" Text="Modify Purchase Details" />
-                            <asp:MenuItem NavigateUrl="javascript:OpenUploader();" Text="Upload Merchant EXE" />
-                            <asp:MenuItem NavigateUrl="~/ShowVendorsToAdd.aspx" Text="Show Vendors to Add" />
                             <asp:MenuItem NavigateUrl="~/Message.aspx" Text="Messaging" />
-                        </asp:MenuItem>
-                        <asp:MenuItem NavigateUrl="~/ShowDatagridsNumericOnly.aspx" Text="Data Reporting" >
                             <asp:MenuItem NavigateUrl="~/ShowDatagrids.aspx" Text="Show Rq/Rs Log" />
                             <asp:MenuItem NavigateUrl="~/DailyUUIDs.aspx" Text="Show Todays UUIDs" />
                             <asp:MenuItem NavigateUrl="~/UUIDLookupsAndPurchases.aspx" Text="Show Purchase/Lookup Counts" />
                             <asp:MenuItem NavigateUrl="~/ShowDownloadDetails.aspx" Text="Show Downloads Per Day" />
                             <asp:MenuItem NavigateUrl="~/AllUUIDsWVersion.aspx" Text="Show All Downloaders w/ Version" />
+                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/GCGXRqRsLog.aspx" Text="GCG X" >
+                            <asp:MenuItem NavigateUrl="~/GCGXLast50Logins.aspx" Text="Show Last 50 Logins" />
+                            <asp:MenuItem NavigateUrl="~/GCGXPurchaseLookupCounts.aspx" Text="Show Purchase/Lookup Counts" />
+                            <asp:MenuItem NavigateUrl="~/GCGXShowDownloadDetails.aspx" Text="Show Downloads Per Day" />
                         </asp:MenuItem>
                         <asp:MenuItem Text="Web Services" >
                             <asp:MenuItem NavigateUrl="~/WebService.asmx" Text="Web Service V01" />

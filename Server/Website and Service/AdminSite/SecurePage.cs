@@ -12,6 +12,7 @@ namespace AppAdminSite
         protected override void OnLoad(EventArgs e)
         {
             string AuthTest = "";
+            /*
             if (Request.Url.ToString().Contains("localhost"))
             {
                 //AuthTest = CJMUtilities.WebAndNet.RetSessionVal("Authenticated");
@@ -20,9 +21,10 @@ namespace AppAdminSite
             }
             else
             {
-                AuthTest=GCGCommon.SupportMethods.RetSessionVal("Authenticated");
+                AuthTest = GCGCommon.SupportMethods.RetSessionVal("Authenticated");
             }
-
+            */
+            AuthTest = GCGCommon.SupportMethods.RetSessionVal("Authenticated");
             if (AuthTest == "")
             {
                 if (Request.Url.ToString().Contains("PopupLogin.aspx") == false) Response.Redirect("PopupLogin.aspx");

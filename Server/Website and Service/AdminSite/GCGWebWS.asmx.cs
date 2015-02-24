@@ -63,7 +63,7 @@ namespace AppAdminSite
             bl.CloseIt();
             return retVal;
         }
-        [WebMethod]
+        [WebMethod(MessageName = "GCGLogin")]
         public string GCGLogin(string pGCGLogin, string pGCGPassword)
         {
             string retVal = "";
@@ -71,6 +71,18 @@ namespace AppAdminSite
             if (bl.gloHacker != "1")
             {
                 retVal = bl.GCGLogin(pGCGLogin, pGCGPassword);
+            }
+            bl.CloseIt();
+            return retVal;
+        }
+        [WebMethod]
+        public string GCGLogUser(string pGCGKey, string pChannel)
+        {
+            string retVal = "";
+            GCGWebWSBL bl = new GCGWebWSBL();
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.GCGLogUser(pGCGKey, pChannel);
             }
             bl.CloseIt();
             return retVal;

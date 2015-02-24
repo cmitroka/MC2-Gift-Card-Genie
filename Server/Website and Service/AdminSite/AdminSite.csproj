@@ -718,6 +718,10 @@
     <Content Include="GCGWebLogin.htm" />
     <Content Include="GCGWebTester.aspx" />
     <Content Include="GCGWebWS.asmx" />
+    <Content Include="GCGXLast50Logins.aspx" />
+    <Content Include="GCGXPurchaseLookupCounts.aspx" />
+    <Content Include="GCGXRqRsLog.aspx" />
+    <Content Include="GCGXUserDetails.aspx" />
     <Content Include="ShowDatagridsNumericOnly.aspx" />
     <Content Include="PopupIAMerchantUploader.aspx" />
     <Content Include="PopupIASystemParamsData.aspx" />
@@ -821,7 +825,35 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GCGWebWSBL.cs" />
+    <Compile Include="GCGXLast50Logins.aspx.cs">
+      <DependentUpon>GCGXLast50Logins.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GCGXLast50Logins.aspx.designer.cs">
+      <DependentUpon>GCGXLast50Logins.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GCGXPurchaseLookupCounts.aspx.cs">
+      <DependentUpon>GCGXPurchaseLookupCounts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GCGXPurchaseLookupCounts.aspx.designer.cs">
+      <DependentUpon>GCGXPurchaseLookupCounts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GCGXUserDetails.aspx.cs">
+      <DependentUpon>GCGXUserDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GCGXUserDetails.aspx.designer.cs">
+      <DependentUpon>GCGXUserDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="GenericHelper.cs" />
+    <Compile Include="GCGXRqRsLog.aspx.cs">
+      <DependentUpon>GCGXRqRsLog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GCGXRqRsLog.aspx.designer.cs">
+      <DependentUpon>GCGXRqRsLog.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ShowDatagridsNumericOnly.aspx.cs">
       <DependentUpon>ShowDatagridsNumericOnly.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

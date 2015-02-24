@@ -1,8 +1,4 @@
-﻿/// <reference path="jquery-1.10.2.js" />
-/// <reference path="jquery.mobile-1.4.0.min.js" />
-/// <reference path="GCGWebSuppFunctions.js" />
-
-function DoNothing() {
+﻿function DoNothing() {
 }
 function DoDemo() {
     RegisterUserInsDemo();
@@ -29,31 +25,6 @@ function RegisterUserInsDemo() {
     });
 }
 
-function DoLogin() {
-    $.ajax({
-        type: "POST",
-        url: "GCGWebWS.asmx/GCGLogin",
-        dataType: "text",
-        data: { pGCGLogin: document.getElementById('username').value, pGCGPassword: document.getElementById('password').value },
-        success:
-            function (xml) {
-                var temp1 = EncodedHTMLToText(xml);
-                var temp2 = RemoveGCGHeader(temp1);
-                if (temp2 == "1234567890") {
-                    alert("Invalid username and/or password.");
-                    document.getElementById('username').value = "";
-                    document.getElementById('password').value = "";
-                }
-                else {
-                    window.location.href = "GCGWeb.htm?Session=" + temp2;
-                    //DoInitGCGWeb();
-                }
-            },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
-        }
-    });
-}
 function DoMyProfileSel() {
     $.ajax({
         type: "POST",
@@ -175,11 +146,13 @@ function DoContinueRequest() {
 function DoInitGCGWeb() {
     var DoReg = 0;
     sesvar = getURLParameter('Session');
+    channelvar = getURLParameter('Channel');
     //ssesvar = '15F5AB4C3CF925B';
     var SessionOK = IsSessionValid(sesvar);
     document.getElementById('hdnGCGID').value = sesvar;
     var pGCGID = document.getElementById('hdnGCGID').value;
     if (SessionOK) {
+        LogUser(channelvar);
         GetSupportedCards();
         MyCardsDataSel();
         //$("#InitScreen").hide();
@@ -223,6 +196,23 @@ function DoLoadAddModCardScreen(pMerchData, pValidationInfo) {
     }
     $.mobile.changePage("#AddModCard", { transition: "slideup" });
 
+}
+
+function LogUser(channel) {
+    $.ajax({
+        type: "POST",
+        url: "GCGWebWS.asmx/GCGLogUser",
+        dataType: "text",
+        data: { pGCGKey: document.getElementById('hdnGCGID').value, pChannel: channel },
+        async: true,
+        success:
+                function (xml) {
+                    return 1;
+                },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            return 0;
+        }
+    });
 }
 
 function GetSupportedCards() {

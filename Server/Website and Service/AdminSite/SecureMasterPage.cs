@@ -11,6 +11,7 @@ namespace AppAdminSite
         protected override void OnLoad(EventArgs e)
         {
             string AuthTest = "";
+            /*
             if (Request.Url.ToString().Contains("localhost"))
             {
                 //AuthTest = CJMUtilities.WebAndNet.RetSessionVal("Authenticated");
@@ -21,7 +22,8 @@ namespace AppAdminSite
             {
                 AuthTest = GCGCommon.SupportMethods.RetSessionVal("Authenticated");
             }
-
+            */
+            AuthTest = GCGCommon.SupportMethods.RetSessionVal("Authenticated");
             if (AuthTest == "")
             {
                 if (Request.Url.ToString().Contains("Default.aspx") == false) Response.Redirect("Default.aspx");
