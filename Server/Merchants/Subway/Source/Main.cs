@@ -79,14 +79,15 @@ namespace DVB
             }
             else if (Instruction == 3)
             {
-                //OK = DoHandleCAPTCHARqRs("kaptcha.jpg");
-                //HandleInstruction(OK);
+                OK = DoHandleCAPTCHARqRs("captcha");
+                HandleInstruction(OK);
             }
             else if (Instruction == 4)
             {
-                OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.input, HTMLEnumAttributes.id, "txbUserName", txtLogin.Text);
-                if (OK == "1") OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.input, HTMLEnumAttributes.id, "txbPassword", txtPassword.Text);
-                if (OK == "1") OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.a, HTMLEnumAttributes.id, "LnkSubmit", "");
+                OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.input, HTMLEnumAttributes.id, "username", txtLogin.Text);
+                if (OK == "1") OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.input, HTMLEnumAttributes.id, "password", txtPassword.Text);
+                if (OK == "1") OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.input, HTMLEnumAttributes.id, "captchaGuess", txtCAPTCHAAnswer.Text);
+                if (OK == "1") OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.a, HTMLEnumAttributes.InnerText, "SUBMIT", "");
                 HandleInstruction(OK);
             }
             else
