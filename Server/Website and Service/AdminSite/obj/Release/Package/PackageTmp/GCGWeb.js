@@ -1,29 +1,5 @@
 ﻿function DoNothing() {
 }
-function DoDemo() {
-    RegisterUserInsDemo();
-}
-
-function RegisterUserInsDemo() {
-    //alert("DoRegisterUserIns");
-    $.ajax({
-        type: "POST",
-        url: "GCGWebWS.asmx/DemoGCG",
-        dataType: "text",
-        data: { pIP: ''},
-        success:
-            function (xml) {
-                var temp1 = EncodedHTMLToText(xml);
-                var temp2 = RemoveGCGHeader(temp1);
-                var session = temp2;
-                window.location.href = "GCGWeb.htm?Session=" + session;
-
-            },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
-        }
-    });
-}
 
 function DoMyProfileSel() {
     $.ajax({
@@ -51,8 +27,6 @@ function DoPleasePurchaseGCG() {
     $.mobile.changePage("#PleasePurchaseGCG", { transition: "slideup" });
 }
 
-
-
 function MulitReqDelAndRefresh() {
     var ChangeScreen = DoRUCardDataMod('delete');
     if (ChangeScreen == 0) {
@@ -77,6 +51,11 @@ function MulitReqUpdateBalanceRefresh() {
 }
 
 function DoNewRequest() {
+    var OK=AreValuesInRange("lookup");
+    if (OK==false) {
+        return;
+    }
+
     $.ajax({
         type: "POST",
         //url: "https://gcg.mc2techservices.com/GCGWebWS.asmx/NewRequest",
@@ -455,6 +434,50 @@ function DoRUCardDataModBalThenRefresh(change) {
     });
 }
 
+function AreValuesInRange(action) {
+    var pGCGID = document.getElementById('hdnGCGID').value;
+    var pCardID = document.getElementById('hdnCardID').value;
+    var pCardType = document.getElementById('txtCardType').value;
+    var pCardNumber = document.getElementById('txtCardNumber').value;
+    var pCardPIN = document.getElementById('txtCardPIN').value;
+    var pCardLogin = document.getElementById('txtCardLogin').value;
+    var pCardPass = document.getElementById('txtCardPassword').value;
+    var pLastKnownBalance = ""; // document.getElementById('LastKnownBalance').value;
+    var pLastKnownBalanceDate = ""; // document.getElementById('LastKnownBalanceDate').value;
+    var pCardNumMin = document.getElementById('hdnCardNumMin').value;
+    var pCardNumMax = document.getElementById('hdnCardNumMax').value;
+    var pCardPINMin = document.getElementById('hdnCardPINMin').value;
+    var pCardPINMax = document.getElementById('hdnCardPINMax').value;
+    if (pCardNumMin == "") pCardNumMin = -1;
+    if (pCardNumMax == "") pCardNumMax = 999;
+    if (pCardPINMin == "") pCardPINMin = -1;
+    if (pCardPINMax == "") pCardPINMax = 999;
+    var alertmsg = "";
+    if (pCardType.length < 1) {
+        alertmsg = "Can't " + action + " - you need to have something for the Card Type.";
+    }
+    if (pCardNumber.length < pCardNumMin) {
+        alertmsg = "Can't " + action + "; the card number length has to be at least " + pCardNumMin + " numbers - you've entered " + pCardNumber.length;
+    }
+    if (pCardNumber.length > pCardNumMax) {
+        alertmsg = "Can't " + action + "; the card number length should be less than " + pCardNumMax + " numbers - you've entered " + pCardNumber.length;
+    }
+    if (pCardPIN.length < pCardPINMin) {
+        alertmsg = "Can't " + action + "; the card PIN length has to be at least " + pCardPINMin + " numbers - you've entered " + pCardPIN.length;
+    }
+    if (pCardPIN.length > pCardPINMax) {
+        alertmsg = "Can't " + action + "; the card PIN length should be less than " + pCardPINMax + " numbers - you've entered " + pCardPIN.length;
+    }
+    if (alertmsg != "") {
+
+        alert(alertmsg);
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
 
 
 function DoRUCardDataMod(action) {
@@ -474,6 +497,14 @@ function DoRUCardDataMod(action) {
     var pCardPINMin = document.getElementById('hdnCardPINMin').value;
     var pCardPINMax = document.getElementById('hdnCardPINMax').value;
     if (action == "delete") {
+
+        if (pCardID == "NA")
+        {
+            alertmsg = "Can't delete; this card entry is incomplete.";
+            alert(alertmsg);
+            return;
+        }
+
         var r = confirm("Are you sure you want to delete this data?");
         if (r == true) {
             pCardNumber = "-1";
@@ -487,30 +518,10 @@ function DoRUCardDataMod(action) {
     }
     else
     {
-        if (pCardNumMin == "") pCardNumMin = -1;
-        if (pCardNumMax == "") pCardNumMax = 999;
-        if (pCardPINMin == "") pCardPINMin = -1;
-        if (pCardPINMax == "") pCardPINMax = 999;
-        var alertmsg = "";
-        if (pCardType.length < 1) {
-            alertmsg = "Can't save - you need to have something for the Card Type.";
-        }
-        if (pCardNumber.length < pCardNumMin) {
-            alertmsg ="Can't save; the card number length has to be at least " + pCardNumMin + " numbers - you've entered " + pCardNumber.length;
-        }
-        if (pCardNumber.length > pCardNumMax) {
-            alertmsg = "Can't save; the card number length should be less than " + pCardNumMax + " numbers - you've entered " + pCardNumber.length;
-        }
-        if (pCardPIN.length < pCardPINMin) {
-            alertmsg = "Can't save; the card PIN length has to be at least " + pCardPINMin + " numbers - you've entered " + pCardPIN.length;
-        }
-        if (pCardPIN.length > pCardPINMax) {
-            alertmsg = "Can't save; the card PIN length should be less than " + pCardPINMax + " numbers - you've entered " + pCardPIN.length;
-        }
-        if (alertmsg != "") {
-
-            alert(alertmsg);
-            return 0;
+        var OK = AreValuesInRange(action);
+        if (OK==false)
+        {
+            return;
         }
     }
 

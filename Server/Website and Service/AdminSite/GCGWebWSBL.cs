@@ -336,8 +336,12 @@ namespace AppAdminSite
             int temp1 = -1;
             if (CardID == "NA")
             {
+                if (CardNumber != "-1")
+                {
                 //It's an insert
                 temp1 = sqlh.ExecuteSQLParamed("INSERT INTO tblRUCardData (GCGUsersID,CardType,CardNumber,CardPIN, CardLogin, CardPassword, DateLogged) VALUES (@P0,@P1,@P2,@P3,@P4,@P5,@P6)", GCGID, CardType, CardNumber, CardPIN, CardLogin, CardPass, DateTime.Now.ToString());
+
+                }
             }
             else if (CardNumber == "")
             {

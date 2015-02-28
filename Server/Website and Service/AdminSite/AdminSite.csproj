@@ -714,6 +714,7 @@
     <Content Include="GCGWebJS\jquery.json-2.4.min.js" />
     <Content Include="GCGWebJS\jquery.mobile-1.4.0.min.js" />
     <Content Include="GCGWebJS\jquery.ui.draggable.js" />
+    <Content Include="GCGWebLogin.js" />
     <Content Include="GCGWebReg.htm" />
     <Content Include="GCGWebLogin.htm" />
     <Content Include="GCGWebTester.aspx" />
