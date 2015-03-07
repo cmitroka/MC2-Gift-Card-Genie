@@ -37,6 +37,7 @@
     $(document).ajaxStop($.unblockUI);
     $(document).ready(function () {
         $("#CustomPopup01").hide();
+        $("#CustomPopup02").hide();
         $('#CustomPopupYN').hide();
     });
     $(window).load(function () {
@@ -67,8 +68,8 @@
             <li><a data-icon="info" href="javascript:DoMyProfileSel();">My Profile</a></li>
             <li><a data-icon="question" href="javascript:DoPleasePurchaseGCG();">Purchase</a></li>
 <!--
+            <li><a data-icon="question" href="javascript:DoCustomPopup02('a');" id="openpopup">click me 1</a></li>
             <li><a data-icon="question" href="javascript:DoDeletePopup();">YNTest</a></li>
-            <li><a data-icon="question" href="javascript:DoPopup01();" id="openpopup">click me 1</a></li>
 -->
         </ul>
         </nav>
@@ -300,7 +301,22 @@
     </div>
     <div data-role="content">
         <span style="font-size: medium; font-weight: lighter; color: #000000" id="popupSpan01msg">Message</span><br />
-        <a href="javascript:BackToMain();" data-position-to="window" data-transition="slideup">
+        <a href="javascript:$('#CustomPopup01').popup('close');" data-position-to="window" data-transition="slideup">
+        <button style="width: 100px">
+        Got It
+        </button>
+        </a>
+    </div>
+    </center>
+</div>
+<div data-role="popup" data-dismissible="false" id="CustomPopup02" style="width: 250px; background-color: #FFFFFF; border-color: #FFFFFF; border-width: 10px;" >
+    <center>
+    <div data-role="header">
+        <span id="popupSpan02title" style="font-size: large; color: #000000">Info</span>
+    </div>
+    <div data-role="content">
+        <span style="font-size: medium; font-weight: lighter; color: #000000" id="popupSpan02msg">Message</span><br />
+        <a href="javascript:$('#CustomPopup02').popup('close');" data-position-to="window" data-transition="slideup">
         <button style="width: 100px">
         Got It
         </button>
@@ -322,7 +338,7 @@
         Yes
         </button>
         </a>
-        <a href="javascript:HandleDeletePopup('N');" data-position-to="window" data-transition="slideup">
+        <a href="javascript:$('#CustomPopupYN').popup('close');" data-position-to="window" data-transition="slideup">
         <button style="width: 100px">
         No
         </button>

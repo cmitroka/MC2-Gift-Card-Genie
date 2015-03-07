@@ -33,7 +33,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58881</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:5021</IISUrl>
+          <IISUrl>http://localhost:5022</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>https://gcg.mc2techservices.com</CustomServerUrl>

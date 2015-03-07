@@ -126,7 +126,7 @@ function DoInitGCGWeb() {
     var DoReg = 0;
     sesvar = getURLParameter('Session');
     channelvar = getURLParameter('Channel');
-    //sesvar = 'FAE2BB7853A3F79';
+    //sesvar = '977ABD97C2C236A';
     var SessionOK = IsSessionValid(sesvar);
     document.getElementById('hdnGCGID').value = sesvar;
     var pGCGID = document.getElementById('hdnGCGID').value;
@@ -581,8 +581,10 @@ function DoCustomPopup01(title,msg) {
 }
 function DoCustomPopup02(msg) {
     //console.log('divclicked');
-    //$('#CustomPopup01').css('visibility') = 'visible';
-    $.mobile.changePage("#MyCards");
+    if (document.getElementById('hdnTempVar').value=='bounce') {
+        document.getElementById('hdnTempVar').value = "";
+        $.mobile.changePage("#MyCards");
+    }
     $('#CustomPopup02').show();
     $('#popupSpan02msg').html(msg).trigger('create');
     $('#CustomPopup02').popup();
@@ -713,6 +715,7 @@ function DoDeletePopup()
 }
 function HandleDeletePopup(YorN) {
     if (YorN == 'Y') {
+        document.getElementById('hdnTempVar').value = 'bounce';
         var ChangeScreen = DoRUCardDataMod('delete');
         if (ChangeScreen == 0) {
             return;
@@ -720,7 +723,8 @@ function HandleDeletePopup(YorN) {
         MyCardsDataSel();
     }
     else if (YorN == 'N') {
-        $.mobile.changePage("#MyCards");
+        $('#CustomPopup02').popup('close');
+        //$.mobile.changePage("#MyCards");
     }
 }
 

@@ -18,7 +18,7 @@ function DoMyProfileSel() {
                 $.mobile.changePage("#MyProfile", { transition: "slideup" });
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
         }
     });
 }
@@ -73,7 +73,7 @@ function DoNewRequest() {
                 GCGHandleResponse(resultcode, resultmsg, resultadtmsg);
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
         }
     });
 }
@@ -117,7 +117,7 @@ function DoContinueRequest() {
                 GCGHandleResponse(resultcode, resultmsg, resultadtmsg);
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
         }
     });
 }
@@ -126,7 +126,7 @@ function DoInitGCGWeb() {
     var DoReg = 0;
     sesvar = getURLParameter('Session');
     channelvar = getURLParameter('Channel');
-    sesvar = 'EFC181B872CB547';
+    //sesvar = '977ABD97C2C236A';
     var SessionOK = IsSessionValid(sesvar);
     document.getElementById('hdnGCGID').value = sesvar;
     var pGCGID = document.getElementById('hdnGCGID').value;
@@ -210,7 +210,7 @@ function GetSupportedCards() {
                     return 1;
                 },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
             return 0;
         }
     });
@@ -240,7 +240,7 @@ function MyCardsDataSel() {
                 //$.mobile.changePage("#testarea4", { transition: "slideup", changeHash: false });
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
             return 0;
         }
     });
@@ -266,7 +266,7 @@ function RUCardDataIns() {
                 $.mobile.changePage("#testarea4", { transition: "slideup", changeHash: false });
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
         }
     });
 }
@@ -292,7 +292,7 @@ function DoChangePassword() {
                 else if (resultcode == "1") { $.mobile.changePage("#MyProfile"); }
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
         }
     });
 }
@@ -395,10 +395,10 @@ function DoRUCardDataModBal() {
         data: { pGCGKey: pGCGID, CardID: pCardID, CardType: "", CardNumber: "", CardPIN: "", CardLogin: "", CardPass: "", LastKnownBalance: pLastKnownBalance, LastKnownBalanceDate: "" },
         success:
             function (xml) {
-                //alert(xml);
+                //DoCustomPopup02(xml);
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
         }
     });
 }
@@ -408,7 +408,7 @@ function DoRUCardDataModBalThenRefresh(change) {
     var pCardID = document.getElementById('hdnCardID').value;
     if (pCardID == "NA") {
         alertmsg = "Can't save; this card entry is incomplete.";
-        alert(alertmsg);
+        DoCustomPopup02(alertmsg);
         MyCardsDataSel();
         return;
     }
@@ -429,7 +429,7 @@ function DoRUCardDataModBalThenRefresh(change) {
             }
                     ,
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
         }
     });
 }
@@ -470,7 +470,7 @@ function AreValuesInRange(action) {
     }
     if (alertmsg != "") {
 
-        alert(alertmsg);
+        DoCustomPopup02(alertmsg);
         return false;
     }
     else
@@ -501,7 +501,7 @@ function DoRUCardDataMod(action) {
         if (pCardID == "NA")
         {
             alertmsg = "Can't delete; this card entry is incomplete.";
-            alert(alertmsg);
+            DoCustomPopup02(alertmsg);
             return;
         }
         else
@@ -540,7 +540,7 @@ function DoRUCardDataMod(action) {
                 DoCustomPopup01("Result", capaction + " " + mymsg);
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
         }
     });
 }
@@ -552,10 +552,10 @@ function DoDiagSayHello() {
         data: null,
         success:
             function (xml) {
-                //alert(xml);
+                //DoCustomPopup02(xml);
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
         }
 
     });
@@ -579,6 +579,18 @@ function DoCustomPopup01(title,msg) {
     $('#CustomPopup01').popup('open', { theme: "b", positionTo: "origin", transition: "flip" });
     //fade, pop, flip, turn, flow, slidefade, slide, slideup, slidedown, none
 }
+function DoCustomPopup02(msg) {
+    //console.log('divclicked');
+    if (document.getElementById('hdnTempVar').value=='bounce') {
+        document.getElementById('hdnTempVar').value = "";
+        $.mobile.changePage("#MyCards");
+    }
+    $('#CustomPopup02').show();
+    $('#popupSpan02msg').html(msg).trigger('create');
+    $('#CustomPopup02').popup();
+    $('#CustomPopup02').popup('open', { theme: "b", positionTo: "origin", transition: "flip" });
+    //fade, pop, flip, turn, flow, slidefade, slide, slideup, slidedown, none
+}
 function DoCustomPopupYesNo(msg) {
     //console.log('divclicked');
     //$('#CustomPopup01').css('visibility') = 'visible';
@@ -592,7 +604,7 @@ function DoCustomPopupYesNo(msg) {
 
 function DoJavaScriptPopup(nothing, msg) {
     //console.log('divclicked');
-    alert(msg);
+    DoCustomPopup02(msg);
 }
 
 function DoCardBalSummarySel() {
@@ -614,7 +626,7 @@ function DoCardBalSummarySel() {
                 $.mobile.changePage("#MyCardsBalSum", { transition: "slideup" });
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
         }
     });
 }
@@ -626,7 +638,7 @@ function DoAllAlerts() {
     console.log("log: "+message);
     console.warn("warn: " + message); 
     console.info("info: "+ message); 
-    alert(message);
+    DoCustomPopup02(message);
 }
 function ClearMerchants() {
     $('#dynCards').empty();
@@ -652,7 +664,7 @@ function GetAllMerchants() {
                 //$('#dynCards').listview('refresh');
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
         }
     });
 }
@@ -664,10 +676,10 @@ function DoDiagSayHelloToArg(nameInFromWeb) {
         data: { nameIn: nameInFromWeb },
         success:
             function (xml) {
-                //alert(xml);
+                //DoCustomPopup02(xml);
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
         }
     });
 }
@@ -679,10 +691,10 @@ function DoDiagSayHelloToWMsg(nameInFromWeb, msgFromWeb) {
         data: { nameIn: nameInFromWeb, msg: msgFromWeb },
         success:
             function (xml) {
-                alert(xml);
+                DoCustomPopup02(xml);
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
+            DoCustomPopup02(errorThrown);
         }
     });
 }
@@ -703,6 +715,7 @@ function DoDeletePopup()
 }
 function HandleDeletePopup(YorN) {
     if (YorN == 'Y') {
+        document.getElementById('hdnTempVar').value = 'bounce';
         var ChangeScreen = DoRUCardDataMod('delete');
         if (ChangeScreen == 0) {
             return;
@@ -710,7 +723,8 @@ function HandleDeletePopup(YorN) {
         MyCardsDataSel();
     }
     else if (YorN == 'N') {
-        $.mobile.changePage("#MyCards");
+        $('#CustomPopup02').popup('close');
+        //$.mobile.changePage("#MyCards");
     }
 }
 
