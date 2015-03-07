@@ -37,6 +37,7 @@
     $(document).ajaxStop($.unblockUI);
     $(document).ready(function () {
         $("#CustomPopup01").hide();
+        $("#CustomPopup02").hide();
         $('#CustomPopupYN').hide();
     });
     $(window).load(function () {
@@ -300,6 +301,21 @@
     </div>
     <div data-role="content">
         <span style="font-size: medium; font-weight: lighter; color: #000000" id="popupSpan01msg">Message</span><br />
+        <a href="javascript:BackToMain();" data-position-to="window" data-transition="slideup">
+        <button style="width: 100px">
+        Got It
+        </button>
+        </a>
+    </div>
+    </center>
+</div>
+<div data-role="popup" data-dismissible="false" id="CustomPopup02" style="width: 250px; background-color: #FFFFFF; border-color: #FFFFFF; border-width: 10px;" >
+    <center>
+    <div data-role="header">
+        <span id="popupSpan02title" style="font-size: large; color: #000000">Info</span>
+    </div>
+    <div data-role="content">
+        <span style="font-size: medium; font-weight: lighter; color: #000000" id="popupSpan02msg">Message</span><br />
         <a href="javascript:BackToMain();" data-position-to="window" data-transition="slideup">
         <button style="width: 100px">
         Got It
