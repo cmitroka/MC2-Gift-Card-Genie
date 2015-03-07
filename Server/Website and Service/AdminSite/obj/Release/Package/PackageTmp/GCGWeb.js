@@ -126,7 +126,7 @@ function DoInitGCGWeb() {
     var DoReg = 0;
     sesvar = getURLParameter('Session');
     channelvar = getURLParameter('Channel');
-    //ssesvar = '15F5AB4C3CF925B';
+    sesvar = 'EFC181B872CB547';
     var SessionOK = IsSessionValid(sesvar);
     document.getElementById('hdnGCGID').value = sesvar;
     var pGCGID = document.getElementById('hdnGCGID').value;
@@ -306,11 +306,11 @@ function SSAndLoadMerchNameAndValInfo(pCardAndValInfoIn) {
     var result1 = pCardAndValInfoIn.split("~_~");
     document.getElementById('txtCardType').value = result1[0];
     if (result1[2] == 998) {
-        $("#txtCardType").prop('disabled', false);
+        $("#txtCardType").removeAttr("disabled");
     }
     else {
-        $("#txtCardType").prop('disabled', true);
-    }  
+        $("#txtCardType").attr("disabled", true);
+    }
     document.getElementById('hdnCardNumMin').value = result1[1];
     document.getElementById('hdnCardNumMax').value = result1[2];
     document.getElementById('hdnCardPINMin').value = result1[3];
@@ -362,12 +362,12 @@ function SSAddModCard(allCardDataIn) {
         var ta5Delete = document.getElementById("ta5Delete");
         var txtCardType = document.getElementById('txtCardType');
         //$(txtCardType).removeAttr('disabled')
-        var myhtml = "<nav data-role=\"navbar\">        <ul>          <li><a data-icon=\"save\" id=\"ta5Save\" href=\"javascript:DoRUCardDataModSave()\">Save</a></li>          <li><a data-icon=\"delete\" id=\"ta5Delete\" href=\"javascript:MulitReqDelAndRefresh()\">Delete</a></li>        </ul>      </nav>";
+        var myhtml = "<nav data-role=\"navbar\">        <ul>          <li><a data-icon=\"save\" id=\"ta5Save\" href=\"javascript:DoRUCardDataModSave()\">Save</a></li>          <li><a data-icon=\"delete\" id=\"ta5Delete\" href=\"javascript:DoDeletePopup()\">Delete</a></li>        </ul>      </nav>";
         $('#aaaa').html(myhtml).trigger('create');
         $('#AddModCardHeader').html("").trigger('create');
     }
     else {
-        var myhtml = "<nav data-role=\"navbar\">        <ul>          <li><a data-icon=\"save\" id=\"ta5Save\" href=\"javascript:DoRUCardDataModSave()\">Save</a></li>          <li><a data-icon=\"search\" id=\"ta5Lookup\" href=\"javascript:DoNewRequest()\">Lookup</a></li>          <li><a data-icon=\"delete\" id=\"ta5Delete\" href=\"javascript:MulitReqDelAndRefresh()\">Delete</a></li>        </ul>      </nav>";
+        var myhtml = "<nav data-role=\"navbar\">        <ul>          <li><a data-icon=\"save\" id=\"ta5Save\" href=\"javascript:DoRUCardDataModSave()\">Save</a></li>          <li><a data-icon=\"search\" id=\"ta5Lookup\" href=\"javascript:DoNewRequest()\">Lookup</a></li>          <li><a data-icon=\"delete\" id=\"ta5Delete\" href=\"javascript:DoDeletePopup()\">Delete</a></li>        </ul>      </nav>";
         $('#aaaa').html(myhtml).trigger('create');
         $('#AddModCardHeader').html("").trigger('create');
         }
@@ -504,16 +504,13 @@ function DoRUCardDataMod(action) {
             alert(alertmsg);
             return;
         }
-
-        var r = confirm("Are you sure you want to delete this data?");
-        if (r == true) {
+        else
+        {
             pCardNumber = "-1";
             pCardNumMin = "";
             pCardNumMax = "";
             pCardPINMin = "";
             pCardPINMax = "";
-        } else {
-            return 0;
         }
     }
     else
@@ -582,6 +579,17 @@ function DoCustomPopup01(title,msg) {
     $('#CustomPopup01').popup('open', { theme: "b", positionTo: "origin", transition: "flip" });
     //fade, pop, flip, turn, flow, slidefade, slide, slideup, slidedown, none
 }
+function DoCustomPopupYesNo(msg) {
+    //console.log('divclicked');
+    //$('#CustomPopup01').css('visibility') = 'visible';
+    //$('#CustomPopupYN').dialog();
+    $('#CustomPopupYN').show();
+    $('#popupSpanYNmsg').html(msg).trigger('create');
+    $('#CustomPopupYN').popup();
+    $('#CustomPopupYN').popup('open', { theme: "b", positionTo: "origin", transition: "flip" });
+    //fade, pop, flip, turn, flow, slidefade, slide, slideup, slidedown, none
+}
+
 function DoJavaScriptPopup(nothing, msg) {
     //console.log('divclicked');
     alert(msg);
@@ -688,6 +696,24 @@ function SplitTableToCells(result) {
     }
     return retVal;
 }
+
+function DoDeletePopup()
+{
+    DoCustomPopupYesNo('Are you sure you want to delete this entry?');
+}
+function HandleDeletePopup(YorN) {
+    if (YorN == 'Y') {
+        var ChangeScreen = DoRUCardDataMod('delete');
+        if (ChangeScreen == 0) {
+            return;
+        }
+        MyCardsDataSel();
+    }
+    else if (YorN == 'N') {
+        $.mobile.changePage("#MyCards");
+    }
+}
+
 function RemoveGCGHeader(dataIn) {
     var retVal = "";
     if (retVal=="" )

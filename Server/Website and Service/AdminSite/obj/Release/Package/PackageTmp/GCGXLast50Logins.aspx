@@ -9,23 +9,15 @@
         AutoGenerateColumns="False" CellPadding="3" DataSourceID="AccessDataSource1" 
         onselectedindexchanged="GridView1_SelectedIndexChanged" PageSize="100" 
         AllowSorting="True" BackColor="White" BorderColor="#999999" 
-        BorderStyle="None" BorderWidth="1px" GridLines="Vertical" DataKeyNames="ID">
+        BorderStyle="None" BorderWidth="1px" GridLines="Vertical">
         <AlternatingRowStyle BackColor="#DCDCDC" />
         <Columns>
-            <asp:TemplateField HeaderText="GCGUsersID" SortExpression="GCGUsersID">
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("GCGUsersID") %>'></asp:TextBox>
-                </EditItemTemplate>
-                    <ItemTemplate>
-                        <asp:HyperLink id="hlLink" runat="server" NavigateUrl='<%#"GCGXUserDetails.aspx?GCGUsersID=" + Eval("GCGUsersID").ToString() %>' Text='<%# Eval("GCGUsersID", "{0}") %>'></asp:HyperLink>
-                    </ItemTemplate>
-            </asp:TemplateField>
-            <asp:BoundField DataField="Channel" HeaderText="Channel" 
-                SortExpression="Channel" />
-            <asp:BoundField DataField="DateLogged" 
-                                 HeaderText="DateLogged" SortExpression="DateLogged"  />
-
-
+            <asp:BoundField DataField="GCGUsersID" HeaderText="GCGUsersID" SortExpression="GCGUsersID" />
+            <asp:BoundField DataField="GCGLogin" HeaderText="GCGLogin" SortExpression="GCGLogin" />
+            <asp:BoundField DataField="Channel" HeaderText="Channel" SortExpression="Channel" />
+            <asp:BoundField DataField="LookupCount" HeaderText="LookupCount" SortExpression="LookupCount" />
+            <asp:BoundField DataField="DemoUser" HeaderText="DemoUser" ReadOnly="True" SortExpression="DemoUser" />
+            <asp:BoundField DataField="DateLogged" HeaderText="DateLogged" SortExpression="DateLogged" />
         </Columns>
         <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
         <HeaderStyle BackColor="#000084" Font-Bold="True" ForeColor="White" />
@@ -42,7 +34,7 @@
         DataFile="~/App_Data/GCGApp.mdb"
         
         
-        SelectCommand="SELECT TOP 50 * FROM [tblUserLog] ORDER BY [DateLogged] DESC" 
+        SelectCommand="SELECT TOP 50 * FROM [qryLogins] ORDER BY [DateLogged] DESC" 
         oninserting="AccessDataSource1_Inserting"></asp:AccessDataSource>
     <br />
     </asp:Content>

@@ -1,0 +1,135 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>GCG Mobile</title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+    <link rel="shortcut icon" href="http://designshack.net/favicon.ico">
+    <link rel="icon" href="http://designshack.net/favicon.ico">
+    <link href="GCGWebCSS/jquery.mobile-1.4.0.min.css" rel="stylesheet" type="text/css" />
+    <link href="GCGWebCSS/jquery.mobile.external-png-1.4.0.min.css" rel="stylesheet"
+        type="text/css" />
+    <script src="GCGWebJS/jquery.js" type="text/javascript"></script>
+    <script src="GCGWebJS/jquery.json-2.4.min.js" type="text/javascript"></script>
+    <script src="GCGWebJS/jquery.blockUI.js" type="text/javascript"></script>
+    <script src="GCGWebJS/jquery.mobile-1.4.0.min.js" type="text/javascript"></script>
+
+    <script src="GCGWebJS/GCGAdminWeb.js" type="text/javascript"></script>
+    <script src="GCGWebJS/GCGWebSuppFunctions.js" type="text/javascript"></script>
+
+
+ 
+<script type="text/javascript">
+    $(document).ajaxStart(function () {
+        $.blockUI({ message: '<img src="spinner.gif" />' });
+    })
+    $(document).ajaxStop($.unblockUI);
+    $(document).ready(function () {
+        $(window).load(function () {
+            //$.blockUI({ message: '<h1><img src="spinner.gif" /></h1>' });
+        });
+    });
+</script>
+
+ <style>
+  img.fullscreen {
+    max-height: 100%;
+    max-width: 100%;
+  }    
+</style>
+
+</head>
+ 
+<body onload="DoInitGCGAdminWeb();">
+    <div data-role="page" id="main">
+        <header data-role="header">
+    <h1 id="#var">Main</h1>
+    </header>
+        <article>
+          <ul data-role="listview" data-inset="true">
+            <li>
+              <a href="#metricssummarypage">
+              <img src="GCGWebImages/8080Metrics.jpg" alt="Metrics Summary" />
+              <h2>Metrics Summary</h2>
+              </a>
+            </li>
+
+            <li>
+              <a href="#rqrslog">
+              <img src="GCGWebImages/8080Log.jpg" alt="Today's Rq/RS Log" />
+              <h2>Today's Rq/RS Log</h2>
+              </a>
+            </li>
+
+
+            <li>
+              <a href="#purchaselog">
+              <img src="GCGWebImages/8080Purchases.jpg" alt="Purchase Log" />
+              <h1>Purchase Log</h1>
+              </a>
+            </li>
+          </ul>
+        </article>
+    </div>
+
+<div data-role="page" id="purchaselog">
+    <header data-role="header" data-position="fixed">
+        <h1>Purchase Log 1</h1>
+        <a href="#main">Main</a>
+    </header>
+    <table class="ui-body-d ui-shadow" id="purchaselogtable" data-role="table" data-scroll="true">
+        <thead>
+            <tr class="ui-bar-d">
+                <th data-priority="2">Downloader</th>
+                <th data-priority="3">UUID</th>
+                <th data-priority="1">Date</th>
+                <th data-priority="5">Purchase Type</th>
+            </tr>
+        </thead>
+        <tbody id="purchaselogtbody">
+        </tbody>
+    </table>
+</div>
+<div data-role="page" id="rqrslog">
+    <header data-role="header" data-position="fixed">
+        <h1>Last 250 Rq/RS Log</h1>
+        <a href="#main">Main</a>
+    </header>
+    <table class="ui-responsive table-stroke" id="rqrstable" data-role="table">
+        <thead>
+            <tr class="ui-bar-d" data-position="fixed>
+                <th data-priority="1">Card Type</th>
+                <th data-priority="2">Card Number</th>
+                <th data-priority="3">PIN</th>
+                <th data-priority="4">Response Type</th>
+                <th data-priority="5">Response</th>
+                <th data-priority="6">Time Logged</th>
+                <th data-priority="7">True Amount</th>
+            </tr>
+        </thead>
+        <tbody id="rqrstbody">
+        </tbody>
+    </table>
+
+</div>
+
+<div data-role="page" id="metricssummarypage">
+    <header data-role="header" data-position="fixed">
+        <h1>Metrics Summary</h1>
+        <a href="#main">Main</a>
+    </header>
+    <article id="metricssummary">
+
+    </article>
+</div>
+
+<div id="dialog-modal" title="">
+  <p style="vertical-align: middle; text-align: center"><img alt="" src="spinner.gif" /></p>
+</div>
+
+<input id="hdnGCGID" type="hidden" />
+<input id="hdnCardNumMin" type="hidden"/>
+<input id="hdnCardNumMax" type="hidden"/>
+<input id="hdnCardPINMin" type="hidden"/>
+<input id="hdnCardPINMax" type="hidden"/>
+</html>
