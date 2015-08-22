@@ -29,6 +29,22 @@ namespace DVB.com.mc2techservices.gcg {
     [System.Web.Services.WebServiceBindingAttribute(Name="WebServiceSoap", Namespace="gcg.mc2techservices.com")]
     public partial class WebService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback DiagSayHelloOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback InitGCGWebOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback RUCardDataSelOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback RUCardDataModOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback RegisterUserInsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback RegisterUserSelOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DiagSayHelloToWMsgOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DiagSayHelloToOperationCompleted;
+        
         private System.Threading.SendOrPostCallback LoginOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetURLForEXEOperationCompleted;
@@ -37,7 +53,11 @@ namespace DVB.com.mc2techservices.gcg {
         
         private System.Threading.SendOrPostCallback GetWDDataForEXEOperationCompleted;
         
+        private System.Threading.SendOrPostCallback ImageToOCROperationCompleted;
+        
         private System.Threading.SendOrPostCallback SaveWDDataForEXEOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback SaveWDDataForEXE01OperationCompleted;
         
         private System.Threading.SendOrPostCallback AddMerchantRequestOperationCompleted;
         
@@ -114,6 +134,30 @@ namespace DVB.com.mc2techservices.gcg {
         }
         
         /// <remarks/>
+        public event DiagSayHelloCompletedEventHandler DiagSayHelloCompleted;
+        
+        /// <remarks/>
+        public event InitGCGWebCompletedEventHandler InitGCGWebCompleted;
+        
+        /// <remarks/>
+        public event RUCardDataSelCompletedEventHandler RUCardDataSelCompleted;
+        
+        /// <remarks/>
+        public event RUCardDataModCompletedEventHandler RUCardDataModCompleted;
+        
+        /// <remarks/>
+        public event RegisterUserInsCompletedEventHandler RegisterUserInsCompleted;
+        
+        /// <remarks/>
+        public event RegisterUserSelCompletedEventHandler RegisterUserSelCompleted;
+        
+        /// <remarks/>
+        public event DiagSayHelloToWMsgCompletedEventHandler DiagSayHelloToWMsgCompleted;
+        
+        /// <remarks/>
+        public event DiagSayHelloToCompletedEventHandler DiagSayHelloToCompleted;
+        
+        /// <remarks/>
         public event LoginCompletedEventHandler LoginCompleted;
         
         /// <remarks/>
@@ -126,7 +170,13 @@ namespace DVB.com.mc2techservices.gcg {
         public event GetWDDataForEXECompletedEventHandler GetWDDataForEXECompleted;
         
         /// <remarks/>
+        public event ImageToOCRCompletedEventHandler ImageToOCRCompleted;
+        
+        /// <remarks/>
         public event SaveWDDataForEXECompletedEventHandler SaveWDDataForEXECompleted;
+        
+        /// <remarks/>
+        public event SaveWDDataForEXE01CompletedEventHandler SaveWDDataForEXE01Completed;
         
         /// <remarks/>
         public event AddMerchantRequestCompletedEventHandler AddMerchantRequestCompleted;
@@ -181,6 +231,256 @@ namespace DVB.com.mc2techservices.gcg {
         
         /// <remarks/>
         public event RetrieveDataCompletedEventHandler RetrieveDataCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("gcg.mc2techservices.com/DiagSayHello", RequestNamespace="gcg.mc2techservices.com", ResponseNamespace="gcg.mc2techservices.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string DiagSayHello() {
+            object[] results = this.Invoke("DiagSayHello", new object[0]);
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void DiagSayHelloAsync() {
+            this.DiagSayHelloAsync(null);
+        }
+        
+        /// <remarks/>
+        public void DiagSayHelloAsync(object userState) {
+            if ((this.DiagSayHelloOperationCompleted == null)) {
+                this.DiagSayHelloOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDiagSayHelloOperationCompleted);
+            }
+            this.InvokeAsync("DiagSayHello", new object[0], this.DiagSayHelloOperationCompleted, userState);
+        }
+        
+        private void OnDiagSayHelloOperationCompleted(object arg) {
+            if ((this.DiagSayHelloCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DiagSayHelloCompleted(this, new DiagSayHelloCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("gcg.mc2techservices.com/InitGCGWeb", RequestNamespace="gcg.mc2techservices.com", ResponseNamespace="gcg.mc2techservices.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string InitGCGWeb() {
+            object[] results = this.Invoke("InitGCGWeb", new object[0]);
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void InitGCGWebAsync() {
+            this.InitGCGWebAsync(null);
+        }
+        
+        /// <remarks/>
+        public void InitGCGWebAsync(object userState) {
+            if ((this.InitGCGWebOperationCompleted == null)) {
+                this.InitGCGWebOperationCompleted = new System.Threading.SendOrPostCallback(this.OnInitGCGWebOperationCompleted);
+            }
+            this.InvokeAsync("InitGCGWeb", new object[0], this.InitGCGWebOperationCompleted, userState);
+        }
+        
+        private void OnInitGCGWebOperationCompleted(object arg) {
+            if ((this.InitGCGWebCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.InitGCGWebCompleted(this, new InitGCGWebCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("gcg.mc2techservices.com/RUCardDataSel", RequestNamespace="gcg.mc2techservices.com", ResponseNamespace="gcg.mc2techservices.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string RUCardDataSel(string GCGID) {
+            object[] results = this.Invoke("RUCardDataSel", new object[] {
+                        GCGID});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void RUCardDataSelAsync(string GCGID) {
+            this.RUCardDataSelAsync(GCGID, null);
+        }
+        
+        /// <remarks/>
+        public void RUCardDataSelAsync(string GCGID, object userState) {
+            if ((this.RUCardDataSelOperationCompleted == null)) {
+                this.RUCardDataSelOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRUCardDataSelOperationCompleted);
+            }
+            this.InvokeAsync("RUCardDataSel", new object[] {
+                        GCGID}, this.RUCardDataSelOperationCompleted, userState);
+        }
+        
+        private void OnRUCardDataSelOperationCompleted(object arg) {
+            if ((this.RUCardDataSelCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RUCardDataSelCompleted(this, new RUCardDataSelCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("gcg.mc2techservices.com/RUCardDataMod", RequestNamespace="gcg.mc2techservices.com", ResponseNamespace="gcg.mc2techservices.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string RUCardDataMod(string GCGID, string CardID, string CardType, string CardNumber, string CardPIN, string CardLogin, string CardPass, string LastKnownBalance, string LastKnownBalanceDate) {
+            object[] results = this.Invoke("RUCardDataMod", new object[] {
+                        GCGID,
+                        CardID,
+                        CardType,
+                        CardNumber,
+                        CardPIN,
+                        CardLogin,
+                        CardPass,
+                        LastKnownBalance,
+                        LastKnownBalanceDate});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void RUCardDataModAsync(string GCGID, string CardID, string CardType, string CardNumber, string CardPIN, string CardLogin, string CardPass, string LastKnownBalance, string LastKnownBalanceDate) {
+            this.RUCardDataModAsync(GCGID, CardID, CardType, CardNumber, CardPIN, CardLogin, CardPass, LastKnownBalance, LastKnownBalanceDate, null);
+        }
+        
+        /// <remarks/>
+        public void RUCardDataModAsync(string GCGID, string CardID, string CardType, string CardNumber, string CardPIN, string CardLogin, string CardPass, string LastKnownBalance, string LastKnownBalanceDate, object userState) {
+            if ((this.RUCardDataModOperationCompleted == null)) {
+                this.RUCardDataModOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRUCardDataModOperationCompleted);
+            }
+            this.InvokeAsync("RUCardDataMod", new object[] {
+                        GCGID,
+                        CardID,
+                        CardType,
+                        CardNumber,
+                        CardPIN,
+                        CardLogin,
+                        CardPass,
+                        LastKnownBalance,
+                        LastKnownBalanceDate}, this.RUCardDataModOperationCompleted, userState);
+        }
+        
+        private void OnRUCardDataModOperationCompleted(object arg) {
+            if ((this.RUCardDataModCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RUCardDataModCompleted(this, new RUCardDataModCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("gcg.mc2techservices.com/RegisterUserIns", RequestNamespace="gcg.mc2techservices.com", ResponseNamespace="gcg.mc2techservices.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string RegisterUserIns(string UserLogin, string UserPass) {
+            object[] results = this.Invoke("RegisterUserIns", new object[] {
+                        UserLogin,
+                        UserPass});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void RegisterUserInsAsync(string UserLogin, string UserPass) {
+            this.RegisterUserInsAsync(UserLogin, UserPass, null);
+        }
+        
+        /// <remarks/>
+        public void RegisterUserInsAsync(string UserLogin, string UserPass, object userState) {
+            if ((this.RegisterUserInsOperationCompleted == null)) {
+                this.RegisterUserInsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRegisterUserInsOperationCompleted);
+            }
+            this.InvokeAsync("RegisterUserIns", new object[] {
+                        UserLogin,
+                        UserPass}, this.RegisterUserInsOperationCompleted, userState);
+        }
+        
+        private void OnRegisterUserInsOperationCompleted(object arg) {
+            if ((this.RegisterUserInsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RegisterUserInsCompleted(this, new RegisterUserInsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("gcg.mc2techservices.com/RegisterUserSel", RequestNamespace="gcg.mc2techservices.com", ResponseNamespace="gcg.mc2techservices.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string RegisterUserSel(string UserLogin, string UserPass) {
+            object[] results = this.Invoke("RegisterUserSel", new object[] {
+                        UserLogin,
+                        UserPass});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void RegisterUserSelAsync(string UserLogin, string UserPass) {
+            this.RegisterUserSelAsync(UserLogin, UserPass, null);
+        }
+        
+        /// <remarks/>
+        public void RegisterUserSelAsync(string UserLogin, string UserPass, object userState) {
+            if ((this.RegisterUserSelOperationCompleted == null)) {
+                this.RegisterUserSelOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRegisterUserSelOperationCompleted);
+            }
+            this.InvokeAsync("RegisterUserSel", new object[] {
+                        UserLogin,
+                        UserPass}, this.RegisterUserSelOperationCompleted, userState);
+        }
+        
+        private void OnRegisterUserSelOperationCompleted(object arg) {
+            if ((this.RegisterUserSelCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RegisterUserSelCompleted(this, new RegisterUserSelCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("gcg.mc2techservices.com/DiagSayHelloToWMsg", RequestNamespace="gcg.mc2techservices.com", ResponseNamespace="gcg.mc2techservices.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string DiagSayHelloToWMsg(string nameIn, string msg) {
+            object[] results = this.Invoke("DiagSayHelloToWMsg", new object[] {
+                        nameIn,
+                        msg});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void DiagSayHelloToWMsgAsync(string nameIn, string msg) {
+            this.DiagSayHelloToWMsgAsync(nameIn, msg, null);
+        }
+        
+        /// <remarks/>
+        public void DiagSayHelloToWMsgAsync(string nameIn, string msg, object userState) {
+            if ((this.DiagSayHelloToWMsgOperationCompleted == null)) {
+                this.DiagSayHelloToWMsgOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDiagSayHelloToWMsgOperationCompleted);
+            }
+            this.InvokeAsync("DiagSayHelloToWMsg", new object[] {
+                        nameIn,
+                        msg}, this.DiagSayHelloToWMsgOperationCompleted, userState);
+        }
+        
+        private void OnDiagSayHelloToWMsgOperationCompleted(object arg) {
+            if ((this.DiagSayHelloToWMsgCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DiagSayHelloToWMsgCompleted(this, new DiagSayHelloToWMsgCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("gcg.mc2techservices.com/DiagSayHelloTo", RequestNamespace="gcg.mc2techservices.com", ResponseNamespace="gcg.mc2techservices.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string DiagSayHelloTo(string nameIn) {
+            object[] results = this.Invoke("DiagSayHelloTo", new object[] {
+                        nameIn});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void DiagSayHelloToAsync(string nameIn) {
+            this.DiagSayHelloToAsync(nameIn, null);
+        }
+        
+        /// <remarks/>
+        public void DiagSayHelloToAsync(string nameIn, object userState) {
+            if ((this.DiagSayHelloToOperationCompleted == null)) {
+                this.DiagSayHelloToOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDiagSayHelloToOperationCompleted);
+            }
+            this.InvokeAsync("DiagSayHelloTo", new object[] {
+                        nameIn}, this.DiagSayHelloToOperationCompleted, userState);
+        }
+        
+        private void OnDiagSayHelloToOperationCompleted(object arg) {
+            if ((this.DiagSayHelloToCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DiagSayHelloToCompleted(this, new DiagSayHelloToCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("gcg.mc2techservices.com/Login", RequestNamespace="gcg.mc2techservices.com", ResponseNamespace="gcg.mc2techservices.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -309,6 +609,35 @@ namespace DVB.com.mc2techservices.gcg {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("gcg.mc2techservices.com/ImageToOCR", RequestNamespace="gcg.mc2techservices.com", ResponseNamespace="gcg.mc2techservices.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string ImageToOCR([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] dataIn) {
+            object[] results = this.Invoke("ImageToOCR", new object[] {
+                        dataIn});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImageToOCRAsync(byte[] dataIn) {
+            this.ImageToOCRAsync(dataIn, null);
+        }
+        
+        /// <remarks/>
+        public void ImageToOCRAsync(byte[] dataIn, object userState) {
+            if ((this.ImageToOCROperationCompleted == null)) {
+                this.ImageToOCROperationCompleted = new System.Threading.SendOrPostCallback(this.OnImageToOCROperationCompleted);
+            }
+            this.InvokeAsync("ImageToOCR", new object[] {
+                        dataIn}, this.ImageToOCROperationCompleted, userState);
+        }
+        
+        private void OnImageToOCROperationCompleted(object arg) {
+            if ((this.ImageToOCRCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImageToOCRCompleted(this, new ImageToOCRCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("gcg.mc2techservices.com/SaveWDDataForEXE", RequestNamespace="gcg.mc2techservices.com", ResponseNamespace="gcg.mc2techservices.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string SaveWDDataForEXE(string pEXE, string pURL, string pCardNum, string pCardPIN, string pCredLogin, string pCredPassword, string pPassword) {
             object[] results = this.Invoke("SaveWDDataForEXE", new object[] {
@@ -346,6 +675,53 @@ namespace DVB.com.mc2techservices.gcg {
             if ((this.SaveWDDataForEXECompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.SaveWDDataForEXECompleted(this, new SaveWDDataForEXECompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("gcg.mc2techservices.com/SaveWDDataForEXE01", RequestNamespace="gcg.mc2techservices.com", ResponseNamespace="gcg.mc2techservices.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string SaveWDDataForEXE01(string pEXE, string pCleanName, string pURL, string pCardNum, string pCardPIN, string pCredLogin, string pCredPassword, string pSupportCode, string pTimeout, string pPassword) {
+            object[] results = this.Invoke("SaveWDDataForEXE01", new object[] {
+                        pEXE,
+                        pCleanName,
+                        pURL,
+                        pCardNum,
+                        pCardPIN,
+                        pCredLogin,
+                        pCredPassword,
+                        pSupportCode,
+                        pTimeout,
+                        pPassword});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void SaveWDDataForEXE01Async(string pEXE, string pCleanName, string pURL, string pCardNum, string pCardPIN, string pCredLogin, string pCredPassword, string pSupportCode, string pTimeout, string pPassword) {
+            this.SaveWDDataForEXE01Async(pEXE, pCleanName, pURL, pCardNum, pCardPIN, pCredLogin, pCredPassword, pSupportCode, pTimeout, pPassword, null);
+        }
+        
+        /// <remarks/>
+        public void SaveWDDataForEXE01Async(string pEXE, string pCleanName, string pURL, string pCardNum, string pCardPIN, string pCredLogin, string pCredPassword, string pSupportCode, string pTimeout, string pPassword, object userState) {
+            if ((this.SaveWDDataForEXE01OperationCompleted == null)) {
+                this.SaveWDDataForEXE01OperationCompleted = new System.Threading.SendOrPostCallback(this.OnSaveWDDataForEXE01OperationCompleted);
+            }
+            this.InvokeAsync("SaveWDDataForEXE01", new object[] {
+                        pEXE,
+                        pCleanName,
+                        pURL,
+                        pCardNum,
+                        pCardPIN,
+                        pCredLogin,
+                        pCredPassword,
+                        pSupportCode,
+                        pTimeout,
+                        pPassword}, this.SaveWDDataForEXE01OperationCompleted, userState);
+        }
+        
+        private void OnSaveWDDataForEXE01OperationCompleted(object arg) {
+            if ((this.SaveWDDataForEXE01Completed != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.SaveWDDataForEXE01Completed(this, new SaveWDDataForEXE01CompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -942,6 +1318,214 @@ namespace DVB.com.mc2techservices.gcg {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    public delegate void DiagSayHelloCompletedEventHandler(object sender, DiagSayHelloCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class DiagSayHelloCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal DiagSayHelloCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    public delegate void InitGCGWebCompletedEventHandler(object sender, InitGCGWebCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class InitGCGWebCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal InitGCGWebCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    public delegate void RUCardDataSelCompletedEventHandler(object sender, RUCardDataSelCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RUCardDataSelCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal RUCardDataSelCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    public delegate void RUCardDataModCompletedEventHandler(object sender, RUCardDataModCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RUCardDataModCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal RUCardDataModCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    public delegate void RegisterUserInsCompletedEventHandler(object sender, RegisterUserInsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RegisterUserInsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal RegisterUserInsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    public delegate void RegisterUserSelCompletedEventHandler(object sender, RegisterUserSelCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RegisterUserSelCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal RegisterUserSelCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    public delegate void DiagSayHelloToWMsgCompletedEventHandler(object sender, DiagSayHelloToWMsgCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class DiagSayHelloToWMsgCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal DiagSayHelloToWMsgCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    public delegate void DiagSayHelloToCompletedEventHandler(object sender, DiagSayHelloToCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class DiagSayHelloToCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal DiagSayHelloToCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
     public delegate void LoginCompletedEventHandler(object sender, LoginCompletedEventArgs e);
     
     /// <remarks/>
@@ -1046,6 +1630,32 @@ namespace DVB.com.mc2techservices.gcg {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    public delegate void ImageToOCRCompletedEventHandler(object sender, ImageToOCRCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImageToOCRCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImageToOCRCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
     public delegate void SaveWDDataForEXECompletedEventHandler(object sender, SaveWDDataForEXECompletedEventArgs e);
     
     /// <remarks/>
@@ -1057,6 +1667,32 @@ namespace DVB.com.mc2techservices.gcg {
         private object[] results;
         
         internal SaveWDDataForEXECompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    public delegate void SaveWDDataForEXE01CompletedEventHandler(object sender, SaveWDDataForEXE01CompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class SaveWDDataForEXE01CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal SaveWDDataForEXE01CompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

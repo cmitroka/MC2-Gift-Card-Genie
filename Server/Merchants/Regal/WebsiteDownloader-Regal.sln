@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Download via Browser", "Source\Download via Browser.csproj", "{63CAAC3C-D00E-4962-B0C0-1EEE9C996160}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCGCommon", "..\GCG Common\GCGCommon.csproj", "{66360C67-DE8F-43C4-B4DF-8581B98F6323}"
