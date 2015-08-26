@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Timers;
 using System.Drawing;
 using System.Windows.Forms;
 using GCGCommon;
@@ -17,6 +18,7 @@ namespace DVB
     static class GCGMethods
     {
         public enum FocusTypes { RemoveFocus, Focus, Click };
+
         public static Bitmap CaptureRegionAsBMP(int LeftPosition, int TopPosition, int WidthSize, int HeightSize)
         {
             Bitmap bmp = null;
@@ -230,6 +232,67 @@ namespace DVB
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
             return retVal;
+        }
+        public static void TypeIt(string whatToType)
+        {
+            string test1 = "";
+            string test2 = "";
+            string all = "";
+            bool stop = false;
+            int msgcurrpos = 0;
+            do
+            {
+                try
+                {
+                    test1 = whatToType.Substring(msgcurrpos, 1);
+                }
+                catch (Exception ex) { 
+                    stop = true;
+                    break;
+                }
+                if (test1== "C")
+                {
+                    System.Diagnostics.Debug.WriteLine(test1);
+                }
+                if (test1 == "") return;
+                if (test1 == "{")
+                {
+                    do
+                    {
+                        msgcurrpos++;
+                        test2 = whatToType.Substring(msgcurrpos, 1);
+                        if (test2 == "}")
+                        {
+                            all = "{" + all + "}";
+                            break;
+                        }
+                        else
+                        {
+                            all = all + test2;
+                        }
+                    } while (true);
+                }
+                else
+                {
+                    all = test1;
+                }
+
+                //101-132 are uppercase
+                string testchar = all.Substring(0, 1);
+                byte[] asciiBytes = Encoding.ASCII.GetBytes(testchar);
+                int testcharval = asciiBytes[0];
+                if ((testcharval>64) && (testcharval<91))
+                {
+                    SendKeys.Send("+" + all);
+                }
+                else
+                {
+                    SendKeys.Send(all);
+                }
+                all = "";
+                msgcurrpos++;
+            } while (stop == false);
+            all = "";
         }
 
         public static IHTMLDocument2 ConvertIEToIHTMLDocument(SHDocVw.InternetExplorer myIE, string SearchFor)

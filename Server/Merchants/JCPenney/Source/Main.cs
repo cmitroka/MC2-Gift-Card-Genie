@@ -66,20 +66,30 @@ namespace DVB
             }
             else if (Instruction == 2)
             {
-                //OK = WebpageLib00.CAPTCHAGetImage(IE, "image?c=", ad.CAPTCHAPathAndFileToWrite);
-                //if (OK == "1") OK = DoHandleCAPTCHARqRs();
-                //HandleInstruction(OK);
+                OK = WebpageLib00.CAPTCHAGetImage(IE, "image?c=", ad.CAPTCHAPathAndFileToWrite);
+                if (OK == "1") OK = DoHandleCAPTCHARqRs();
+                HandleInstruction(OK);
             }
             else if (Instruction == 3)
             {
-                OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "cardNumber", txtCardNumber.Text, 1);
-                //if (OK != "-1") OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "recaptcha_response_field", txtCAPTCHAAnswer.Text, 1);
-                if (OK != "-1") OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "cardPin", txtCardPIN.Text, 1);
-                if (OK != "-1") OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zvalue, WebpageLib00.ComparisonType.Zexact, "Submit", "", 1);
+                Typer t = new Typer();
+                t.switchWindow(IE.HWND);
+                t.TypeIt(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text );
+                //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "recaptcha_response_field", "focus", 1)
+                OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "recaptcha_response_field", "focus", 1);
+                if (OK == "1")
+                {
+                    t.TypeIt(txtCAPTCHAAnswer.Text);
+                }
+                OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "cardNumber", "focus", 1);
+                t.TypeIt("{TAB}{TAB}{ENTER}");                
                 HandleInstruction(OK);
             }
             else if (Instruction == 4)
             {
+                OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "recaptcha_response_field", txtCAPTCHAAnswer.Text, 1);
+                if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "giftSubmitKey", "", 1);
+                HandleInstruction(OK);
             }
             else
             {
@@ -91,6 +101,7 @@ namespace DVB
                 string test = GCGMethods.GetHTMLFromHTMLDocument(FrameDoc);
                 //string test = GCGMethods.GetHTML(FrameDoc);
                 test = GCGMethods.GetPlainTextFromHTML(test);
+                //GCGMethods.WriteFile("C:\\test.txt", test, true);
                 try
                 {
                     testi = FrameDoc.body.innerHTML;
@@ -102,28 +113,10 @@ namespace DVB
                     return;
                 }
                 System.Diagnostics.Debug.WriteLine("OK");
-
                 //GCGMethods.WriteFile("C:\\testi.txt", testi, true);
                 //GCGMethods.WriteFile("C:\\testo.txt", testo, true);
                 //InspectIt(test, "has a balance ");
-                //mshtml.HTMLDocument htmlWindow2 = (mshtml.HTMLDocument)FrameDoc.frames.item(0);
-
-                /*
-                mshtml.FramesCollection frames = FrameDoc.frames;
-                    for (int i = 0; i < frames.length; i++)
-                    {
-                        object refIdx = i;
-                        IHTMLWindow2 frame = (IHTMLWindow2)frames.item(ref refIdx);
-                        IHTMLDocument2 doc2 = null;
-                        doc2 = CrossFrameIE.GetDocumentFromWindow(frame);
-                        mshtml.HTMLDocument doc3 = doc2 as mshtml.HTMLDocument;
-                        testi = doc3.body.innerHTML;
-                        testo = doc3.body.outerHTML;
-                        GCGMethods.WriteFile("C:\\testi"+i+".txt", testi, true);
-                        GCGMethods.WriteFile("C:\\testo" + i + ".txt", testo, true);
-                    }
-                */
-                balanceResult = GetBalance("CardBalance><STRONG>", "</STRONG>", testi);
+                balanceResult = GetBalance("responseGiftCardBalance\"><strong>", "</strong>", testo);
                 if (balanceResult == "")
                 {
                     SpecificRetryCnt++;
@@ -134,13 +127,10 @@ namespace DVB
                         SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "Sorry, we couldn't get the balance for some reason.", ad.RsPathAndFileToWrite);
                         OK = "1";
                     }
-                    else if (test.Contains("Please enter the exact "))
+                    else if (test.Contains("Invalid information entered"))
                     {
-                        //GCGMethods.WriteFile("C:\\test.txt", test, true);
-                        //string exactmessage = GCGMethods.RoughExtractAlphaNumOnly("Check Card Balance", "Enter your card number and PIN below", test);
-                        //exactmessage = exactmessage.Trim();
-                        txtCardBalance.Text = "InvCAPTCHA";
-                        SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "The CAPTCHA you entered was wrong, try again.", ad.RsPathAndFileToWrite);
+                        txtCardBalance.Text = "Inv";
+                        SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "Invalid information entered.", ad.RsPathAndFileToWrite);
                         OK = "1";
                     }
                     else if (test.Contains("We did not recognize "))
@@ -338,7 +328,7 @@ namespace DVB
             ApplicationExit();
         }
 
-        private string DoGCGDelay(int pDelayAmnt, bool ResumetmrRunning)
+        public string DoGCGDelay(int pDelayAmnt, bool ResumetmrRunning)
         {
             DelayAmnt = pDelayAmnt;
             DelayCnt = 0;
@@ -788,6 +778,69 @@ namespace DVB
                 GCGMethods.WriteFile("C:\\test.txt", test, true);
             }
         }
+        public void TypeIt(string whatToType)
+        {
+            string test1 = "";
+            string test2 = "";
+            string all = "";
+            bool stop = false;
+            int msgcurrpos = 0;
+            do
+            {
+                try
+                {
+                    test1 = whatToType.Substring(msgcurrpos, 1);
+                }
+                catch (Exception ex)
+                {
+                    stop = true;
+                    break;
+                }
+                if (test1 == "C")
+                {
+                    System.Diagnostics.Debug.WriteLine(test1);
+                }
+                if (test1 == "") return;
+                if (test1 == "{")
+                {
+                    do
+                    {
+                        msgcurrpos++;
+                        test2 = whatToType.Substring(msgcurrpos, 1);
+                        if (test2 == "}")
+                        {
+                            all = "{" + all + "}";
+                            break;
+                        }
+                        else
+                        {
+                            all = all + test2;
+                        }
+                    } while (true);
+                }
+                else
+                {
+                    all = test1;
+                }
+
+                //101-132 are uppercase
+                string testchar = all.Substring(0, 1);
+                byte[] asciiBytes = Encoding.ASCII.GetBytes(testchar);
+                int testcharval = asciiBytes[0];
+                if ((testcharval > 64) && (testcharval < 91))
+                {
+                    SendKeys.Send("+" + all);
+                }
+                else
+                {
+                    SendKeys.Send(all);
+                }
+                all = "";
+                msgcurrpos++;
+            } while (stop == false);
+            all = "";
+        }
+
         private string GrabCorrectPageOrFrame(string WhatToLookFor)
         {
             string OK;
@@ -816,6 +869,28 @@ namespace DVB
                 OK = "1";
             }
             return OK;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+                Typer t = new Typer();
+                string OK=t.TypeIt("testing)");
+                System.Diagnostics.Debug.WriteLine(OK);
+                
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Typer t = new Typer();
+            t.switchWindow("Notepad");
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "searchBox", "focus", 1);
+            Typer t = new Typer();
+            t.TypeIt("AAAAA");
+
         }
     }
 }
