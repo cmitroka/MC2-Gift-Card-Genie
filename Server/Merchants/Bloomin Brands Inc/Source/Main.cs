@@ -61,16 +61,19 @@ namespace DVB
             {
                 IE = new SHDocVw.InternetExplorer();
                 IE.Visible = true;
-                DoGCGDelay(10, true);
                 IE.Navigate2(txtBaseURL.Text);
             }
             else if (Instruction == 2)
+            {
+                DoGCGDelay(10, true);
+            }
+            else if (Instruction == 3)
             {
                 OK = WebpageLib00.CAPTCHAGetImage(IE, "WBServlet?jsessionid", ad.CAPTCHAPathAndFileToWrite);
                 if (OK == "1") OK = DoHandleCAPTCHARqRs();
                 HandleInstruction(OK);
             }
-            else if (Instruction == 3)
+            else if (Instruction == 4)
             {
                 //Typer t = new Typer();
                 //t.switchWindow(IE.HWND);
@@ -79,11 +82,16 @@ namespace DVB
                 OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "cardNoH", txtCardNumber.Text, 1);
                 if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "pinNoH", txtCardPIN.Text, 1);
                 if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "inCaptchaChars", txtCAPTCHAAnswer.Text, 1);
-                if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "submitBalanceButton", "", 1);
+                if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "inCaptchaChars", "focus", 1);
+                Typer t = new Typer();
+                t.switchWindow(IE.HWND);
+                t.TypeIt(txtCardNumber.Text + "{TAB} ");
+                //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "submitBalanceButton", "", 1);
+                //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zvalue, WebpageLib00.ComparisonType.Zexact, "Check Balance", "", 1);
                 //OK = "-1";
                 HandleInstruction(OK);
             }
-            else if (Instruction == 4)
+            else if (Instruction == 5)
             {
                 //OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "recaptcha_response_field", txtCAPTCHAAnswer.Text, 1);
                 //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "giftSubmitKey", "", 1);
