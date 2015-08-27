@@ -12,7 +12,8 @@
     <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>"" 1</StartArguments>
+    <StartArguments>
+    </StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug from C temp|AnyCPU'">
     <StartArguments>"C:\temp\Testrq.txt" 1</StartArguments>
@@ -20,5 +21,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Development|AnyCPU'">
     <StartArguments>
     </StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug from C temp|x86'">
+    <StartArguments>"C:\temp\Testrq.txt" 1</StartArguments>
   </PropertyGroup>
 </Project>
