@@ -20,10 +20,36 @@ namespace DVB
         const UInt32 SWP_NOSIZE = 0x0001;
         const UInt32 SWP_NOMOVE = 0x0002;
         const UInt32 SWP_SHOWWINDOW = 0x0040;
+        private const int ALT = 0xA4;
+        private const int VK_MENU=0x12;
+        private const int EXTENDEDKEY = 0x1;
+        private const int KEYUP = 0x2;
+        private const uint Restore = 9;
 
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern void SwitchToThisWindow(IntPtr hWnd, bool turnOn);
-        
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern short VkKeyScan(char ch);
+
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool IsIconic(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern int ShowWindow(IntPtr hWnd, uint Msg);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+
+
+
+
+
+
         private static string whattotype;
         private static string whattotypeall;
         private static int whattotypeloc;
@@ -113,6 +139,10 @@ namespace DVB
                     else
                     {
                         SendKeys.Send(whattotypeall);
+                        //char v=ConvertStringValToChar("A");
+                        //keybd_event(VK_MENU, 0xb8, KEYUP, 0);
+                        //keybd_event((byte)VkKeyScan(v),0x9e,0 , 0); // ‘A’ Press
+                        //keybd_event((byte)VkKeyScan(v), 0x9e, KEYUP, 0); // ‘A’ Release
                     }
                 }
                 catch (Exception ex)
@@ -122,8 +152,47 @@ namespace DVB
             whattotypeall = "";
             whattotypeloc++;
         }
+        public static char ConvertStringValToChar(String ch) 
+        {
+            char retval;
+            char[] charray = ch.ToCharArray();
+            retval=charray[0];
+            return retval;
+        }
 
-        public void switchWindow(string NameOfWindow)
+        //public static Keys ConvertCharToVirtualKey(String ch) {
+        //    Keys retval;
+        //    char[] charray = ch.ToCharArray();
+        //    foreach (char c in charray)
+        //    {
+        //        short vkey = VkKeyScan(c);
+        //        retval = (Keys)(vkey & 0xff);
+        //        int modifiers = vkey >> 8;
+        //        if ((modifiers & 1) != 0) retval |= Keys.Shift;
+        //        if ((modifiers & 2) != 0) retval |= Keys.Control;
+        //        if ((modifiers & 4) != 0) retval |= Keys.Alt;		 
+        //    }
+        //    return retval;
+        //}
+        public void SetForegroundWindowByHWND(int hWnd)
+        {
+            IntPtr x = (IntPtr)hWnd;
+            //check if already has focus
+            if (x == GetForegroundWindow())  return;
+            //check if window is minimized
+            if (IsIconic(x))
+            {
+                ShowWindow(x, Restore);
+            }
+
+            // Simulate a key press
+            keybd_event((byte)ALT, 0x45, EXTENDEDKEY | 0, 0);
+            //SetForegroundWindow(x);
+            // Simulate a key release
+            keybd_event((byte)ALT, 0x45, EXTENDEDKEY | KEYUP, 0);
+            SetForegroundWindow(x);
+        }
+        public void SetForegroundWindowByName(string NameOfWindow)
         {
             Process[] allprocs = Process.GetProcesses();
             foreach (Process proc in allprocs)
@@ -131,15 +200,11 @@ namespace DVB
                 System.Diagnostics.Debug.WriteLine(proc.MainWindowTitle);
                 if (proc.MainWindowTitle.Contains(NameOfWindow))
                 {
-                    SwitchToThisWindow(proc.MainWindowHandle, false);
+                    SetForegroundWindowByHWND((int)proc.MainWindowHandle);
                     //return;
                 }
             }
-        }
-        public void switchWindow(int hwnd)
-        {
-            IntPtr x = (IntPtr)hwnd;
-            SwitchToThisWindow(x, false);
+
         }
     }
 }

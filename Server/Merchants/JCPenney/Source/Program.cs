@@ -13,12 +13,18 @@ namespace DVB
         [STAThread]
         static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            if (args.Length != 0)
-                Application.Run(new Main(args));
-            else
-                Application.Run(new Main());
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                if (args.Length != 0)
+                    Application.Run(new Main(args));
+                else
+                    Application.Run(new Main());
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

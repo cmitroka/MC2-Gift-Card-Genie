@@ -73,8 +73,25 @@ namespace DVB
             else if (Instruction == 3)
             {
                 Typer t = new Typer();
-                t.switchWindow(IE.HWND);
-                t.TypeIt(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text );
+                t.SetForegroundWindowByHWND(IE.HWND);
+                OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "recaptcha_response_field", "focus", 1);
+                if (OK == "1")
+                {
+                    DoGCGDelay(5, true);
+                    t.TypeIt(txtCAPTCHAAnswer.Text);
+                }
+                OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "cardNumber", "focus", 1);
+                DoGCGDelay(5, true);
+                Typer t2 = new Typer();
+                t2.TypeIt(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{TAB}{TAB}{ENTER}");
+                HandleInstruction(OK);
+            }
+            else if (Instruction == -4)
+            {
+                Typer t = new Typer();
+                t.SetForegroundWindowByHWND(IE.HWND);
+                DoGCGDelay(10, true);
+                t.TypeIt(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text);
                 //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "recaptcha_response_field", "focus", 1)
                 OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "recaptcha_response_field", "focus", 1);
                 if (OK == "1")
@@ -82,10 +99,11 @@ namespace DVB
                     t.TypeIt(txtCAPTCHAAnswer.Text);
                 }
                 OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "cardNumber", "focus", 1);
-                t.TypeIt("{TAB}{TAB}{ENTER}");                
+                t.TypeIt("{TAB}{TAB}{ENTER}");
                 HandleInstruction(OK);
+
             }
-            else if (Instruction == 4)
+            else if (Instruction == -5)
             {
                 OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "recaptcha_response_field", txtCAPTCHAAnswer.Text, 1);
                 if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "giftSubmitKey", "", 1);
@@ -882,7 +900,7 @@ namespace DVB
         private void button3_Click(object sender, EventArgs e)
         {
             Typer t = new Typer();
-            t.switchWindow("Notepad");
+            t.SetForegroundWindowByName("Notepad");
         }
 
         private void button2_Click_1(object sender, EventArgs e)
