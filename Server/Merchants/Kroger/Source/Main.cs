@@ -19,10 +19,6 @@ namespace DVB
 {
     public partial class Main : Form
     {
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
         public string CLIrqFile = "", AppName = "", AutoRun = "";
 
         public AllDetails ad;
@@ -84,16 +80,16 @@ namespace DVB
                 //t.switchWindow(IE.HWND);
                 //t.TypeIt(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text );
                 //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "recaptcha_response_field", "focus", 1)
-                OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zselect, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$ContentPlaceHolderBodyContent$ddlCardNumberLength", "focus", 1);
                 Typer t = new Typer();
-                //t.switchWindow(IE.HWND);
+                t.SetForegroundWindowByHWND(IE.HWND);
+                OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zselect, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$ContentPlaceHolderBodyContent$ddlCardNumberLength", "focus", 1);
                 int charcount = txtCardNumber.Text.Length;
                 if (charcount == 16)
                 {
                     OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zselect, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$ContentPlaceHolderBodyContent$ddlCardNumberLength", "Digits19", 1);
                     if (OK == "1")
                     {
-                        t.TypeIt(txtCardNumber.Text + "{UP}");
+                        t.TypeIt("{UP}");
                     }
                 }
                 else if (charcount == 19)
@@ -101,7 +97,7 @@ namespace DVB
                     OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zselect, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$ContentPlaceHolderBodyContent$ddlCardNumberLength", "Digits16", 1);
                     if (OK == "1")
                     {
-                        t.TypeIt(txtCardNumber.Text + "{DOWN}");
+                        t.TypeIt("{DOWN}");
                     }
                 }
                 HandleInstruction(OK);
@@ -116,19 +112,6 @@ namespace DVB
             }
             else if (Instruction == 5)
             {
-                Typer t = new Typer();
-                t.switchWindow(IE.HWND);
-                int charcount = txtCardNumber.Text.Length;
-                if (charcount == 16)
-                {
-                    t.TypeIt(txtCardNumber.Text + "{UP}");
-                }
-                else if (charcount == 19)
-                {
-                    {
-                        t.TypeIt(txtCardNumber.Text + "{DOWN}");
-                    }
-                }
             }
 
             else if (Instruction == 6)
@@ -265,7 +248,7 @@ namespace DVB
         private void Main_Load(object sender, EventArgs e)
         {
             this.Location = new Point(0, 0);
-            this.Size = new Size(980, 250);
+            this.Size = new Size(980,250);
             AppName = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
             this.Text = "Balance Extractor - " + AppName;
             SpecificRetryCntMax = 999;
@@ -562,7 +545,7 @@ namespace DVB
                     GCGMethods.WriteTextBoxLog(txtLog, "SaveCAPTCHA grabbing doc");
                     mshtml.IHTMLDocument2 document2 = IE.Document as mshtml.IHTMLDocument2;
                     mshtml.HTMLDocument document = IE.Document as mshtml.HTMLDocument;
-
+                    
                     //if (!document.activeElement.isTextEdit)
                     //{
                     //    MessageBox.Show("Active element is not a text-input system");
@@ -662,7 +645,7 @@ namespace DVB
 
                 }
                 Application.DoEvents();
-            } while (retVal == "-1");
+            } while (retVal=="-1");
         }
         private void cmdViewLog_Click(object sender, EventArgs e)
         {
@@ -687,7 +670,7 @@ namespace DVB
             WebProxy proxy = WebProxy.GetDefaultProxy();
             WS.Proxy = proxy;
             WS.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
-            WS.SaveWDDataForEXE01(AppName, txtCleanName.Text, txtBaseURL.Text, txtCardNumber.Text, txtCardPIN.Text, txtLogin.Text, txtPassword.Text, cmbSupportCode.Text, txtTimeout.Text, "CJMGCG");
+            WS.SaveWDDataForEXE01(AppName,txtCleanName.Text, txtBaseURL.Text, txtCardNumber.Text, txtCardPIN.Text, txtLogin.Text, txtPassword.Text, cmbSupportCode.Text, txtTimeout.Text,  "CJMGCG");
             //WS.SaveURLForEXE(AppName,txtBaseURL.Text,"");
         }
 
@@ -926,6 +909,28 @@ namespace DVB
                 OK = "1";
             }
             return OK;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+                Typer t = new Typer();
+                string OK=t.TypeIt("testing)");
+                System.Diagnostics.Debug.WriteLine(OK);
+                
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Typer t = new Typer();
+            t.SetForegroundWindowByName("Notepad");
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "searchBox", "focus", 1);
+            Typer t = new Typer();
+            t.TypeIt("AAAAA");
+
         }
     }
 }
