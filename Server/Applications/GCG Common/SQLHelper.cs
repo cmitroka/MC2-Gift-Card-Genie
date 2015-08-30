@@ -1,49 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data.OleDb;
+using System.Linq;
+using System.Web;
+
 
 namespace GCGCommon
 {
-    public class DB
+    public class SQLHelper
     {
+        public enum MDBBaseLoc { EnvironmentCurrentDirectory, DirectoryGetCurrentDirectory, CurrentDomainBaseDirectory, Direct };
         public OleDbConnection aConnection;
-        public DB(string PathOfDB)
+        public SQLHelper(MDBBaseLoc baseloc, string mdbtouse)
         {
-            GetAndOpenOleDbConnection(PathOfDB);
-        }
-        public void CloseOleDbConnection()
-        {
-            aConnection.Close();
-            aConnection.Dispose();
-            aConnection = null;
-        }
-        public static bool isDatasetBad(string[][] dataIn)
-        {
-            if (dataIn == null) return true;
-            try
-            {
-                if (dataIn[0][49] == "")
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            GetAndOpenOleDbConnection(baseloc, mdbtouse);
         }
 
-        private OleDbConnection GetAndOpenOleDbConnection(string mdbtouse)
+        public void CloseIt()
         {
+            aConnection.Close();
+        }
+
+        private OleDbConnection GetAndOpenOleDbConnection(MDBBaseLoc mdbbl, string mdbtouse)
+        {
+            string MDBPath = "";
+            MDBPath = System.AppDomain.CurrentDomain.BaseDirectory;
+            if (mdbbl.ToString() == "EnvironmentCurrentDirectory")
+            {
+                MDBPath = Environment.CurrentDirectory + "\\" + mdbtouse;
+            }
+            else if (mdbbl.ToString() == "CurrentDomainBaseDirectory")
+            {
+                MDBPath = System.AppDomain.CurrentDomain.BaseDirectory + "\\" + mdbtouse;
+            }
+            else if (mdbbl.ToString() == "Direct")
+            {
+                MDBPath = mdbtouse;
+            }
             try
             {
-                aConnection = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + mdbtouse);
+                aConnection = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + MDBPath);
                 aConnection.Open();
             }
             catch (Exception ex)
@@ -189,22 +185,23 @@ namespace GCGCommon
             OleDbCommand cmdQry = new OleDbCommand(SQLin, aConnection);
             cmdQry.Connection = aConnection;
             //cmdQry.CommandType = CommandType.Text;
-            if (P0 != "") {cmdQry.Parameters.AddWithValue("P0", P0); } else { cmdQry.Parameters.AddWithValue("P0", DBNull.Value); }
-            if (P1 != "") {cmdQry.Parameters.AddWithValue("P1", P1); } else { cmdQry.Parameters.AddWithValue("P1", DBNull.Value); }
-            if (P2 != "") {cmdQry.Parameters.AddWithValue("P2", P2); } else { cmdQry.Parameters.AddWithValue("P2", DBNull.Value); }
-            if (P3 != "") {cmdQry.Parameters.AddWithValue("P3", P3); } else { cmdQry.Parameters.AddWithValue("P3", DBNull.Value); }
-            if (P4 != "") {cmdQry.Parameters.AddWithValue("P4", P4); } else { cmdQry.Parameters.AddWithValue("P4", DBNull.Value); }
-            if (P5 != "") {cmdQry.Parameters.AddWithValue("P5", P5); } else { cmdQry.Parameters.AddWithValue("P5", DBNull.Value); }
-            if (P6 != "") {cmdQry.Parameters.AddWithValue("P6", P6); } else { cmdQry.Parameters.AddWithValue("P6", DBNull.Value); }
-            if (P7 != "") {cmdQry.Parameters.AddWithValue("P7", P7); } else { cmdQry.Parameters.AddWithValue("P7", DBNull.Value); }
-            if (P8 != "") {cmdQry.Parameters.AddWithValue("P8", P8); } else { cmdQry.Parameters.AddWithValue("P8", DBNull.Value); }
-            if (P9 != "") {cmdQry.Parameters.AddWithValue("P9", P9); } else { cmdQry.Parameters.AddWithValue("P9", DBNull.Value); }
+            if (P0 != "") { cmdQry.Parameters.AddWithValue("P0", P0); } else { cmdQry.Parameters.AddWithValue("P0", DBNull.Value); }
+            if (P1 != "") { cmdQry.Parameters.AddWithValue("P1", P1); } else { cmdQry.Parameters.AddWithValue("P1", DBNull.Value); }
+            if (P2 != "") { cmdQry.Parameters.AddWithValue("P2", P2); } else { cmdQry.Parameters.AddWithValue("P2", DBNull.Value); }
+            if (P3 != "") { cmdQry.Parameters.AddWithValue("P3", P3); } else { cmdQry.Parameters.AddWithValue("P3", DBNull.Value); }
+            if (P4 != "") { cmdQry.Parameters.AddWithValue("P4", P4); } else { cmdQry.Parameters.AddWithValue("P4", DBNull.Value); }
+            if (P5 != "") { cmdQry.Parameters.AddWithValue("P5", P5); } else { cmdQry.Parameters.AddWithValue("P5", DBNull.Value); }
+            if (P6 != "") { cmdQry.Parameters.AddWithValue("P6", P6); } else { cmdQry.Parameters.AddWithValue("P6", DBNull.Value); }
+            if (P7 != "") { cmdQry.Parameters.AddWithValue("P7", P7); } else { cmdQry.Parameters.AddWithValue("P7", DBNull.Value); }
+            if (P8 != "") { cmdQry.Parameters.AddWithValue("P8", P8); } else { cmdQry.Parameters.AddWithValue("P8", DBNull.Value); }
+            if (P9 != "") { cmdQry.Parameters.AddWithValue("P9", P9); } else { cmdQry.Parameters.AddWithValue("P9", DBNull.Value); }
             System.Data.DataSet ds = new System.Data.DataSet();
             try
             {
                 if (P0 == "")
                 {
                     OleDbDataAdapter da = new OleDbDataAdapter(SQLin, aConnection);
+                    //GCGCommon.SupportMethods.WriteFile("C:\\out.txt",SQLin,true);
                     da.Fill(ds, "RandomData");
                 }
                 else
@@ -216,9 +213,10 @@ namespace GCGCommon
                 int arrP1Size = ds.Tables["RandomData"].Rows.Count - 1;
                 if (arrP1Size == -1)
                 {
+                    retVal = null;
                     string[] fake = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
                     retVal = new string[1][];
-                    retVal[0]=fake;
+                    retVal[0] = fake;
                     return retVal;
                 }
                 retVal = new string[arrP1Size + 1][];
@@ -240,7 +238,9 @@ namespace GCGCommon
             catch (OleDbException ex)
             {
                 Console.WriteLine(ex.Message);
-                return null;
+                //throw new Exception("Error message: " + ex.Message, ex.InnerException);
+                //return null;
+                retVal = null;
             }
             return retVal;
 
@@ -266,7 +266,10 @@ namespace GCGCommon
             int OK = -1;
             try
             {
+                retVal = 1;
                 OK = cmdExec.ExecuteNonQuery();
+                retVal = OK;
+                return retVal;
             }
             catch (Exception ex)
             {
