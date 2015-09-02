@@ -91,6 +91,10 @@ namespace DVB
 
             //101-132 are uppercase
             string testchar = whattotypeall.Substring(0, 1);
+            if (testchar=="5")
+            {
+                testchar = testchar;
+            }
             byte[] asciiBytes = Encoding.ASCII.GetBytes(testchar);
             int testcharval = asciiBytes[0];
             if ((testcharval > 64) && (testcharval < 91))

@@ -84,13 +84,20 @@ namespace DVB
                 Typer t = new Typer();
                 t.switchWindow(IE.HWND);
                 OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$mainContentPlaceHolder$txtGiftCardNumber", "focus", 1);
-                t.TypeIt("{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}");
-                t.TypeIt(txtCardNumber.Text + "{TAB}{ENTER}");
+                t.TypeIt("{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}");
+                //t.TypeIt(txtCardNumber.Text + "{TAB}{ENTER}");
                 //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "ctl00_mainContentPlaceHolder_txtAccessNumber_giftCardTextBox1", txtCardPIN.Text, 1);
                 //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zimg, WebpageLib00.UsingIdentifier.Zsrc, WebpageLib00.ComparisonType.Zcontains, "Check-Balance-button_80x20.png", "", 1);
 
                 OK = "1";
                 HandleInstruction(OK);
+            }
+            else if (Instruction == 5)
+            {
+                DoGCGDelay(50,false);
+                Typer t2 = new Typer();
+                t2.TypeIt(txtCardNumber.Text + "{TAB}{ENTER}");
+                DoGCGDelay(10, true);
             }
             else
             {
@@ -317,7 +324,14 @@ namespace DVB
         }
         private void ApplicationExit()
         {
-            IE.Quit();
+            try
+            {
+                IE.Quit();
+            }
+            catch (Exception)
+            {
+                
+            }
             Application.Exit();
         }
         private void DefinetlyExitApp(string reason)
