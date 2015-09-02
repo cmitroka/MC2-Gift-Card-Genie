@@ -80,30 +80,14 @@ namespace DVB
             }
             else if (Instruction == 4)
             {
-                //Typer t = new Typer();
-                //t.switchWindow(IE.HWND);
-                //t.TypeIt(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text );
-                //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "recaptcha_response_field", "focus", 1)
-                OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zselect, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$ContentPlaceHolderBodyContent$ddlCardNumberLength", "focus", 1);
+                OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$mainContentPlaceHolder$txtGiftCardNumber", txtCardNumber.Text, 1);
                 Typer t = new Typer();
-                //t.switchWindow(IE.HWND);
-                int charcount = txtCardNumber.Text.Length;
-                if (charcount == 16)
-                {
-                    OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zselect, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$ContentPlaceHolderBodyContent$ddlCardNumberLength", "Digits19", 1);
-                    if (OK == "1")
-                    {
-                        t.TypeIt(txtCardNumber.Text + "{UP}");
-                    }
-                }
-                else if (charcount == 19)
-                {
-                    OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zselect, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$ContentPlaceHolderBodyContent$ddlCardNumberLength", "Digits16", 1);
-                    if (OK == "1")
-                    {
-                        t.TypeIt(txtCardNumber.Text + "{DOWN}");
-                    }
-                }
+                t.switchWindow(IE.HWND);
+                OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$mainContentPlaceHolder$txtGiftCardNumber", "focus", 1);
+                t.TypeIt("{TAB}"+txtCardPIN.Text);
+                //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "ctl00_mainContentPlaceHolder_txtAccessNumber_giftCardTextBox1", txtCardPIN.Text, 1);
+                if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zimg, WebpageLib00.UsingIdentifier.Zsrc, WebpageLib00.ComparisonType.Zcontains, "button_check-balance.gif", "", 1);
+                OK = "1";
                 HandleInstruction(OK);
 
                 //OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zselect, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$ContentPlaceHolderBodyContent$ddlCardNumberLength", "focus", 1);
@@ -113,39 +97,6 @@ namespace DVB
                 //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "submitBalanceButton", "", 1);
                 //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zvalue, WebpageLib00.ComparisonType.Zexact, "Check Balance", "", 1);
                 //OK = "-1";
-            }
-            else if (Instruction == 5)
-            {
-                Typer t = new Typer();
-                t.switchWindow(IE.HWND);
-                int charcount = txtCardNumber.Text.Length;
-                if (charcount == 16)
-                {
-                    t.TypeIt(txtCardNumber.Text + "{UP}");
-                }
-                else if (charcount == 19)
-                {
-                    {
-                        t.TypeIt(txtCardNumber.Text + "{DOWN}");
-                    }
-                }
-            }
-
-            else if (Instruction == 6)
-            {
-                int charcount = txtCardNumber.Text.Length;
-                if (charcount == 16)
-                {
-                    OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$ContentPlaceHolderBodyContent$txtCardNumber", txtCardNumber.Text, 1);
-                    if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$ContentPlaceHolderBodyContent$buttonCheckBalance", "", 1);
-                }
-                else
-                {
-                    OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$ContentPlaceHolderBodyContent$txtCardNumber", txtCardNumber.Text, 1);
-                    if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$ContentPlaceHolderBodyContent$txtPin", txtCardPIN.Text, 1);
-                    if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$ContentPlaceHolderBodyContent$buttonCheckBalance", "", 1);
-                }
-                HandleInstruction(OK);
             }
             else
             {
@@ -172,7 +123,7 @@ namespace DVB
                 //GCGMethods.WriteFile("C:\\testi.txt", testi, true);
                 //GCGMethods.WriteFile("C:\\testo.txt", testo, true);
                 //InspectIt(test, "has a balance ");
-                balanceResult = GetBalance("The current balance on this card is ", ".</span>", testo);
+                balanceResult = GetBalance("_balanceInfoAmount\" style=\"font-size: small; font-weight: bold;\">", ".</span>", testo);
                 if (balanceResult == "")
                 {
                     SpecificRetryCnt++;

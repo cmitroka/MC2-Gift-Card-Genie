@@ -124,6 +124,14 @@ namespace DVB
                     if (usingIdentifier == UsingIdentifier.Zclass) { if (colItemClass == IDorNAMEToFInd) FoundIt = true; }
                     if (usingIdentifier == UsingIdentifier.Zvalue) { if (colItemValue == IDorNAMEToFInd) FoundIt = true; }
 
+                    if ((FoundIt == false)&&(comparisonType==ComparisonType.Zcontains))
+                    {
+                        if (usingIdentifier == UsingIdentifier.Zid) { if (colItemID.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                        if (usingIdentifier == UsingIdentifier.Zname) { if (colItemName.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                        if (usingIdentifier == UsingIdentifier.Zclass) { if (colItemClass.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                        if (usingIdentifier == UsingIdentifier.Zvalue) { if (colItemValue.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                        if (usingIdentifier == UsingIdentifier.Zsrc) { if (colItemSrc.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                    }
                     if (FoundIt == true)
                     {
                         System.Diagnostics.Debug.WriteLine("FOUND IT!");
