@@ -82,7 +82,7 @@ namespace DVB
             {
                 OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$mainContentPlaceHolder$txtGiftCardNumber", txtCardNumber.Text, 1);
                 Typer t = new Typer();
-                t.switchWindow(IE.HWND);
+                t.SetForegroundWindowByHWND(IE.HWND);
                 OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$mainContentPlaceHolder$txtGiftCardNumber", "focus", 1);
                 t.TypeIt("{TAB}"+txtCardPIN.Text);
                 //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "ctl00_mainContentPlaceHolder_txtAccessNumber_giftCardTextBox1", txtCardPIN.Text, 1);
