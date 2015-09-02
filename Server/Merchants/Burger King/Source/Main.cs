@@ -82,7 +82,7 @@ namespace DVB
             {
                 //OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "TextBoxCardNumber", txtCardNumber.Text, 1);
                 Typer t = new Typer();
-                t.switchWindow(IE.HWND);
+                t.SetForegroundWindowByHWND(IE.HWND);
                 OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$mainContentPlaceHolder$txtGiftCardNumber", "focus", 1);
                 t.TypeIt("{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}");
                 //t.TypeIt(txtCardNumber.Text + "{TAB}{ENTER}");
