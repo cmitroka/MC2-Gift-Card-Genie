@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Timers;
 using System.Drawing;
 using System.Windows.Forms;
 using GCGCommon;
@@ -10,11 +11,15 @@ using System.IO;
 using mshtml;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
+using System.Text.RegularExpressions;
 using System.Diagnostics;
 namespace DVB
 {
     static class GCGMethods
     {
+        public enum FocusTypes { RemoveFocus, Focus, Click };
+        public enum HTMLTagNames { Za, Zarea, Zbutton, Zdiv, Zform, Zhr, Zimg, Zinput, Zselect };
+        public enum HTMLAttributes { Zalt, Zclass, Zhref, Zid, Zname, ZinnerHTML, ZInnerText, ZouterHtml, ZOuterText, Zsrc, Zvalue, };
 
         public static Bitmap CaptureRegionAsBMP(int LeftPosition, int TopPosition, int WidthSize, int HeightSize)
         {
@@ -31,16 +36,16 @@ namespace DVB
             string newmsg = topmessage + "\r\n" + tb.Text;
             tb.Text = newmsg;
         }
-        public static string SimInput2(IHTMLDocument2 iHTMLDocument2, HTMLEnumTagNames zHTMLEnumTagNames, HTMLEnumAttributes zHTMLEnumAttributes, string attName, string FillWithVal, int FoundInLoop)
+        public static string SimInput(IHTMLDocument2 iHTMLDocument2, HTMLTagNames zHTMLTagNames, HTMLAttributes zHTMLAttributes, string attName, string FillWithVal, int FoundInLoop)
         {
             string retVal = "";
-            retVal = DoElementAction2(iHTMLDocument2, zHTMLEnumTagNames, zHTMLEnumAttributes, attName, FillWithVal, FoundInLoop);
+            retVal = DoElementAction(iHTMLDocument2, zHTMLTagNames, zHTMLAttributes, attName, FillWithVal, FoundInLoop);
             return retVal;
         }
-        public static string SimInput2(IHTMLDocument2 iHTMLDocument2, HTMLEnumTagNames zHTMLEnumTagNames, HTMLEnumAttributes zHTMLEnumAttributes, string attName, string FillWithVal)
+        public static string SimInput(IHTMLDocument2 iHTMLDocument2, HTMLTagNames zHTMLTagNames, HTMLAttributes zHTMLAttributes, string attName, string FillWithVal)
         {
             string retVal = "";
-            retVal = DoElementAction2(iHTMLDocument2, zHTMLEnumTagNames, zHTMLEnumAttributes, attName, FillWithVal,1);
+            retVal = DoElementAction(iHTMLDocument2, zHTMLTagNames, zHTMLAttributes, attName, FillWithVal,1);
             return retVal;
         }
         public static bool WriteFile(string TextFileLocation, string WhatToWrite, bool OpenAfterwards)
@@ -85,6 +90,43 @@ namespace DVB
                     int b = endloc - a;
                     string temphtml = EnitreHTML.Substring(a, b);
                     retVal = temphtml;
+                    return retVal;
+                } while (true);
+            }
+            catch (Exception ex)
+            {
+                retVal = "";
+            }
+            return retVal;
+        }
+        public static string RoughExtractAlphaNumOnly(string StringInStart, string StringInStop, string EnitreHTML)
+        {
+            string CSEnitreHTML = EnitreHTML;
+            Regex rgx = new Regex("[^a-zA-Z0-9 -]");
+            EnitreHTML = EnitreHTML.ToUpper();
+            StringInStart = StringInStart.ToUpper();
+            StringInStop = StringInStop.ToUpper();
+            int index = 0;
+            int startloc = 0;
+            int endloc = 0;
+            string retVal = "";
+            try
+            {
+                do
+                {
+                    startloc = EnitreHTML.IndexOf(StringInStart, startloc + 1);
+                    if (startloc == -1) break;
+                    int a = startloc + StringInStart.Length;
+                    endloc = EnitreHTML.IndexOf(StringInStop, a + 1);
+                    if (StringInStop == "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                    {
+                        endloc = EnitreHTML.Length;
+                    }
+                    int b = endloc - a;
+                    string temphtml = CSEnitreHTML.Substring(a, b);
+                    temphtml = rgx.Replace(temphtml, "");
+                    retVal = temphtml;
+                    return retVal;
                 } while (true);
             }
             catch (Exception ex)
@@ -122,40 +164,147 @@ namespace DVB
             }
             return retVal;
         }
-        public static IHTMLDocument2 ConvertWebBrowserToIHTMLDocument2(WebBrowser wb, int frameindex)
+        public static int FindWhatFrameItsIn(SHDocVw.InternetExplorer myIE, string SearchFor)
         {
-            IHTMLDocument2 FrameDoc = null;
-            FrameDoc = WebBrowserToIHTMLDocument2(wb, frameindex);
-            return FrameDoc;
-        }
-        public static IHTMLDocument2 ConvertWebBrowserToIHTMLDocument2(WebBrowser wb)
-        {
-            IHTMLDocument2 FrameDoc = null;
-            FrameDoc = WebBrowserToIHTMLDocument2(wb, -1);
-            return FrameDoc;
-        }
-
-        private static IHTMLDocument2 WebBrowserToIHTMLDocument2(WebBrowser wb, int frameindex)
-        {
-            IHTMLDocument2 FrameDoc =null;
+            int retVal = -999;
+            bool FoundIt = false;
+            IHTMLDocument2 FrameDoc2 = null;
             try
             {
-                mshtml.HTMLDocument htmlDoc = (HTMLDocument)wb.Document.DomDocument;
-                if (frameindex >= 0)
+                mshtml.HTMLDocument htmlDoc = (HTMLDocument)myIE.Document;
+                for (int i = 0; i < htmlDoc.frames.length; i++)
                 {
-                    IHTMLWindow2 htmlWindow = (IHTMLWindow2)htmlDoc.frames.item(frameindex);
-                    FrameDoc = CrossFrameIE.GetDocumentFromWindow(htmlWindow);
+                    IHTMLWindow2 htmlWindow = (IHTMLWindow2)htmlDoc.frames.item(i);
+                    FrameDoc2 = CrossFrameIE.GetDocumentFromWindow(htmlWindow);
+                    string HTMLTest = FrameDoc2.body.innerHTML;
+                    if (HTMLTest==null)
+                    {
+                        System.Diagnostics.Debug.WriteLine("No HTML in frame " + i);
+                        continue;
+                    }
+                    HTMLTest = HTMLTest.ToUpper();
+                    if (HTMLTest.Contains(SearchFor.ToUpper()))
+                    {
+                        FoundIt = true;
+                        System.Diagnostics.Debug.WriteLine("IS in frame " + i);
+                        retVal = i;
+                        break;
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("Not in frame " + i);
+                    }
                 }
-                else
+                if (FoundIt == false)
                 {
-                    FrameDoc = (IHTMLDocument2)htmlDoc;
+                    FrameDoc2 = (IHTMLDocument2)htmlDoc;
+                    string HTMLTest = FrameDoc2.body.innerHTML;
+                    try
+                    {
+                        HTMLTest = HTMLTest.ToUpper();
+                        if (HTMLTest.Contains(SearchFor.ToUpper()))
+                        //GCGCommon.SupportMethods.WriteFile("C:\\test", HTMLTest, true);
+                        {
+                            FoundIt = true;
+                            retVal = -1;
+                            System.Diagnostics.Debug.WriteLine("IS in base document");
+                        }
+                    }
+                    catch (Exception ex1)
+                    {
+                        System.Diagnostics.Debug.WriteLine("No HTML Content");
+                    }
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
-            return FrameDoc;
+            return retVal;
+        }
+        public static IHTMLDocument2 ConvertIEToIHTMLDocument2(SHDocVw.InternetExplorer myIE, string SearchFor)
+        {
+            bool FoundIt=false;
+            IHTMLDocument2 FrameDoc2 = null;
+            try
+            {
+                mshtml.HTMLDocument htmlDoc = (HTMLDocument)myIE.Document;
+                for (int i = 0; i < htmlDoc.frames.length; i++)
+                {
+                    IHTMLWindow2 htmlWindow = (IHTMLWindow2)htmlDoc.frames.item(i);
+                    FrameDoc2 = CrossFrameIE.GetDocumentFromWindow(htmlWindow);
+                    string HTMLTest = "";
+                    HTMLTest = FrameDoc2.body.innerHTML;
+                    if (HTMLTest == null)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Not sure if it's in frame " + i);
+                        HTMLTest = "";
+                        FoundIt = true;
+                        break;
+                    }
+                    HTMLTest=HTMLTest.ToUpper();
+                    //GCGCommon.SupportMethods.WriteFile("C:\\test_"+i, HTMLTest, true);
+                    if (HTMLTest.Contains(SearchFor.ToUpper()))
+                    {
+                        FoundIt = true;
+                        //GCGMethods.WriteFile("C:\\HTMLTest.txt", HTMLTest, true);
+                        System.Diagnostics.Debug.WriteLine("IS in frame " + i);
+                        break;
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("Not in frame "+i);
+                    }
+                }
+                if (FoundIt == false)
+                {
+                    FrameDoc2 = (IHTMLDocument2)htmlDoc;
+                    string HTMLTest = FrameDoc2.body.innerHTML;
+                    HTMLTest = HTMLTest.ToUpper();
+                    if (HTMLTest.Contains(SearchFor.ToUpper()))
+                    //GCGCommon.SupportMethods.WriteFile("C:\\test", HTMLTest, true);
+                    {
+                        FoundIt = true;
+                        System.Diagnostics.Debug.WriteLine("IS in base document");
+                    }
+                }            
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+            if (FoundIt == true)
+            {
+                return FrameDoc2;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
+        public static IHTMLDocument2 ConvertIEToIHTMLDocument2(SHDocVw.InternetExplorer myIE, int frameindex)
+        {
+            IHTMLDocument2 FrameDoc2 = null;
+            try
+            {   
+                mshtml.HTMLDocument htmlDoc = (HTMLDocument)myIE.Document;
+                System.Diagnostics.Debug.WriteLine(htmlDoc.frames.length);
+                if (frameindex >= 0)
+                {
+                    IHTMLWindow2 htmlWindow = (IHTMLWindow2)htmlDoc.frames.item(frameindex);
+                    FrameDoc2 = CrossFrameIE.GetDocumentFromWindow(htmlWindow);
+                }
+                else
+                {
+                    FrameDoc2 = (IHTMLDocument2)htmlDoc;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+            return FrameDoc2;
         }
 
         public static string GetPlainTextFromHTML(string HTMLIn)
@@ -172,6 +321,7 @@ namespace DVB
             }
             return retVal;
         }
+
         public static string GetHTML(IHTMLDocument2 FrameDoc)
         {
             string retVal = "";
@@ -184,15 +334,41 @@ namespace DVB
             }
             return retVal;
         }
-        public static string ElementExists(IHTMLDocument2 FrameDoc, HTMLEnumTagNames HTMLEnumTagNames, HTMLEnumAttributes zHTMLEnumAttributes, string attName)
+        public static string GetHTMLFromHTMLDocument(HTMLDocument FrameDoc)
+        {
+            string retVal = "";
+            try
+            {
+                retVal = FrameDoc.body.innerHTML;
+            }
+            catch (Exception ex)
+            {
+            }
+            return retVal;
+        }
+        public static string GetHTMLFromIHTMLDocument2(IHTMLDocument2 FrameDoc)
+        {
+            string retVal = "";
+            try
+            {
+                retVal = FrameDoc.body.innerHTML;
+            }
+            catch (Exception ex)
+            {
+            }
+            return retVal;
+        }
+        public static string ElementExists(IHTMLDocument2 FrameDoc, HTMLTagNames HTMLTagNames, HTMLAttributes zHTMLAttributes, string attName)
         {
             string retVal = "-1";
             attName=attName.ToUpper();
             int foreachcount=0;
+            string HTMLEnumAttribute = zHTMLAttributes.ToString();
+            if (zHTMLAttributes.ToString() == "classs") HTMLEnumAttribute = "className";
             try
             {
 
-                mshtml.IHTMLElementCollection c = ((mshtml.HTMLDocumentClass)(FrameDoc)).getElementsByTagName(HTMLEnumTagNames.ToString());
+                mshtml.IHTMLElementCollection c = ((mshtml.HTMLDocumentClass)(FrameDoc)).getElementsByTagName(HTMLTagNames.ToString());
                 foreach (IHTMLElement div in c)
                 {
                     foreachcount++;
@@ -200,11 +376,11 @@ namespace DVB
                     System.Diagnostics.Debug.WriteLine("ID: " + div.id);
                     bool TryIt = false;
                     string testUcaseVal = "ALWAYSFAILATTHISPOINT";
-                    if (zHTMLEnumAttributes.ToString().ToUpper() == "OUTERHTML") attName = "*%" + attName;
+                    if (HTMLEnumAttribute.ToUpper() == "OUTERHTML") attName = "*%" + attName;
                     try
                     {
-                        testUcaseVal = div.getAttribute(zHTMLEnumAttributes.ToString()).ToString().ToUpper();
-                        System.Diagnostics.Debug.WriteLine(zHTMLEnumAttributes.ToString() + ": " + testUcaseVal);
+                        testUcaseVal = div.getAttribute(HTMLEnumAttribute).ToString().ToUpper();
+                        System.Diagnostics.Debug.WriteLine(HTMLEnumAttribute + ": " + testUcaseVal);
                     }
                     catch (Exception ex)
                     {
@@ -223,27 +399,37 @@ namespace DVB
             }
             return retVal;
         }
-        private static string DoElementAction2(IHTMLDocument2 FrameDoc, HTMLEnumTagNames HTMLEnumTagNames, HTMLEnumAttributes zHTMLEnumAttributes, string attName, string FillWithVal, int FoundInLoop)
+        private static string DoElementAction(IHTMLDocument2 FrameDoc, HTMLTagNames HTMLTagNames, HTMLAttributes zHTMLAttributes, string attName, string FillWithVal, int FoundInLoop)
         {
             int FoundInLoopCount = 0;
             int foreachcount=0;
             string retVal = "-1";
             attName=attName.ToUpper();
+            string pHTMLTagNames=HTMLTagNames.ToString().Substring(1,HTMLTagNames.ToString().Length-1);
+            string pHTMLEnumAttribute = zHTMLAttributes.ToString().Substring(1, zHTMLAttributes.ToString().Length - 1);
             try
             {
 
-                mshtml.IHTMLElementCollection c = ((mshtml.HTMLDocumentClass)(FrameDoc)).getElementsByTagName(HTMLEnumTagNames.ToString());
+                mshtml.IHTMLElementCollection c = ((mshtml.HTMLDocumentClass)(FrameDoc)).getElementsByTagName(pHTMLTagNames);
                 foreach (IHTMLElement div in c)
                 {
                     foreachcount++;
+                    if (attName == "RELOAD-LINK")
+                    {
+                        if (foreachcount < 550) continue;
+                    }
+                    if (c.length == 0) break;
                     System.Diagnostics.Debug.WriteLine("foreachcount: " + foreachcount.ToString() + " of " + c.length.ToString());
-                    //System.Diagnostics.Debug.WriteLine("OutterHTML: " + div.outerHTML);
-                    //System.Diagnostics.Debug.WriteLine("OutterText: " + div.outerText);
+                    System.Diagnostics.Debug.WriteLine("OutterHTML: " + div.outerHTML);
+                    System.Diagnostics.Debug.WriteLine("OutterText: " + div.outerText);
+                    System.Diagnostics.Debug.WriteLine("InnerHTML: " + div.innerText);
+                    System.Diagnostics.Debug.WriteLine("InnerText: " + div.innerHTML);
+
                     //System.Diagnostics.Debug.WriteLine("Name: " + element.GetAttribute("name"));
                     System.Diagnostics.Debug.WriteLine("ID: " + div.id);
                     bool TryIt = false;
                     string testUcaseVal = "ALWAYSFAILATTHISPOINT";
-                    if (zHTMLEnumAttributes.ToString().ToUpper() == "OUTERHTML") attName = "*%" + attName;
+                    if (pHTMLEnumAttribute.ToUpper() == "OUTERHTML") attName = "*%" + attName;
                     //{
                     //    if (div.outerHTML.ToUpper().Contains(attName)) TryIt = true;
                     //}
@@ -251,8 +437,8 @@ namespace DVB
                     //{
                         try
                         {
-                            testUcaseVal=div.getAttribute(zHTMLEnumAttributes.ToString()).ToString().ToUpper();
-                            System.Diagnostics.Debug.WriteLine(zHTMLEnumAttributes.ToString() + ": " + testUcaseVal);
+                            testUcaseVal = div.getAttribute(pHTMLEnumAttribute).ToString().ToUpper();
+                            System.Diagnostics.Debug.WriteLine(pHTMLEnumAttribute + ": " + testUcaseVal);
                         }
                         catch (Exception ex)
                         {
@@ -279,6 +465,13 @@ namespace DVB
                             retVal = "1";
                             break;
                         }
+                        else if (FillWithVal == "focus")
+                        {
+                            IHTMLElement2 focusOnIt = (IHTMLElement2)div;
+                            focusOnIt.focus();
+                            retVal = "1";
+                            break;
+                        }
                         else
                         {
                             div.setAttribute("value", FillWithVal);
@@ -294,6 +487,100 @@ namespace DVB
             }
             return retVal;
         }
+        public static string TrueIEFindAndAct(SHDocVw.InternetExplorer IE, HTMLTagNames whatIsIt, HTMLAttributes usingIdentifier, string IDorNAMEToFInd, string ValueToEnter, int Iterations)
+        {
+            string retVal = "-1";
+            try
+            {
+                string WhatItIs = whatIsIt.ToString();
+                WhatItIs = WhatItIs.Substring(1, WhatItIs.Length - 1);
+                mshtml.HTMLDocument doc = IE.Document as mshtml.HTMLDocument;
+                HTMLDocumentClass docc = (HTMLDocumentClass)doc;
+                mshtml.IHTMLElementCollection col = docc.getElementsByTagName(WhatItIs);
+                foreach (IHTMLElement element in col)
+                {
+                    string colItemClass = "";
+                    string colItemName = "";
+                    string colItemID = "";
+                    string colItemValue = "";
+                    string colItemSrc = "";
+                    string colOuterHtml = "";
+                    string colOuterText = "";
+                    string colInnerHtml = "";
+                    string colInnerText = "";
+
+                    
+                    try { colItemClass = (string)element.getAttribute("class"); }
+                    catch (Exception ex) { }
+                    try { colItemName = (string)element.getAttribute("name"); }
+                    catch (Exception ex) { }
+                    try { colItemID = (string)element.getAttribute("id"); }
+                    catch (Exception ex) { }
+                    try { colItemValue = (string)element.getAttribute("value"); }
+                    catch (Exception ex) { }
+                    try { colItemSrc = (string)element.getAttribute("src"); }
+                    catch (Exception ex) { }
+                    try { colOuterHtml = (string)element.getAttribute("outerHtml"); }
+                    catch (Exception ex) { }
+                    try { colOuterText = (string)element.getAttribute("outerText"); }
+                    catch (Exception ex) { }
+                    try { colInnerHtml = (string)element.getAttribute("innerHtml"); }
+                    catch (Exception ex) { }
+                    try { colInnerText = (string)element.getAttribute("innerText"); }
+                    catch (Exception ex) { }
+                    
+                    System.Diagnostics.Debug.WriteLine("ID: " + colItemID);
+                    System.Diagnostics.Debug.WriteLine("Class: " + colItemClass);
+                    System.Diagnostics.Debug.WriteLine("Name: " + colItemName);
+                    System.Diagnostics.Debug.WriteLine("Value: " + colItemValue);
+                    System.Diagnostics.Debug.WriteLine("Src: " + colItemSrc);
+                    System.Diagnostics.Debug.WriteLine("OuterHtml: " + colOuterHtml);
+                    System.Diagnostics.Debug.WriteLine("OuterText: " + colOuterText);
+                    System.Diagnostics.Debug.WriteLine("------------------------------------------------");
+                    bool FoundIt = false;
+                    if (usingIdentifier == HTMLAttributes.Zid) { if (colItemID == IDorNAMEToFInd) FoundIt = true; }
+                    if (usingIdentifier == HTMLAttributes.Zname) { if (colItemName == IDorNAMEToFInd) FoundIt = true; }
+                    if (usingIdentifier == HTMLAttributes.Zclass) { if (colItemClass == IDorNAMEToFInd) FoundIt = true; }
+                    if (usingIdentifier == HTMLAttributes.Zvalue) { if (colItemValue == IDorNAMEToFInd) FoundIt = true; }
+                    if (usingIdentifier == HTMLAttributes.Zsrc) { if (colItemSrc.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                    if (usingIdentifier == HTMLAttributes.ZinnerHTML) { if (colInnerHtml.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                    if (usingIdentifier == HTMLAttributes.ZInnerText) { if (colInnerText.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                    if (usingIdentifier == HTMLAttributes.ZouterHtml) { if (colOuterHtml.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                    if (usingIdentifier == HTMLAttributes.ZOuterText) { if (colOuterText.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                    if (FoundIt == true)
+                    {
+                        System.Diagnostics.Debug.WriteLine("FOUND IT!");
+                        if (ValueToEnter == "")
+                        {
+                            element.click();
+                            retVal = "1";
+                            break;
+                        }
+                        else if (ValueToEnter == "focus")
+                        {
+                            IHTMLElement2 focusOnIt = (IHTMLElement2)element;
+                            focusOnIt.focus();
+                            retVal = "1";
+                            break;
+                        }
+                        else
+                        {
+                            element.setAttribute("value", ValueToEnter);
+                            System.Diagnostics.Debug.WriteLine("ElemFindAndAct Done Searching.");
+                            retVal = "1";
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                retVal = "-1";
+            }
+            return retVal;
+        }
+
         private static bool CompareElements(string LookFor, string SearchInThis)
         {
             bool retVal = false;
@@ -341,6 +628,43 @@ namespace DVB
             retVal = temp;
             return retVal;
         }
+        public static string LaunchIE(string BaseWebpage)
+        {
+            try
+            {
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                //p.StartInfo.FileName = gloPathToMerchantEXEs + "\\" + pCardType + ".exe";
+                p.StartInfo.Arguments = BaseWebpage;
+                p.StartInfo.FileName = "iexplore.exe";
+                p.StartInfo.CreateNoWindow = false;
+                Console.WriteLine(p.StartInfo.FileName);
+                bool isStarted = p.Start();
+                if (isStarted == false) { return  " couldn't start"; }
+                return "1";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+        public static string LaunchItWArg(string PathToEXE, string Arg)
+        {
+            try
+            {
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo.Arguments = Arg;
+                p.StartInfo.FileName = PathToEXE;
+                p.StartInfo.CreateNoWindow = false;
+                Console.WriteLine(p.StartInfo.FileName);
+                bool isStarted = p.Start();
+                if (isStarted == false) { return " couldn't start"; }
+                return "1";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
 
         public static string LaunchIt(string CompleteLine)
         {
@@ -348,7 +672,7 @@ namespace DVB
             {
                 System.Diagnostics.Process p = new System.Diagnostics.Process();
                 //p.StartInfo.FileName = gloPathToMerchantEXEs + "\\" + pCardType + ".exe";
-                //p.StartInfo.Arguments = @"""" + MakeRqFile + @""" 1";
+                //p.StartInfo.Arguments = @"http://www.google.com";
                 p.StartInfo.FileName = CompleteLine;
                 p.StartInfo.CreateNoWindow = false;
                 Console.WriteLine(p.StartInfo.FileName);
@@ -383,5 +707,91 @@ namespace DVB
                 process.Kill();
             }
         }
+        public static string ChangeFocus2(WebBrowser webBrowser1, HTMLAttributes idorname, string whatitscalled, string fc)
+        {
+            string retVal = "-1";
+            mshtml.HTMLDocument htmlDoc = (HTMLDocument)webBrowser1.Document.DomDocument;
+            IHTMLWindow2 htmlWindow = (IHTMLWindow2)htmlDoc.frames.item(0);
+            IHTMLDocument2 FrameDoc = CrossFrameIE.GetDocumentFromWindow(htmlWindow);
+            try
+            {
+
+                mshtml.IHTMLElementCollection c = ((mshtml.HTMLDocumentClass)(FrameDoc)).getElementsByTagName("input");
+                foreach (IHTMLElement div in c)
+                {
+                    System.Diagnostics.Debug.WriteLine("InnerText: " + div.innerHTML);
+                    System.Diagnostics.Debug.WriteLine("OutterHTML: " + div.outerHTML);
+                    System.Diagnostics.Debug.WriteLine("OutterText: " + div.outerText);
+                    //System.Diagnostics.Debug.WriteLine("Name: " + element.GetAttribute("name"));
+                    System.Diagnostics.Debug.WriteLine("ID: " + div.id);
+                    if (div.outerHTML == null) continue;
+                    if (div.outerHTML.Contains(whatitscalled))
+                    {
+                        div.click();
+                        retVal = "1";
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                retVal = "-1";
+            }
+            return retVal;
+        }
+        /// <summary>Allows you to modify the HTML, and therefore behavior, or elements in the webpage.</summary>
+        /// <param name="HTMLTagType">HTMLEnumTagType can be things like a, input, button, img, hr, div, select, area, ...</param>
+        /// <param name="HTMLAttribute">HTMLAttribute can be things like id, name, src, value, InnerText, OuterHtml, classs, OuterText, href, alt, ...</param>
+        public static string ModifyHTML(IHTMLDocument2 FrameDoc, string HTMLTagType, string HTMLAttribute, string AttributeValue, string ReplaceWith)
+        {
+            int foreachcount = 0;
+            string retVal = "1";
+            bool tempTryIt;
+            AttributeValue = AttributeValue.ToUpper();
+            try
+            {
+                mshtml.IHTMLElementCollection elements = ((mshtml.HTMLDocumentClass)(FrameDoc)).getElementsByTagName(HTMLTagType);
+                foreach (IHTMLElement element in elements)
+                {
+                    tempTryIt = false;
+                    foreachcount++;
+                    System.Diagnostics.Debug.WriteLine("element innerHTML details: " + element.innerHTML);
+                    System.Diagnostics.Debug.WriteLine("element outerHTML details: " + element.outerHTML);
+                    string testUcaseVal = "ALWAYSFAILATTHISPOINT";
+                    try
+                    {
+                        testUcaseVal = element.getAttribute(HTMLAttribute).ToString().ToUpper();
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                    if (AttributeValue.Contains("*%"))
+                    {
+                        if (testUcaseVal.Contains(AttributeValue))
+                        {
+                            tempTryIt = true;
+                        }
+                    }
+                    else
+                    {
+                        if (testUcaseVal == AttributeValue)
+                        {
+                            tempTryIt = true;
+                        }
+                    }
+                    if (tempTryIt == true)
+                    {
+                        element.outerHTML = ReplaceWith;
+                        return "1";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                retVal = "-1";
+            }
+            return retVal;
+        }
+
     }
 }
