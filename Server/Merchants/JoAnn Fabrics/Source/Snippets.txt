@@ -15,8 +15,9 @@
     }
 
 CAPTCHA handling...
-	OK = DoHandleCAPTCHARqRs("ImageHipChallenge.aspx");
-	HandleInstruction(OK);
+    OK = WebpageLib00.CAPTCHAGetImage(IE, "kaptcha");
+    if (OK=="1") OK= DoHandleCAPTCHARqRs();
+    HandleInstruction(OK);
 
 Changing the focus...
 	webBrowser1.Navigate("javascript:document.getElementById('password').focus();");
@@ -35,12 +36,6 @@ Get last few characters of Card Number...
     }
     catch (Exception) { }
 
-
-Standard action snippet w/ IHTMLDocument2...
-    FrameDoc = GCGMethods.ConvertWebBrowserToIHTMLDocument2(webBrowser1);
-    OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.input, HTMLEnumAttributes.name, "cardNumber", txtCardNumber.Text);
-    if (OK != "-1") OK = GCGMethods.SimInput2(FrameDoc, HTMLEnumTagNames.input, HTMLEnumAttributes.name, "cardNumber", txtCardNumber.Text);
-    HandleInstruction(OK);
 
 Grabbing substrings...
                 string p1="", p2="", p3="", p4="", p5="";
@@ -74,3 +69,12 @@ AND
                         SubInstruction = SubInstruction +1;
                     }
                     if (OK == "-1") HandleInstruction(OK);
+
+Handling a fake CAPTCHA
+                System.Reflection.Assembly myAssembly = System.Reflection.Assembly.GetExecutingAssembly();
+                Stream _imageStream = myAssembly.GetManifestResourceStream("DVB.Bitmap1.bmp");
+                Bitmap image = new Bitmap(_imageStream);
+                Clipboard.SetImage(image);
+                image.Save(ad.NextRqPathAndFileToRead);  //writes fake resp
+                OK = DoHandleCAPTCHARqRs();
+
