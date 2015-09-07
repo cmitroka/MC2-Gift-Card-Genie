@@ -600,6 +600,7 @@
             // tmrSendKeys
             // 
             this.tmrSendKeys.Interval = 10;
+            this.tmrSendKeys.Tick += new System.EventHandler(this.tmrSendKeys_Tick);
             // 
             // tmrGetCAPTCHA
             // 
@@ -631,7 +632,6 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
             this.fileToolStripMenuItem.Text = "File";
-            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
             // MSaveDataToWebserver
             // 

@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DVB</RootNamespace>
-    <AssemblyName>PACSUN</AssemblyName>
+    <AssemblyName>Pacsun</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -203,20 +203,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SaveLoad.cs" />
-    <Compile Include="Typer.cs">
-      <SubType>Form</SubType>
+    <Compile Include="SaveLoad.cs">
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Typer.Designer.cs">
-      <DependentUpon>Typer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UIFunc_DoManualCopyAndPaste.cs" />
     <Compile Include="Web References\com.mc2techservices.gcg\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="WebpageLib00.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -231,9 +225,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Typer.resx">
-      <DependentUpon>Typer.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\app.manifest">
       <SubType>Designer</SubType>
@@ -317,6 +308,9 @@
       <Project>{66360c67-de8f-43c4-b4df-8581b98f6323}</Project>
       <Name>GCGCommon</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Old Code.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
