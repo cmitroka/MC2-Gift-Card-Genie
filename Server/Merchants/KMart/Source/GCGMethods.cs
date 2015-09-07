@@ -334,18 +334,6 @@ namespace DVB
             }
             return retVal;
         }
-        public static string GetHTMLFromHTMLDocument(HTMLDocument FrameDoc)
-        {
-            string retVal = "";
-            try
-            {
-                retVal = FrameDoc.body.innerHTML;
-            }
-            catch (Exception ex)
-            {
-            }
-            return retVal;
-        }
         public static string GetHTMLFromIHTMLDocument2(IHTMLDocument2 FrameDoc)
         {
             string retVal = "";
@@ -487,96 +475,34 @@ namespace DVB
             }
             return retVal;
         }
-        public static string TrueIEFindAndAct(SHDocVw.InternetExplorer IE, HTMLTagNames whatIsIt, HTMLAttributes usingIdentifier, string IDorNAMEToFInd, string ValueToEnter, int Iterations)
+        public static string CAPTCHAGetImage(IHTMLDocument2 IE, string SRCToFInd, string WhereToSave)
         {
-            string retVal = "-1";
+            string retVal = "1";
             try
             {
-                string WhatItIs = whatIsIt.ToString();
-                WhatItIs = WhatItIs.Substring(1, WhatItIs.Length - 1);
-                mshtml.HTMLDocument doc = IE.Document as mshtml.HTMLDocument;
-                HTMLDocumentClass docc = (HTMLDocumentClass)doc;
-                mshtml.IHTMLElementCollection col = docc.getElementsByTagName(WhatItIs);
-                foreach (IHTMLElement element in col)
+                IHTMLDocument2 doc = IE;
+                IHTMLControlRange imgRange = (mshtml.IHTMLControlRange)((mshtml.HTMLBody)doc.body).createControlRange();
+                foreach (mshtml.IHTMLImgElement imgx in doc.images)
                 {
-                    string colItemClass = "";
-                    string colItemName = "";
-                    string colItemID = "";
-                    string colItemValue = "";
-                    string colItemSrc = "";
-                    string colOuterHtml = "";
-                    string colOuterText = "";
-                    string colInnerHtml = "";
-                    string colInnerText = "";
-
-                    
-                    try { colItemClass = (string)element.getAttribute("class"); }
-                    catch (Exception ex) { }
-                    try { colItemName = (string)element.getAttribute("name"); }
-                    catch (Exception ex) { }
-                    try { colItemID = (string)element.getAttribute("id"); }
-                    catch (Exception ex) { }
-                    try { colItemValue = (string)element.getAttribute("value"); }
-                    catch (Exception ex) { }
-                    try { colItemSrc = (string)element.getAttribute("src"); }
-                    catch (Exception ex) { }
-                    try { colOuterHtml = (string)element.getAttribute("outerHtml"); }
-                    catch (Exception ex) { }
-                    try { colOuterText = (string)element.getAttribute("outerText"); }
-                    catch (Exception ex) { }
-                    try { colInnerHtml = (string)element.getAttribute("innerHtml"); }
-                    catch (Exception ex) { }
-                    try { colInnerText = (string)element.getAttribute("innerText"); }
-                    catch (Exception ex) { }
-                    
-                    System.Diagnostics.Debug.WriteLine("ID: " + colItemID);
-                    System.Diagnostics.Debug.WriteLine("Class: " + colItemClass);
-                    System.Diagnostics.Debug.WriteLine("Name: " + colItemName);
-                    System.Diagnostics.Debug.WriteLine("Value: " + colItemValue);
-                    System.Diagnostics.Debug.WriteLine("Src: " + colItemSrc);
-                    System.Diagnostics.Debug.WriteLine("OuterHtml: " + colOuterHtml);
-                    System.Diagnostics.Debug.WriteLine("OuterText: " + colOuterText);
-                    System.Diagnostics.Debug.WriteLine("------------------------------------------------");
-                    bool FoundIt = false;
-                    if (usingIdentifier == HTMLAttributes.Zid) { if (colItemID == IDorNAMEToFInd) FoundIt = true; }
-                    if (usingIdentifier == HTMLAttributes.Zname) { if (colItemName == IDorNAMEToFInd) FoundIt = true; }
-                    if (usingIdentifier == HTMLAttributes.Zclass) { if (colItemClass == IDorNAMEToFInd) FoundIt = true; }
-                    if (usingIdentifier == HTMLAttributes.Zvalue) { if (colItemValue == IDorNAMEToFInd) FoundIt = true; }
-                    if (usingIdentifier == HTMLAttributes.Zsrc) { if (colItemSrc.Contains(IDorNAMEToFInd)) FoundIt = true; }
-                    if (usingIdentifier == HTMLAttributes.ZinnerHTML) { if (colInnerHtml.Contains(IDorNAMEToFInd)) FoundIt = true; }
-                    if (usingIdentifier == HTMLAttributes.ZInnerText) { if (colInnerText.Contains(IDorNAMEToFInd)) FoundIt = true; }
-                    if (usingIdentifier == HTMLAttributes.ZouterHtml) { if (colOuterHtml.Contains(IDorNAMEToFInd)) FoundIt = true; }
-                    if (usingIdentifier == HTMLAttributes.ZOuterText) { if (colOuterText.Contains(IDorNAMEToFInd)) FoundIt = true; }
-                    if (FoundIt == true)
+                    System.Diagnostics.Debug.WriteLine(imgx.nameProp);
+                    string ImageDetails = imgx.src.ToUpper();
+                    System.Diagnostics.Debug.WriteLine(imgx.src.ToUpper());
+                    string CAPTCHAName = SRCToFInd.ToUpper();
+                    if (ImageDetails.Contains(CAPTCHAName))
                     {
-                        System.Diagnostics.Debug.WriteLine("FOUND IT!");
-                        if (ValueToEnter == "")
-                        {
-                            element.click();
-                            retVal = "1";
-                            break;
-                        }
-                        else if (ValueToEnter == "focus")
-                        {
-                            IHTMLElement2 focusOnIt = (IHTMLElement2)element;
-                            focusOnIt.focus();
-                            retVal = "1";
-                            break;
-                        }
-                        else
-                        {
-                            element.setAttribute("value", ValueToEnter);
-                            System.Diagnostics.Debug.WriteLine("ElemFindAndAct Done Searching.");
-                            retVal = "1";
-                            break;
-                        }
+                        imgRange.add((mshtml.IHTMLControlElement)imgx);
+                        imgRange.execCommand("Copy", false, null);
+                        Bitmap bmp = null;
+                        bmp = (Bitmap)Clipboard.GetDataObject().GetData(DataFormats.Bitmap);
+                        bmp.Save(WhereToSave);
+                        break;
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-                retVal = "-1";
+                System.Diagnostics.Debug.WriteLine("CAPTCHAGetImage failed");
+                //throw;
             }
             return retVal;
         }
@@ -608,24 +534,6 @@ namespace DVB
                     retVal = true;
                 }
             }
-            return retVal;
-        }
-
-
-        public static string GetWBDocumentText(WebBrowser wb)
-        {
-            string retVal = "";
-            string temp = "";
-            try
-            {
-                temp = GCGCommon.SupportMethods.ReturnTextOnlyFromHTML(wb.DocumentText);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-            }
-            temp=HttpUtility.HtmlDecode(temp);
-            retVal = temp;
             return retVal;
         }
         public static string LaunchIE(string BaseWebpage)
@@ -706,38 +614,6 @@ namespace DVB
             {
                 process.Kill();
             }
-        }
-        public static string ChangeFocus2(WebBrowser webBrowser1, HTMLAttributes idorname, string whatitscalled, string fc)
-        {
-            string retVal = "-1";
-            mshtml.HTMLDocument htmlDoc = (HTMLDocument)webBrowser1.Document.DomDocument;
-            IHTMLWindow2 htmlWindow = (IHTMLWindow2)htmlDoc.frames.item(0);
-            IHTMLDocument2 FrameDoc = CrossFrameIE.GetDocumentFromWindow(htmlWindow);
-            try
-            {
-
-                mshtml.IHTMLElementCollection c = ((mshtml.HTMLDocumentClass)(FrameDoc)).getElementsByTagName("input");
-                foreach (IHTMLElement div in c)
-                {
-                    System.Diagnostics.Debug.WriteLine("InnerText: " + div.innerHTML);
-                    System.Diagnostics.Debug.WriteLine("OutterHTML: " + div.outerHTML);
-                    System.Diagnostics.Debug.WriteLine("OutterText: " + div.outerText);
-                    //System.Diagnostics.Debug.WriteLine("Name: " + element.GetAttribute("name"));
-                    System.Diagnostics.Debug.WriteLine("ID: " + div.id);
-                    if (div.outerHTML == null) continue;
-                    if (div.outerHTML.Contains(whatitscalled))
-                    {
-                        div.click();
-                        retVal = "1";
-                        break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                retVal = "-1";
-            }
-            return retVal;
         }
         /// <summary>Allows you to modify the HTML, and therefore behavior, or elements in the webpage.</summary>
         /// <param name="HTMLTagType">HTMLEnumTagType can be things like a, input, button, img, hr, div, select, area, ...</param>

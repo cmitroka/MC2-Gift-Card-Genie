@@ -19,14 +19,34 @@ namespace DVB
 {
     public partial class Main : Form
     {
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+
+        [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        private static extern bool IsIconic(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern int ShowWindow(IntPtr hWnd, uint Msg);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+        private const int ALT = 0xA4;
+        private const int EXTENDEDKEY = 0x1;
+        private const int KEYUP = 0x2;
+        private const uint Restore = 9;
 
         public string CLIrqFile = "", AppName = "", AutoRun = "";
 
         public AllDetails ad;
         static int SecondsPassed;
+        private static string whattotype;
+        private static string whattotypeall;
+        private static int whattotypeloc;
+        private static bool whattotypecompleted;
 
         bool CAPTCHAFound;
         public int SpecificRetryCnt, SpecificRetryCntMax;
@@ -46,136 +66,137 @@ namespace DVB
         int IEQuit;
         private void ProcessInstructions()
         {
-            //WebProxy proxy = WebProxy.GetDefaultProxy();
-            txtRetryCntr.Text = RetryCnt.ToString();
-            string OK = "1";
-            Instruction++;
-            //IHTMLDocument2 FrameDoc = null;
-            GCGMethods.WriteTextBoxLog(txtLog, "Inst " + Instruction.ToString());
-            if (RetryCnt >= RetryCntMax)
+            try
             {
-                txtCardBalance.Text = "N/A";
-                SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCERR.ToString(), "The retry count went above " + RetryCntMax, ad.RsPathAndFileToWrite);
-                tmrRunning.Enabled = false;
-                tmrTimeout.Enabled = false;
-                MaybeExitApp();
-                return;
-            }
-            if (Instruction == 1)
-            {
-                IE = new SHDocVw.InternetExplorer();
-                IE.Visible = true;
-                //ShowWindow((IntPtr)IE.HWND, 3);
-                IE.Navigate2(txtBaseURL.Text);
-            }
-            else if (Instruction == 2)
-            {
-                DoGCGDelay(10, true);
-            }
-            else if (Instruction == 3)
-            {
-                IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
-                OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.ZouterHtml, "reload-link", "", 1);
-                //Same as above...
-                //OK=GCGMethods.TrueIEFindAndAct(IE, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.ZouterHtml, "reload-link", "", 1);
-                HandleInstruction(OK);
-            }
-            else if (Instruction == 4)
-            {
-                OK = WebpageLib00.CAPTCHAGetImage(IE, "api/image?c=", ad.CAPTCHAPathAndFileToWrite);
-                if (OK == "1") OK = DoHandleCAPTCHARqRs();
-                HandleInstruction(OK);
-            }
-            else if (Instruction == 5)
-            {
-                int td = GCGMethods.FindWhatFrameItsIn(IE, "gc_custom_info");
-                IHTMLDocument2 x=GCGMethods.ConvertIEToIHTMLDocument2(IE, td);
-                //OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "card_number", txtCardNumber.Text, 1);
-                Typer t = new Typer();
-                t.SetForegroundWindowByHWND(IE.HWND);
-                //OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "gc_custom_info", "focus", 1);
-                OK=GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "gc_custom_info", "focus", 1);
-                t.TypeIt(txtCardNumber.Text);
-            }
-            else if (Instruction == 6)
-            {
-                int td = GCGMethods.FindWhatFrameItsIn(IE, "gc_custom_info");
-                IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, td);
-                //OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "card_number", txtCardNumber.Text, 1);
-                Typer t = new Typer();
-                t.SetForegroundWindowByHWND(IE.HWND);
-                //OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "gc_custom_info", "focus", 1);
-                t.TypeIt("{TAB}" + txtCardPIN.Text);
-                //OK = GCGMethods.TrueIEFindAndAct(IE, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "gc_custom_info", txtCardNumber.Text, 1);
-                //if (OK != "-1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "gc_custom_info_pin", txtCardPIN.Text, 1);
-                OK = "1";
-                if (OK != "-1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "recaptcha_response_field", txtCAPTCHAAnswer.Text, 1);
-                if (OK != "-1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zvalue, "Check Card", "", 1);
-                HandleInstruction(OK);
-                //OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "card_number", txtCardNumber.Text, 1);
-                //Typer t = new Typer();
-                //t.SetForegroundWindowByHWND(IE.HWND);
-                //OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$mainContentPlaceHolder$txtGiftCardNumber", "focus", 1);
-                //t.TypeIt("{TAB}"+txtCardPIN.Text);
-                //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "ctl00_mainContentPlaceHolder_txtAccessNumber_giftCardTextBox1", txtCardPIN.Text, 1);
-                //if (OK != "-1") OK=WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "pin", txtCardPIN.Text, 1);
-                //if (OK != "-1") OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Za, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "checkBalance", "", 1);
-            }
-            else
-            {
-                OK = "-1";
-                string testi = "";
-                string testo = "";
-                string balanceResult = "";
-                IHTMLDocument2 IHTMLDocument2 = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
-                string test = GCGMethods.GetHTMLFromIHTMLDocument2(IHTMLDocument2);
-                //string test = GCGMethods.GetHTML(FrameDoc);
-                try
+                //WebProxy proxy = WebProxy.GetDefaultProxy();
+                txtRetryCntr.Text = RetryCnt.ToString();
+                string OK = "1";
+                Instruction++;
+                //IHTMLDocument2 FrameDoc = null;
+                GCGMethods.WriteTextBoxLog(txtLog, "Inst " + Instruction.ToString());
+                if (RetryCnt >= RetryCntMax)
                 {
-                    test = GCGMethods.GetPlainTextFromHTML(test);
-                    testi = IHTMLDocument2.body.innerHTML;
-                    testo = IHTMLDocument2.body.outerHTML;
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine(ex.Message);
-                    return;
-                }
-                //GCGMethods.WriteFile("C:\\test.txt", test, true);
-                //GCGMethods.WriteFile("C:\\testi.txt", testi, true);
-                //GCGMethods.WriteFile("C:\\testo.txt", testo, true);
-
-                balanceResult = GetBalance("Your Balance:", "Balance", test);
-                if (balanceResult == "")
-                {
-                    SpecificRetryCnt++;
-                    GCGMethods.WriteTextBoxLog(txtLog, "SpecificRetryCnt: " + SpecificRetryCnt.ToString());
-                    if (SpecificRetryCnt >= 10)
-                    {
-                        txtCardBalance.Text = "Error";
-                        SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "Sorry, we couldn't get the balance for some reason.", ad.RsPathAndFileToWrite);
-                        OK = "1";
-                    }
-                }
-                else
-                {
-                    txtCardBalance.Text = balanceResult;
-                    SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCBALANCE.ToString(), balanceResult, ad.RsPathAndFileToWrite);
-                    OK = "1";
-                }
-                if (OK == "1")
-                {
-                    if (CLIrqFile == "") File.Delete(ad.RsPathAndFileToWrite);
-                    DoGCGDelay(10, true);
+                    txtCardBalance.Text = "N/A";
+                    SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCERR.ToString(), "The retry count went above " + RetryCntMax, ad.RsPathAndFileToWrite);
                     tmrRunning.Enabled = false;
                     tmrTimeout.Enabled = false;
                     MaybeExitApp();
+                    return;
+                }
+                if (Instruction == 1)
+                {
+                    IE = new SHDocVw.InternetExplorer();
+                    IE.Visible = true;
+                    //ShowWindow((IntPtr)IE.HWND, 3);
+                    IE.Navigate2(txtBaseURL.Text);
+                }
+                else if (Instruction == 2)
+                {
+                    DoGCGDelay(10, true);
+                }
+                else if (Instruction == 3)
+                {
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.ZouterHtml, "reload-link", "", 1);
+                    //Same as above...
+                    //OK=GCGMethods.TrueIEFindAndAct(IE, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.ZouterHtml, "reload-link", "", 1);
+                    HandleInstruction(OK);
+                }
+                else if (Instruction == 4)
+                {
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    GCGMethods.CAPTCHAGetImage(x, "api/image?c=", ad.CAPTCHAPathAndFileToWrite);
+                    if (OK == "1") OK = DoHandleCAPTCHARqRs();
+                    HandleInstruction(OK);
+                }
+                else if (Instruction == 5)
+                {
+                    int td = GCGMethods.FindWhatFrameItsIn(IE, "gc_custom_info");
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, td);
+                    //OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "card_number", txtCardNumber.Text, 1);
+                    //WindowSwithcer ws = new WindowSwithcer();
+                    //ws.SetForegroundWindowByHWND(IE.HWND);
+                    SetForegroundWindowByHWND(IE.HWND);
+                    //OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "gc_custom_info", "focus", 1);
+                    OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "gc_custom_info", "focus", 1);
+                    if (OK == "1") DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text);
+                    HandleInstruction(OK);
+                }
+                else if (Instruction == 6)
+                {
+                    int td = GCGMethods.FindWhatFrameItsIn(IE, "gc_custom_info");
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, td);
+                    if (OK != "-1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "recaptcha_response_field", txtCAPTCHAAnswer.Text, 1);
+                    if (OK != "-1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zvalue, "Check Card", "", 1);
+                    HandleInstruction(OK);
+                    //OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "card_number", txtCardNumber.Text, 1);
+                    //Typer t = new Typer();
+                    //t.SetForegroundWindowByHWND(IE.HWND);
+                    //OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zname, WebpageLib00.ComparisonType.Zexact, "ctl00$mainContentPlaceHolder$txtGiftCardNumber", "focus", 1);
+                    //t.TypeIt("{TAB}"+txtCardPIN.Text);
+                    //if (OK != "-1") WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "ctl00_mainContentPlaceHolder_txtAccessNumber_giftCardTextBox1", txtCardPIN.Text, 1);
+                    //if (OK != "-1") OK=WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Zinput, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "pin", txtCardPIN.Text, 1);
+                    //if (OK != "-1") OK = WebpageLib00.ElemFindAndAct(IE, WebpageLib00.WhatIsIt.Za, WebpageLib00.UsingIdentifier.Zid, WebpageLib00.ComparisonType.Zexact, "checkBalance", "", 1);
                 }
                 else
                 {
-                    HandleInstruction(OK);
-                }
+                    OK = "-1";
+                    string testi = "";
+                    string testo = "";
+                    string balanceResult = "";
+                    IHTMLDocument2 IHTMLDocument2 = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    string test = GCGMethods.GetHTMLFromIHTMLDocument2(IHTMLDocument2);
+                    //string test = GCGMethods.GetHTML(FrameDoc);
+                    try
+                    {
+                        //test = GCGMethods.GetPlainTextFromHTML(test);
+                        testi = IHTMLDocument2.body.innerHTML;
+                        testo = IHTMLDocument2.body.outerHTML;
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ex.Message);
+                        return;
+                    }
+                    //GCGMethods.WriteFile("C:\\test.txt", test, true);
+                    //GCGMethods.WriteFile("C:\\testi.txt", testi, true);
+                    //GCGMethods.WriteFile("C:\\testo.txt", testo, true);
 
+                    balanceResult = GetBalance("your_bal\">", "<div", testi);
+                    if (balanceResult == "")
+                    {
+                        SpecificRetryCnt++;
+                        GCGMethods.WriteTextBoxLog(txtLog, "SpecificRetryCnt: " + SpecificRetryCnt.ToString());
+                        if (SpecificRetryCnt >= 10)
+                        {
+                            txtCardBalance.Text = "Error";
+                            SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "Sorry, we couldn't get the balance for some reason.", ad.RsPathAndFileToWrite);
+                            OK = "1";
+                        }
+                    }
+                    else
+                    {
+                        txtCardBalance.Text = balanceResult;
+                        SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCBALANCE.ToString(), balanceResult, ad.RsPathAndFileToWrite);
+                        OK = "1";
+                    }
+                    if (OK == "1")
+                    {
+                        if (CLIrqFile == "") File.Delete(ad.RsPathAndFileToWrite);
+                        DoGCGDelay(10, true);
+                        tmrRunning.Enabled = false;
+                        tmrTimeout.Enabled = false;
+                        MaybeExitApp();
+                    }
+                    else
+                    {
+                        HandleInstruction(OK);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                
             }
         }
         private void HandleInstruction(string OK)
@@ -368,6 +389,20 @@ namespace DVB
         {
             string retVal = DoHandleCAPTCHARqRs(null, -1);
             return retVal;
+        }
+        private string DoHandleTyper(string whatToType)
+        {
+            string OK = "1";
+            whattotype = whatToType;
+            tmrRunning.Enabled = false;
+            tmrSendKeys.Enabled = true;
+            do
+            {
+                Application.DoEvents();                
+            } while (whattotypecompleted == false);
+            tmrSendKeys.Enabled = false;
+            tmrRunning.Enabled = true;
+            return OK;
         }
         private string DoHandleCAPTCHARqRs(string ImgSrcOfCaptcha)
         {
@@ -724,11 +759,6 @@ namespace DVB
                 GCGMethods.WriteTextBoxLog(txtLog, "SaveSettingsToDB error " + ex2.Message);
             }
         }
-
-
-
-
-
         private void MSaveDataToTestFile_Click(object sender, EventArgs e)
         {
             SaveLoad.SaveDataToTestFile(this);
@@ -771,5 +801,119 @@ namespace DVB
                 GCGMethods.WriteFile("C:\\test.txt", test, true);
             }
         }
+        private void tmrSendKeys_Tick(object sender, EventArgs e)
+        {
+            string test1 = "";
+            string test2 = "";
+            string whattotypeall = "";
+            try
+            {
+                test1 = whattotype.Substring(whattotypeloc, 1);
+            }
+            catch (Exception ex)
+            {
+                whattotypecompleted = true;
+                tmrSendKeys.Enabled = false;
+                return;
+            }
+            if (test1 == "")
+            {
+                whattotypecompleted = true;
+                tmrSendKeys.Enabled = false;
+                return;
+            }
+            if (test1 == "{")
+            {
+                do
+                {
+                    whattotypeloc++;
+                    test2 = whattotype.Substring(whattotypeloc, 1);
+                    if (test2 == "}")
+                    {
+                        whattotypeall = "{" + whattotypeall + "}";
+                        break;
+                    }
+                    else
+                    {
+                        whattotypeall = whattotypeall + test2;
+                    }
+                } while (true);
+            }
+            else
+            {
+                whattotypeall = test1;
+            }
+
+            //101-132 are uppercase
+            string testchar = whattotypeall.Substring(0, 1);
+            byte[] asciiBytes = Encoding.ASCII.GetBytes(testchar);
+            int testcharval = asciiBytes[0];
+            if ((testcharval > 64) && (testcharval < 91))
+            {
+                try
+                {
+                    SendKeys.Send("+" + whattotypeall);
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+            else
+            {
+                try
+                {
+                    if (whattotypeall == "{BACKTAB}")
+                    {
+                        SendKeys.Send("+{TAB}");
+                    }
+                    else
+                    {
+                        SendKeys.Send(whattotypeall);
+                        //char v=ConvertStringValToChar("A");
+                        //keybd_event(VK_MENU, 0xb8, KEYUP, 0);
+                        //keybd_event((byte)VkKeyScan(v),0x9e,0 , 0); // ‘A’ Press
+                        //keybd_event((byte)VkKeyScan(v), 0x9e, KEYUP, 0); // ‘A’ Release
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+            whattotypeall = "";
+            whattotypeloc++;
+        }
+        private void SetForegroundWindowByHWND(int hWnd)
+        {
+            IntPtr x = (IntPtr)hWnd;
+            //check if already has focus
+            if (x == GetForegroundWindow()) return;
+            //check if window is minimized
+            if (IsIconic(x))
+            {
+                ShowWindow(x, Restore);
+            }
+
+            // Simulate a key press
+            keybd_event((byte)ALT, 0x45, EXTENDEDKEY | 0, 0);
+            //SetForegroundWindow(x);
+            // Simulate a key release
+            keybd_event((byte)ALT, 0x45, EXTENDEDKEY | KEYUP, 0);
+            SetForegroundWindow(x);
+        }
+        private void SetForegroundWindowByName(string NameOfWindow)
+        {
+            Process[] allprocs = Process.GetProcesses();
+            foreach (Process proc in allprocs)
+            {
+                System.Diagnostics.Debug.WriteLine(proc.MainWindowTitle);
+                if (proc.MainWindowTitle.Contains(NameOfWindow))
+                {
+                    SetForegroundWindowByHWND((int)proc.MainWindowHandle);
+                    //return;
+                }
+            }
+
+        }
+
     }
 }

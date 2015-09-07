@@ -599,7 +599,8 @@
             // 
             // tmrSendKeys
             // 
-            this.tmrSendKeys.Interval = 10;
+            this.tmrSendKeys.Interval = 1;
+            this.tmrSendKeys.Tick += new System.EventHandler(this.tmrSendKeys_Tick);
             // 
             // tmrGetCAPTCHA
             // 
