@@ -87,24 +87,34 @@ namespace DVB
                 {
                     IE = new SHDocVw.InternetExplorer();
                     IE.Visible = true;
+                    GCGCommon.SupportMethods.AdjustWindow((IntPtr)IE.HWND, 0, 0, 600, 600);
                     //ShowWindow((IntPtr)IE.HWND, 3);
                     IE.Navigate2(txtBaseURL.Text);
                 }
                 else if (Instruction == 2)
                 {
-                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
-                    GCGMethods.CAPTCHAGetImage(x, "captcha.jpg", ad.CAPTCHAPathAndFileToWrite);
-                    if (OK == "1") OK = DoHandleCAPTCHARqRs();
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, 0);
+                    OK= GCGMethods.ElementExists(x, GCGMethods.HTMLTagNames.Zimg, GCGMethods.HTMLAttributes.Zsrc, "securebmp.py");
+                    if (OK == "1")
+                    {
+                        OK = DoHandleCAPTCHARqRs(50, 397, 180, 52);
+                    }
+                    else
+                    {
+                        OK = "-1";
+                    }
                     HandleInstruction(OK);
                 }
                 else if (Instruction == 3)
                 {
-                    int td = GCGMethods.FindWhatFrameItsIn(IE, "giftCardBalInquiryForm:cardno");
-                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, td);
                     SetForegroundWindowByHWND(IE.HWND);
-                    //OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "giftCardBalInquiryForm:cardno", txtCardNumber.Text, 1);
-                    //if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "giftCardBalInquiryForm:pinno", txtCardPIN.Text, 1);
-                    if (OK == "1") OK = DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{TAB}" + txtCAPTCHAAnswer.Text + "{ENTER}");
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, 0);
+                    OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "cardnum", txtCardNumber.Text);
+                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "security", txtCardPIN.Text);
+                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "code", txtCAPTCHAAnswer.Text);
+                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zsrc, "images/submit.gif", "");
+                    
+                    //if (OK == "1") OK = DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{TAB}" + txtCAPTCHAAnswer.Text + "{ENTER}");
                     //if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "giftCardBalInquiryForm:kaptchafield", txtCAPTCHAAnswer.Text, 1);
                     //if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "giftCardBalInquiryForm:submitButton", "", 1);
                     HandleInstruction(OK);
@@ -115,12 +125,12 @@ namespace DVB
                     string testi = "";
                     string testo = "";
                     string balanceResult = "";
-                    IHTMLDocument2 IHTMLDocument2 = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    IHTMLDocument2 IHTMLDocument2 = GCGMethods.ConvertIEToIHTMLDocument2(IE, 0);
                     string test = GCGMethods.GetHTMLFromIHTMLDocument2(IHTMLDocument2);
                     //string test = GCGMethods.GetHTML(FrameDoc);
                     try
                     {
-                        //test = GCGMethods.GetPlainTextFromHTML(test);
+                        test = GCGMethods.GetPlainTextFromHTML(test);
                         testi = IHTMLDocument2.body.innerHTML;
                         testo = IHTMLDocument2.body.outerHTML;
                     }
@@ -133,7 +143,7 @@ namespace DVB
                     //GCGMethods.WriteFile("C:\\testi.txt", testi, true);
                     //GCGMethods.WriteFile("C:\\testo.txt", testo, true);
 
-                    balanceResult = GetBalance(":currentBal\">", "</span>", testi);
+                    balanceResult = GetBalance("3\"><b>", "</b>", testi);
                     if (balanceResult == "")
                     {
                         SpecificRetryCnt++;

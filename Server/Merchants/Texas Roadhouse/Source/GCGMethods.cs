@@ -351,12 +351,15 @@ namespace DVB
             string retVal = "-1";
             attName=attName.ToUpper();
             int foreachcount=0;
+
             string HTMLEnumAttribute = zHTMLAttributes.ToString();
+            HTMLEnumAttribute = HTMLEnumAttribute.Substring(1, HTMLEnumAttribute.Length - 1);
+            string tHTMLTagNames = HTMLTagNames.ToString().Substring(1, HTMLTagNames.ToString().Length - 1);
             if (zHTMLAttributes.ToString() == "classs") HTMLEnumAttribute = "className";
             try
             {
 
-                mshtml.IHTMLElementCollection c = ((mshtml.HTMLDocumentClass)(FrameDoc)).getElementsByTagName(HTMLTagNames.ToString());
+                mshtml.IHTMLElementCollection c = ((mshtml.HTMLDocumentClass)(FrameDoc)).getElementsByTagName(tHTMLTagNames);
                 foreach (IHTMLElement div in c)
                 {
                     foreachcount++;
@@ -364,7 +367,7 @@ namespace DVB
                     System.Diagnostics.Debug.WriteLine("ID: " + div.id);
                     bool TryIt = false;
                     string testUcaseVal = "ALWAYSFAILATTHISPOINT";
-                    if (HTMLEnumAttribute.ToUpper() == "OUTERHTML") attName = "*%" + attName;
+                    if (HTMLEnumAttribute.ToUpper() == "SRC") attName = "*%" + attName;
                     try
                     {
                         testUcaseVal = div.getAttribute(HTMLEnumAttribute).ToString().ToUpper();
@@ -417,6 +420,7 @@ namespace DVB
                     System.Diagnostics.Debug.WriteLine("ID: " + div.id);
                     bool TryIt = false;
                     string testUcaseVal = "ALWAYSFAILATTHISPOINT";
+                    if (pHTMLEnumAttribute.ToUpper() == "SRC") attName = "*%" + attName;
                     if (pHTMLEnumAttribute.ToUpper() == "OUTERHTML") attName = "*%" + attName;
                     //{
                     //    if (div.outerHTML.ToUpper().Contains(attName)) TryIt = true;
