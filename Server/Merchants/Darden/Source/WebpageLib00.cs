@@ -17,14 +17,17 @@ namespace DVB
             Zinput,
             Za,
             Zdiv,
-            Zbutton
+            Zimg,
+            Zlink,
+            Zselect
         };
         public enum UsingIdentifier
         {
             Zname,
             Zclass,
-            Zvalue,
-            Zid
+            Zid,
+            Zsrc,
+            Zvalue
         };
         public enum ComparisonType
         {
@@ -98,7 +101,10 @@ namespace DVB
                     string colItemName = "";
                     string colItemID = "";
                     string colItemValue = "";
-                    try { colItemClass = (string)element.getAttribute("className"); }
+                    string colItemSrc = "";
+                    string colOuterHtml = "";
+                    string colOuterText = "";
+                    try { colItemClass = (string)element.getAttribute("class"); }
                     catch (Exception ex) { }
                     try { colItemName = (string)element.getAttribute("name"); }
                     catch (Exception ex) { }
@@ -106,16 +112,34 @@ namespace DVB
                     catch (Exception ex) { }
                     try { colItemValue = (string)element.getAttribute("value"); }
                     catch (Exception ex) { }
+                    try { colItemSrc = (string)element.getAttribute("src"); }
+                    catch (Exception ex) { }
+                    try { colOuterHtml = (string)element.getAttribute("outerHtml"); }
+                    catch (Exception ex) { }
+                    try { colOuterText = (string)element.getAttribute("outerText"); }
+                    catch (Exception ex) { }
                     System.Diagnostics.Debug.WriteLine("ID: " + colItemID);
                     System.Diagnostics.Debug.WriteLine("Class: " + colItemClass);
                     System.Diagnostics.Debug.WriteLine("Name: " + colItemName);
                     System.Diagnostics.Debug.WriteLine("Value: " + colItemValue);
+                    System.Diagnostics.Debug.WriteLine("Src: " + colItemSrc);
+                    System.Diagnostics.Debug.WriteLine("OuterHtml: " + colOuterHtml);
+                    System.Diagnostics.Debug.WriteLine("OuterText: " + colOuterText);
                     System.Diagnostics.Debug.WriteLine("------------------------------------------------");
                     bool FoundIt = false;
                     if (usingIdentifier == UsingIdentifier.Zid) { if (colItemID == IDorNAMEToFInd) FoundIt = true; }
                     if (usingIdentifier == UsingIdentifier.Zname) { if (colItemName == IDorNAMEToFInd) FoundIt = true; }
                     if (usingIdentifier == UsingIdentifier.Zclass) { if (colItemClass == IDorNAMEToFInd) FoundIt = true; }
                     if (usingIdentifier == UsingIdentifier.Zvalue) { if (colItemValue == IDorNAMEToFInd) FoundIt = true; }
+
+                    if ((FoundIt == false)&&(comparisonType==ComparisonType.Zcontains))
+                    {
+                        if (usingIdentifier == UsingIdentifier.Zid) { if (colItemID.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                        if (usingIdentifier == UsingIdentifier.Zname) { if (colItemName.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                        if (usingIdentifier == UsingIdentifier.Zclass) { if (colItemClass.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                        if (usingIdentifier == UsingIdentifier.Zvalue) { if (colItemValue.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                        if (usingIdentifier == UsingIdentifier.Zsrc) { if (colItemSrc.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                    }
                     if (FoundIt == true)
                     {
                         System.Diagnostics.Debug.WriteLine("FOUND IT!");
@@ -125,15 +149,22 @@ namespace DVB
                             retVal = "1";
                             break;
                         }
+                        else if (ValueToEnter == "focus")
+                        {
+                            IHTMLElement2 focusOnIt = (IHTMLElement2)element;
+                            focusOnIt.focus();
+                            retVal = "1";
+                            break;
+                        }
                         else
                         {
                             element.setAttribute("value", ValueToEnter);
+                System.Diagnostics.Debug.WriteLine("ElemFindAndAct Done Searching.");
                             retVal = "1";
                             break;
                         }
                     }
                 }
-                System.Diagnostics.Debug.WriteLine("ElemFindAndAct Done Searching.");
             }
             catch (Exception ex)
             {
@@ -171,42 +202,32 @@ namespace DVB
         }
         public static string CAPTCHAGetImage(SHDocVw.InternetExplorer IE, string SRCToFInd,string WhereToSave)
         {
-            int cnt = 0;
             string retVal = "1";
             try
             {
-                mshtml.HTMLDocument doc = IE.Document as mshtml.HTMLDocument;
-                IHTMLControlRange imgRange = (IHTMLControlRange)((HTMLBody)doc.body).createControlRange();
-                foreach (IHTMLImgElement img in doc.images)
+                IHTMLDocument2 doc = (mshtml.IHTMLDocument2)IE.Document;
+                IHTMLControlRange imgRange = (mshtml.IHTMLControlRange)((mshtml.HTMLBody)doc.body).createControlRange();
+                foreach (mshtml.IHTMLImgElement imgx in doc.images)
                 {
-                    System.Diagnostics.Debug.WriteLine(img.src);
-                    try
+                    System.Diagnostics.Debug.WriteLine(imgx.nameProp);
+                    string ImageDetails = imgx.src.ToUpper();
+                    System.Diagnostics.Debug.WriteLine(imgx.src.ToUpper());
+                    string CAPTCHAName = SRCToFInd.ToUpper();
+                    if (ImageDetails.Contains(CAPTCHAName))
                     {
-                        imgRange.add((IHTMLControlElement)img);
+                        imgRange.add((mshtml.IHTMLControlElement)imgx);
                         imgRange.execCommand("Copy", false, null);
-                        using (Bitmap bmp = (Bitmap)Clipboard.GetDataObject().GetData(DataFormats.Bitmap))
-                        {
-                            if (img.src.Contains(SRCToFInd))
-                            {
-                                bmp.Save(WhereToSave);
-                                retVal = "1";
-                                break;
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine(ex.Message);
-                        retVal = "-1";
+                        Bitmap bmp = null;
+                        bmp = (Bitmap)Clipboard.GetDataObject().GetData(DataFormats.Bitmap);
+                        bmp.Save(WhereToSave);
+                        break;
                     }
                 }
-                System.Diagnostics.Debug.WriteLine("Done");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-                retVal = "-1";
+                System.Diagnostics.Debug.WriteLine("CAPTCHAGetImage failed");
+                //throw;
             }
             return retVal;
         }
