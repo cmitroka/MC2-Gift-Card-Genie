@@ -18,7 +18,8 @@ namespace DVB
             Za,
             Zdiv,
             Zimg,
-            Zlink
+            Zlink,
+            Zselect
         };
         public enum UsingIdentifier
         {
@@ -101,6 +102,8 @@ namespace DVB
                     string colItemID = "";
                     string colItemValue = "";
                     string colItemSrc = "";
+                    string colOuterHtml = "";
+                    string colOuterText = "";
                     try { colItemClass = (string)element.getAttribute("class"); }
                     catch (Exception ex) { }
                     try { colItemName = (string)element.getAttribute("name"); }
@@ -111,11 +114,17 @@ namespace DVB
                     catch (Exception ex) { }
                     try { colItemSrc = (string)element.getAttribute("src"); }
                     catch (Exception ex) { }
+                    try { colOuterHtml = (string)element.getAttribute("outerHtml"); }
+                    catch (Exception ex) { }
+                    try { colOuterText = (string)element.getAttribute("outerText"); }
+                    catch (Exception ex) { }
                     System.Diagnostics.Debug.WriteLine("ID: " + colItemID);
                     System.Diagnostics.Debug.WriteLine("Class: " + colItemClass);
                     System.Diagnostics.Debug.WriteLine("Name: " + colItemName);
                     System.Diagnostics.Debug.WriteLine("Value: " + colItemValue);
                     System.Diagnostics.Debug.WriteLine("Src: " + colItemSrc);
+                    System.Diagnostics.Debug.WriteLine("OuterHtml: " + colOuterHtml);
+                    System.Diagnostics.Debug.WriteLine("OuterText: " + colOuterText);
                     System.Diagnostics.Debug.WriteLine("------------------------------------------------");
                     bool FoundIt = false;
                     if (usingIdentifier == UsingIdentifier.Zid) { if (colItemID == IDorNAMEToFInd) FoundIt = true; }
@@ -123,6 +132,14 @@ namespace DVB
                     if (usingIdentifier == UsingIdentifier.Zclass) { if (colItemClass == IDorNAMEToFInd) FoundIt = true; }
                     if (usingIdentifier == UsingIdentifier.Zvalue) { if (colItemValue == IDorNAMEToFInd) FoundIt = true; }
 
+                    if ((FoundIt == false)&&(comparisonType==ComparisonType.Zcontains))
+                    {
+                        if (usingIdentifier == UsingIdentifier.Zid) { if (colItemID.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                        if (usingIdentifier == UsingIdentifier.Zname) { if (colItemName.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                        if (usingIdentifier == UsingIdentifier.Zclass) { if (colItemClass.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                        if (usingIdentifier == UsingIdentifier.Zvalue) { if (colItemValue.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                        if (usingIdentifier == UsingIdentifier.Zsrc) { if (colItemSrc.Contains(IDorNAMEToFInd)) FoundIt = true; }
+                    }
                     if (FoundIt == true)
                     {
                         System.Diagnostics.Debug.WriteLine("FOUND IT!");
