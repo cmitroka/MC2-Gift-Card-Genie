@@ -29,6 +29,33 @@ namespace DVB
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool IsIconic(IntPtr hWnd);
 
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        static extern bool SetCursorPos(int x, int y);
+
+        public class Win32
+        {
+            [DllImport("User32.Dll")]
+            public static extern long SetCursorPos(int x, int y);
+
+            [DllImport("User32.Dll")]
+            public static extern bool ClientToScreen(IntPtr hWnd, ref POINT point);
+
+            [StructLayout(LayoutKind.Sequential)]
+            public struct POINT
+            {
+                public int x;
+                public int y;
+            }
+        }
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
+
+        private const int MOUSEEVENTF_LEFTDOWN = 0x02;
+        private const int MOUSEEVENTF_LEFTUP = 0x04;
+        private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
+        private const int MOUSEEVENTF_RIGHTUP = 0x10;
+
         [DllImport("user32.dll")]
         private static extern int ShowWindow(IntPtr hWnd, uint Msg);
 
@@ -87,15 +114,24 @@ namespace DVB
                 {
                     IE = new SHDocVw.InternetExplorer();
                     IE.Visible = true;
+                    IntPtr x = (IntPtr)IE.HWND;
+                    GCGCommon.SupportMethods.AdjustWindow(x, 0, 0, 800, 800);
                     //ShowWindow((IntPtr)IE.HWND, 3);
                     IE.Navigate2(txtBaseURL.Text);
                 }
                 else if (Instruction == 999)
                 {
-                    //DoGCGDelay(10, true);
+                    DoGCGDelay(10, true);
+                    if (OK == "1")
+                    {
+                        MouseMove(790, 720);
+                        MouseClick();
+                    }
                 }
-                else if (Instruction == 2)
+                else if (Instruction == 999)
                 {
+                    //int td = GCGMethods.FindWhatFrameItsIn(IE, "gc-number");
+                    //IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, td);
                     IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
                     OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.ZouterHtml, "button secondary modal-trigger", "", 1);
                     DoGCGDelay(20, true);
@@ -105,21 +141,39 @@ namespace DVB
                 }
                 else if (Instruction == 999)
                 {
-                    //IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
-                    //GCGMethods.CAPTCHAGetImage(x, "api/image?c=", ad.CAPTCHAPathAndFileToWrite);
-                    //if (OK == "1") OK = DoHandleCAPTCHARqRs();
-                    //HandleInstruction(OK);
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    OK = GCGMethods.ElementExists(x, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.ZOuterText, "CHECK GIFT CARD BALANCE");
+                    if (OK != "-1") OK = GCGMethods.ModifyHTML(x, "a", "innerHTML", "Gift Card Balance", "<a href=\"https://wbiprod.storedvalue.com/WBI/lookupservlet?language=en\">MODIFIED Gift Card Balance</a>");
+                    HandleInstruction(OK);
                 }
-                else if (Instruction == 3)
+                else if (Instruction == 2)
                 {
-                    //int td = GCGMethods.FindWhatFrameItsIn(IE, "gc-number");
-                    //IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, td);
                     SetForegroundWindowByHWND(IE.HWND);
-                    //OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "gc-PIN", "focus", 1);
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.ZOuterText, "check gift card balance", "");
+                    //DoGCGDelay(10, true);
+                    //if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "ctl00$mainContentPlaceHolder$txtAccessNumber$giftCardTextBox1", txtCardPIN.Text);
+                    //if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.Zid, "ctl00_mainContentPlaceHolder_checkGiftCardBalance", "");
+                    //MouseMove(153, 163);
+                    //MouseClick();
                     //if (OK == "1") OK=DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text);
-                    OK = DoHandleTyper("{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}" + txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{ENTER}");
-                    //OK = DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text);
-                    OK = "1";
+                    HandleInstruction(OK);
+                }
+                else if (Instruction == 999)
+                {
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    GCGMethods.CAPTCHAGetImage(x, "WBServlet?jsessionid", ad.CAPTCHAPathAndFileToWrite);
+                    if (OK == "1") OK = DoHandleCAPTCHARqRs();
+                    HandleInstruction(OK);
+                }
+
+                else if (Instruction == 3)               
+                {
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "gc-number", txtCardNumber.Text);
+                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "gc-pin", txtCardPIN.Text);
+                    //if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "inCaptchaChars", txtCAPTCHAAnswer.Text);
+                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "checkGiftCardBalanceSubmit", "");
                     HandleInstruction(OK);
                 }
                 else
@@ -901,7 +955,23 @@ namespace DVB
                     //return;
                 }
             }
-
+        }
+        private void MouseMove(int pXPos, int pYPos)
+        {
+            /*
+            Win32.POINT p = new Win32.POINT();
+            p.x = Convert.ToInt16(pXPos);
+            p.y = Convert.ToInt16(pYPos);
+            Win32.ClientToScreen(this.Handle, ref p);
+            Win32.SetCursorPos(p.x, p.y);
+            */
+            SetCursorPos(pXPos, pYPos);
+        }
+        private void MouseClick()
+        {
+            uint X = (uint)Cursor.Position.X;
+            uint Y = (uint)Cursor.Position.Y;
+            mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
         }
 
     }

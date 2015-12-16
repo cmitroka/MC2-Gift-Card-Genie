@@ -355,20 +355,26 @@ namespace DVB
             if (zHTMLAttributes.ToString() == "classs") HTMLEnumAttribute = "className";
             try
             {
-
-                mshtml.IHTMLElementCollection c = ((mshtml.HTMLDocumentClass)(FrameDoc)).getElementsByTagName(HTMLTagNames.ToString());
+                string NZHTMLTagNames = HTMLTagNames.ToString().Substring(1, HTMLTagNames.ToString().Length - 1);
+                string NHTMLEnumAttribute = HTMLEnumAttribute.ToString().Substring(1, HTMLEnumAttribute.ToString().Length - 1);
+                mshtml.IHTMLElementCollection c = ((mshtml.HTMLDocumentClass)(FrameDoc)).getElementsByTagName(NZHTMLTagNames);
                 foreach (IHTMLElement div in c)
                 {
                     foreachcount++;
                     System.Diagnostics.Debug.WriteLine("foreachcount: " + foreachcount.ToString() + " of " + c.length.ToString());
                     System.Diagnostics.Debug.WriteLine("ID: " + div.id);
+                    System.Diagnostics.Debug.WriteLine("OutterHTML: " + div.outerHTML);
+                    System.Diagnostics.Debug.WriteLine("OutterText: " + div.outerText);
+                    System.Diagnostics.Debug.WriteLine("InnerHTML: " + div.innerText);
+                    System.Diagnostics.Debug.WriteLine("InnerText: " + div.innerHTML);
+
                     bool TryIt = false;
                     string testUcaseVal = "ALWAYSFAILATTHISPOINT";
-                    if (HTMLEnumAttribute.ToUpper() == "OUTERHTML") attName = "*%" + attName;
+                    if (NHTMLEnumAttribute.ToUpper() == "OUTERHTML") attName = "*%" + attName;
                     try
                     {
-                        testUcaseVal = div.getAttribute(HTMLEnumAttribute).ToString().ToUpper();
-                        System.Diagnostics.Debug.WriteLine(HTMLEnumAttribute + ": " + testUcaseVal);
+                        testUcaseVal = div.getAttribute(NHTMLEnumAttribute).ToString().ToUpper();
+                        System.Diagnostics.Debug.WriteLine(NHTMLEnumAttribute + ": " + testUcaseVal);
                     }
                     catch (Exception ex)
                     {
@@ -402,9 +408,9 @@ namespace DVB
                 foreach (IHTMLElement div in c)
                 {
                     foreachcount++;
-                    if (attName == "RELOAD-LINK")
+                    if (attName == "ctl00_mainContentPlaceHolder_checkGiftCardBalance".ToUpper())
                     {
-                        if (foreachcount < 550) continue;
+                        if (foreachcount < 500) continue;
                     }
                     if (c.length == 0) break;
                     System.Diagnostics.Debug.WriteLine("foreachcount: " + foreachcount.ToString() + " of " + c.length.ToString());
@@ -418,6 +424,7 @@ namespace DVB
                     bool TryIt = false;
                     string testUcaseVal = "ALWAYSFAILATTHISPOINT";
                     if (pHTMLEnumAttribute.ToUpper() == "OUTERHTML") attName = "*%" + attName;
+                    if (pHTMLEnumAttribute.ToUpper() == "SRC") attName = "*%" + attName;
                     //{
                     //    if (div.outerHTML.ToUpper().Contains(attName)) TryIt = true;
                     //}
