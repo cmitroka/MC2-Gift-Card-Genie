@@ -32,25 +32,25 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtLog = new System.Windows.Forms.TextBox();
+            this.cmdUpdate = new System.Windows.Forms.Button();
+            this.cmdReloadRequest = new System.Windows.Forms.Button();
+            this.txtForceExit = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtTimeoutMonitor = new System.Windows.Forms.TextBox();
-            this.txtLog = new System.Windows.Forms.TextBox();
-            this.txtMaxProg = new System.Windows.Forms.TextBox();
             this.txtRetryCntr = new System.Windows.Forms.TextBox();
             this.cmdForceExit = new System.Windows.Forms.Button();
-            this.txtIsBusy = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.cmdLogOut = new System.Windows.Forms.Button();
-            this.txtStatus = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmdUpdate = new System.Windows.Forms.Button();
+            this.cmbSupportCode = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtCleanName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtTimeout = new System.Windows.Forms.TextBox();
             this.txtBaseURL = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.cmdReloadRequest = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.txtAdditionalParam = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -68,6 +68,9 @@
             this.txtCardNumber = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.chkUseProxy = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtAppStaticDBPath = new System.Windows.Forms.TextBox();
             this.txtRqRsPath = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.txtCAPTCHAPath = new System.Windows.Forms.TextBox();
@@ -78,16 +81,28 @@
             this.tmrDelay = new System.Windows.Forms.Timer(this.components);
             this.tmrSendKeys = new System.Windows.Forms.Timer(this.components);
             this.tmrGetCAPTCHA = new System.Windows.Forms.Timer(this.components);
-            this.cmdSave = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtTimeout = new System.Windows.Forms.TextBox();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MSaveDataToWebserver = new System.Windows.Forms.ToolStripMenuItem();
+            this.MLoadDataFromWebserver = new System.Windows.Forms.ToolStripMenuItem();
+            this.MSaveDataToTestFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.MLoadDataFromTestFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.MSaveSettingsToDB = new System.Windows.Forms.ToolStripMenuItem();
+            this.MLoadSettingsFromDB = new System.Windows.Forms.ToolStripMenuItem();
+            this.MSaveSettingsToRegistry = new System.Windows.Forms.ToolStripMenuItem();
+            this.MLoadSettingsFromRegistry = new System.Windows.Forms.ToolStripMenuItem();
+            this.navigationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MGoToBaseURL = new System.Windows.Forms.ToolStripMenuItem();
+            this.shellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MOpenCAPTCHALocation = new System.Windows.Forms.ToolStripMenuItem();
+            this.MOpenRqRSLocation = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -95,11 +110,11 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(10, 3);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(986, 332);
+            this.tabControl1.Size = new System.Drawing.Size(962, 192);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -107,41 +122,81 @@
             this.tabPage1.BackColor = System.Drawing.Color.Gainsboro;
             this.tabPage1.Controls.Add(this.groupBox3);
             this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Controls.Add(this.webBrowser1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(978, 306);
+            this.tabPage1.Size = new System.Drawing.Size(954, 166);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Execution";
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.groupBox3.Controls.Add(this.txtLog);
+            this.groupBox3.Controls.Add(this.cmdUpdate);
+            this.groupBox3.Controls.Add(this.cmdReloadRequest);
+            this.groupBox3.Controls.Add(this.txtForceExit);
             this.groupBox3.Controls.Add(this.label17);
             this.groupBox3.Controls.Add(this.txtTimeoutMonitor);
-            this.groupBox3.Controls.Add(this.txtLog);
-            this.groupBox3.Controls.Add(this.txtMaxProg);
             this.groupBox3.Controls.Add(this.txtRetryCntr);
             this.groupBox3.Controls.Add(this.cmdForceExit);
-            this.groupBox3.Controls.Add(this.txtIsBusy);
-            this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Controls.Add(this.cmdLogOut);
-            this.groupBox3.Controls.Add(this.txtStatus);
-            this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.label16);
-            this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Location = new System.Drawing.Point(0, 242);
+            this.groupBox3.Location = new System.Drawing.Point(2, 102);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(950, 61);
+            this.groupBox3.Size = new System.Drawing.Size(946, 61);
             this.groupBox3.TabIndex = 51;
             this.groupBox3.TabStop = false;
+            // 
+            // txtLog
+            // 
+            this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLog.Location = new System.Drawing.Point(2, 10);
+            this.txtLog.Multiline = true;
+            this.txtLog.Name = "txtLog";
+            this.txtLog.Size = new System.Drawing.Size(521, 45);
+            this.txtLog.TabIndex = 56;
+            this.txtLog.TabStop = false;
+            // 
+            // cmdUpdate
+            // 
+            this.cmdUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdUpdate.Location = new System.Drawing.Point(840, 33);
+            this.cmdUpdate.Name = "cmdUpdate";
+            this.cmdUpdate.Size = new System.Drawing.Size(100, 21);
+            this.cmdUpdate.TabIndex = 55;
+            this.cmdUpdate.TabStop = false;
+            this.cmdUpdate.Text = "Update Data";
+            this.cmdUpdate.UseVisualStyleBackColor = true;
+            this.cmdUpdate.Click += new System.EventHandler(this.cmdUpdate_Click);
+            // 
+            // cmdReloadRequest
+            // 
+            this.cmdReloadRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdReloadRequest.Location = new System.Drawing.Point(840, 10);
+            this.cmdReloadRequest.Name = "cmdReloadRequest";
+            this.cmdReloadRequest.Size = new System.Drawing.Size(100, 21);
+            this.cmdReloadRequest.TabIndex = 54;
+            this.cmdReloadRequest.TabStop = false;
+            this.cmdReloadRequest.Text = "Reload Data";
+            this.cmdReloadRequest.UseVisualStyleBackColor = true;
+            this.cmdReloadRequest.Click += new System.EventHandler(this.cmdReloadRequest_Click);
+            // 
+            // txtForceExit
+            // 
+            this.txtForceExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtForceExit.Location = new System.Drawing.Point(615, 34);
+            this.txtForceExit.Name = "txtForceExit";
+            this.txtForceExit.Size = new System.Drawing.Size(220, 20);
+            this.txtForceExit.TabIndex = 53;
+            this.txtForceExit.TabStop = false;
+            this.txtForceExit.Text = "Please try again.";
             // 
             // label17
             // 
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(654, 17);
+            this.label17.Location = new System.Drawing.Point(737, 13);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(48, 13);
             this.label17.TabIndex = 52;
@@ -149,45 +204,28 @@
             // 
             // txtTimeoutMonitor
             // 
-            this.txtTimeoutMonitor.Location = new System.Drawing.Point(708, 14);
+            this.txtTimeoutMonitor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTimeoutMonitor.Location = new System.Drawing.Point(791, 10);
             this.txtTimeoutMonitor.Name = "txtTimeoutMonitor";
-            this.txtTimeoutMonitor.Size = new System.Drawing.Size(40, 20);
+            this.txtTimeoutMonitor.Size = new System.Drawing.Size(44, 20);
             this.txtTimeoutMonitor.TabIndex = 51;
             this.txtTimeoutMonitor.TabStop = false;
             this.txtTimeoutMonitor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // txtLog
-            // 
-            this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtLog.Location = new System.Drawing.Point(6, 10);
-            this.txtLog.Multiline = true;
-            this.txtLog.Name = "txtLog";
-            this.txtLog.Size = new System.Drawing.Size(521, 45);
-            this.txtLog.TabIndex = 38;
-            this.txtLog.TabStop = false;
-            // 
-            // txtMaxProg
-            // 
-            this.txtMaxProg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMaxProg.Location = new System.Drawing.Point(899, 11);
-            this.txtMaxProg.Name = "txtMaxProg";
-            this.txtMaxProg.Size = new System.Drawing.Size(43, 20);
-            this.txtMaxProg.TabIndex = 42;
-            this.txtMaxProg.TabStop = false;
-            // 
             // txtRetryCntr
             // 
             this.txtRetryCntr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRetryCntr.Location = new System.Drawing.Point(813, 36);
+            this.txtRetryCntr.Location = new System.Drawing.Point(679, 11);
             this.txtRetryCntr.Name = "txtRetryCntr";
             this.txtRetryCntr.Size = new System.Drawing.Size(44, 20);
             this.txtRetryCntr.TabIndex = 47;
             this.txtRetryCntr.TabStop = false;
+            this.txtRetryCntr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // cmdForceExit
             // 
             this.cmdForceExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdForceExit.Location = new System.Drawing.Point(533, 33);
+            this.cmdForceExit.Location = new System.Drawing.Point(529, 33);
             this.cmdForceExit.Name = "cmdForceExit";
             this.cmdForceExit.Size = new System.Drawing.Size(80, 21);
             this.cmdForceExit.TabIndex = 50;
@@ -195,29 +233,10 @@
             this.cmdForceExit.UseVisualStyleBackColor = true;
             this.cmdForceExit.Click += new System.EventHandler(this.cmdForceExit_Click);
             // 
-            // txtIsBusy
-            // 
-            this.txtIsBusy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIsBusy.Location = new System.Drawing.Point(899, 35);
-            this.txtIsBusy.Name = "txtIsBusy";
-            this.txtIsBusy.Size = new System.Drawing.Size(43, 20);
-            this.txtIsBusy.TabIndex = 45;
-            this.txtIsBusy.TabStop = false;
-            // 
-            // label13
-            // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(778, 17);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(29, 13);
-            this.label13.TabIndex = 43;
-            this.label13.Text = "Curr:";
-            // 
             // cmdLogOut
             // 
             this.cmdLogOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdLogOut.Location = new System.Drawing.Point(533, 10);
+            this.cmdLogOut.Location = new System.Drawing.Point(529, 10);
             this.cmdLogOut.Name = "cmdLogOut";
             this.cmdLogOut.Size = new System.Drawing.Size(80, 21);
             this.cmdLogOut.TabIndex = 49;
@@ -225,52 +244,27 @@
             this.cmdLogOut.UseVisualStyleBackColor = true;
             this.cmdLogOut.Click += new System.EventHandler(this.cmdViewLog_Click);
             // 
-            // txtStatus
-            // 
-            this.txtStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtStatus.Location = new System.Drawing.Point(813, 11);
-            this.txtStatus.Name = "txtStatus";
-            this.txtStatus.Size = new System.Drawing.Size(44, 20);
-            this.txtStatus.TabIndex = 41;
-            this.txtStatus.TabStop = false;
-            // 
-            // label14
-            // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(863, 16);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(30, 13);
-            this.label14.TabIndex = 44;
-            this.label14.Text = "Max:";
-            // 
             // label16
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(750, 39);
+            this.label16.Location = new System.Drawing.Point(616, 14);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(57, 13);
             this.label16.TabIndex = 48;
             this.label16.Text = "Rerty Cnrt:";
             // 
-            // label15
-            // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(860, 40);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(33, 13);
-            this.label15.TabIndex = 46;
-            this.label15.Text = "Busy:";
-            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.cmdUpdate);
+            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupBox1.Controls.Add(this.cmbSupportCode);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.txtCleanName);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.txtTimeout);
             this.groupBox1.Controls.Add(this.txtBaseURL);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.cmdReloadRequest);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.txtAdditionalParam);
             this.groupBox1.Controls.Add(this.label11);
@@ -286,28 +280,63 @@
             this.groupBox1.Controls.Add(this.txtCardPIN);
             this.groupBox1.Controls.Add(this.cmdRunRequest);
             this.groupBox1.Controls.Add(this.txtCardNumber);
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Location = new System.Drawing.Point(2, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(950, 102);
+            this.groupBox1.Size = new System.Drawing.Size(946, 102);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
             // 
-            // cmdUpdate
+            // cmbSupportCode
             // 
-            this.cmdUpdate.Location = new System.Drawing.Point(804, 74);
-            this.cmdUpdate.Name = "cmdUpdate";
-            this.cmdUpdate.Size = new System.Drawing.Size(122, 23);
-            this.cmdUpdate.TabIndex = 52;
-            this.cmdUpdate.TabStop = false;
-            this.cmdUpdate.Text = "Update";
-            this.cmdUpdate.UseVisualStyleBackColor = true;
-            this.cmdUpdate.Click += new System.EventHandler(this.cmdUpdate_Click);
+            this.cmbSupportCode.FormattingEnabled = true;
+            this.cmbSupportCode.Items.AddRange(new object[] {
+            "",
+            "Supported",
+            "Unsupported"});
+            this.cmbSupportCode.Location = new System.Drawing.Point(712, 45);
+            this.cmbSupportCode.Name = "cmbSupportCode";
+            this.cmbSupportCode.Size = new System.Drawing.Size(100, 21);
+            this.cmbSupportCode.TabIndex = 61;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(670, 79);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(68, 13);
+            this.label10.TabIndex = 60;
+            this.label10.Text = "Clean Name:";
+            // 
+            // txtCleanName
+            // 
+            this.txtCleanName.Location = new System.Drawing.Point(744, 76);
+            this.txtCleanName.Name = "txtCleanName";
+            this.txtCleanName.Size = new System.Drawing.Size(190, 20);
+            this.txtCleanName.TabIndex = 59;
+            this.txtCleanName.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(714, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 13);
+            this.label2.TabIndex = 58;
+            this.label2.Text = "Timeout:";
+            // 
+            // txtTimeout
+            // 
+            this.txtTimeout.Location = new System.Drawing.Point(768, 19);
+            this.txtTimeout.Name = "txtTimeout";
+            this.txtTimeout.Size = new System.Drawing.Size(44, 20);
+            this.txtTimeout.TabIndex = 57;
+            this.txtTimeout.TabStop = false;
             // 
             // txtBaseURL
             // 
             this.txtBaseURL.Location = new System.Drawing.Point(67, 76);
             this.txtBaseURL.Name = "txtBaseURL";
-            this.txtBaseURL.Size = new System.Drawing.Size(731, 20);
+            this.txtBaseURL.Size = new System.Drawing.Size(477, 20);
             this.txtBaseURL.TabIndex = 50;
             this.txtBaseURL.TabStop = false;
             // 
@@ -322,25 +351,14 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(728, 46);
+            this.button1.Location = new System.Drawing.Point(565, 74);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 23);
+            this.button1.Size = new System.Drawing.Size(99, 23);
             this.button1.TabIndex = 41;
             this.button1.TabStop = false;
             this.button1.Text = "Go To Base URL";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.cmdGo_Click);
-            // 
-            // cmdReloadRequest
-            // 
-            this.cmdReloadRequest.Location = new System.Drawing.Point(728, 17);
-            this.cmdReloadRequest.Name = "cmdReloadRequest";
-            this.cmdReloadRequest.Size = new System.Drawing.Size(100, 23);
-            this.cmdReloadRequest.TabIndex = 40;
-            this.cmdReloadRequest.TabStop = false;
-            this.cmdReloadRequest.Text = "Reload Request";
-            this.cmdReloadRequest.UseVisualStyleBackColor = true;
-            this.cmdReloadRequest.Click += new System.EventHandler(this.cmdReloadRequest_Click);
             // 
             // label9
             // 
@@ -362,7 +380,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(833, 49);
+            this.label11.Location = new System.Drawing.Point(834, 52);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 13);
             this.label11.TabIndex = 37;
@@ -396,7 +414,7 @@
             // 
             // txtCardBalance
             // 
-            this.txtCardBalance.Location = new System.Drawing.Point(874, 46);
+            this.txtCardBalance.Location = new System.Drawing.Point(875, 49);
             this.txtCardBalance.Name = "txtCardBalance";
             this.txtCardBalance.Size = new System.Drawing.Size(59, 20);
             this.txtCardBalance.TabIndex = 25;
@@ -475,29 +493,56 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabPage2.Controls.Add(this.cmdSave);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.txtTimeout);
             this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(978, 306);
+            this.tabPage2.Size = new System.Drawing.Size(954, 166);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Settings";
+            this.tabPage2.Text = "Other Stuff";
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.chkUseProxy);
+            this.groupBox5.Controls.Add(this.label12);
+            this.groupBox5.Controls.Add(this.txtAppStaticDBPath);
             this.groupBox5.Controls.Add(this.txtRqRsPath);
             this.groupBox5.Controls.Add(this.label18);
             this.groupBox5.Controls.Add(this.txtCAPTCHAPath);
             this.groupBox5.Controls.Add(this.label6);
             this.groupBox5.Location = new System.Drawing.Point(6, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(937, 63);
+            this.groupBox5.Size = new System.Drawing.Size(937, 109);
             this.groupBox5.TabIndex = 54;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "GCG Janitor (Common) Settings";
+            // 
+            // chkUseProxy
+            // 
+            this.chkUseProxy.AutoSize = true;
+            this.chkUseProxy.Location = new System.Drawing.Point(103, 80);
+            this.chkUseProxy.Name = "chkUseProxy";
+            this.chkUseProxy.Size = new System.Drawing.Size(74, 17);
+            this.chkUseProxy.TabIndex = 61;
+            this.chkUseProxy.Text = "Use Proxy";
+            this.chkUseProxy.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(41, 56);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(59, 13);
+            this.label12.TabIndex = 60;
+            this.label12.Text = "MDB Path:";
+            // 
+            // txtAppStaticDBPath
+            // 
+            this.txtAppStaticDBPath.Location = new System.Drawing.Point(103, 53);
+            this.txtAppStaticDBPath.Name = "txtAppStaticDBPath";
+            this.txtAppStaticDBPath.Size = new System.Drawing.Size(515, 20);
+            this.txtAppStaticDBPath.TabIndex = 59;
+            this.txtAppStaticDBPath.TabStop = false;
             // 
             // txtRqRsPath
             // 
@@ -555,56 +600,139 @@
             // tmrSendKeys
             // 
             this.tmrSendKeys.Interval = 10;
+            this.tmrSendKeys.Tick += new System.EventHandler(this.tmrSendKeys_Tick);
             // 
             // tmrGetCAPTCHA
             // 
             this.tmrGetCAPTCHA.Tick += new System.EventHandler(this.tmrGetCAPTCHA_Tick);
             // 
-            // cmdSave
+            // menuStrip1
             // 
-            this.cmdSave.Location = new System.Drawing.Point(573, 218);
-            this.cmdSave.Name = "cmdSave";
-            this.cmdSave.Size = new System.Drawing.Size(132, 23);
-            this.cmdSave.TabIndex = 57;
-            this.cmdSave.TabStop = false;
-            this.cmdSave.Text = "Save";
-            this.cmdSave.UseVisualStyleBackColor = true;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.navigationToolStripMenuItem,
+            this.shellToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(962, 24);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // label2
+            // fileToolStripMenuItem
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(353, 223);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 13);
-            this.label2.TabIndex = 56;
-            this.label2.Text = "Timeout:";
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MSaveDataToWebserver,
+            this.MLoadDataFromWebserver,
+            this.MSaveDataToTestFile,
+            this.MLoadDataFromTestFile,
+            this.MSaveSettingsToDB,
+            this.MLoadSettingsFromDB,
+            this.MSaveSettingsToRegistry,
+            this.MLoadSettingsFromRegistry});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Text = "File";
             // 
-            // txtTimeout
+            // MSaveDataToWebserver
             // 
-            this.txtTimeout.Location = new System.Drawing.Point(407, 220);
-            this.txtTimeout.Name = "txtTimeout";
-            this.txtTimeout.Size = new System.Drawing.Size(44, 20);
-            this.txtTimeout.TabIndex = 55;
-            this.txtTimeout.TabStop = false;
+            this.MSaveDataToWebserver.Name = "MSaveDataToWebserver";
+            this.MSaveDataToWebserver.Size = new System.Drawing.Size(207, 22);
+            this.MSaveDataToWebserver.Text = "Save Data to Webserver";
+            this.MSaveDataToWebserver.Click += new System.EventHandler(this.MSaveDataToWebserver_Click);
             // 
-            // webBrowser1
+            // MLoadDataFromWebserver
             // 
-            this.webBrowser1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.webBrowser1.Location = new System.Drawing.Point(0, 108);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(950, 128);
-            this.webBrowser1.TabIndex = 37;
+            this.MLoadDataFromWebserver.Name = "MLoadDataFromWebserver";
+            this.MLoadDataFromWebserver.Size = new System.Drawing.Size(207, 22);
+            this.MLoadDataFromWebserver.Text = "Load Data from Webserver";
+            this.MLoadDataFromWebserver.Click += new System.EventHandler(this.MLoadDataFromWebserver_Click);
+            // 
+            // MSaveDataToTestFile
+            // 
+            this.MSaveDataToTestFile.Name = "MSaveDataToTestFile";
+            this.MSaveDataToTestFile.Size = new System.Drawing.Size(207, 22);
+            this.MSaveDataToTestFile.Text = "Save Data to Test File";
+            this.MSaveDataToTestFile.Click += new System.EventHandler(this.MSaveDataToTestFile_Click);
+            // 
+            // MLoadDataFromTestFile
+            // 
+            this.MLoadDataFromTestFile.Name = "MLoadDataFromTestFile";
+            this.MLoadDataFromTestFile.Size = new System.Drawing.Size(207, 22);
+            this.MLoadDataFromTestFile.Text = "Load Data from Test File";
+            this.MLoadDataFromTestFile.Click += new System.EventHandler(this.MLoadDataFromTestFile_Click);
+            // 
+            // MSaveSettingsToDB
+            // 
+            this.MSaveSettingsToDB.Name = "MSaveSettingsToDB";
+            this.MSaveSettingsToDB.Size = new System.Drawing.Size(207, 22);
+            this.MSaveSettingsToDB.Text = "Save Settings to DB";
+            this.MSaveSettingsToDB.Click += new System.EventHandler(this.MSaveSettingsToDB_Click);
+            // 
+            // MLoadSettingsFromDB
+            // 
+            this.MLoadSettingsFromDB.Name = "MLoadSettingsFromDB";
+            this.MLoadSettingsFromDB.Size = new System.Drawing.Size(207, 22);
+            this.MLoadSettingsFromDB.Text = "Load Settings from DB";
+            this.MLoadSettingsFromDB.Click += new System.EventHandler(this.MLoadSettingsFromDB_Click);
+            // 
+            // MSaveSettingsToRegistry
+            // 
+            this.MSaveSettingsToRegistry.Name = "MSaveSettingsToRegistry";
+            this.MSaveSettingsToRegistry.Size = new System.Drawing.Size(207, 22);
+            this.MSaveSettingsToRegistry.Text = "Save Settings to Registry";
+            this.MSaveSettingsToRegistry.Click += new System.EventHandler(this.MSaveSettingsToRegistry_Click);
+            // 
+            // MLoadSettingsFromRegistry
+            // 
+            this.MLoadSettingsFromRegistry.Name = "MLoadSettingsFromRegistry";
+            this.MLoadSettingsFromRegistry.Size = new System.Drawing.Size(207, 22);
+            this.MLoadSettingsFromRegistry.Text = "Load Settings from Registry";
+            this.MLoadSettingsFromRegistry.Click += new System.EventHandler(this.MLoadSettingsFromRegistry_Click);
+            // 
+            // navigationToolStripMenuItem
+            // 
+            this.navigationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MGoToBaseURL});
+            this.navigationToolStripMenuItem.Name = "navigationToolStripMenuItem";
+            this.navigationToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.navigationToolStripMenuItem.Text = "Navigation";
+            // 
+            // MGoToBaseURL
+            // 
+            this.MGoToBaseURL.Name = "MGoToBaseURL";
+            this.MGoToBaseURL.Size = new System.Drawing.Size(150, 22);
+            this.MGoToBaseURL.Text = "Go To Base URL";
+            // 
+            // shellToolStripMenuItem
+            // 
+            this.shellToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MOpenCAPTCHALocation,
+            this.MOpenRqRSLocation});
+            this.shellToolStripMenuItem.Name = "shellToolStripMenuItem";
+            this.shellToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.shellToolStripMenuItem.Text = "Shell";
+            // 
+            // MOpenCAPTCHALocation
+            // 
+            this.MOpenCAPTCHALocation.Name = "MOpenCAPTCHALocation";
+            this.MOpenCAPTCHALocation.Size = new System.Drawing.Size(193, 22);
+            this.MOpenCAPTCHALocation.Text = "Open CAPTCHA Location";
+            // 
+            // MOpenRqRSLocation
+            // 
+            this.MOpenRqRSLocation.Name = "MOpenRqRSLocation";
+            this.MOpenRqRSLocation.Size = new System.Drawing.Size(193, 22);
+            this.MOpenRqRSLocation.Text = "Open RqRS Location";
             // 
             // Main
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(986, 332);
+            this.ClientSize = new System.Drawing.Size(962, 216);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Main";
             this.Text = "Balance Extractor";
             this.Load += new System.EventHandler(this.Main_Load);
@@ -615,10 +743,12 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -626,20 +756,8 @@
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button cmdForceExit;
-        private System.Windows.Forms.Button cmdLogOut;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox txtRetryCntr;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox txtIsBusy;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox txtMaxProg;
-        private System.Windows.Forms.TextBox txtStatus;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button cmdReloadRequest;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label8;
@@ -654,14 +772,6 @@
         private System.Windows.Forms.Timer tmrSendKeys;
         private System.Windows.Forms.Timer tmrGetCAPTCHA;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox txtTimeoutMonitor;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label18;
-        public System.Windows.Forms.TextBox txtCAPTCHAPath;
-        public System.Windows.Forms.TextBox txtRqRsPath;
-        public System.Windows.Forms.TextBox txtLog;
         public System.Windows.Forms.TextBox txtAdditionalParam;
         public System.Windows.Forms.TextBox txtCAPTCHAAnswer;
         public System.Windows.Forms.TextBox txtPassword;
@@ -669,14 +779,48 @@
         public System.Windows.Forms.TextBox txtCardPIN;
         public System.Windows.Forms.TextBox txtCardNumber;
         public System.Windows.Forms.Timer tmrRunning;
-        public System.Windows.Forms.WebBrowser webBrowser1;
-        public System.Windows.Forms.Button cmdUpdate;
         public System.Windows.Forms.TextBox txtBaseURL;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Timer tmrResponseHandler;
-        private System.Windows.Forms.Button cmdSave;
+        private System.Windows.Forms.Label label10;
+        public System.Windows.Forms.TextBox txtCleanName;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.TextBox txtTimeout;
+        public System.Windows.Forms.ComboBox cmbSupportCode;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MSaveDataToWebserver;
+        private System.Windows.Forms.ToolStripMenuItem MSaveDataToTestFile;
+        private System.Windows.Forms.ToolStripMenuItem navigationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MGoToBaseURL;
+        private System.Windows.Forms.ToolStripMenuItem shellToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MOpenCAPTCHALocation;
+        private System.Windows.Forms.ToolStripMenuItem MOpenRqRSLocation;
+        private System.Windows.Forms.ToolStripMenuItem MLoadDataFromWebserver;
+        private System.Windows.Forms.ToolStripMenuItem MLoadDataFromTestFile;
+        private System.Windows.Forms.ToolStripMenuItem MSaveSettingsToDB;
+        private System.Windows.Forms.ToolStripMenuItem MLoadSettingsFromDB;
+        private System.Windows.Forms.ToolStripMenuItem MSaveSettingsToRegistry;
+        private System.Windows.Forms.ToolStripMenuItem MLoadSettingsFromRegistry;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label label12;
+        public System.Windows.Forms.TextBox txtAppStaticDBPath;
+        public System.Windows.Forms.TextBox txtRqRsPath;
+        private System.Windows.Forms.Label label18;
+        public System.Windows.Forms.TextBox txtCAPTCHAPath;
+        private System.Windows.Forms.Label label6;
+        public System.Windows.Forms.CheckBox chkUseProxy;
+        public System.Windows.Forms.TextBox txtLog;
+        public System.Windows.Forms.Button cmdUpdate;
+        private System.Windows.Forms.Button cmdReloadRequest;
+        private System.Windows.Forms.TextBox txtForceExit;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox txtTimeoutMonitor;
+        private System.Windows.Forms.TextBox txtRetryCntr;
+        private System.Windows.Forms.Button cmdForceExit;
+        private System.Windows.Forms.Button cmdLogOut;
+        private System.Windows.Forms.Label label16;
 
     }
 }
