@@ -134,6 +134,21 @@ namespace GCGCommon
             return retVal;
             //string textOnly = HttpUtility.HtmlDecode(output.ToString());
         }
+        public static string ValidateSession(string SessionID, string Checksum)
+        {
+            string retVal = "";
+            try
+            {
+                string TestChecksum = GetChecksum(SessionID);
+                if (TestChecksum == Checksum) return "1";
+            }
+            catch (Exception)
+            {
+                retVal = "-1";
+            }
+            return retVal;
+        }
+
         public static string GetChecksum(string SessionID)
         {
             string retVal = "";
