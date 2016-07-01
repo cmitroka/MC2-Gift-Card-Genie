@@ -60,13 +60,14 @@ namespace DVB
             }
             else if (Instruction == 2)
             {
-                OK = DoHandleRqRs(GCTypes.GCCAPTCHA, "ImageHipChallenge.aspx");
+                OK = DoHandleRqRs(GCTypes.GCCAPTCHA, @"recaptcha/api/image?c");
                 HandleInstruction(OK);
             }
             else if (Instruction == 3)
             {
                 OK = GCGMethods.SimInput(webBrowser1, HTMLEnumTagNames.input, HTMLEnumAttributes.id, "ctl00_GiftCardContent_ctrBalanceInquiry_tbCardNumber", txtCardNumber.Text);
-                if (OK != "-1") OK = GCGMethods.SimInput(webBrowser1, HTMLEnumTagNames.input, HTMLEnumAttributes.id, "ctl00_GiftCardContent_ctrBalanceInquiry_ucCaptcha_tbHipAlphaNumeric",txtCAPTCHAAnswer.Text);
+                if (OK != "-1") OK = GCGMethods.SimInput(webBrowser1, HTMLEnumTagNames.input, HTMLEnumAttributes.id, "ctl00_GiftCardContent_ctrBalanceInquiry_tbEmail", "none@mail.com");
+                if (OK != "-1") OK = GCGMethods.SimInput(webBrowser1, HTMLEnumTagNames.input, HTMLEnumAttributes.id, "recaptcha_response_field", txtCAPTCHAAnswer.Text);
                 if (OK != "-1") OK = GCGMethods.SimInput(webBrowser1, HTMLEnumTagNames.input, HTMLEnumAttributes.name, "ctl00$GiftCardContent$ctrBalanceInquiry$btnGetBalance");
                 HandleInstruction(OK);
             }
