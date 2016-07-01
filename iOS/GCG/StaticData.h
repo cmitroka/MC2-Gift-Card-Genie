@@ -31,6 +31,7 @@
 @property (readwrite, retain) NSString *pPurchased;
 @property (readwrite, retain) NSString *pAmntForADollar;
 @property (readwrite, retain) NSString *pCostForApp;
+@property (readwrite, retain) NSString *pCallback;
 @property int pPopAmount;
 @property int pVersionNumeric;
 

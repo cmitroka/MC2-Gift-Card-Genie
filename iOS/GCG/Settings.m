@@ -24,6 +24,7 @@
 #import "Feedback.h"
 #import "MyGCs.h"
 #import "StaticData.h"
+#import "WatchAd.h"
 @interface Settings()
 
 -(void)provideContent:(NSString *)productIdentifier;
@@ -55,8 +56,6 @@ static NSString *pAlert;
 
     if ([appStatus isEqualToString:@"Purchased"])
     {
-        locks1.hidden=YES;
-        locks2.hidden=YES;
         if (boolAlwaysUpdate.boolValue==TRUE)
         {
             [AlwaysUpdate setOn:TRUE];
@@ -69,8 +68,6 @@ static NSString *pAlert;
     }
     else
     {
-        locks1.hidden=NO;
-        locks2.hidden=NO;
         lockedFeature1.enabled=NO;
         lockedFeature1.alpha=.5;
         lockedFeature2.enabled=NO;
@@ -83,13 +80,13 @@ static NSString *pAlert;
 }
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBarHidden=YES;
-    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+//    [super viewWillAppear:animated];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
-    self.navigationController.navigationBarHidden=NO;
-	[super viewWillDisappear:animated];
+//    self.navigationController.navigationBarHidden=NO;
+//	[super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -100,11 +97,6 @@ static NSString *pAlert;
 {
     TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate useNavController:[MyGCs class]];
-}
--(IBAction)showAbout:(id)sender
-{
-    About *about=[[About alloc]init];
-    [self.navigationController pushViewController:about animated:YES];        
 }
 -(IBAction)toggleAlwaysUpdate:(id)sender
 {
@@ -117,7 +109,7 @@ static NSString *pAlert;
         [SFHFKeychainUtils pmUpdateSettingName:@"AlwaysUpdate" SettingValue:@""];        
     }
 }
--(IBAction)showFeedback:(id)sender
+-(IBAction)EmailUs:(id)sender
 {
     
     //Feedback *feedback = [[Feedback alloc]init];

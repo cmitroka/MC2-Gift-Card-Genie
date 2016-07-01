@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "iAd/ADBannerView.h"
-@interface TVCMasterViewController : UIViewController<ADBannerViewDelegate>
+@interface TVCMasterViewController : UIViewController
 {
-    IBOutlet ADBannerView *_ADBannerView;
+    IBOutlet UILabel *lblLookupInfo;
 }
 @end

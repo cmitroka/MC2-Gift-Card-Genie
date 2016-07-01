@@ -14,11 +14,9 @@
 -(NSString *)pmDoAppStartup;
 -(int)pmGetMerchantCount;
 -(NSString *)pmDownloadAllData;
+-(void)pmNewManualRequest:(NSString *)pCardType CardNumber:(NSString *)pCardNumber PIN:(NSString *)pPIN;
 -(NSString *)pmNewRequest:(NSString *)pUDID SessionID:(NSString *)pSessionID CheckSum:(NSString *)pCheckSum CardType:(NSString *)pCardType CardNumber:(NSString *)pCardNumber PIN:(NSString *)pPIN Login:(NSString *)pLogin Password:(NSString *)pPassword;
--(NSString *)pmC4NewRequest:(NSString *)pUDID SessionID:(NSString *)pSessionID CheckSum:(NSString *)pCheckSum CardType:(NSString *)pCardType CardNumber:(NSString *)pCardNumber PIN:(NSString *)pPIN Login:(NSString *)pLogin Password:(NSString *)pPassword;
-
 -(NSString *)pmContinueRequest:(NSString *)pUDID IDFileName:(NSString *)pIDFileName Answer:(NSString *)pAnswer;
--(NSString *)pmC4ContinueRequest:(NSString *)pUDID IDFileName:(NSString *)pIDFileName Answer:(NSString *)pAnswer;
 -(NSString *)pmGetSessionIDAndAdInfo:(NSString *)CardType;
 -(void)pmAddMerchantRequest:(NSString *)pCardType CardNumber:(NSString *)pCardNumber PIN:(NSString *)pPIN;
 -(void)pmRecordFeedback:(NSString *)pName ContactInfo:(NSString *)pContactInfo Feedback:(NSString *)pFeedback;

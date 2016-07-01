@@ -7,6 +7,7 @@
 //
 
 #import "LoadGC.h"
+#import "OutOfLookups.h"
 #import "DataAccess.h"
 #import "CJMUtilities.h"
 #import "GiftCard.h"
@@ -14,10 +15,10 @@
 #import "WebView.h"
 #import "AddModGC.h"
 #import "WebAccess.h"
-#import "RespNeedsMoreInfo.h"
 #import "RespNeedsCAPTCHA.h"
 #import "Feedback.h"
 #import "GCGSpecific.h"
+#import "MyGCs.h"
 #import "SFHFKeychainUtils.h"
 #import "IAP.h"
 #import "TVCAppDelegate.h"
@@ -25,20 +26,20 @@
 @interface LoadGC()
 -(void)monitorResp:(NSTimer*)theTimer;
 -(void)rsDone;
--(void)loadAd:(NSString *)ImageURL InfoURL:(NSString *)InfoURL;
--(void)PossiblyRemoveiAd;
 @end
-
+NSString *pIDFileName;
+NSString *pSessionID;
+NSString *pChecksum;
 @implementation LoadGC
-@synthesize tfID,timer,pMyGC,pLoadedGC,mygcname;
+@synthesize tfID,timer,pMyGC,pLoadedGC,lookupletter,mygcname;
 static int timeout;
-static NSString *AdURL;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    self.title=@"Card Actions";
     return self;
 }
+
 
 -(IBAction)DoModCard:(id)sender
 {
@@ -51,108 +52,125 @@ static NSString *AdURL;
     AdjustBalance *pAdjustBalance=[[AdjustBalance alloc] init];
     [self.navigationController pushViewController:pAdjustBalance animated:YES];
 }
-
--(IBAction)DoGoToWebpage:(id)sender
+-(IBAction)DoSendCAPTCHA:(id)sender
 {
-    NSLog(pLoadedGC.p_url,NULL);
-    WebView *wv=[[WebView alloc]initWithURL:pLoadedGC.p_url];
-    [self.navigationController pushViewController:wv animated:YES];
-}
--(IBAction)DoGoToAd:(id)sender
-{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:AdURL]];
-}
-
-
--(IBAction)DoAutoLookup:(id)sender
-{
-    StaticData *sd=[StaticData sd];
-    if (sd.pMode==@"Offline")
-    {
-        [CJMUtilities ShowOfflineAlert];
-        return;
-    }
-    int iAmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining];
-    if (iAmntOfLookupsRemaining<=2)
-    {
-            if (sd.pDemoAcknowledged!=@"Y")
-            {
-                IAP *pIAP=[[IAP alloc] init];
-                [self.navigationController pushViewController:pIAP animated:YES];  
-                return;
-            }
-    }
-    spinner.hidden=FALSE;
-    sd.pPopAmount=0;
     WebAccess *wa=[[WebAccess alloc]init];
     NSString *SessionIDAndAdInfo =[wa pmGetSessionIDAndAdInfo:pMyGC.p_gctype];
-    NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];    
-    NSString *SessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
-    NSString *ImageURL=[SessionIDAndAdInfoPieces objectAtIndex:1];
-    NSString *InfoURL=[SessionIDAndAdInfoPieces objectAtIndex:2];
-    [self loadAd:ImageURL InfoURL:InfoURL];
-    NSLog(SessionID);
-    NSString *Checksum=[GCGSpecific pmGetChecksum:SessionID]; 
-    NSString *rs =@"";
-    rs = [wa pmC4NewRequest:@"UDID" SessionID:SessionID CheckSum:Checksum CardType:pMyGC.p_gctype CardNumber:pMyGC.p_gcnum PIN:pMyGC.p_gcpin Login:pMyGC.p_credlogin Password:pMyGC.p_credpass];
-    [spinner startAnimating];
-    timer=[NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(monitorResp:) userInfo:rs repeats:YES];
-    [btnAutoLookup setEnabled:NO];
-}
+    NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
+    pSessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
+    pChecksum=[GCGSpecific pmGetChecksum:pSessionID];
 
--(void)loadAd:(NSString *)ImageURL InfoURL:(NSString *)InfoURL;
+
+    
+    spinner.hidden=FALSE;
+    [spinner startAnimating];
+    btnLookup.enabled=FALSE;
+    btnLookup.alpha=.5;
+    [self performSelector:@selector(rqSendCAPTCHA:) withObject:nil afterDelay:.1];
+}
+-(void)rqSendCAPTCHA:(NSTimer*)theTimer
 {
-    if ([ImageURL isEqualToString:@""]) return;
-    NSURL *imageURL;
-    NSData *imageData;
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    imageURL = [NSURL URLWithString:ImageURL];
-    imageURL = [NSURL URLWithString:@"http://25.media.tumblr.com/tumblr_ltoxjmEiql1qft3eko1_400.jpg"];
-    NSURLRequest *request2 = [NSURLRequest requestWithURL: imageURL 
-                                                 cachePolicy: NSURLRequestReloadIgnoringCacheData 
-                                             timeoutInterval:5.0];
-    NSData *responseData = [NSURLConnection 
-                                sendSynchronousRequest:request2 returningResponse:nil error:nil];
-    if (responseData.length>0)
-    {
-        UIImage * image = [UIImage imageWithData:responseData];
-        AdImage.image = image;
-        AdURL=InfoURL;
-        btnGoToAd.enabled=YES;
+    WebAccess *wa=[[WebAccess alloc]init];
+    NSString *rs = [wa pmContinueRequest:@"UDID" IDFileName:pIDFileName Answer:_uiCAPTCHAAnswer.text];
+    NSLog(rs);
+    [spinner stopAnimating];
+    spinner.hidden=TRUE;
+    btnLookup.enabled=TRUE;
+    btnLookup.alpha=1;
+    NSMutableArray *tempArray=[CJMUtilities ConvertNSStringToNSMutableArray:rs delimiter:gcgLINEDEL];
+    NSString *rsType=[tempArray objectAtIndex:0];
+    NSString *rsValue=[tempArray objectAtIndex:1];
+    NSLog(rsValue);
+    [GCGSpecific pmHandleResponse:rs PassNavView:nil];
+    NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+    for (UIViewController *aViewController in allViewControllers) {
+        if ([aViewController isKindOfClass:[MyGCs class]]) {
+            [self.navigationController popToViewController:aViewController animated:NO];
+        }
     }
 }
 
--(void)monitorResp:(NSTimer*)theTimer
+-(IBAction)DoLookup:(id)sender
 {
-    timeout++;
-    NSString *retRS = @"";
-    NSString *MonitorThis=(NSString*)[theTimer userInfo];
-    DataAccess *da=[DataAccess da];
-    retRS=[da pmGetSetting:MonitorThis];
-    //retRS = [NSString stringWithFormat:@"%@%@%@%@%@",@"NEEDSMOREINFO",gcgLINEDEL,@"123456789",gcgPIECEDEL,@"ZIP"];
     
-    if ([retRS isEqualToString:@""])
-    {
-        if (timeout>=300)
-        {
-            [CJMUtilities ShowAlert:@"Timed Out" Message:@"Seems your request timed out.  The data may be wrong, or we're experiencing too much traffic." ButtonText:@"OK"];
-            [self rsDone];
-        }
+    if ([lookupletter isEqualToString:@"M"]) {
+        
+        WebAccess *wa=[[WebAccess alloc]init];
+        [wa pmNewManualRequest:pMyGC.p_gctype CardNumber:pMyGC.p_gcnum PIN:pMyGC.p_gcpin];
+        //7-Elevel=6050 6566 9828 2801
+        //AMC=6006 4966 9520 8294 719
+        
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = tfGCNumber.text;
+        pasteboard.string = tfGCNumber.text;
+        
+        [CJMUtilities ShowAlert:@"Redirecting" Message:@"The card number has been copied to the clipboard, just paste it in the card number and get your balance." ButtonText:@"OK"];
+        WebView *pWV=[[WebView alloc] initWithURL:pLoadedGC.p_url];
+        [self.navigationController pushViewController:pWV animated:YES];
     }
     else
     {
-        [self rsDone];
-        [GCGSpecific pmHandleResponse:retRS PassNavView:self.navigationController];
+        StaticData *sd=[StaticData sd];
+        if (sd.pMode==@"Offline")
+        {
+            [CJMUtilities ShowOfflineAlert];
+            return;
+        }
+        int iAmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining];
+        if (iAmntOfLookupsRemaining<=0)
+        {
+            [CJMUtilities ShowOOLAlert];
+            return;
+        }
+        WebAccess *wa=[[WebAccess alloc]init];
+        NSString *SessionIDAndAdInfo =[wa pmGetSessionIDAndAdInfo:pMyGC.p_gctype];
+        NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
+        pSessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
+        pChecksum=[GCGSpecific pmGetChecksum:pSessionID];
+        spinner.hidden=FALSE;
+        [spinner startAnimating];
+        btnLookup.enabled=FALSE;
+        btnLookup.alpha=.5;
+        [self performSelector:@selector(rqNewRequest:) withObject:nil afterDelay:.1];
     }
 }
--(void)rsDone
+
+-(void)rqNewRequest:(NSTimer*)theTimer
 {
-    timeout=0;
-    [timer invalidate];
-    [btnAutoLookup setEnabled:YES];
-    timer=nil;
+    WebAccess *wa=[[WebAccess alloc]init];
+    NSString *rs=[wa pmNewRequest:@"UDID" SessionID:pSessionID CheckSum:pChecksum CardType:pMyGC.p_gctype CardNumber:pMyGC.p_gcnum PIN:pMyGC.p_gcpin Login:pMyGC.p_credlogin Password:pMyGC.p_credpass];
+    NSLog(rs);
     [spinner stopAnimating];
+    spinner.hidden=TRUE;
+    btnLookup.enabled=TRUE;
+    btnLookup.alpha=1;
+    NSMutableArray *tempArray=[CJMUtilities ConvertNSStringToNSMutableArray:rs delimiter:gcgLINEDEL];
+    NSString *rsType=[tempArray objectAtIndex:0];
+    NSString *rsValue=[tempArray objectAtIndex:1];
+    
+    
+    if ([rsType isEqualToString:gcgGCCAPTCHA])
+    {
+        pIDFileName=rsValue;
+        _uiCAPTCHAView.hidden=NO;
+        StaticData *sd=[StaticData sd];
+        NSString *pCAPTCHAURL=[NSString stringWithFormat:@"%@%@%@", sd.pCAPTCHAURLInfo,rsValue,@".bmp"];
+        NSURL *imageURL = [NSURL URLWithString:pCAPTCHAURL];
+        NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+        UIImage * image = [UIImage imageWithData:imageData];
+        _uiCAPTCHAImage.image = image;
+    }
+    else
+    {
+        [GCGSpecific pmHandleResponse:rs PassNavView:nil];
+        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+        for (UIViewController *aViewController in allViewControllers) {
+            if ([aViewController isKindOfClass:[MyGCs class]]) {
+                [self.navigationController popToViewController:aViewController animated:NO];
+            }
+        }
+
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -167,25 +185,28 @@ static NSString *AdURL;
 
 -(void)ShowViewSelected
 {
-    btnAutoLookup.alpha=1;
-    btnAutoLookupMod.alpha=1;    
+    btnLookup.alpha=1;
 }
 -(void)ShowViewUnselected
 {
-    btnAutoLookup.alpha=.5;
-    btnAutoLookupMod.alpha=.5;
+    btnLookup.alpha=.5;
 }
 -(void)ShowViewNotAvail
 {
-    btnAutoLookup.alpha=.5;
-    btnAutoLookupMod.alpha=.5;
+    btnLookup.alpha=.5;
 }
+
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden=NO;
+    //self.title=@"Card Actions";
     [super viewWillAppear:animated];
-    [self PossiblyRemoveiAd];
 }
+- (void)viewWillDisappear:(BOOL)animated
+{
+    //self.title=@"";
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -195,83 +216,30 @@ static NSString *AdURL;
     pLoadedGC=[[MerchantInfo alloc]initWithName:pMyGC.p_gctype];
     //xxx=[da pmGetMyCardArray:test];
     //NSString *name=[xxx objectAtIndex:0];
-    //NSString *num=[xxx objectAtIndex:1];    
+    //NSString *num=[xxx objectAtIndex:1];
     tfMerchant.text=pMyGC.p_gctype;
     tfGCNumber.text=pMyGC.p_gcnum;
     tfID.text=mygcname;
-    if (pLoadedGC.p_url.length==0)
-    {
-        btnGoToWebpage.enabled=FALSE;
-    }
+    
     DataAccess *da = [DataAccess da];
-    int showAL=[da pmIsManual:pMyGC.p_gctype];
-    btnGoToWebpage.enabled=showAL;
-    btnAutoLookup.enabled=showAL;
-    /*
-    if (showAL==0)
-    {
-        revShowAL=1;
+    lookupletter=[da pmGetLookupLetter:pMyGC.p_gctype];
+    [btnLookup setTitle:lookupletter forState:nil];
+    if ([lookupletter isEqualToString:@"X"]) {
+        btnLookup.enabled=NO;
+        btnLookup.alpha=.5;
+        lookuptype.alpha=.5;
     }
-    else
-    {
-        revShowAL=0;
-    }
-    txtGCType.enabled=revShowAL;
-    */
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    //DataAccess *da = [DataAccess da];
-    //arrayNo=da.pmGetMerchantsAutoLookup;
-    //StaticResources *sr = [StaticResources sr];
-    //arrayNo=sr.pmGetAutoLookupMerchants;
+    spinner.hidden=TRUE;
+    
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
-{
-    NSLog(@"bannerview did not receive any banner due to %@", error);
-}
-
-- (void)bannerViewActionDidFinish:(ADBannerView *)banner
-{
-    NSLog(@"bannerview was selected");
-}
-
-- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
-{
-    NSLog(@"Banner was clicked on; will%sleave application", willLeave ? " " : " not ");
-    return willLeave;
-}
-
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner 
-{
-    NSLog(@"banner was loaded");
-}
--(void)PossiblyRemoveiAd
-{
-    NSString *appStatus=nil;
-    appStatus=[SFHFKeychainUtils pmGetValueForSetting:@"AppStatus"];
-    if ([appStatus isEqualToString:@"Purchased"])
-    {
-        [_ADBannerView setHidden:YES];
-        [_ADBannerView removeFromSuperview];
-    }
-    else
-    {
-    }
-}
 @end

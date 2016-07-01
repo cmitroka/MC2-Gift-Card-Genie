@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSMutableArray *cardNumbsForMerchants;
 @property (nonatomic, retain) NSString *databasePath;
 @property (nonatomic, retain) NSString *databaseName;
+-(int)pmTEST;
 -(NSMutableArray *)pmGetMerchantsAutoLookup;
 -(NSMutableArray *)pmGetMerchantsAll;
 -(NSMutableArray *)pmGetCardNumbsForMerchants:(NSString *)merchantName;
@@ -31,10 +32,10 @@
 -(int)pmDoesMyCardExist:(NSString *)mygcname;
 -(int)pmDeleteMerchants;
 
--(int)pmInsertMerchant:(NSString *)pName url:(NSString *)pURL phone:(NSString *)pPhone showCardNum:(NSString *)pshowCardNum showCardPIN:(NSString *)pshowCardPIN showCreds:(NSString *)pshowCreds reqReg:(NSString *)preqReg minCardLen:(int)pminCardLen maxCardLen:(int)pmaxCardLen minPINLen:(int)pminPINLen maxPINLen:(int)pmaxPINLen note:(NSString *)pNote;
+-(int)pmInsertMerchant:(NSString *)pName url:(NSString *)pURL showCardNum:(NSString *)pshowCardNum showCardPIN:(NSString *)pshowCardPIN minCardLen:(int)pminCardLen maxCardLen:(int)pmaxCardLen minPINLen:(int)pminPINLen maxPINLen:(int)pmaxPINLen isLookupManual:(NSString *)pisLookupManual note:(NSString *)pNote;
 
 -(NSMutableArray *)pmGetMyCards;
 -(MyCard *)pmGetMyCard:(NSString *)mygcname;
--(int)pmIsManual:(NSString *)gctype;
+-(NSString *)pmGetLookupLetter:(NSString *)gctype;
 -(int)pmConvDB;
 @end

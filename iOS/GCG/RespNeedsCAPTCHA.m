@@ -45,10 +45,11 @@ static NSString *pCAPTCHAURL;
     txtAnswer.enabled=false;
     WebAccess *wa=[[WebAccess alloc]init];
     NSString *rs =@"";
-    rs = [wa pmC4ContinueRequest:@"UDID" IDFileName:pRespID Answer:txtAnswer.text];
+    rs = [wa pmContinueRequest:@"UDID" IDFileName:pRespID Answer:txtAnswer.text];
     [spinner startAnimating];
-    timer=[NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(monitorResp:) userInfo:rs repeats:YES];
+    //timer=[NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(kickoffWebrequest:) userInfo:rs repeats:YES];
     [btnSubmit setEnabled:NO];
+    [self performSelector:@selector(kickoffWebrequest:) withObject:nil afterDelay:.1];
 }
 -(void)monitorResp:(NSTimer*)theTimer
 {
@@ -76,7 +77,10 @@ static NSString *pCAPTCHAURL;
 
     }
 }
-
+-(void)kickoffWebrequest
+{
+    
+}
 -(id)initWithParamString:(NSString *)pString
 {
     StaticData *sd=[StaticData sd];

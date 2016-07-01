@@ -13,12 +13,13 @@
     IBOutlet UITextField *tfStatus;
     IBOutlet UIButton *btnPurchase;
     IBOutlet UIButton *btnPurchaseQuantity;
+    IBOutlet UIButton *btnWatchAd;
     IBOutlet UIButton *btnReReg;
     IBOutlet UILabel *lblPurchase;
     IBOutlet UILabel *lblPurchaseQuantity;
     IBOutlet UILabel *lblLookupInfo;
     IBOutlet UIView *subscreen;
-    IBOutlet UIButton *btnExit;    
+    IBOutlet UIButton *btnDemoMode;
 }
 
 @property BOOL verified;

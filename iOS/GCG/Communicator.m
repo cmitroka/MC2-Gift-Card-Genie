@@ -89,6 +89,7 @@ DataAccess *da;
 -(void)sendRequest:(NSString *)requestToSend operationToDo:(NSString *)operation
 {
 	//NSLog(requestToSend,nil);
+    //NSURL *url = [NSURL URLWithString:@"https://192.168.10.1/AdminSite/WebService.asmx"];
 	NSURL *url = [NSURL URLWithString:@"https://gcg.mc2techservices.com/WebService.asmx"];
 	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
 	NSString *msgLength = [NSString stringWithFormat:@"%d", [requestToSend length]];

@@ -21,7 +21,7 @@ int SetOnce;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"All Merchants", @"All Merchants");
+        //self.title = NSLocalizedString(@"All Merchants", @"All Merchants");
     }
     return self;
 }
@@ -46,7 +46,7 @@ int SetOnce;
     SetOnce=0;
     DataAccess *da=[DataAccess da];
     dataSource=[da pmGetMerchantsAll];
-    self.navigationItem.title = @"All Merchants";
+    //self.navigationItem.title = @"All Merchants";
     [super viewDidLoad];
 }
 
@@ -58,7 +58,7 @@ int SetOnce;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden=NO;
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated

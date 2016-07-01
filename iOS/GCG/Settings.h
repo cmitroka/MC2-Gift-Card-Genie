@@ -13,11 +13,6 @@
 @interface Settings : UIViewController<SKProductsRequestDelegate,SKPaymentTransactionObserver,UIAlertViewDelegate,MFMailComposeViewControllerDelegate>
 {
     IBOutlet UIButton *btnPurchase;
-    IBOutlet UIButton *btnExtend;
-    IBOutlet UIButton *btnTest;
-    IBOutlet UINavigationBar *myNavigationBar;
-    IBOutlet UIImageView *locks1;
-    IBOutlet UIImageView *locks2;
     IBOutlet UIButton *lockedFeature1;
     IBOutlet UIButton *lockedFeature2;
     IBOutlet UISwitch *AlwaysUpdate;

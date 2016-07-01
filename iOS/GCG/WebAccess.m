@@ -9,9 +9,9 @@
 #import "WebAccess.h"
 #import "DataAccess.h"
 #import "Communicator.h"
-#import "Communicator4.h"
 #import "CJMUtilities.h"
 #import "StaticData.h"
+#import "Reachability.h"
 #import "SFHFKeychainUtils.h"
 
 @implementation WebAccess
@@ -21,16 +21,24 @@
 
 -(BOOL)pmIsConnectedToInternet
 {
-    NSString *connected = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.google.com"]];
-    if (connected == NULL) 
-    {
-        NSLog(@"Not connected");
-        return NO;
+    if (1==1) {
+        Reachability *reachability = [Reachability reachabilityForInternetConnection];
+        NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+        return !(networkStatus == NotReachable);
     }
     else
     {
-        NSLog(@"Connected - %@",connected);
-        return YES;
+        NSString *connected = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.google.com"]];
+        if (connected == NULL)
+        {
+            NSLog(@"Not connected");
+            return NO;
+        }
+        else
+        {
+            NSLog(@"Connected - %@",connected);
+            return YES;
+        }
     }
 }
 -(NSString *)doLogUser
@@ -133,9 +141,9 @@
     return c.currentXMLResp;
 }
 
--(NSString *)pmC4NewRequest:(NSString *)pUDID SessionID:(NSString *)pSessionID CheckSum:(NSString *)pCheckSum CardType:(NSString *)pCardType CardNumber:(NSString *)pCardNumber PIN:(NSString *)pPIN Login:(NSString *)pLogin Password:(NSString *)pPassword
+-(NSString *)pmNewRequest:(NSString *)pUDID SessionID:(NSString *)pSessionID CheckSum:(NSString *)pCheckSum CardType:(NSString *)pCardType CardNumber:(NSString *)pCardNumber PIN:(NSString *)pPIN Login:(NSString *)pLogin Password:(NSString *)pPassword
 {
-    Communicator4 *c=[[Communicator4 alloc] init];    
+    Communicator *c=[[Communicator alloc] init];
     StaticData *sd=[StaticData sd];
     NSString *uuid=sd.pUUID;
     NSString *bodyData=[NSString stringWithFormat:@
@@ -148,12 +156,13 @@
                         "<Login>%@</Login>\n"
                         "<Password>%@</Password>\n"
                         ,uuid,pSessionID,pCheckSum,pCardType,pCardNumber,pPIN,pLogin,pPassword];
-    NSString *retVal= [c pmDoGenericRequest:@"NewRequest" bodyData:bodyData];
-    return retVal;
+    sd.pCallback=@"";
+    [c DoGenericRequest:@"NewRequest" bodyData:bodyData secTimeout:60 retryAmnt:60];
+    return c.currentXMLResp;
 }
--(NSString *)pmC4ContinueRequest:(NSString *)pUDID IDFileName:(NSString *)pIDFileName Answer:(NSString *)pAnswer
+-(NSString *)pmContinueRequest:(NSString *)pUDID IDFileName:(NSString *)pIDFileName Answer:(NSString *)pAnswer
 {
-    Communicator4 *c=[[Communicator4 alloc] init];    
+    Communicator *c=[[Communicator alloc] init];    
     StaticData *sd=[StaticData sd];
     NSString *uuid=sd.pUUID;
 
@@ -162,8 +171,8 @@
                         "<pIDFileName>%@</pIDFileName>\n"
                         "<pAnswer>%@</pAnswer>\n"
                         ,uuid,pIDFileName,pAnswer];
-    NSString *retVal= [c pmDoGenericRequest:@"ContinueRequest" bodyData:bodyData];
-    return retVal;
+    [c DoGenericRequest:@"ContinueRequest" bodyData:bodyData secTimeout:60 retryAmnt:60];
+    return c.currentXMLResp;
 }
 -(void)pmAddMerchantRequest:(NSString *)pCardType CardNumber:(NSString *)pCardNumber PIN:(NSString *)pPIN
 {
@@ -194,7 +203,7 @@
 }
 -(void)pmLogPurchase:(NSString *)pSessionID CheckSum:(NSString *)pCheckSum PurchaseType:(NSString *)pPurchaseType
 {
-    //Communicator4 *c=[[Communicator4 alloc] init];    
+    //Communicator4 *c=[[Communicator4 alloc] init];
     Communicator *c=[Communicator alloc];
     StaticData *sd=[StaticData sd];
     NSString *uuid=sd.pUUID;
@@ -205,7 +214,22 @@
                         "<PurchaseType>%@</PurchaseType>\n"
                         ,pSessionID,pCheckSum,uuid,pPurchaseType];
     //NSString *temp=[c pmDoGenericRequest:@"LogPurchase" bodyData:bodyData];
-    [c DoGenericRequest:@"LogPurchase" bodyData:bodyData secTimeout:10 retryAmnt:0];    
+    [c DoGenericRequest:@"LogPurchase" bodyData:bodyData secTimeout:10 retryAmnt:0];
+    NSLog(c.currentXMLResp);
+}
+
+-(void)pmNewManualRequest:(NSString *)pCardType CardNumber:(NSString *)pCardNumber PIN:(NSString *)pPIN
+{
+    Communicator *c=[Communicator alloc];
+    StaticData *sd=[StaticData sd];
+    NSString *uuid=sd.pUUID;
+    NSString *bodyData=[NSString stringWithFormat:@
+                        "<UUID>%@</UUID>\n"
+                        "<CardType>%@</CardType>\n"
+                        "<CardNumber>%@</CardNumber>\n"
+                        "<PIN>%@</PIN>\n"
+                        ,uuid,pCardType,pCardNumber,pPIN];
+    [c DoGenericRequest:@"NewManualRequest" bodyData:bodyData secTimeout:10 retryAmnt:0];
     NSLog(c.currentXMLResp);
 }
 -(int)pmGetMerchantCount
@@ -230,8 +254,8 @@
     StaticData *sd=[StaticData sd];
     int iVersion=[CJMUtilities ConvertNSStringToFloat:sd.pVersion];
     Communicator *c=[[Communicator alloc] init];
-    [c DoGenericRequest:@"DownloadAllData" bodyData:@"" secTimeout:10 retryAmnt:0];
-    NSLog(@"DownloadAllData - %@",c.currentXMLResp);
+    [c DoGenericRequest:@"DownloadAllDataV2" bodyData:@"" secTimeout:10 retryAmnt:0];
+    NSLog(@"DownloadAllDataV2 - %@",c.currentXMLResp);
     return c.currentXMLResp;
     //*/
 }

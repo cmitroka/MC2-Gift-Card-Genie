@@ -11,7 +11,6 @@
 
 @interface SplashScreen00 : UIViewController<UIAlertViewDelegate>
 {
-    IBOutlet UIActivityIndicatorView *spinner;
 }
 @property(nonatomic, retain) IBOutlet UIProgressView *progressbar;
 @property(nonatomic, retain) IBOutlet UILabel *lblVersion;

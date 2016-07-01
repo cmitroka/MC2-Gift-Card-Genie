@@ -44,11 +44,9 @@
 @interface MerchantInfo : NSObject
 @property (nonatomic, retain) NSString *p_name;
 @property (nonatomic, retain) NSString *p_url;
-@property (nonatomic, retain) NSString *p_phone;
 @property (nonatomic, readwrite) BOOL p_showCardNum;
 @property (nonatomic, readwrite) BOOL p_showCardPIN;
-@property (nonatomic, readwrite) BOOL p_showCreds;
-@property (nonatomic, readwrite) BOOL p_reqReg;
+@property (nonatomic, readwrite) BOOL p_isLookupManual;
 @property int p_maxCardLen;
 @property int p_minCardLen;
 @property int p_maxPINLen;

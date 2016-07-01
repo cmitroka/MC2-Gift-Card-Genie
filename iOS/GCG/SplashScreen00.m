@@ -17,7 +17,6 @@
 #import "GCGSpecific.h"
 #import "SFHFKeychainUtils.h"
 #import "IAP.h"
-#import "MainScreen.h"
 #import "MyGCs.h"
 #import "SwitchViewController.h"
 
@@ -83,7 +82,10 @@ NSString *allMerchantData;
 -(void)processData:(NSString *)processData maxRecs:(int)maxRecs;
 {
     DataAccess *da=[DataAccess da];
-    NSString *merchant, *phone, *url, *showPIN, *showCreds, *showCardNum, *reqReg, *minCardLen, *maxCardLen, *minPINLen, *maxPINLen,*notes;
+    NSString *merchant, *url, *showCardNum, *showPIN, *minCardLen, *maxCardLen, *minPINLen, *maxPINLen, *isLookupManual, *notes;
+    
+    //CleanName-URLToUse-showCardNum-showCardPIN-TrueCardNumMin-CardNumMax-TruePINMin-PINMax-IsLookupManual-GeneralNote
+    
     int zIntCurrentCount=0;
     float zFltProgress=0;
     NSMutableArray *pieceArray = [[NSMutableArray alloc] initWithObjects:nil];
@@ -93,22 +95,20 @@ NSString *allMerchantData;
         NSMutableArray *temp=[CJMUtilities ConvertNSStringToNSMutableArray:tempx delimiter:gcgPIECEDEL];
         if (temp.count<7)break;
         merchant=[temp objectAtIndex:0];
-        phone=[temp objectAtIndex:1];
-        url=[temp objectAtIndex:2];
-        showCardNum=[temp objectAtIndex:3];
-        showPIN=[temp objectAtIndex:4];
-        showCreds=[temp objectAtIndex:5];
-        reqReg=[temp objectAtIndex:6];
-        minCardLen=[temp objectAtIndex:7];
+        url=[temp objectAtIndex:1];
+        showCardNum=[temp objectAtIndex:2];
+        showPIN=[temp objectAtIndex:3];
+        minCardLen=[temp objectAtIndex:4];
         int iminCardLen=[CJMUtilities ConvertNSStringToInt:minCardLen];
-        maxCardLen=[temp objectAtIndex:8];
+        maxCardLen=[temp objectAtIndex:5];
         int imaxCardLen=[CJMUtilities ConvertNSStringToInt:maxCardLen];
-        minPINLen=[temp objectAtIndex:9];
+        minPINLen=[temp objectAtIndex:6];
         int iminPINLen=[CJMUtilities ConvertNSStringToInt:minPINLen];
-        maxPINLen=[temp objectAtIndex:10];
+        maxPINLen=[temp objectAtIndex:7];
         int imaxPINLen=[CJMUtilities ConvertNSStringToInt:maxPINLen];
-        notes=[temp objectAtIndex:11];
-        [da pmInsertMerchant:merchant url:url phone:phone showCardNum:showCardNum showCardPIN:showPIN showCreds:showCreds reqReg:reqReg minCardLen:iminCardLen maxCardLen:iminCardLen minPINLen:iminPINLen maxPINLen:imaxPINLen note:notes];
+        isLookupManual=[temp objectAtIndex:8];
+        notes=[temp objectAtIndex:9];
+        [da pmInsertMerchant:merchant url:url showCardNum:showCardNum showCardPIN:showPIN minCardLen:iminCardLen maxCardLen:iminCardLen minPINLen:iminPINLen maxPINLen:imaxPINLen isLookupManual:isLookupManual note:notes];
         zIntCurrentCount++;
         float m_amnt_remaining=maxRecs-zIntCurrentCount;
         float test1=m_amnt_remaining/maxRecs;
@@ -152,7 +152,6 @@ NSString *allMerchantData;
     zIntMerchantCount=wa.pmGetMerchantCount;
     allMerchantCount=[CJMUtilities ConvertIntToNSString:zIntMerchantCount];
     allMerchantCountInt=zIntMerchantCount;
-    [spinner startAnimating];
     rs=wa.pmDownloadAllData;
     if ((rs==@"")||(zIntMerchantCount==0))
     {
@@ -170,7 +169,6 @@ NSString *allMerchantData;
 {
         [timer invalidate];
         timer=nil;
-        [spinner stopAnimating];
         int pAmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining];
 
         TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -182,7 +180,7 @@ NSString *allMerchantData;
         }
     else
     {
-        [appDelegate useNavController:[MyGCs class]];
+        [appDelegate useNavController:[TVCMasterViewController class]];
     }
 }
 
@@ -191,16 +189,13 @@ NSString *allMerchantData;
 {
     [timer invalidate];
     timer=nil;
-    [spinner stopAnimating];
     TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
-    //[appDelegate useNavController:[TVCMasterViewController class]];
-    //[appDelegate useNavController:[MainScreen class]];
-    [appDelegate useNavController:[MyGCs class]];
+    [appDelegate useNavController:[TVCMasterViewController class]];
+    //[appDelegate useNavController:[MyGCs class]];
     //[appDelegate useViewController:[SwitchViewController class]];
 }
 -(void)doInit
 {
-    [spinner startAnimating];
     WebAccess *wa=[[WebAccess alloc]init];
     BOOL OK=[wa pmIsConnectedToInternet];
     if (OK==NO)
@@ -242,6 +237,8 @@ NSString *allMerchantData;
         sd.pCAPTCHAURLInfo=[temp objectAtIndex:0];
         sd.pSystemMessage=[temp objectAtIndex:1];
         sd.pAmntOfLookupsRemaining=[temp objectAtIndex:2];
+        //sd.pAmntOfLookupsRemaining=@"0";
+
         NSLog(sd.pAmntOfLookupsRemaining, NULL);
         //sd.pAmntOfLookupsRemaining=@"1";
         sd.pLastDBUpdate=[temp objectAtIndex:3];

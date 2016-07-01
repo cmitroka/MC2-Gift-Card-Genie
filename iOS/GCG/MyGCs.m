@@ -43,59 +43,6 @@ DataAccess *sql;
     ViewGCs *pViewGCs=[[ViewGCs alloc] init];
     [self.navigationController pushViewController:pViewGCs animated:YES];
 }
--(IBAction)DoCmdRight:(id)sender
-{
-    if (cmdRight.title==@"Back") {
-        //MyGCs *z = [[MyGCs alloc] init];
-        //self.pMyGCs = z;
-        cmdMid.title=@"My Cards";
-        [cmdLeft setStyle:UIBarButtonItemStyleBordered];
-        cmdLeft.enabled=YES;
-        cmdLeft.title=@"Other";
-        cmdLeft.width=68;
-        cmdRight.title=@"Add Card";
-        //self.navigationController.navigationBarHidden=YES;
-        //[toolbar removeFromSuperview];
-        UIView *v = [self.view.subviews objectAtIndex:1];
-        [v removeFromSuperview];
-        //[pSettings viewWillAppear:YES];
-        //[self.view insertSubview:pMyGCs.view atIndex:0];
-        //[pSettings viewWillAppear:YES];
-        [UIView beginAnimations:@"View Flip" context:nil];
-        [UIView setAnimationDuration:.5];
-        [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromRight 
-                               forView:self.view cache:YES];
-        [UIView commitAnimations];
-
-    }
-    else
-    {
-        ViewGCs *pViewGCs=[[ViewGCs alloc] init];
-        [toolbar removeFromSuperview];
-        [self.navigationController pushViewController:pViewGCs animated:YES];        
-    }
-}
--(IBAction)DoSettings:(id)sender
-{
-    /*
-    [cmdLeft setStyle:UIBarButtonItemStylePlain];
-    cmdMid.title=@"Other";
-    cmdLeft.title=@"";
-    cmdLeft.width=62;
-    cmdLeft.enabled=NO;
-    cmdRight.width=68;
-    cmdRight.title=@"Back";
-    [self.view insertSubview:pSettings.view atIndex:1];
-    [UIView beginAnimations:@"View Flip" context:nil];
-    [UIView setAnimationDuration:.5];
-    [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromRight 
-                           forView:self.view cache:YES];
-    [UIView commitAnimations];
-    */
-    TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate useNavController:[Settings class]];
-
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -111,6 +58,9 @@ DataAccess *sql;
 {
     [super viewDidLoad];
     [self.navigationController.view addSubview:toolbar];
+    [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
+        [self setNeedsStatusBarAppearanceUpdate];
+    }];
     /*
     StaticData *sd=[StaticData sd];
     if (sd.pDrawn!=@"1") {
@@ -128,8 +78,7 @@ DataAccess *sql;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.view addSubview:toolbar];    //[self.navigationController.view addSubview:toolbar];
-    //[tableView reloadData];
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 

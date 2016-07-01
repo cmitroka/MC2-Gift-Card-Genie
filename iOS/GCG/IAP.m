@@ -17,6 +17,7 @@
 #import "MyGCs.h"
 #import "SplashScreen00.h"
 #import "GCGSpecific.h"
+#import "WatchAd.h"
 @interface IAP()
 -(void)disableExtend;
 -(void)disablePurchase;
@@ -37,21 +38,6 @@ StaticData *sd;
     }
     return self;
 }
--(IBAction)Cancel:(id)sender
-{
-    if (sd.pDemoAcknowledged==@"FromSplash")
-    {
-        sd.pDemoAcknowledged=@"";
-        TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate useNavController:[MyGCs class]];
-
-    }
-    else
-    {
-        sd.pDemoAcknowledged=@"Y";
-        [self.navigationController popViewControllerAnimated:YES];        
-    }
-}
 -(IBAction)PurchaseApp:(id)sender
 {    
     NSLog(@"PurchaseApp");  
@@ -59,7 +45,20 @@ StaticData *sd;
     [self LogConsideredBuying:[NSString stringWithFormat:@"%@", @"Unlimited"]];
     [self processsPurchaseRequest];
 }
-
+-(IBAction)WatchAd:(id)sender
+{
+    //TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
+    //[appDelegate useNavController:[WatchAd class]];
+    WatchAd *pWatchAd=[[WatchAd alloc] init];
+    [self.navigationController pushViewController:pWatchAd animated:YES];
+}
+-(IBAction)doGoToMain:(id)sender
+{
+    //TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
+    //[appDelegate useNavController:[WatchAd class]];
+    TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate useNavController:[TVCMasterViewController class]];
+}
 -(IBAction)Restart:(id)sender
 {    
     exit(0);
@@ -136,7 +135,6 @@ StaticData *sd;
 
 - (void)viewDidLoad
 {
-    self.navigationController.navigationBarHidden=YES;
     [super viewDidLoad];
     sd=[StaticData sd];
     int iRemAmnt=sd.pAmntOfLookupsRemaining.integerValue;    
@@ -241,7 +239,6 @@ StaticData *sd;
         //TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
         //[appDelegate useNavController:[SplashScreen00 class]];        
         subscreen.hidden=FALSE;
-        self.navigationController.navigationBarHidden=YES;
     }
 }
 -(void)LogIt
@@ -258,8 +255,31 @@ StaticData *sd;
     WebAccess *wa=[[WebAccess alloc]init];
     [wa pmDoLogConsideredBuying:LogType];
 }
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+    
+    btnPurchase.layer.borderWidth=1.0f;
+    btnPurchase.layer.borderColor=[[UIColor blackColor] CGColor];
+    btnPurchase.layer.borderWidth=1.0f;
+    btnPurchaseQuantity.layer.borderColor=[[UIColor blackColor] CGColor];
+    btnPurchaseQuantity.layer.borderWidth=1.0f;
+    btnWatchAd.layer.borderColor=[[UIColor blackColor] CGColor];
+    btnWatchAd.layer.borderWidth=1.0f;
+    btnDemoMode.layer.borderColor=[[UIColor blackColor] CGColor];
+    btnDemoMode.layer.borderWidth=1.0f;
+    int iAmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining];
+    if (iAmntOfLookupsRemaining<=0) {
+        [btnDemoMode setTitle:@"I'll use the app without lookups" forState:nil];
+    }
+    else
+    {
+        [btnDemoMode setTitle:@"Continue, I've got a few lookups left" forState:nil];
+    }
+}
 
--(void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response  
+-(void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {      
     NSLog(@"productsRequest");  
     // remove wait view here

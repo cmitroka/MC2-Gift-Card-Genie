@@ -75,9 +75,10 @@ static DataAccess *_da;
 -(bool)doInsertOrDelete:(NSString *)SQLIn
 {
     bool retVal;
-	sqlite3 *database;
+    sqlite3 *database;
     sqlite3_stmt *statement;
-	if(sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
+
+    if(sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
         const char *sqlStatement = [SQLIn UTF8String];
 		if(sqlite3_prepare_v2(database, sqlStatement, -1, &statement, NULL) == SQLITE_OK)
         {
@@ -119,6 +120,7 @@ static DataAccess *_da;
                 retVal= [self doStrRead:0 statement:statement];
             }
         }
+        sqlite3_finalize(statement);
     }
     sqlite3_close(database);
     return retVal;
@@ -154,6 +156,7 @@ static DataAccess *_da;
                 retVal=1;
             }
         }
+        sqlite3_finalize(statement);
     }
     sqlite3_close(database);
     return retVal;
@@ -181,8 +184,10 @@ static DataAccess *_da;
         {
             NSLog(@"pmGetMerchantsAutoLookup Error. %s", sqlite3_errmsg(database));
         }
+        sqlite3_finalize(statement);
     }
     merchantsAutoLookup=temp;
+    sqlite3_close(database);
     return temp;
 }
 -(NSMutableArray *)pmGetCardNumbsForMerchants:(NSString *)merchantName
@@ -208,8 +213,10 @@ static DataAccess *_da;
         {
             NSLog(@"pmGetCardNumbsForMerchants Error. %s", sqlite3_errmsg(database));
         }
+        sqlite3_finalize(statement);
     }
     cardNumbsForMerchants=temp;
+    sqlite3_close(database);
     return temp;
 }
 
@@ -227,7 +234,9 @@ static DataAccess *_da;
                 [temp addObject:aName];        
             }    
         }
+        sqlite3_finalize(statement);
     }
+    sqlite3_close(database);
     return temp;
 }
 
@@ -237,7 +246,7 @@ static DataAccess *_da;
 	sqlite3 *database;
     sqlite3_stmt *statement;
     NSString *SQL = @"";
-    SQL=[NSString stringWithFormat: @"SELECT name,phone,url,showCardNum,showCardPIN,showCreds,reqReg,minCardLen,maxCardLen,minPINLen,maxPINLen,note FROM merchants WHERE name=\"%@\"", merchantName];
+    SQL=[NSString stringWithFormat: @"SELECT name,url,showCardNum,showCardPIN,minCardLen,maxCardLen,minPINLen,maxPINLen,isLookupManual,note FROM merchants WHERE name=\"%@\"", merchantName];
     if(sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) 
     {
         const char *sqlStatement = [SQL UTF8String];
@@ -245,28 +254,24 @@ static DataAccess *_da;
         {
             while(sqlite3_step(statement) == SQLITE_ROW) {
                 NSString *aName = [self doStrRead:0 statement:statement];
-                NSString *aPhone = [self doStrRead:1 statement:statement];
-                NSString *aURL = [self doStrRead:2 statement:statement];
-                NSString *ashowCardNum = [self doStrRead:3 statement:statement];
-                NSString *ashowCardPIN = [self doStrRead:4 statement:statement];
-                NSString *ashowCreds = [self doStrRead:5 statement:statement];
-                NSString *areqReg = [self doStrRead:6 statement:statement];
-                NSString *minCardLen=[self doStrRead:7 statement:statement];
-                NSString *maxCardLen=[self doStrRead:8 statement:statement];
-                NSString *minPINLen=[self doStrRead:9 statement:statement];
-                NSString *maxPINLen=[self doStrRead:10 statement:statement];
-                NSString *note=[self doStrRead:11 statement:statement];
+                NSString *aURL = [self doStrRead:1 statement:statement];
+                NSString *ashowCardNum = [self doStrRead:2 statement:statement];
+                NSString *ashowCardPIN = [self doStrRead:3 statement:statement];
+                NSString *minCardLen=[self doStrRead:4 statement:statement];
+                NSString *maxCardLen=[self doStrRead:5 statement:statement];
+                NSString *minPINLen=[self doStrRead:6 statement:statement];
+                NSString *maxPINLen=[self doStrRead:7 statement:statement];
+                NSString *aisLookupManual = [self doStrRead:8 statement:statement];
+                NSString *note=[self doStrRead:9 statement:statement];
                 m.p_name=aName;
-                m.p_phone=aPhone;
                 m.p_url=aURL;
                 m.p_showCardNum=ashowCardNum.boolValue;
                 m.p_showCardPIN=ashowCardPIN.boolValue;
-                m.p_showCreds=ashowCreds.boolValue;
-                m.p_reqReg=areqReg.boolValue;
                 m.p_maxCardLen=maxCardLen.integerValue;
                 m.p_minCardLen=minCardLen.integerValue;
                 m.p_maxPINLen=maxPINLen.integerValue;
                 m.p_minPINLen=minPINLen.integerValue;
+                m.p_isLookupManual=aisLookupManual.boolValue;
                 m.p_note=note;
             }    
         }
@@ -293,6 +298,16 @@ static DataAccess *_da;
     if (retval==TRUE) return 1;
     return 0;
 }
+-(int)pmTEST
+{
+    NSString *SQL=@"";
+    bool retval=FALSE;
+    SQL = [NSString stringWithFormat: @"DELETE FROM mycards WHERE mygcname=\"%@\"", @"AAA"];
+    retval=[self doInsertOrDelete:SQL];
+    if (retval==TRUE) return 1;
+    return 0;
+}
+
 -(int)pmUpdateMyCardBalanceInfo:(NSString *)mygcname lastbalknown:(NSString *)lastbalknown lastbaldate:(NSString *)lastbaldate
 {
     NSString *SQL=@"";
@@ -347,11 +362,11 @@ static DataAccess *_da;
     return 1;
     
 }
--(int)pmInsertMerchant:(NSString *)pName url:(NSString *)pURL phone:(NSString *)pPhone showCardNum:(NSString *)pshowCardNum showCardPIN:(NSString *)pshowCardPIN showCreds:(NSString *)pshowCreds reqReg:(NSString *)preqReg minCardLen:(int)pminCardLen maxCardLen:(int)pmaxCardLen minPINLen:(int)pminPINLen maxPINLen:(int)pmaxPINLen note:(NSString *)pNote
+-(int)pmInsertMerchant:(NSString *)pName url:(NSString *)pURL showCardNum:(NSString *)pshowCardNum showCardPIN:(NSString *)pshowCardPIN minCardLen:(int)pminCardLen maxCardLen:(int)pmaxCardLen minPINLen:(int)pminPINLen maxPINLen:(int)pmaxPINLen isLookupManual:(NSString *)pisLookupManual note:(NSString *)pNote
 {
     NSString *SQL=@"";
     bool retval=FALSE;
-    SQL = [NSString stringWithFormat: @"INSERT INTO merchants (name, url, phone, showCardNum, showCardPIN, showCreds, reqReg, minCardLen, maxCardLen, minPINLen, maxPINLen, note) VALUES (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",%i,%i,%i,%i,\"%@\")", pName,pURL,pPhone,pshowCardNum,pshowCardPIN,pshowCreds,preqReg,pminCardLen, pmaxCardLen, pminPINLen,pmaxCardLen,pNote];
+    SQL = [NSString stringWithFormat: @"INSERT INTO merchants (name, url, showCardNum, showCardPIN, minCardLen, maxCardLen, minPINLen, maxPINLen, isLookupManual, note) VALUES (\"%@\",\"%@\",\"%@\",\"%@\",%i,%i,%i,%i,\"%@\",\"%@\")", pName,pURL,pshowCardNum,pshowCardPIN,pminCardLen, pmaxCardLen, pminPINLen,pmaxPINLen,pisLookupManual,pNote];
     retval=[self doInsertOrDelete:SQL];    
 
     if (retval==TRUE) return 1;
@@ -401,7 +416,9 @@ static DataAccess *_da;
             }    
             myCards=temp;
         }
+        sqlite3_finalize(statement);
     }
+    sqlite3_close(database);
     return temp;
 }
 -(MyCard *)pmGetMyCard:(NSString *)mygcname
@@ -439,9 +456,13 @@ static DataAccess *_da;
                 //myCard.p_lastknownbal=lastknownbal;
                 //myCard.p_lastbaldate=lastbaldate;
             }
+            sqlite3_finalize(statement);
+            sqlite3_close(database);
             return myCard;
         }
+        sqlite3_finalize(statement);
     }
+    sqlite3_close(database);
     return myCard;
 }
 -(NSMutableArray *)pmGetMyCardArray:(NSString *)mygcname
@@ -479,12 +500,14 @@ static DataAccess *_da;
                 [temp addObject:lastbaldate];
             }
         }
+        sqlite3_finalize(statement);
     }
+    sqlite3_close(database);
     return temp;
 }
--(int)pmIsManual:(NSString *)gctype
+-(NSString *)pmGetLookupLetter:(NSString *)gctype
 {
-    int retVal=0;
+    NSString *retVal=@"?";
     sqlite3 *database;
     sqlite3_stmt *statement;
     NSString *SQL = [NSString stringWithFormat: @"SELECT * FROM merchants WHERE name=\"%@\"",gctype];
@@ -493,9 +516,30 @@ static DataAccess *_da;
         const char *sqlStatement = [SQL UTF8String];
         if(sqlite3_prepare_v2(database, sqlStatement, -1, &statement, NULL) == SQLITE_OK) {
             while(sqlite3_step(statement) == SQLITE_ROW) {
-                retVal=1;
+
+                NSString *gc_url = [self doStrRead:1 statement:statement];
+                NSString *gc_isLookupManual = [self doStrRead:8 statement:statement];
+                if (gc_url.length<=0)
+                {
+                    //In this case, we have no URL, so completely disable the AL.
+                    retVal=@"X";
+                }
+                else
+                {
+                    if ([gc_isLookupManual isEqual:@"1"]) {
+                        retVal=@"M";
+                    }
+                    else
+                    {
+                        retVal=@"A";
+                    }
+                }
+            }
+            if ([retVal isEqualToString:@"?"]) {
+                retVal=@"X";
             }
         }
+        sqlite3_finalize(statement);
     }
     sqlite3_close(database);
     return retVal;

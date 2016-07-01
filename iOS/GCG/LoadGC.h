@@ -8,26 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "GiftCard.h"
-#import "iAd/ADBannerView.h"
-@interface LoadGC : UIViewController<ADBannerViewDelegate>
+@interface LoadGC : UIViewController
 {
-    IBOutlet ADBannerView *_ADBannerView;
-    IBOutlet UIButton *btnGoToAd;
-    IBOutlet UIImageView *AdImage;
     IBOutlet UIActivityIndicatorView *spinner;
     IBOutlet UITextField *tfMerchant;
     IBOutlet UITextField *tfGCNumber;
-    IBOutlet UIButton *btnGoToWebpage;
-    IBOutlet UIButton *btnAutoLookup;
-    IBOutlet UIButton *btnAdjustBalance;
-    IBOutlet UIButton *btnAutoLookupMod;
-    NSString* mygcname;
-    MerchantInfo *pLoadedGC;
-    MyCard *pMyGC;
+    IBOutlet UIButton *btnLookup;
+    IBOutlet UILabel *lookuptype;
 }
-@property(nonatomic, retain) NSString* mygcname;
-@property(nonatomic, retain) MyCard *pMyGC;
-@property(nonatomic, retain) MerchantInfo *pLoadedGC;
-@property(nonatomic, retain) NSTimer *timer;
 @property(nonatomic, retain) IBOutlet UITextField *tfID;
+@property(nonatomic, retain) IBOutlet UIView *uiCAPTCHAView;
+@property(nonatomic, retain) IBOutlet UITextField *uiCAPTCHAAnswer;
+@property(nonatomic, retain) IBOutlet UIImageView *uiCAPTCHAImage;
+@property(nonatomic, retain) MerchantInfo *pLoadedGC;
+@property(nonatomic, retain) MyCard *pMyGC;
+@property(nonatomic, retain) NSString *lookupletter;
+@property(nonatomic, retain) NSString *mygcname;
+@property(nonatomic, retain) NSTimer *timer;
 @end

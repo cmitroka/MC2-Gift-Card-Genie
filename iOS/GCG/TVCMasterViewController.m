@@ -8,6 +8,7 @@
 
 #import "TVCMasterViewController.h"
 #import "TVCAppDelegate.h"
+#import "RespNeedsCAPTCHA.h"
 #import "MyGCs.h"
 #import "About.h"
 #import "Feedback.h"
@@ -19,34 +20,13 @@
 #import "SFHFKeychainUtils.h"
 #import "CJMUtilities.h"
 #import "DataAccess.h"
-#import "TestCenter.h"
+#import "IAP.h"
 @interface TVCMasterViewController()
-- (void)PossiblyRemoveiAd;
 @end
 
 
 @implementation TVCMasterViewController
-
--(IBAction)doTest:(id)sender
-{
-    static int cntr;
-    cntr++;
-    if (cntr>2)
-    {
-        TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate useViewController:[TestCenter class]];
-        cntr=0;
-    }
-    //DataAccess *da=[DataAccess da];
-    //[da pmUpdateMyCardBalanceInfo:@"ID5" lastbalknown:@"111" lastbaldate:@"1/1/2012"];
-
-}
-
--(IBAction)showFeedback:(id)sender
-{
-    Feedback *feedback = [[Feedback alloc]init];
-    [self.navigationController pushViewController:feedback animated:YES];
-}
+StaticData *sd;
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if(buttonIndex==0) {
         MyGCs *pMyGCs = [[MyGCs alloc]init];
@@ -63,13 +43,8 @@
 
 -(IBAction)showMyCards:(id)sender
 {
-    /*
-     UIAlertView *av=[[UIAlertView alloc] initWithTitle:@"Message" message:[NSString stringWithFormat:@"%@%@",@"A",@"D"] delegate:self cancelButtonTitle:@"Add Card" otherButtonTitles:@"View Cards", nil];
-     [av show];
-     */
     MyGCs *myGCs = [[MyGCs alloc]init];
     [self.navigationController pushViewController:myGCs animated:YES];
-    
 }
 
 -(IBAction)showViewGCs:(id)sender
@@ -80,25 +55,33 @@
 -(IBAction)showSettings:(id)sender
 {
     Settings *s = [[Settings alloc] init];
-    [self.navigationController pushViewController:s animated:YES];    
+    [self.navigationController pushViewController:s animated:YES];
 }
 
 -(IBAction)showAbout:(id)sender
 {
     About *about=[[About alloc]init];
-    [self.navigationController pushViewController:about animated:YES];    
-
+    [self.navigationController pushViewController:about animated:YES];
 }
+-(IBAction)showGetMore:(id)sender
+{
+    IAP *iap=[[IAP alloc]init];
+    [self.navigationController pushViewController:iap animated:YES];
+    
+}
+-(IBAction)testIt:(id)sender
+{
+    RespNeedsCAPTCHA *test=[[RespNeedsCAPTCHA alloc]init];
+    [self.navigationController pushViewController:test animated:YES];
+}
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Main", @"Main");        
         //Hide Title
-        //UIView *fakeTitleView = [[UIView alloc] init];
-        //fakeTitleView.hidden = YES;
-        //[self.navigationItem setTitleView:fakeTitleView];
     }
     return self;
 }
@@ -123,7 +106,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden=NO;
+    self.navigationController.navigationBar.hidden = YES;
     StaticData *sd=[StaticData sd];
     if (sd.pMode==@"Offline") {
         if (sd.pModeAcknowledged.length==0)
@@ -132,15 +115,30 @@
             sd.pModeAcknowledged=@"Y";
             
         }
+//        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+//        self.navigationController.navigationBar.frame = CGRectMake(0, 0, 320, 44);
     }
-    [self PossiblyRemoveiAd];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    sd=[StaticData sd];
+    int iRemAmnt=sd.pAmntOfLookupsRemaining.integerValue;
+    NSString *sRemAmnt=[CJMUtilities ConvertIntToNSString:iRemAmnt];
+    if (iRemAmnt<0)
+    {
+        sRemAmnt=@"0";
+    }
+    if (sd.pMode==@"Offline")
+    {
+        sRemAmnt=@"? (your offline)";
+    }
+    
+    
+    NSString *temp1=[NSString stringWithFormat:@"%@ %@ lookups remaining.", @"You have", sRemAmnt];
+    [lblLookupInfo setText:temp1];
+    
 }
-
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
@@ -155,35 +153,5 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
-{
-        NSLog(@"bannerview did not receive any banner due to %@", error);
-}
-
-- (void)bannerViewActionDidFinish:(ADBannerView *)banner
-{
-    NSLog(@"bannerview was selected");
-}
-
-- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
-{
-    NSLog(@"Banner was clicked on; will%sleave application", willLeave ? " " : " not ");
-        return willLeave;
-}
-
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner 
-{
-    NSLog(@"banner was loaded");
-}
-- (void)PossiblyRemoveiAd
-{
-    NSString *appStatus=nil;
-    appStatus=[SFHFKeychainUtils pmGetValueForSetting:@"AppStatus"];
-    if ([appStatus isEqualToString:@"Purchased"])
-    {
-        [_ADBannerView setHidden:YES];
-        [_ADBannerView removeFromSuperview];
-    }
 }
 @end

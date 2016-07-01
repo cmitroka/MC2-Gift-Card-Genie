@@ -11,6 +11,7 @@
 @interface CJMUtilities : NSObject
 
 +(BOOL)NSDate1GreaterThanNSDate2:(NSDate *)date1 date2:(NSDate *)date2;
++(void)ShowOOLAlert;
 +(NSDate *)ConvertNSStringDateToNSDate:(NSString *)NSStringIn;
 +(NSString *)GetGeneratedUUID;
 +(NSString *)ConvertIntToNSString:(int)myInt;

@@ -73,6 +73,7 @@
     tvFeedback.layer.borderWidth = 1;
     tvFeedback.layer.borderColor = [[UIColor blackColor] CGColor];
     tvFeedback.layer.cornerRadius = 8;
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)viewDidUnload

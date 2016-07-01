@@ -69,7 +69,7 @@
 @end
 
 @implementation MerchantInfo
-@synthesize p_url,p_name,p_phone,p_showCreds,p_showCardNum,p_showCardPIN,p_reqReg,p_maxCardLen,p_maxPINLen,p_minCardLen,p_minPINLen,p_note;
+@synthesize p_name,p_url,p_showCardNum,p_maxCardLen,p_maxPINLen,p_minCardLen,p_minPINLen,p_isLookupManual, p_note;
 -(id)initWithName:(NSString *)n
 {
     [self pmGetCard:n];
@@ -79,17 +79,15 @@
 {
     DataAccess *da = [DataAccess da];
     MerchantInfo *mi=[da pmGetMerchantInfoByName:mygcname];
-    self.p_showCreds=mi.p_showCreds;
     self.p_showCardNum=mi.p_showCardNum;
     self.p_showCardPIN=mi.p_showCardPIN;
     self.p_name=mi.p_name;
     self.p_url=mi.p_url;
-    self.p_phone=mi.p_phone;
-    self.p_reqReg=mi.p_reqReg;
     self.p_maxCardLen=mi.p_maxCardLen;
     self.p_minCardLen=mi.p_minCardLen;
     self.p_maxPINLen=mi.p_maxPINLen;
     self.p_minPINLen=mi.p_minPINLen;
+    self.p_isLookupManual=mi.p_isLookupManual;
     self.p_note=mi.p_note;
 }
 @end

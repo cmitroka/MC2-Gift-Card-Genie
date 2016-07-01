@@ -12,18 +12,17 @@
 #import "Communicator.h"
 #import "CJMUtilities.h"
 #import "Feedback.h"
-#import "RespNeedsMoreInfo.h"
 #import "RespNeedsCAPTCHA.h"
 #import "StaticData.h"
 #import "DataAccess.h"
-#import "MainScreen.h"
-#import "MainScreen00.h"
 #import "MyGCs.h"
 #import "ViewGCs.h"
 #import "AddModGC.h"
 #import "SwitchViewController.h"
 #import "TestCenter.h"
 #import "SFHFKeychainUtils.h"
+#import "OutOfLookups.h"
+#import "WatchAd.h"
 /*
 @interface TVCAppDelegate()
 {
@@ -91,11 +90,7 @@
 -(void)pushView:(NSString *)xibName 
 {
     
-    if ([xibName isEqualToString:@"RespNeedsMoreInfo"])
-    {
-        RespNeedsMoreInfo *rnmi=[[RespNeedsMoreInfo alloc]init];
-        [self.navigationController pushViewController:rnmi animated:YES];
-    } else if ([xibName isEqualToString:@"RespNeedsCAPTCHA"])
+    if ([xibName isEqualToString:@"RespNeedsCAPTCHA"])
     {
         RespNeedsCAPTCHA *rnc = [[RespNeedsCAPTCHA alloc]init];
         [self.navigationController pushViewController:rnc animated:YES];

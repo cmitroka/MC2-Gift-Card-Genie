@@ -11,8 +11,8 @@
 @implementation About
 -(IBAction)GoToWebpage:(id)sender
 {
-    [[UIApplication sharedApplication] 
-       openURL:[NSURL URLWithString:@"http://gcg.mc2techservices.com"]];
+    [[UIApplication sharedApplication]
+     openURL:[NSURL URLWithString:@"http://gcg.mc2techservices.com"]];
 }
 -(IBAction)GoToEmail:(id)sender
 {
@@ -23,7 +23,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"About Gift Card Genie", @"About Gift Card Genie");        
+        self.title = NSLocalizedString(@"", @"About Gift Card Genie");
     }
     return self;
 }
@@ -41,6 +41,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.navigationBar.hidden = NO;
     // Do any additional setup after loading the view from its nib.
 }
 

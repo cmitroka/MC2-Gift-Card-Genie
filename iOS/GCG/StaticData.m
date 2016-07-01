@@ -11,9 +11,10 @@
 
 @implementation StaticData
 @synthesize merchantsAllData,merchantsNames,pSystemMessage;
-@synthesize pLastDBUpdate=_pLastDBUpdate,pCAPTCHAURLInfo=_pCAPTCHAURLInfo,pAmntOfLookupsRemaining=_ppAmntOfLookupsRemaining,pLoadGCKey=_pLoadGCKey,pUUID=_pUUID,pSessionID=_pSessionID,pChecksum=_pChecksum,pMode=_pMode,pDemoAcknowledged=_pDemoAcknowledged,pModeAcknowledged=_pModeAcknowledged,pPopAmount=_pPopAmount,pVersionNumeric=_pVersionNumeric,pVersion=_pVersion,pGoBack=_pGoBack,pDrawn=_pDrawn,pAlertMessage=_pAlertMessage,pPurchased=_pPurchased,pAmntForADollar=_pAmntForADollar,pCostForApp=_pCostForApp;
+@synthesize pLastDBUpdate=_pLastDBUpdate,pCAPTCHAURLInfo=_pCAPTCHAURLInfo,pAmntOfLookupsRemaining=_ppAmntOfLookupsRemaining,pLoadGCKey=_pLoadGCKey,pUUID=_pUUID,pSessionID=_pSessionID,pChecksum=_pChecksum,pMode=_pMode,pDemoAcknowledged=_pDemoAcknowledged,pModeAcknowledged=_pModeAcknowledged,pPopAmount=_pPopAmount,pVersionNumeric=_pVersionNumeric,pVersion=_pVersion,pGoBack=_pGoBack,pDrawn=_pDrawn,pAlertMessage=_pAlertMessage,pPurchased=_pPurchased,pAmntForADollar=_pAmntForADollar,pCostForApp=_pCostForApp,pCallback=_pCallback;
 static NSMutableArray *_merchantsAllData;
 static NSMutableArray *_merchantsNames;
+static NSString *_pCallback=@"";
 static NSString *_pLoadGCKey=@"";
 static NSString *_pUUID=@"";
 static NSString *_pChecksum=@"";
