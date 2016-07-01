@@ -101,8 +101,8 @@ namespace AppAdminSite
             SessionIDAndAdInfo = GCWS.GetSessionIDAndAdInfo(UUID, ddlCardType.Text);
             string[] GetSessionIDAndAdInfoArr = GCGCommon.SupportMethods.SplitByString(SessionIDAndAdInfo, GCGCommon.EnumExtensions.Description(GCGCommon.EnumExtensions.Delimiters.POSDEL));
             string SessionID = GetSessionIDAndAdInfoArr[0];
-            GCGCommon.SessionVerification sv = new GCGCommon.SessionVerification();
-            string CheckSum = sv.GetChecksumEV01(SessionID);
+            string CheckSum = "123";
+            CheckSum = GCGCommon.SupportMethods.GetChecksum(SessionID);
             //UUID = "AEE003AE-637E-48DC-990E-41341F11E94D";
             string rs = GCWS.NewRequest(UUID, SessionID, CheckSum, ddlCardType.Text, txtCard.Text, txtPIN.Text, txtLogin.Text, txtPassword.Text);
             string[] pieces = GCGCommon.SupportMethods.SplitByString(rs, GCGCommon.EnumExtensions.Description(GCGCommon.EnumExtensions.Delimiters.LINEDEL));

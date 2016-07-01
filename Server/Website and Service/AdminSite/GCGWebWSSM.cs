@@ -11,7 +11,7 @@ namespace AppAdminSite
         public static string GCGKeyToGCGUsersID(string pGCGKey)
         {
             string retVal = "1";
-            GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
+            GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
             //AppAdminSite.SQLHelper sqlh = new AppAdminSite.SQLHelper("GCGApp.mdb");
             string[][] data = sqlh.GetMultiValuesOfSQL("SELECT GCGUsersID FROM tblGCGUsers WHERE GCGKey=@P0", pGCGKey);
             if (CommonForWS.isDatasetBad(data)) return "-1";
@@ -34,7 +34,7 @@ namespace AppAdminSite
                 retVal = "-1" + POSDEL + "Sorry, the username cant be more than 32 characters long.";
                 return retVal;
             }
-            GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
+            GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
             string[][] data = sqlh.GetMultiValuesOfSQL("SELECT Count(*) FROM tblGCGUsers WHERE GCGLogin=@P0", pGCGLogin);
             if (CommonForWS.isDatasetBad(data))
             {
@@ -70,7 +70,7 @@ namespace AppAdminSite
             string[] retVal = new string[4];
             //0=AmntOfLookupsAllowed, 1=AmntOfSuccessfulLookups, 2=AmntOfUnsuccessfulLookups, 3=AmntOfLookupsRemaining
             int amntAllowed = 5;
-            GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
+            GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
             string[][] overridedata = sqlh.GetMultiValuesOfSQL("Select [PurchaseType] from tblPurchases WHERE [GCGUsersID]=@P0", pGCGUsersID);
             int loopamnt = MVDataRowCount(overridedata);
             for (int i = 0; i < loopamnt; i++)
@@ -196,7 +196,7 @@ namespace AppAdminSite
         public static string InsertNewRequest(string pGCGUsersID, string pFileID, string pCardType, string pCardNumber, string pPIN, string pLogin, string pPassword)
         {
             string retVal = "";
-            GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
+            GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
             int temp = sqlh.ExecuteSQLParamed("INSERT INTO tblNewRequests (GCGUsersID, FileID, CardType, CardNumber, PIN, Login, [Password], TimeLogged) VALUES  (@P0, @P1, @P2, @P3, @P4, @P5, @P6, @P7)", pGCGUsersID, pFileID, pCardType, pCardNumber, pPIN, pLogin, pPassword, DateTime.Now.ToString());
             retVal = temp.ToString();
             sqlh.CloseIt();
@@ -205,7 +205,7 @@ namespace AppAdminSite
         public static string InsertFailedRequest(string pGCGKey, string pCardType, string pCardNumber, string pPIN, string pLogin, string pPassword)
         {
             string retVal = "";
-            GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
+            GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
             int temp = sqlh.ExecuteSQLParamed("INSERT INTO tblFailedRequests (GCGKey, CardType, CardNumber, PIN, Login, [Password], TimeLogged) VALUES  (@P0, @P1, @P2, @P3, @P4, @P5, @P6)", pGCGKey, pCardType, pCardNumber, pPIN, pLogin, pPassword, DateTime.Now.ToString());
             retVal = temp.ToString();
             sqlh.CloseIt();
@@ -215,7 +215,7 @@ namespace AppAdminSite
         public static string InsertReponse(string pGCGUsersID, string pFileID, string pResponseType, string pResponse)
         {
             string retVal = "";
-            GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
+            GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
             int temp = sqlh.ExecuteSQLParamed("INSERT INTO tblResponses (GCGUsersID, FileID, ResponseType, Response, TimeLogged) VALUES  (@P0, @P1, @P2, @P3, @P4)", pGCGUsersID, pFileID, pResponseType, pResponse, DateTime.Now.ToString());
             retVal = temp.ToString();
             sqlh.CloseIt();
@@ -224,7 +224,7 @@ namespace AppAdminSite
         public static string InsertContinueRequest(string pGCGUsersID, string pFileID, string pAnswer)
         {
             string retVal = "";
-            GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
+            GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
             int temp = sqlh.ExecuteSQLParamed("INSERT INTO tblContinueRequest (GCGUsersID, FileID, Answer, TimeLogged) VALUES  (@P0, @P1, @P2, @P3 )", pGCGUsersID, pFileID, pAnswer, DateTime.Now.ToString());
             retVal = temp.ToString();
             sqlh.CloseIt();
@@ -277,7 +277,7 @@ namespace AppAdminSite
 
                 string[] LookupsCntData = GetLookupsCntData(pGCGUsersID);
                 int intSuccessfulLookups = Convert.ToInt16(LookupsCntData[1]) + 1;
-                GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
+                GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
                 int temp1 = sqlh.ExecuteSQLParamed("DELETE FROM tblSuccessfulLookupCount WHERE GCGUsersID=@P0", pGCGUsersID);
                 int temp2 = sqlh.ExecuteSQLParamed("INSERT INTO tblSuccessfulLookupCount (GCGUsersID,LookupCount,TimeLogged) VALUES (@P0,@P1,@P2)", pGCGUsersID, intSuccessfulLookups.ToString(), DateTime.Now.ToString());
                 sqlh.CloseIt();

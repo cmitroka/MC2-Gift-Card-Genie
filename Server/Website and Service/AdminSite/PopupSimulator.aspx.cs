@@ -73,9 +73,8 @@ namespace AppAdminSite
             SessionIDAndAdInfo = GCWS.GetSessionIDAndAdInfo(UUID, ddlCardType.Text);
             string[] GetSessionIDAndAdInfoArr = GCGCommon.SupportMethods.SplitByString(SessionIDAndAdInfo, GCGCommon.EnumExtensions.Description(GCGCommon.EnumExtensions.Delimiters.POSDEL));
             string SessionID = GetSessionIDAndAdInfoArr[0];
-            GCGCommon.SessionVerification sv = new GCGCommon.SessionVerification();
             string CheckSum = "231";
-            CheckSum = sv.GetChecksumEV00(SessionID);
+            CheckSum = GCGCommon.SupportMethods.GetChecksum(SessionID);
             string rs = GCWS.NewRequest(UUID, SessionID, CheckSum, ddlCardType.Text, txtCard.Text, txtPIN.Text, txtLogin.Text, txtPassword.Text);
             string[] pieces = GCGCommon.SupportMethods.SplitByString(rs, GCGCommon.EnumExtensions.Description(GCGCommon.EnumExtensions.Delimiters.LINEDEL));
             string rsDetails = GCGReponseHandler.HandleRs(pieces[0], pieces[1]);

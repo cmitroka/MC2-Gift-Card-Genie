@@ -35,6 +35,16 @@ namespace AppAdminSite
         {
             sqlh.CloseIt();
         }
+        public string NewManualRequest(string pUUID, string pCardType, string pCardNumber, string pPIN)
+        {
+            string retVal = "";
+            int temp0 = sqlh.ExecuteSQLParamed("INSERT INTO tblManualRequests (UUID,CardType,CardNumber,PIN,TimeLogged) VALUES (@P0,@P1,@P2,@P3,@P4)", pUUID, pCardType, pCardNumber, pPIN, DateTime.Now.ToString());
+            int intSuccessfulLookups = GetAmntOfSuccessfulLookups(pUUID) + 1;
+            int temp1 = sqlh.ExecuteSQLParamed("DELETE FROM tblSuccessfulLookupCount WHERE UDID=@P0", pUUID);
+            int temp2 = sqlh.ExecuteSQLParamed("INSERT INTO tblSuccessfulLookupCount (UDID,LookupCount,TimeLogged) VALUES (@P0,@P1,@P2)", pUUID, intSuccessfulLookups.ToString(), DateTime.Now.ToString());
+            retVal = "INSERT INTO tblManualRequests:" + temp0.ToString() + " INSERT INTO tblSuccessfulLookupCount:" + temp2.ToString();
+            return retVal;
+        }
         public string NewRequest(string pUUID, string pSessionID, string pCheckSum, string pCardType, string pCardNumber, string pPIN, string pLogin, string pPassword, string pIP)
         {
             string pFileName = "";
@@ -132,7 +142,7 @@ namespace AppAdminSite
                 s.WriteLine(pLogin);
                 s.WriteLine(pPassword);
                 s.Close();
-                GCGCommon.SupportMethods.WriteToWindowsEventLog("GCG WebserviceCreated1", "NewRequest - Created ", "W");
+                //GCGCommon.SupportMethods.WriteToWindowsEventLog("GCG WebserviceCreated1", "NewRequest - Created ", "W");
                 string filetomake = "";
                 try
                 {
@@ -142,11 +152,11 @@ namespace AppAdminSite
                     pArguments = @"""" + MakeRqFile + @""" 1";
                     s.Write(pFileName + " " + pArguments);
                     s.Close();
-                    GCGCommon.SupportMethods.WriteToWindowsEventLog("GCG WebserviceCreated2", "NewRequest - Created " + filetomake, "I");
+                    //GCGCommon.SupportMethods.WriteToWindowsEventLog("GCG WebserviceCreated2", "NewRequest - Created " + filetomake, "I");
                 }
                 catch (Exception)
                 {
-                    GCGCommon.SupportMethods.WriteToWindowsEventLog("GCG WebserviceFailed", "NewRequest - Failed " + filetomake, "W");
+                    //GCGCommon.SupportMethods.WriteToWindowsEventLog("GCG WebserviceFailed", "NewRequest - Failed " + filetomake, "W");
                 }
                 /*
                 System.IO.StreamWriter s2 = new System.IO.StreamWriter("C:\\gcg\\out.txt");
@@ -254,7 +264,7 @@ namespace AppAdminSite
             }
             catch (Exception ex)
             {
-                GCGCommon.SupportMethods.WriteToWindowsEventLog("GCG BusinessLogic", "GetSessionID - Couldn't make Session ID - " + ex.Message, "W");
+                //GCGCommon.SupportMethods.WriteToWindowsEventLog("GCG BusinessLogic", "GetSessionID - Couldn't make Session ID - " + ex.Message, "W");
             }
             return retVal;
         }
@@ -346,6 +356,7 @@ namespace AppAdminSite
             {
                 f.Delete();
                 //Now check to see if the checksum is right...
+
                 string IncomingChannel = GCGCommon.SupportMethods.ValidateSession(SessionID,Checksum);
                 if (IncomingChannel != "")
                 {
@@ -543,7 +554,8 @@ namespace AppAdminSite
                     {
                         URLToUse = "";
                     }
-                    tempLine = dr["CleanName"].ToString() + POSDEL + dr["CleanPhone"].ToString() + POSDEL + URLToUse + POSDEL + dr["showCardNum"].ToString() + POSDEL + dr["showCardPIN"].ToString() + POSDEL + dr["showCreds"].ToString() + POSDEL + dr["reqReg"].ToString() + POSDEL + dr["TrueCardNumMin"].ToString() + POSDEL + dr["CardNumMax"].ToString() + POSDEL + dr["TruePINMin"].ToString() + POSDEL + dr["PINMax"].ToString() + POSDEL + dr["GeneralNote"].ToString() + LINEDEL;
+                    //tempLine = dr["CleanName"].ToString() + POSDEL + dr["CleanPhone"].ToString() + POSDEL + URLToUse + POSDEL + dr["showCardNum"].ToString() + POSDEL + dr["showCardPIN"].ToString() + POSDEL + dr["showCreds"].ToString() + POSDEL + dr["reqReg"].ToString() + POSDEL + dr["TrueCardNumMin"].ToString() + POSDEL + dr["CardNumMax"].ToString() + POSDEL + dr["TruePINMin"].ToString() + POSDEL + dr["PINMax"].ToString() + POSDEL + dr["GeneralNote"].ToString() + LINEDEL;
+                    tempLine = dr["CleanName"].ToString() + POSDEL + "" + POSDEL + URLToUse + POSDEL + dr["showCardNum"].ToString() + POSDEL + dr["showCardPIN"].ToString() + POSDEL + "0" + POSDEL + "0" + POSDEL + dr["TrueCardNumMin"].ToString() + POSDEL + dr["CardNumMax"].ToString() + POSDEL + dr["TruePINMin"].ToString() + POSDEL + dr["PINMax"].ToString() + POSDEL + dr["GeneralNote"].ToString() + LINEDEL;
                     sb.Append(tempLine);
                 }
             }
@@ -564,6 +576,40 @@ namespace AppAdminSite
             return retVal;
         }
         */
+        public string DownloadAllDataV2()
+        {
+            string retVal = "";
+            string tempLine = "";
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            System.Data.DataSet ds = new System.Data.DataSet();
+            try
+            {
+                //SQLHelper s1 = new SQLHelper("MerchantsAndSettings.mdb");
+                //OleDbDataAdapter da = new OleDbDataAdapter("Select * from qryMerchantsSupported", s1.aConnection);
+                OleDbDataAdapter da = new OleDbDataAdapter("Select * from qryMerchantsSupported", sqlh.aConnection);
+                da.Fill(ds, "RandomData");
+                foreach (System.Data.DataRow dr in ds.Tables["RandomData"].Rows)
+                {
+                    string URLToUse = dr["URL"].ToString();
+                    /*
+                    if (URLToUse.Contains("%"))  //IOS <5 doesn't handle this well...
+                    {
+                        URLToUse = "";
+                    }
+                    */
+                    tempLine = dr["CleanName"].ToString() + POSDEL + URLToUse + POSDEL + dr["showCardNum"].ToString() + POSDEL + dr["showCardPIN"].ToString() + POSDEL + dr["TrueCardNumMin"].ToString() + POSDEL + dr["CardNumMax"].ToString() + POSDEL + dr["TruePINMin"].ToString() + POSDEL + dr["PINMax"].ToString() + POSDEL + dr["IsLookupManual"].ToString() + POSDEL + dr["GeneralNote"].ToString() + LINEDEL;
+                    sb.Append(tempLine);
+                }
+            }
+            catch (OleDbException ex)
+            {
+                retVal = ex.Message;
+                return retVal;
+            }
+            retVal = sb.ToString();
+            return retVal;
+        }
+
         public string GetSystemParam(string pKey)
         {
             string retVal = "";
@@ -744,15 +790,7 @@ namespace AppAdminSite
             if (temp3 == "") temp3 = GetSystemParam("SystemMessage");//GetSystemMessage();
             
             string temp4 = "";
-            if (pVersion.Contains("V2.1"))
-            {
-                temp4 = GetAmntOfLookupsRemaining(UDID);
-            }
-            else
-            {
-                //before 2.2014.1, we wanted back how many Successful responses we got
-                temp4 = GetSuccessfulRqCount(UDID);
-            }
+            temp4 = GetAmntOfLookupsRemaining(UDID);
             //temp4 = GetSuccessfulRequestCount(UDID);
             string temp5 = GetSystemParam("DBLastUpdated");
             string temp6 = GetSystemParam("AmntForADollar");
@@ -829,6 +867,7 @@ namespace AppAdminSite
             }
             if (IsRequestValid(pSessionID, pCheckSum, pIP) == true)
             {
+                temp = sqlh.ExecuteSQLParamed("INSERT INTO tblAdsClicked (UUID, DateLogged) VALUES (@P0,@P1)", pUUID, DateTime.Now.ToString());
                 temp = sqlh.ExecuteSQLParamed("INSERT INTO tblPurchases (UUID, TimeLogged, PurchaseType) VALUES (@P0,@P1,@P2)", pUUID, DateTime.Now.ToString(), amnt);
                 retVal = temp.ToString();
             }

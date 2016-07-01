@@ -21,7 +21,7 @@ namespace AppAdminSite
 
         public GCGWebWSBL()
         {
-            sqlh = new GCGCommon.SQLHelper(GCGCommon.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
+            sqlh = new GCGCommon.SQLHelper(GCGCommon.SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
             string[] ConfigParams = GCGWebWSSM.GetConfigParams();
             gloPathToRqRs = ConfigParams[0];
             gloPathToMerchantEXEs = ConfigParams[1];
