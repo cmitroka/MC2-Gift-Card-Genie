@@ -13,8 +13,6 @@ namespace AppAdminSite
         string POSDEL = GCGCommon.EnumExtensions.Description(GCGCommon.EnumExtensions.Delimiters.POSDEL);
         static DropDownList ddlCNum=new DropDownList();
         static DropDownList ddlCPIN = new DropDownList();
-        static DropDownList ddlLogin = new DropDownList();
-        static DropDownList ddlPassword = new DropDownList();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,8 +23,6 @@ namespace AppAdminSite
             ddlCardType.Items.Clear();
             ddlCNum.Items.Clear();
             ddlCPIN.Items.Clear();
-            ddlLogin.Items.Clear();
-            ddlPassword.Items.Clear();
 
             AppAdminSite.WebService GCWS = new AppAdminSite.WebService();
             //com.mc2techservices.gcg.WebService GCWS = new com.mc2techservices.gcg.WebService();
@@ -49,8 +45,6 @@ namespace AppAdminSite
                 ddlCardType.Items.Add(temp1[0]);
                 ddlCNum.Items.Add(temp1[1]);
                 ddlCPIN.Items.Add(temp1[2]);
-                ddlLogin.Items.Add(temp1[3]);
-                ddlPassword.Items.Add(temp1[4]);
             }
             //ConfigureScreen();
         }
@@ -75,7 +69,7 @@ namespace AppAdminSite
             string SessionID = GetSessionIDAndAdInfoArr[0];
             string CheckSum = "231";
             CheckSum = GCGCommon.SupportMethods.GetChecksum(SessionID);
-            string rs = GCWS.NewRequest(UUID, SessionID, CheckSum, ddlCardType.Text, txtCard.Text, txtPIN.Text, txtLogin.Text, txtPassword.Text);
+            string rs = GCWS.NewRequest(UUID, SessionID, CheckSum, ddlCardType.Text, txtCard.Text, txtPIN.Text, "", "");
             string[] pieces = GCGCommon.SupportMethods.SplitByString(rs, GCGCommon.EnumExtensions.Description(GCGCommon.EnumExtensions.Delimiters.LINEDEL));
             string rsDetails = GCGReponseHandler.HandleRs(pieces[0], pieces[1]);
             if (rsDetails == "")
@@ -92,16 +86,12 @@ namespace AppAdminSite
         {
             txtCard.Text = ddlCNum.Items[ddlCardType.SelectedIndex].ToString();
             txtPIN.Text = ddlCPIN.Items[ddlCardType.SelectedIndex].ToString();
-            txtLogin.Text = ddlLogin.Items[ddlCardType.SelectedIndex].ToString();
-            txtPassword.Text = ddlPassword.Items[ddlCardType.SelectedIndex].ToString();
         }
 
         protected void cmdClear_Click(object sender, EventArgs e)
         {
             txtCard.Text ="";
             txtPIN.Text = "";
-            txtLogin.Text = "";
-            txtPassword.Text = "";
         }
 
     }

@@ -918,11 +918,11 @@ namespace AppAdminSite
             System.Data.DataSet ds = new System.Data.DataSet();
             try
             {
-                OleDbDataAdapter da = new OleDbDataAdapter("Select CleanName, TestCardNum, TestCardPIN, TestLogin, TestPass from qryMerchantsSupported", sqlh.aConnection);
+                OleDbDataAdapter da = new OleDbDataAdapter("Select CleanName, TestCardNum, TestCardPIN from qryMerchantsSupported", sqlh.aConnection);
                 da.Fill(ds, "RandomData");
                 foreach (System.Data.DataRow dr in ds.Tables["RandomData"].Rows)
                 {
-                    tempLine = dr["CleanName"].ToString() + POSDEL + dr["TestCardNum"].ToString() + POSDEL + dr["TestCardPIN"].ToString() + POSDEL + dr["TestLogin"].ToString() + POSDEL + dr["TestPass"].ToString() + LINEDEL;
+                    tempLine = dr["CleanName"].ToString() + POSDEL + dr["TestCardNum"].ToString() + POSDEL + dr["TestCardPIN"].ToString() + LINEDEL;
                     sb.Append(tempLine);
                 }
             }

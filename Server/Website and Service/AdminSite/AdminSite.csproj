@@ -1071,12 +1071,6 @@
     <Content Include="Admin.Master" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\GCG Common\GCGCommon.csproj">
-      <Project>{66360C67-DE8F-43C4-B4DF-8581B98F6323}</Project>
-      <Name>GCGCommon</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
@@ -1103,6 +1097,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Merchants and Applications\GCG Common\GCGCommon.csproj">
+      <Project>{66360c67-de8f-43c4-b4df-8581b98f6323}</Project>
+      <Name>GCGCommon</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

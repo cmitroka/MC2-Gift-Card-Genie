@@ -1,0 +1,13 @@
+C:\Users\Administrator\Desktop\Gift Card Genie\Server\Merchants\AMC Theatres\Source\bin\Debug\AMC Theatres.exe.config
+C:\Users\Administrator\Desktop\Gift Card Genie\Server\Merchants\AMC Theatres\Source\bin\Debug\AMC Theatres.exe
+C:\Users\Administrator\Desktop\Gift Card Genie\Server\Merchants\AMC Theatres\Source\bin\Debug\AMC Theatres.pdb
+C:\Users\Administrator\Desktop\Gift Card Genie\Server\Merchants\AMC Theatres\Source\bin\Debug\GCGCommon.dll
+C:\Users\Administrator\Desktop\Gift Card Genie\Server\Merchants\AMC Theatres\Source\bin\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Gift Card Genie\Server\Merchants\AMC Theatres\Source\bin\Debug\HtmlAgilityPack.dll
+C:\Users\Administrator\Desktop\Gift Card Genie\Server\Merchants\AMC Theatres\Source\bin\Debug\GCGCommon.pdb
+C:\Users\Administrator\Desktop\Gift Card Genie\Server\Merchants\AMC Theatres\Source\obj\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Gift Card Genie\Server\Merchants\AMC Theatres\Source\obj\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Gift Card Genie\Server\Merchants\AMC Theatres\Source\obj\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Gift Card Genie\Server\Merchants\AMC Theatres\Source\obj\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Gift Card Genie\Server\Merchants\AMC Theatres\Source\obj\Debug\AMC Theatres.exe
+C:\Users\Administrator\Desktop\Gift Card Genie\Server\Merchants\AMC Theatres\Source\obj\Debug\AMC Theatres.pdb
