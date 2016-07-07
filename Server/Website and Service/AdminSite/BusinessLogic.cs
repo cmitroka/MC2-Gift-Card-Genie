@@ -868,7 +868,7 @@ namespace AppAdminSite
             if (IsRequestValid(pSessionID, pCheckSum, pIP) == true)
             {
                 temp = sqlh.ExecuteSQLParamed("INSERT INTO tblAdsClicked (UUID, DateLogged) VALUES (@P0,@P1)", pUUID, DateTime.Now.ToString());
-                temp = sqlh.ExecuteSQLParamed("INSERT INTO tblPurchases (UUID, TimeLogged, PurchaseType) VALUES (@P0,@P1,@P2)", pUUID, DateTime.Now.ToString(), amnt);
+                if (amnt == "05") { temp = sqlh.ExecuteSQLParamed("INSERT INTO tblPurchases (UUID, TimeLogged, PurchaseType) VALUES (@P0,@P1,@P2)", pUUID, DateTime.Now.ToString(), amnt); }
                 retVal = temp.ToString();
             }
             return retVal;

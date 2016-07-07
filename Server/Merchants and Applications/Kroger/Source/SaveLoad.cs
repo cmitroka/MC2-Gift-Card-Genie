@@ -143,7 +143,7 @@ namespace DVB
             try
             {
                 GCGCommon.DB db = new GCGCommon.DB(m.txtAppStaticDBPath.Text);
-                string[][] setting = db.GetMultiValuesOfSQL("SELECT CleanName,URL,Timeout,TestCardNum,TestCardPIN,TestLogin,TestPass FROM tblMerchants WHERE EXE='" + m.AppName + "'");
+                string[][] setting = db.GetMultiValuesOfSQL("SELECT CleanName,URL,Timeout,TestCardNum,TestCardPIN FROM tblMerchants WHERE EXE='" + m.AppName + "'");
                 m.txtCleanName.Text = setting[0][0];
                 m.txtBaseURL.Text = setting[0][1];
                 m.txtTimeout.Text = setting[0][2];
