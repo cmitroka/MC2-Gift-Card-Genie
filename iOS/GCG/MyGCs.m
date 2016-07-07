@@ -17,9 +17,13 @@
 #import "Settings.h"
 #import "ViewGCs.h"
 #import "TVCAppDelegate.h"
+#import "OutOfLookups.h"
+#import "CJMUtilities.h"
 DataAccess *sql;
 @implementation MyGCs
 @synthesize toolbar,pSettings,pMyGCs,cmdLeft,cmdRight,cmdMid,tableView;
+StaticData *sd;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -219,13 +223,19 @@ DataAccess *sql;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    StaticData *sd=[StaticData sd];
-    MyCard *myCard = [sql.myCards objectAtIndex:indexPath.row];
-    sd.pLoadGCKey=myCard.p_mygcname;
-    LoadGC *pLoadGC=[[LoadGC alloc] init];
-    Feedback *f=[[Feedback alloc]init];
-    [toolbar removeFromSuperview];
-    [self.navigationController pushViewController:pLoadGC animated:YES];
+    int iAmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining];
+    if (iAmntOfLookupsRemaining<=0) {
+        OutOfLookups *v = [[OutOfLookups alloc] init];
+        [self.navigationController pushViewController:v animated:YES];
+    }
+    else
+    {
+        MyCard *myCard = [sql.myCards objectAtIndex:indexPath.row];
+        sd.pLoadGCKey=myCard.p_mygcname;
+        LoadGC *pLoadGC=[[LoadGC alloc] init];
+        [toolbar removeFromSuperview];
+        [self.navigationController pushViewController:pLoadGC animated:YES];
+    }
 }
 
 @end
