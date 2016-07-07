@@ -95,10 +95,17 @@
 		83D531EE1D1215480069630D /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D531E61D1215480069630D /* EventKit.framework */; };
 		83D531EF1D1215480069630D /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D531E71D1215480069630D /* EventKitUI.framework */; };
 		83D531F01D1215480069630D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D531E81D1215480069630D /* SystemConfiguration.framework */; };
+		83DC8C191D2DC9B800E33303 /* ViewBannerAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DC8C171D2DC9B800E33303 /* ViewBannerAd.m */; };
+		83DC8C1A1D2DC9B800E33303 /* ViewBannerAd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83DC8C181D2DC9B800E33303 /* ViewBannerAd.xib */; };
+		83DC8C1E1D2DF79300E33303 /* ViewInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DC8C1C1D2DF79300E33303 /* ViewInterstitialAd.m */; };
+		83DC8C1F1D2DF79300E33303 /* ViewInterstitialAd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83DC8C1D1D2DF79300E33303 /* ViewInterstitialAd.xib */; };
+		83DC8C231D2E00DC00E33303 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DC8C221D2E00DC00E33303 /* CoreBluetooth.framework */; };
+		83DC8C271D2E026200E33303 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DC8C261D2E026200E33303 /* MediaPlayer.framework */; };
+		83DC8C2A1D2E09B900E33303 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DC8C241D2E012D00E33303 /* SafariServices.framework */; };
+		83DC8C2D1D2E137500E33303 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DC8C2C1D2E137500E33303 /* GoogleMobileAds.framework */; };
 		83DC950F167B171C00D380D5 /* lock-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 83DC950E167B171C00D380D5 /* lock-60.png */; };
 		83DD1EFC166A258F00262041 /* MyGCwDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DD1EFB166A258F00262041 /* MyGCwDetails.m */; };
 		83DD1EFF166A2BF700262041 /* MyGCwDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83DD1EFE166A2BF700262041 /* MyGCwDetailsCell.xib */; };
-		83DEA16F1D15D2FB00A1A0B4 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DEA16E1D15D2FB00A1A0B4 /* GoogleMobileAds.framework */; };
 		83DEA1701D1647E400A1A0B4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832BDE0614D9BC0000B2000D /* UIKit.framework */; };
 		83DEA1721D16484B00A1A0B4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DEA1711D16484B00A1A0B4 /* QuartzCore.framework */; };
 		83DEA17C1D165CAD00A1A0B4 /* WatchAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DEA17A1D165CAD00A1A0B4 /* WatchAd.m */; };
@@ -222,11 +229,20 @@
 		83D531E61D1215480069630D /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		83D531E71D1215480069630D /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		83D531E81D1215480069630D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		83DC8C161D2DC9B800E33303 /* ViewBannerAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewBannerAd.h; sourceTree = "<group>"; };
+		83DC8C171D2DC9B800E33303 /* ViewBannerAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewBannerAd.m; sourceTree = "<group>"; };
+		83DC8C181D2DC9B800E33303 /* ViewBannerAd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewBannerAd.xib; sourceTree = "<group>"; };
+		83DC8C1B1D2DF79300E33303 /* ViewInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewInterstitialAd.h; sourceTree = "<group>"; };
+		83DC8C1C1D2DF79300E33303 /* ViewInterstitialAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewInterstitialAd.m; sourceTree = "<group>"; };
+		83DC8C1D1D2DF79300E33303 /* ViewInterstitialAd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewInterstitialAd.xib; sourceTree = "<group>"; };
+		83DC8C221D2E00DC00E33303 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		83DC8C241D2E012D00E33303 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		83DC8C261D2E026200E33303 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		83DC8C2C1D2E137500E33303 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = GCG/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		83DC950E167B171C00D380D5 /* lock-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-60.png"; sourceTree = "<group>"; };
 		83DD1EFA166A258F00262041 /* MyGCwDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGCwDetails.h; sourceTree = "<group>"; };
 		83DD1EFB166A258F00262041 /* MyGCwDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGCwDetails.m; sourceTree = "<group>"; };
 		83DD1EFE166A2BF700262041 /* MyGCwDetailsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyGCwDetailsCell.xib; sourceTree = "<group>"; };
-		83DEA16E1D15D2FB00A1A0B4 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = GCG/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		83DEA1711D16484B00A1A0B4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		83DEA1791D165CAD00A1A0B4 /* WatchAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchAd.h; sourceTree = "<group>"; };
 		83DEA17A1D165CAD00A1A0B4 /* WatchAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchAd.m; sourceTree = "<group>"; };
@@ -250,10 +266,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83DC8C2D1D2E137500E33303 /* GoogleMobileAds.framework in Frameworks */,
+				83DC8C2A1D2E09B900E33303 /* SafariServices.framework in Frameworks */,
+				83DC8C271D2E026200E33303 /* MediaPlayer.framework in Frameworks */,
+				83DC8C231D2E00DC00E33303 /* CoreBluetooth.framework in Frameworks */,
 				83D531F01D1215480069630D /* SystemConfiguration.framework in Frameworks */,
 				83DEA1721D16484B00A1A0B4 /* QuartzCore.framework in Frameworks */,
 				83DEA1701D1647E400A1A0B4 /* UIKit.framework in Frameworks */,
-				83DEA16F1D15D2FB00A1A0B4 /* GoogleMobileAds.framework in Frameworks */,
 				83D531E91D1215480069630D /* AdSupport.framework in Frameworks */,
 				83D531EA1D1215480069630D /* AudioToolbox.framework in Frameworks */,
 				83D531EB1D1215480069630D /* AVFoundation.framework in Frameworks */,
@@ -288,8 +307,11 @@
 		832BDE0514D9BC0000B2000D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83DC8C2C1D2E137500E33303 /* GoogleMobileAds.framework */,
+				83DC8C261D2E026200E33303 /* MediaPlayer.framework */,
+				83DC8C241D2E012D00E33303 /* SafariServices.framework */,
+				83DC8C221D2E00DC00E33303 /* CoreBluetooth.framework */,
 				83DEA1711D16484B00A1A0B4 /* QuartzCore.framework */,
-				83DEA16E1D15D2FB00A1A0B4 /* GoogleMobileAds.framework */,
 				83D531E11D1215480069630D /* AdSupport.framework */,
 				83D531E21D1215480069630D /* AudioToolbox.framework */,
 				83D531E31D1215480069630D /* AVFoundation.framework */,
@@ -378,9 +400,15 @@
 				832BDE1814D9BC0000B2000D /* TVCMasterViewController.h */,
 				832BDE1914D9BC0000B2000D /* TVCMasterViewController.m */,
 				83C02B5C1D1A4DCC00E2D69D /* TVCMasterViewController.xib */,
+				83DC8C161D2DC9B800E33303 /* ViewBannerAd.h */,
+				83DC8C171D2DC9B800E33303 /* ViewBannerAd.m */,
+				83DC8C181D2DC9B800E33303 /* ViewBannerAd.xib */,
 				83A0FB9B15AFCE750027267E /* ViewGCs.h */,
 				83A0FB9C15AFCE750027267E /* ViewGCs.m */,
 				83A0FB9D15AFCE750027267E /* ViewGCs.xib */,
+				83DC8C1B1D2DF79300E33303 /* ViewInterstitialAd.h */,
+				83DC8C1C1D2DF79300E33303 /* ViewInterstitialAd.m */,
+				83DC8C1D1D2DF79300E33303 /* ViewInterstitialAd.xib */,
 				83DEA1791D165CAD00A1A0B4 /* WatchAd.h */,
 				83DEA17A1D165CAD00A1A0B4 /* WatchAd.m */,
 				83DEA17B1D165CAD00A1A0B4 /* WatchAd.xib */,
@@ -527,6 +555,7 @@
 				83306A161645740D0049E61B /* Delete.png in Resources */,
 				83306A171645740D0049E61B /* Edit.png in Resources */,
 				83F323D21D0CB07D00DC9F0D /* OutOfLookups.xib in Resources */,
+				83DC8C1A1D2DC9B800E33303 /* ViewBannerAd.xib in Resources */,
 				83306A191645740D0049E61B /* Icon.png in Resources */,
 				8377BE011D1EE01B00CF92CF /* ButtonGreyGradientWide.png in Resources */,
 				83D392411D28439000CFA8FD /* Images.xcassets in Resources */,
@@ -534,6 +563,7 @@
 				83C02B5D1D1A4DCC00E2D69D /* TVCMasterViewController.xib in Resources */,
 				8377BE001D1EE01B00CF92CF /* ButtonGreyGradientNarrow.png in Resources */,
 				83306A201645740D0049E61B /* merchants.sqlite in Resources */,
+				83DC8C1F1D2DF79300E33303 /* ViewInterstitialAd.xib in Resources */,
 				83306A211645740D0049E61B /* Save.png in Resources */,
 				8377BE1A1D1EE6A500CF92CF /* IconOnly_MyCards.png in Resources */,
 				83306A241645740D0049E61B /* unchecked20x20.png in Resources */,
@@ -572,11 +602,13 @@
 				83A0E4A815D0D8B9007C2B08 /* DataAccess.m in Sources */,
 				83A0E4B115D0E6D8007C2B08 /* WebAccess.m in Sources */,
 				83C3935B15D4DC14006C3594 /* WebView.m in Sources */,
+				83DC8C1E1D2DF79300E33303 /* ViewInterstitialAd.m in Sources */,
 				8365563C15D4ECD300D4168E /* DataUpdater.m in Sources */,
 				83072C6215D7F70B001D7ECD /* Settings.m in Sources */,
 				83072C6915D7F850001D7ECD /* ResourceHandler.m in Sources */,
 				839788F315DA280D0065BFAE /* AddModGC.m in Sources */,
 				839788F715DA280D0065BFAE /* CJMUtilities.m in Sources */,
+				83DC8C191D2DC9B800E33303 /* ViewBannerAd.m in Sources */,
 				8356965415E33E9800380E1F /* GiftCard.m in Sources */,
 				83DEA17C1D165CAD00A1A0B4 /* WatchAd.m in Sources */,
 				83D27C6C15E8AE330008ED5C /* LoadGC.m in Sources */,
@@ -678,6 +710,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GCG",
+					/Users/chris/Desktop,
+					"/Users/chris/Desktop/GoogleMobileAdsSdkiOS-7.7.0",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GCG/GCG-Prefix.pch";
@@ -705,6 +739,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GCG",
+					/Users/chris/Desktop,
+					"/Users/chris/Desktop/GoogleMobileAdsSdkiOS-7.7.0",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GCG/GCG-Prefix.pch";
