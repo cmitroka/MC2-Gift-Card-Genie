@@ -8,3 +8,4 @@ C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\GCG Common\
 C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\GCG Common\obj\Release\GCGCommon.csproj.ResolveComReference.cache
 C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\GCG Common\obj\Release\GCGCommon.dll
 C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\GCG Common\obj\Release\GCGCommon.pdb
+C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\GCG Common\obj\Release\GCGCommon.csprojResolveAssemblyReference.cache

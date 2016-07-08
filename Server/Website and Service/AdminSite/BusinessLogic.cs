@@ -640,7 +640,7 @@ namespace AppAdminSite
         public string BackupData(string UUID, string AllData)
         {
             string retVal = "";
-            string key = CreateAlphaNumericKey(3);
+            string key = CreateAlphaNumericKey(16);
             int temp1 = sqlh.ExecuteSQLParamed("DELETE FROM tblBackedUpData WHERE UUID=@P0", UUID);
             int temp2 = sqlh.ExecuteSQLParamed("INSERT INTO tblBackedUpData (UUID,BackedUpData,RetrievalKey,TimeLogged) VALUES (@P0,@P1,@P2,@P3)", UUID, AllData, key, DateTime.Now.ToString());
             //key = "a";
@@ -867,8 +867,15 @@ namespace AppAdminSite
             }
             if (IsRequestValid(pSessionID, pCheckSum, pIP) == true)
             {
-                temp = sqlh.ExecuteSQLParamed("INSERT INTO tblAdsClicked (UUID, DateLogged) VALUES (@P0,@P1)", pUUID, DateTime.Now.ToString());
-                if (amnt == "05") { temp = sqlh.ExecuteSQLParamed("INSERT INTO tblPurchases (UUID, TimeLogged, PurchaseType) VALUES (@P0,@P1,@P2)", pUUID, DateTime.Now.ToString(), amnt); }
+                if (amnt == "05")
+                {
+                    temp = sqlh.ExecuteSQLParamed("INSERT INTO tblAdsClicked (UUID, Details, DateLogged) VALUES (@P0,@P1,@P2)", pUUID, "Banner", DateTime.Now.ToString());
+                }
+                if (amnt == "04")
+                {
+                    temp = sqlh.ExecuteSQLParamed("INSERT INTO tblAdsClicked (UUID, Details, DateLogged) VALUES (@P0,@P1,@P2)", pUUID, "Interstitial", DateTime.Now.ToString());
+                }
+                temp = sqlh.ExecuteSQLParamed("INSERT INTO tblPurchases (UUID, TimeLogged, PurchaseType) VALUES (@P0,@P1,@P2)", pUUID, DateTime.Now.ToString(), "5");
                 retVal = temp.ToString();
             }
             return retVal;
