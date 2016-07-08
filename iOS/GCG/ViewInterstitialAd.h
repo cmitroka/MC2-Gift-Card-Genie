@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewInterstitialAd : UIViewController
-
+@property(nonatomic, weak) IBOutlet UIButton *uiExit;
 @end

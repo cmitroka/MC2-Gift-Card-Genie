@@ -54,7 +54,8 @@
     {
         sd.pPurchased=@"1";
     }
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
+    //NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
     NSString *appversion=[NSString stringWithFormat:@"V%@", version];
     sd.pVersion=appversion;
     NSString *versionStripped=[CJMUtilities StripAllButNumbers:version];

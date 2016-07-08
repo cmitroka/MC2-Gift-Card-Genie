@@ -39,7 +39,20 @@ static int timeout;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     return self;
 }
+-(void)RefreshAmntOfLookupsRemaining
+{
+    NSString *retRS=@"";
+    WebAccess *wa=[[WebAccess alloc]init];
+    retRS=wa.pmDoAppStartup;
+    retRS=retRS;
+    NSMutableArray *temp=[CJMUtilities ConvertNSStringToNSMutableArray:retRS delimiter:gcgPIECEDEL];
+    StaticData *sd=[StaticData sd];
 
+    if (temp.count>0)
+    {
+        sd.pAmntOfLookupsRemaining=[temp objectAtIndex:2];
+    }
+}
 
 -(IBAction)DoModCard:(id)sender
 {
@@ -198,6 +211,7 @@ static int timeout;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self RefreshAmntOfLookupsRemaining];
     self.navigationController.navigationBarHidden=NO;
     //self.title=@"Card Actions";
     [super viewWillAppear:animated];

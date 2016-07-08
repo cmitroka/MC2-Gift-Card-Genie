@@ -63,7 +63,7 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
     NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
     NSString *SessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
     NSString *Checksum=[GCGSpecific pmGetChecksum:SessionID];
-    [wa pmLogPurchase:SessionID CheckSum:Checksum PurchaseType:@"05"];
+    [wa pmLogPurchase:SessionID CheckSum:Checksum PurchaseType:@"04"];
     NSLog(@"interstitialWillPresentScreen");
 }
 
@@ -75,6 +75,7 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 /// Called just after dismissing an interstitial and it has animated off the screen.
 - (void)interstitialDidDismissScreen:(GADInterstitial *)ad {
     NSLog(@"interstitialDidDismissScreen");
+    [self ShowExit];
 }
 
 /// Called just before the app will background or terminate because the user clicked on an
@@ -83,5 +84,17 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
     NSLog(@"adViewDidLeaveApplication");
     
     NSLog(@"Out of here");
+}
+-(IBAction)Exit:(id)sender
+{
+    exit(0);
+}
+
+-(void)ShowExit
+{
+    _uiExit.hidden=NO;
+    [_uiExit.titleLabel setTextAlignment: NSTextAlignmentCenter];
+    _uiExit.layer.borderWidth=1.0f;
+    _uiExit.layer.borderColor=[[UIColor blackColor] CGColor];
 }
 @end

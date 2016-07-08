@@ -9,6 +9,7 @@
 #import "WatchAd.h"
 #import "IAP.h"
 #import "OutOfLookups.h"
+#import "ViewInterstitialAd.h"
 
 @interface OutOfLookups ()
 
@@ -42,7 +43,7 @@
 -(IBAction)GoToWatchAd:(id)sender
 {
     TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate useNavController:[WatchAd class]];
+    [appDelegate useNavController:[ViewInterstitialAd class]];
     return;
 }
 

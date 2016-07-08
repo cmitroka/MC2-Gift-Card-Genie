@@ -10,6 +10,7 @@
 #import "DataAccess.h"
 #import "CJMUtilities.h"
 #import "AddModGC.h"
+#import "GiftCard.h"
 NSMutableArray *dataSource;
 NSMutableArray *stateIndex;
 NSMutableArray *PosIndex;
@@ -105,8 +106,15 @@ int SetOnce;
     if (indexPath.row>=dataSource.count) {
         return cell;
     }
+
     cellValue = [dataSource objectAtIndex:indexPath.row];
+    MerchantInfo *merchantInfo;
+    merchantInfo=[[MerchantInfo alloc] initWithName:cellValue];
     cell.textLabel.text = cellValue;
+    if (merchantInfo.p_isLookupManual==YES) {
+        cell.backgroundColor = [UIColor yellowColor];
+    }
+    else{cell.backgroundColor = [UIColor whiteColor];}
     
     //[cell.imageView setImageWithURL:[NSURL URLWithString:@"http://example.com/image.jpg"]
     //               placeholderImage:[UIImage imageNamed:@"placeholder"]];
