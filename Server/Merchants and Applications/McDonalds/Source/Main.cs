@@ -119,58 +119,31 @@ namespace DVB
                     //ShowWindow((IntPtr)IE.HWND, 3);
                     IE.Navigate2(txtBaseURL.Text);
                 }
-                else if (Instruction == 999)
-                {
-                    DoGCGDelay(10, true);
-                    if (OK == "1")
-                    {
-                        MouseMove(790, 720);
-                        MouseClick();
-                    }
-                }
-                else if (Instruction == 999)
-                {
-                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
-                    OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.ZouterHtml, "button secondary modal-trigger", "", 1);
-                    DoGCGDelay(20, true);
-                    //Same as above...
-                    //OK=GCGMethods.TrueIEFindAndAct(IE, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.ZouterHtml, "reload-link", "", 1);
-                    HandleInstruction(OK);
-                }
                 else if (Instruction == 2)
                 {
                     IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
-                    GCGMethods.CAPTCHAGetImage(x, ".axd?type=rca", ad.CAPTCHAPathAndFileToWrite);
+                    GCGMethods.CAPTCHAGetImage(x, "type=rca", ad.CAPTCHAPathAndFileToWrite);
                     if (OK == "1") OK = DoHandleCAPTCHARqRs();
                     HandleInstruction(OK);
                 }
-                else if (Instruction == 999)
+                else if (Instruction == 3)
                 {
-                    //int td = GCGMethods.FindWhatFrameItsIn(IE, "gc-number");
-                    //IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, td);
                     SetForegroundWindowByHWND(IE.HWND);
                     IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
-                    OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "ctl00$mainContentPlaceHolder$txtGiftCardNumber", txtCardNumber.Text);
-                    DoGCGDelay(10, true);
-                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "ctl00$mainContentPlaceHolder$txtAccessNumber$giftCardTextBox1", txtCardPIN.Text);
-                    //if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.Zid, "ctl00_mainContentPlaceHolder_checkGiftCardBalance", "");
-                    //if (OK == "1") OK=DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text);
-                    //OK = DoHandleTyper("{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}" + txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{ENTER}");
-                    //OK = DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text);
-                    HandleInstruction(OK);
-                }
-
-                else if (Instruction == 3)               
-                {
-                    SetForegroundWindowByHWND(IE.HWND);
-                    DoGCGDelay(10, true);
-                    MouseMove(153, 163);
-                    MouseClick();
+                    OK = GCGMethods.ElementExists(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "TextBoxCardNumber");
+                    if (OK == "1") OK = SetFocusOnElement("TextBoxCardNumber");
+                    //SetForegroundWindowByHWND(IE.HWND);
+                    //DoGCGDelay(10, true);
+                    //MouseMove(153, 163);
+                    //MouseClick();
                     DoHandleTyper(txtCardNumber.Text + "{TAB}{TAB}" + txtCAPTCHAAnswer.Text + "{TAB}{ENTER}");
-                    //IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
-                    //OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "TextBoxCardNumber", txtCardNumber.Text);
-                    //if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "txtCaptcha", txtCAPTCHAAnswer.Text);
-                    //if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "ButtonCheckCardBalance", "");
+                    /*
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "TextBoxCardNumber", txtCardNumber.Text);
+                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "txtCaptcha", txtCardPIN.Text);
+                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "ButtonCheckCardBalance", "");
+                    HandleInstruction(OK);
+                    */
                 }
                 else
                 {
@@ -195,8 +168,9 @@ namespace DVB
                     //GCGMethods.WriteFile("C:\\test.txt", test, true);
                     //GCGMethods.WriteFile("C:\\testi.txt", testi, true);
                     //GCGMethods.WriteFile("C:\\testo.txt", testo, true);
-
-                    balanceResult = GetBalance("Balance: $", "</span>", testi);
+                    //string roughParse1 = GCGMethods.RoughExtract("Current Balance", "<div>", testi);
+                    //string roughParse2 = " abc"+GCGMethods.RoughExtract("$", "</p>", roughParse1) + "xyz ";
+                    balanceResult = GetBalance("Balance:", "</span>", testi);
                     if (balanceResult == "")
                     {
                         SpecificRetryCnt++;
@@ -703,15 +677,6 @@ namespace DVB
             //AuxFunctions.LoadEverything(this);
         }
 
-        private void cmdUpdate_Click(object sender, EventArgs e)
-        {
-            com.mc2techservices.gcg.WebService WS = new com.mc2techservices.gcg.WebService();
-            WebProxy proxy = WebProxy.GetDefaultProxy();
-            WS.Proxy = proxy;
-            WS.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
-            WS.SaveWDDataForEXE01(AppName, txtCleanName.Text, txtBaseURL.Text, txtCardNumber.Text, txtCardPIN.Text, txtLogin.Text, txtPassword.Text, cmbSupportCode.Text, txtTimeout.Text, "CJMGCG");
-            //WS.SaveURLForEXE(AppName,txtBaseURL.Text,"");
-        }
 
         private string copyImageToClipBoard(string containsimgname)
         {
@@ -801,15 +766,6 @@ namespace DVB
         {
             SaveLoad.LoadDataFromTestFile(this);
         }
-        private void MSaveDataToWebserver_Click(object sender, EventArgs e)
-        {
-            SaveLoad.SaveDataToWebserver(this);
-        }
-        private void MLoadDataFromWebserver_Click(object sender, EventArgs e)
-        {
-            SaveLoad.LoadDataFromWebserver(this);
-        }
-
 
         private void MLoadSettingsFromDB_Click(object sender, EventArgs e)
         {
@@ -938,6 +894,18 @@ namespace DVB
             // Simulate a key release
             keybd_event((byte)ALT, 0x45, EXTENDEDKEY | KEYUP, 0);
             SetForegroundWindow(x);
+        }
+
+        private string SetFocusOnElement(string pElement)
+        {
+            mshtml.IHTMLDocument2 htmlDoc2 = IE.Document as mshtml.IHTMLDocument2;
+            IHTMLWindow2 parentWindow = htmlDoc2.parentWindow;
+            if (parentWindow != null)
+            {
+                parentWindow.execScript("document.getElementById('"+ pElement+"').focus();", "javascript");
+                return "1";
+            }
+            return "-1";
         }
         private void SetForegroundWindowByName(string NameOfWindow)
         {
