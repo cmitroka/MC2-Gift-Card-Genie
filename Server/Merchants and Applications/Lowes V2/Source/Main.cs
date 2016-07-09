@@ -119,7 +119,7 @@ namespace DVB
                 }
                 else if (Instruction == 2)
                 {
-                    OK = SetFocusOnElement("CardNumber", GCGMethods.ByNameOrID.Id,2);
+                    OK = "1";
                     HandleInstruction(OK);
                 }
 
@@ -140,6 +140,14 @@ namespace DVB
                         HandleInstruction(OK);
                         return;
                     }
+
+                    OK = SetFocusOnElement("CardNumber", GCGMethods.ByNameOrID.Id, 2);
+                    if (OK == "-1")
+                    {
+                        HandleInstruction(OK);
+                        return;
+                    }
+
                     //SetForegroundWindowByHWND(IE.HWND);
                     //DoGCGDelay(10, true);
                     //MouseMove(153, 163);
@@ -908,26 +916,37 @@ namespace DVB
         private string SetFocusOnElement(string pElement, GCGMethods.ByNameOrID pByNameOrID, int FrameIndex)
         {
             string retVal = "-1";
-            //mshtml.IHTMLDocument2 htmlDoc2 = IE.Document as mshtml.IHTMLDocument2;
-            IHTMLDocument2 htmlDoc2 = GCGMethods.ConvertIEToIHTMLDocument2(IE, FrameIndex);
-            IHTMLWindow2 parentWindow = htmlDoc2.parentWindow;
-            if (parentWindow != null)
+            try
             {
-                try
+                IHTMLDocument2 htmlDoc2 = GCGMethods.ConvertIEToIHTMLDocument2(IE, FrameIndex);
+                IHTMLWindow2 parentWindow = htmlDoc2.parentWindow;
+                if (parentWindow != null)
                 {
-                    
-                    parentWindow.execScript("document.getElementBy" + pByNameOrID.ToString() + "('" + pElement + "').focus();", "javascript");
-                    retVal = "1";
+                    try
+                    {
+
+                        parentWindow.execScript("document.getElementBy" + pByNameOrID.ToString() + "('" + pElement + "').focus();", "javascript");
+                        System.Diagnostics.Debug.WriteLine("SetFocusOnElement OK");
+                        retVal = "1";
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("SetFocusOnElement Err:" + ex.Message);
+                        retVal = "-1";
+                    }
                 }
-                catch (Exception)
+                else
                 {
+                    System.Diagnostics.Debug.WriteLine("SetFocusOnElement parentWindow != null");
                     retVal = "-1";
                 }
             }
-            else
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine("SetFocusOnElement screen not ready: " + ex.Message);
                 retVal = "-1";
             }
+            //mshtml.IHTMLDocument2 htmlDoc2 = IE.Document as mshtml.IHTMLDocument2;
             return retVal;
         }
         private void SetForegroundWindowByName(string NameOfWindow)

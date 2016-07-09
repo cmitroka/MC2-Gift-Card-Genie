@@ -94,19 +94,19 @@ C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\McDonalds -
 C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\McDonalds - Copy\Source\bin\x86\Debug\Lowes.pdb
 C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\McDonalds - Copy\Source\obj\x86\Debug\Lowes.exe
 C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\McDonalds - Copy\Source\obj\x86\Debug\Lowes.pdb
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\bin\x86\Debug\Lowes.exe.config
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\obj\x86\Debug\Interop.SHDocVw.dll
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\obj\x86\Debug\Lowes.exe
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\obj\x86\Debug\Lowes.pdb
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\bin\x86\Debug\Lowes.exe
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\bin\x86\Debug\Lowes.pdb
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\bin\x86\Debug\GCGCommon.dll
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\bin\x86\Debug\Interop.SHDocVw.dll
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\bin\x86\Debug\HtmlAgilityPack.dll
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\bin\x86\Debug\GCGCommon.pdb
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\obj\x86\Debug\DVB.Main.resources
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\obj\x86\Debug\DVB.Properties.Resources.resources
-C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Lowes V2\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\bin\x86\Debug\Lowes.exe.config
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\bin\x86\Debug\Lowes.exe
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\bin\x86\Debug\Lowes.pdb
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\bin\x86\Debug\GCGCommon.dll
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\bin\x86\Debug\HtmlAgilityPack.dll
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\bin\x86\Debug\GCGCommon.pdb
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\obj\x86\Debug\Lowes.exe
+C:\Users\Administrator\Desktop\Merch Debugging\Lowes V2\Source\obj\x86\Debug\Lowes.pdb
