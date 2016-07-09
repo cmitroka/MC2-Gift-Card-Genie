@@ -907,7 +907,7 @@ namespace DVB
 
         private string SetFocusOnElement(string pElement, GCGMethods.ByNameOrID pByNameOrID, int FrameIndex)
         {
-            string retVal = "";
+            string retVal = "-1";
             //mshtml.IHTMLDocument2 htmlDoc2 = IE.Document as mshtml.IHTMLDocument2;
             IHTMLDocument2 htmlDoc2 = GCGMethods.ConvertIEToIHTMLDocument2(IE, FrameIndex);
             IHTMLWindow2 parentWindow = htmlDoc2.parentWindow;
