@@ -1,6 +1,6 @@
 ﻿namespace DVB
 {
-    partial class Test
+    partial class WindowSwithcer
     {
         /// <summary>
         /// Required designer variable.
@@ -28,11 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // WindowSwithcer
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Test";
+            this.ClientSize = new System.Drawing.Size(292, 273);
+            this.Name = "WindowSwithcer";
+            this.Text = "Typer";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
     }
 }

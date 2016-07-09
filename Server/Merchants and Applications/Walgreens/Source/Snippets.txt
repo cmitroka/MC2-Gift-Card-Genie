@@ -1,76 +1,80 @@
-﻿How to do a click with an <a> tag...
-GCGMethods.SimInput(webBrowser1, HTMLEnumTagNames.a, HTMLEnumAttributes.InnerText, "Check Balance");
-
-Get Balanace w/ Manual "Select All"...
-                string test = DoManualCopyAndPaste();
-                string balanceResult = GetBalance("Card Balance", "as", test);
-                if (balanceResult == "")
-                {
-                    RetryCnt++;
-                    if (RetryCnt < 3)
-                    {
-                        GCGMethods.WriteTextBoxLog(txtLog, "Retrying the page for a balance...");
-                        Instruction--;
-                        DoDelay(1, true);
-                        return;
-                    }
-                }
-
-Get Balanace w/ Webbrowser1
-				string test = GCGMethods.GetWBDocumentText(webBrowser1);
-                string balanceResult = GetBalance("Card Balance", "as", test);
-                if (balanceResult == "")
-                {
-                    RetryCnt++;
-                    if (RetryCnt < 3)
-                    {
-                        GCGMethods.WriteTextBoxLog(txtLog, "Retrying the page for a balance...");
-                        Instruction--;
-                        DoDelay(1, true);
-                        return;
-                    }
-                }
+﻿Get Balanace w/ Manual "Select All"...
+	UIFunc_DoManualCopyAndPaste.DoManualCopyAndPaste(this);
+	test = Clipboard.GetText();
+    string balanceResult = GetBalance("Card Balance", "as", test);
+    if (balanceResult == "")
+    {
+        RetryCnt++;
+        if (RetryCnt < 3)
+        {
+            GCGMethods.WriteTextBoxLog(txtLog, "Retrying the page for a balance...");
+            Instruction--;
+            DoDelay(1, true);
+            return;
+        }
+    }
 
 CAPTCHA handling...
-DoHandleRqRs(GCTypes.GCCAPTCHA, "WBServlet?jsessionid");
+    OK = WebpageLib00.CAPTCHAGetImage(IE, "kaptcha");
+    if (OK=="1") OK= DoHandleCAPTCHARqRs();
+    HandleInstruction(OK);
 
 Changing the focus...
-Use ChangeFocus method
-
-Simulating Input
-else if (Instruction == 3)
-{
-    ChangeFocus(HTMLEnumAttributes.name, "TextBoxCardNumber", FocusTypes.Focus);
-    DoDelay(1, true);
-}
-else if (Instruction == 4)
-{
-    SendKeys.Send("{tab}");
-    DoDelay(1, true);
-}
+	webBrowser1.Navigate("javascript:document.getElementById('password').focus();");
 
 How to do a Combobox/Dropdown...
-GCGMethods.SimInput(webBrowser1, HTMLEnumTagNames.select, HTMLEnumAttributes.name, "country", "US");
+	GCGMethods.SimInput(webBrowser1, HTMLEnumTagNames.select, HTMLEnumAttributes.name, "country", "US");
 
 Wait around a bit, then come back...
-DoDelay(30,true);
+	DoGCGDelay(30,true);
 
 Get last few characters of Card Number...
-                string lfour = "";
+    string lfour = "";
+    try
+    {
+		lfour = txtCardNumber.Text.Substring(txtCardNumber.TextLength-4, 4);
+    }
+    catch (Exception) { }
+
+
+Grabbing substrings...
+                string p1="", p2="", p3="", p4="", p5="";
                 try
                 {
-				    lfour = txtCardNumber.Text.Substring(txtCardNumber.TextLength-4, 4);
+                    p1 = txtCardNumber.Text.Substring(0, 4);
+                    p2 = txtCardNumber.Text.Substring(4, 4);
+                    p3 = txtCardNumber.Text.Substring(8, 4);
+                    p4 = txtCardNumber.Text.Substring(12, 4);
+                    p5 = txtCardNumber.Text.Substring(16, 3);
                 }
-                catch (Exception) { }
 
-Same element name/id on different forms...
-OK = GCGMethods.SimInput(webBrowser1, HTMLEnumTagNames.input, HTMLEnumAttributes.name, "inquire_balance", "", 1);
+Using the proxy...
+                if (SubInstruction == 0)
+                {
+                    webBrowser1.Navigate(txtBaseURL.Text);
+                }
+                else if (SubInstruction == 1)
+                {
+                    OK = AnonWebBrowser.Use_https_proxfree(this, txtBaseURL.Text);
+                }
+                else
+                {
+                    OK = AnonWebBrowser.Use_http_anonymouse(this, txtBaseURL.Text);
+                }
+                HandleInstruction(OK);
+AND
+                    else if (test.Contains("you have reached your request limit"))
+                    {
+                        Instruction = 1;
+                        SubInstruction = SubInstruction +1;
+                    }
+                    if (OK == "-1") HandleInstruction(OK);
 
-For CAPTCHA's, either use the WebBrowser or a Frame...
-                    IHTMLDocument2 doc = null;
-                    /*
-                    mshtml.HTMLDocument htmlDoc = (HTMLDocument)webBrowser1.Document.DomDocument;
-                    IHTMLWindow2 htmlWindow = (IHTMLWindow2)htmlDoc.frames.item(0);
-                    IHTMLDocument2 doc = CrossFrameIE.GetDocumentFromWindow(htmlWindow);
-                    */                    
-                    //mshtml.IHTMLDocument2 doc = (mshtml.IHTMLDocument2)webBrowser1.Document.DomDocument;
+Handling a fake CAPTCHA
+                System.Reflection.Assembly myAssembly = System.Reflection.Assembly.GetExecutingAssembly();
+                Stream _imageStream = myAssembly.GetManifestResourceStream("DVB.Bitmap1.bmp");
+                Bitmap image = new Bitmap(_imageStream);
+                Clipboard.SetImage(image);
+                image.Save(ad.NextRqPathAndFileToRead);  //writes fake resp
+                OK = DoHandleCAPTCHARqRs();
+
