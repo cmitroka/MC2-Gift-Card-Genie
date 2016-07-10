@@ -122,7 +122,8 @@ namespace DVB
                     IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
                     IHTMLWindow2 parentWindow = x.parentWindow;
                     OK = GCGMethods.ElementExists(x, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.ZOuterText, "Check Your Balance");
-                    if (OK=="1") parentWindow.execScript("window.location.href = 'http://www.dickssportinggoods.com/coreg/index.jsp?step=giftcardBalance&reset=true';", "javascript");
+                    //if (OK=="1") parentWindow.execScript("window.location.href = 'http://www.dickssportinggoods.com/coreg/index.jsp?step=giftcardBalance&reset=true';", "javascript");
+                    if (OK == "1") IE.Navigate2("http://www.dickssportinggoods.com/coreg/index.jsp?step=giftcardBalance&reset=true");
                     HandleInstruction(OK);
                     //gift-card-number
                 }
@@ -141,6 +142,12 @@ namespace DVB
                 {
                     SetForegroundWindowByHWND(IE.HWND);
                     IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    OK = GCGMethods.ElementExists(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "accountNumber");
+                    if (OK == "-1")
+                    {
+                        HandleInstruction(OK);
+                        return;
+                    }
                     OK = SetFocusOnElement("accountNumber", GCGMethods.ByNameOrID.Id, -1);
                     if (OK == "-1")
                     {
