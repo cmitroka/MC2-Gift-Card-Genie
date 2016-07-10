@@ -158,3 +158,19 @@ C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Dicks\Sourc
 C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Dicks\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
 C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Dicks\Source\obj\x86\Debug\Dicks.exe
 C:\Users\Administrator\Desktop\GCG\Server\Merchants and Applications\Dicks\Source\obj\x86\Debug\Dicks.pdb
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\bin\x86\Debug\Dicks.exe.config
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\obj\x86\Debug\Dicks.exe
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\obj\x86\Debug\Dicks.pdb
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\bin\x86\Debug\Dicks.exe
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\bin\x86\Debug\Dicks.pdb
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\bin\x86\Debug\GCGCommon.dll
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\bin\x86\Debug\HtmlAgilityPack.dll
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\bin\x86\Debug\GCGCommon.pdb
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Merch Debugging\Dicks\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache

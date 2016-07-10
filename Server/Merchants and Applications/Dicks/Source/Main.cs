@@ -119,11 +119,18 @@ namespace DVB
                 }
                 else if (Instruction == 2)
                 {
-                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
-                    IHTMLWindow2 parentWindow = x.parentWindow;
-                    OK = GCGMethods.ElementExists(x, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.ZOuterText, "Check Your Balance");
-                    //if (OK=="1") parentWindow.execScript("window.location.href = 'http://www.dickssportinggoods.com/coreg/index.jsp?step=giftcardBalance&reset=true';", "javascript");
-                    if (OK == "1") IE.Navigate2("http://www.dickssportinggoods.com/coreg/index.jsp?step=giftcardBalance&reset=true");
+                    try
+                    {
+                        IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                        IHTMLWindow2 parentWindow = x.parentWindow;
+                        OK = GCGMethods.ElementExists(x, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.ZOuterText, "Check Your Balance");
+                        //if (OK=="1") parentWindow.execScript("window.location.href = 'http://www.dickssportinggoods.com/coreg/index.jsp?step=giftcardBalance&reset=true';", "javascript");
+                        if (OK == "1") IE.Navigate2("http://www.dickssportinggoods.com/coreg/index.jsp?step=giftcardBalance&reset=true");
+                    }
+                    catch (Exception)
+                    {
+                        OK = "-1";
+                    }
                     HandleInstruction(OK);
                     //gift-card-number
                 }
@@ -154,6 +161,7 @@ namespace DVB
                         HandleInstruction(OK);
                         return;
                     }
+                    DoGCGDelay(15, true);
 
                     //SetForegroundWindowByHWND(IE.HWND);
                     //DoGCGDelay(10, true);
