@@ -105,6 +105,7 @@
     <Content Include="GCGC\Main.aspx" />
     <Content Include="GCGDiag.htm" />
     <Content Include="GCGPopupTesting.htm" />
+    <Content Include="GCGWebCopy.htm" />
     <Content Include="GCGWeb.aspx" />
     <Content Include="GCGWeb.htm" />
     <Content Include="GCGWebCSS\images\ajax-loader.gif" />

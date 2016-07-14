@@ -84,7 +84,9 @@
     <article data-role="content" data-theme="a">
       <ul data-role="listview" data-filter="true" id="ulofSupportedCards">
         <li>
-        <a href="javascript:DoLoadAddModCardScreen('NA~_~~_~~_~~_~~_~~_~~_~~_~0','~_~3~_~998~_~0~_~996~_~0')">Unlisted Merchant</a>
+
+
+        <a href="javascript:DoLoadAddModCardScreen('NewRecord','UnlistedMerchant')">Unlisted Merchant</a>
         </li>
       </ul>
      </article>
@@ -98,7 +100,7 @@
         <input id="Hidden1" type="hidden" />
         <tr>
             <td width="140px"><span style="float:left"><label class="textinput-fc">Card Type:</label></span></td>
-            <td><input id="txtCardType" type="text" placeholder="Card Type" value=""></td>
+            <td><input id="txtCardType" name="txtCardType" type="text" placeholder="Card Type" value=""></td>
         </tr>
 
         <tr>
@@ -108,14 +110,6 @@
         <tr id="tridCardPIN">
             <td width="140px"><span style="float:left"><label class="textinput-fc">Card PIN:</label></span></td>
             <td><input id="txtCardPIN" type="text" placeholder="Card PIN" value=""></td>
-        </tr>
-        <tr id="tridLogin">
-            <td width="140px"><span style="float:left"><label class="textinput-fc">Login:</label></span></td>
-            <td><input id="txtCardLogin" type="text" placeholder="Login" value=""></td>
-        </tr>
-        <tr id="tridPassword">
-            <td width="140px"><span style="float:left"><label class="textinput-fc">Password:</label></span></td>
-            <td><input id="txtCardPassword" type="password" placeholder="Password" value=""></td>
         </tr>
         <tr id="tridAdjustBalance">
             <td colspan="2">
@@ -160,7 +154,7 @@
                         <td style="width: 33%">
                             </td>
                         <td style="width: 33%">
-                            <a style="text-decoration: none" href="javascript:DoRUCardDataModBalThenRefresh(1);" data-rel="dialog">
+                            <a style="text-decoration: none" href="javascript:DoRUCardDataMod('updatebal');" data-rel="dialog">
                                 <button>Update Balance</button>
                             </a>
                         <td style="width: 33%">
@@ -349,8 +343,10 @@
 
 </body>
 
+<input id="UnlistedMerchant" value="~_~NOURL~_~-1~_~999~_~-1~_~999~_~1" type="hidden" />
 <input id="hdnContReqFileID" type="hidden" />
 <input id="hdnCardID" type="hidden" />
+<input id="hdnCardURL" type="hidden" />
 <input id="hdnGCGID" type="hidden" />
 <input id="hdnCardNumMin" type="hidden"/>
 <input id="hdnCardNumMax" type="hidden"/>

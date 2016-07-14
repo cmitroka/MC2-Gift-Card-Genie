@@ -125,19 +125,19 @@ namespace AppAdminSite
             return retVal;
         }
         [WebMethod]
-        public string RUCardDataMod(string pGCGKey, string CardID, string CardType, string CardNumber, string CardPIN, string CardLogin, string CardPass, string LastKnownBalance, string LastKnownBalanceDate)
+        public string RUCardDataMod(string pGCGKey, string CardID, string CardType, string CardNumber, string CardPIN, string LastKnownBalance, string LastKnownBalanceDate, string pAction)
         {
             string retVal = "";
             GCGWebWSBL bl = new GCGWebWSBL();
             if (bl.gloHacker != "1")
             {
-                retVal = bl.RUCardDataMod(pGCGKey, CardID, CardType, CardNumber, CardPIN, CardLogin, CardPass, LastKnownBalance, LastKnownBalanceDate);
+                retVal = bl.RUCardDataMod(pGCGKey, CardID, CardType, CardNumber, CardPIN, LastKnownBalance, LastKnownBalanceDate, pAction);
             }
             bl.CloseIt();
             return retVal;
         }
         [WebMethod]
-        public string NewRequest(string pGCGKey, string pCardType, string pCardNumber, string pPIN, string pLogin, string pPassword)
+        public string NewRequest(string pGCGKey, string pCardType, string pCardNumber, string pPIN)
         {
             string retVal = "";
             //retVal = "OUTOFLOOKUPS^)(OUT OF LOOKUPS";
@@ -145,7 +145,7 @@ namespace AppAdminSite
             GCGWebWSBL bl = new GCGWebWSBL();
             if (bl.gloHacker != "1")
             {
-                retVal = bl.NewRequest(pGCGKey, pCardType, pCardNumber, pPIN, pLogin, pPassword);
+                retVal = bl.NewRequest(pGCGKey, pCardType, pCardNumber, pPIN);
             }
             bl.CloseIt();
             return retVal;

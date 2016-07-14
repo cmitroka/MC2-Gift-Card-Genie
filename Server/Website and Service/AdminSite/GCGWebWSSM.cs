@@ -193,20 +193,20 @@ namespace AppAdminSite
             }
         }
 
-        public static string InsertNewRequest(string pGCGUsersID, string pFileID, string pCardType, string pCardNumber, string pPIN, string pLogin, string pPassword)
+        public static string InsertNewRequest(string pGCGUsersID, string pFileID, string pCardType, string pCardNumber, string pPIN)
         {
             string retVal = "";
             GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
-            int temp = sqlh.ExecuteSQLParamed("INSERT INTO tblNewRequests (GCGUsersID, FileID, CardType, CardNumber, PIN, Login, [Password], TimeLogged) VALUES  (@P0, @P1, @P2, @P3, @P4, @P5, @P6, @P7)", pGCGUsersID, pFileID, pCardType, pCardNumber, pPIN, pLogin, pPassword, DateTime.Now.ToString());
+            int temp = sqlh.ExecuteSQLParamed("INSERT INTO tblNewRequests (GCGUsersID, FileID, CardType, CardNumber, PIN, TimeLogged) VALUES  (@P0, @P1, @P2, @P3, @P4, @P5)", pGCGUsersID, pFileID, pCardType, pCardNumber, pPIN, DateTime.Now.ToString());
             retVal = temp.ToString();
             sqlh.CloseIt();
             return retVal;
         }
-        public static string InsertFailedRequest(string pGCGKey, string pCardType, string pCardNumber, string pPIN, string pLogin, string pPassword)
+        public static string InsertFailedRequest(string pGCGKey, string pCardType, string pCardNumber, string pPIN)
         {
             string retVal = "";
             GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
-            int temp = sqlh.ExecuteSQLParamed("INSERT INTO tblFailedRequests (GCGKey, CardType, CardNumber, PIN, Login, [Password], TimeLogged) VALUES  (@P0, @P1, @P2, @P3, @P4, @P5, @P6)", pGCGKey, pCardType, pCardNumber, pPIN, pLogin, pPassword, DateTime.Now.ToString());
+            int temp = sqlh.ExecuteSQLParamed("INSERT INTO tblFailedRequests (GCGKey, CardType, CardNumber, PIN, TimeLogged) VALUES  (@P0, @P1, @P2, @P3, @P4, @P5, @P6)", pGCGKey, pCardType, pCardNumber, pPIN, DateTime.Now.ToString());
             retVal = temp.ToString();
             sqlh.CloseIt();
             return retVal;

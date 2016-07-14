@@ -28,9 +28,6 @@ C:\Users\chmitro\Desktop\GCG Windows Dev\GCG Website and Service\AdminSite\bin\G
 C:\Users\chmitro\Desktop\GCG Windows Dev\GCG Website and Service\AdminSite\obj\Debug\AdminSite.csprojResolveAssemblyReference.cache
 C:\Users\chmitro\Desktop\GCG Windows Dev\GCG Website and Service\AdminSite\obj\Debug\AppAdminSite.dll
 C:\Users\chmitro\Desktop\GCG Windows Dev\GCG Website and Service\AdminSite\obj\Debug\AppAdminSite.pdb
-C:\Users\Administrator\Desktop\GCG\Server\Website and Service\AdminSite\obj\Debug\AdminSite.csprojResolveAssemblyReference.cache
-C:\Users\Administrator\Desktop\GCG\Server\Website and Service\AdminSite\obj\Debug\AppAdminSite.dll
-C:\Users\Administrator\Desktop\GCG\Server\Website and Service\AdminSite\obj\Debug\AppAdminSite.pdb
 C:\Users\Administrator\Desktop\GCG\Server\Website and Service\AdminSite\bin\AppAdminSite.dll.config
 C:\Users\Administrator\Desktop\GCG\Server\Website and Service\AdminSite\bin\AppAdminSite.dll
 C:\Users\Administrator\Desktop\GCG\Server\Website and Service\AdminSite\bin\AppAdminSite.pdb
@@ -39,3 +36,6 @@ C:\Users\Administrator\Desktop\GCG\Server\Website and Service\AdminSite\bin\Micr
 C:\Users\Administrator\Desktop\GCG\Server\Website and Service\AdminSite\bin\Interop.SHDocVw.dll
 C:\Users\Administrator\Desktop\GCG\Server\Website and Service\AdminSite\bin\HtmlAgilityPack.dll
 C:\Users\Administrator\Desktop\GCG\Server\Website and Service\AdminSite\bin\GCGCommon.pdb
+C:\Users\Administrator\Desktop\GCG\Server\Website and Service\AdminSite\obj\Debug\AdminSite.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\GCG\Server\Website and Service\AdminSite\obj\Debug\AppAdminSite.dll
+C:\Users\Administrator\Desktop\GCG\Server\Website and Service\AdminSite\obj\Debug\AppAdminSite.pdb

@@ -36,6 +36,7 @@ namespace AppAdminSite
             string[][] data = sqlh.GetMultiValuesOfSQL("SELECT Count(*) FROM tblBlockedIPs WHERE BlockedIP=@P0", VisitorsIPAddr);
             string Amnt = data[0][0];
             int iAmnt = Convert.ToInt16(Amnt);
+            iAmnt = 0;
             if (iAmnt > 0)
             {
                 gloHacker = "1";
@@ -46,6 +47,7 @@ namespace AppAdminSite
             data = sqlh.GetMultiValuesOfSQL("SELECT Count(*) FROM tblTraffic WHERE RecdIP=@P0 AND DateLogged>@P1", VisitorsIPAddr, adjDate.ToString());
             Amnt = data[0][0];
             iAmnt = Convert.ToInt16(Amnt);
+            iAmnt = 0;
             if (iAmnt>99)
             {
                 sqlh.ExecuteSQLParamed("INSERT INTO tblBlockedIPs (BlockedIP,DateLogged) VALUES (@P0,@P1)", VisitorsIPAddr, DateTime.Now.ToString());
@@ -247,32 +249,32 @@ namespace AppAdminSite
             for (int i = 0; i < max; i++)
             {
                 template = "";
-                string CardInfoID = data[i][0];
+                string RUCardDataID = data[i][0];
+                string GCGUsersID = data[i][1];
                 string CardType = data[i][2];
                 string CardNumber = data[i][3];
                 string CardPIN = data[i][4];
-                string CardLogin = data[i][5];
-                string CardPassword = data[i][6];
-                string LastKnownBalance = data[i][7];
-                string LastKnownBalanceDate = data[i][8];
-                decimal temp1 = Convert.ToDecimal(data[i][10]);
+                string LastKnownBalance = data[i][5];
+                string LastKnownBalanceDate = data[i][6];
+                string DateLogged = data[i][7];
+                decimal temp1 = Convert.ToDecimal(data[i][8]);
                 //LastKnownBalance = Convert.ToBase64CharArray data[i][10];
                 LastKnownBalance = String.Format("{0:C}", temp1);
-                string AllowAutolookup = data[i][11];
+                string IsLookupManual = data[i][9];
                 string JSCardType = CardType.Replace("'", "\\'");
                 string CardTypeID = GCGCommon.SupportMethods.RemoveNonAlphaNumericChars(CardType);
-                string ConcatData = CardInfoID + POSDEL + CardType + POSDEL + CardNumber + POSDEL + CardPIN + POSDEL + CardLogin + POSDEL + CardPassword + POSDEL + LastKnownBalance + POSDEL + LastKnownBalanceDate + POSDEL + AllowAutolookup;
+                string ConcatData = RUCardDataID + POSDEL + CardType + POSDEL + CardNumber + POSDEL + CardPIN + POSDEL + LastKnownBalance + POSDEL + LastKnownBalanceDate + POSDEL + IsLookupManual;
                 template = "" +
                 "<li>";
-                if (AllowAutolookup == "1")
+                if (IsLookupManual == "0")
                 {
-                    template = template + "<a onclick=\"DoLoadAddModCardScreen(document.getElementById('MyCard" + CardInfoID + "').value, document.getElementById('" + CardTypeID + "').value)\">" +
+                    template = template + "<a onclick=\"DoLoadAddModCardScreen('MyCard" + RUCardDataID + "','"+CardTypeID + "')\">" +
                     "<h3>" + CardType + "</h3>";
                 }
                 else
                 {
                     //template = template + "<a onclick=\"DoLoadAddModCardScreen(document.getElementById('MyCard" + CardInfoID + "').value, '~_~0~_~998~_~0~_~996~_~0')\">";
-                    template = template + "<a href=\"javascript:DoLoadAddModCardScreen(document.getElementById('MyCard" + CardInfoID + "').value, '~_~3~_~998~_~0~_~996~_~0')\">" +
+                    template = template + "<a href=\"javascript:DoLoadAddModCardScreen('MyCard" + RUCardDataID + "','"+ CardTypeID+"')\">" +
                     "<h3><span style=\"color: #FF3300\">" + CardType + "</span></h3>";
                 }
 
@@ -281,7 +283,7 @@ namespace AppAdminSite
                     //"</a>" +
                     //"<span class=\"ui-li-count\">12</span>" +
                 "<p class=\"ui-li-aside\">" + LastKnownBalanceDate + "<br>" + LastKnownBalance + "</p>" +
-                "<input id=\"MyCard" + CardInfoID + "\" type=\"hidden\" value=\"" + ConcatData + "\" />" +
+                "<input id=\"MyCard" + RUCardDataID + "\" type=\"hidden\" value=\"" + ConcatData + "\" />" +
                 "</a>" +
                 "</li>";
                 sb.Append(template);
@@ -294,7 +296,7 @@ namespace AppAdminSite
             string retVal = "";
             if (GCGWebWSSM.GCGKeyToGCGUsersID(pGCGKey) == "-1") return retVal;
             string POSDEL = GCGCommon.EnumExtensions.Description(GCGCommon.EnumExtensions.Delimiters.POSDEL);
-            string[][] data = sqlh.GetMultiValuesOfSQL("SELECT CleanName, TrueCardNumMin, CardNumMax, TruePINMin, PINMax, showCreds FROM qryMerchantsSupported ORDER BY CleanName");
+            string[][] data = sqlh.GetMultiValuesOfSQL("SELECT CleanName, URL, TrueCardNumMin, CardNumMax, TruePINMin, PINMax, IsLookupManual FROM qryMerchantsSupported ORDER BY CleanName");
             if (GCGCommon.DB.isDatasetBad(data)) return null;
             int max = data.Length;
             string template = "";
@@ -303,19 +305,20 @@ namespace AppAdminSite
             {
                 template = "";
                 string CleanName = data[i][0];
-                string TrueCardNumMin = data[i][1];
-                string CardNumMax = data[i][2];
-                string TruePINMin = data[i][3];
-                string PINMax = data[i][4];
-                string showCreds = data[i][5];
+                string URL = data[i][1];
+                string TrueCardNumMin = data[i][2];
+                string CardNumMax = data[i][3];
+                string TruePINMin = data[i][4];
+                if (TruePINMin == "") TruePINMin = "0";
+                string PINMax = data[i][5];
+                if (PINMax == "") PINMax = "999";
+                string IsLookupManual = data[i][6];
                 string CardTypeID = GCGCommon.SupportMethods.RemoveNonAlphaNumericChars(CleanName);
-                string ConcatData = CleanName + POSDEL + TrueCardNumMin + POSDEL + CardNumMax + POSDEL + TruePINMin + POSDEL + PINMax + POSDEL + showCreds;
-                string FakeParam = "NA" + POSDEL + CleanName + POSDEL + "" + POSDEL + "" + POSDEL + "" + POSDEL + "";
-                FakeParam = FakeParam.Replace("'", "\\'");
+                string ConcatData = CleanName + POSDEL + URL + POSDEL + TrueCardNumMin + POSDEL + CardNumMax + POSDEL + TruePINMin + POSDEL + PINMax + POSDEL + IsLookupManual;
                 ConcatData = ConcatData.Replace("'", "\\'");
                 template = "" +
                 "<li>" +
-                "<a onclick=\"DoLoadAddModCardScreen('" + FakeParam + "\', document.getElementById('" + CardTypeID + "').value)\">" + CleanName +
+                "<a onclick=\"DoLoadAddModCardScreen('NewRecord','" + CardTypeID +"')\">" + CleanName +
                 "<input id=\"" + CardTypeID + "\" type=\"hidden\" value=\"" + ConcatData + "\" />" +
                 "</a>" +
                 "</li>";
@@ -328,41 +331,39 @@ namespace AppAdminSite
             retVal = sb.ToString();
             return retVal;
         }
-        public string RUCardDataMod(string pGCGKey, string CardID, string CardType, string CardNumber, string CardPIN, string CardLogin, string CardPass, string LastKnownBalance, string LastKnownBalanceDate)
+        public string RUCardDataMod(string pGCGKey, string CardID, string CardType, string CardNumber, string CardPIN, string LastKnownBalance, string LastKnownBalanceDate, string pAction)
         {
             string retVal = "";
             string GCGID = GCGWebWSSM.GCGKeyToGCGUsersID(pGCGKey);
             if (GCGID == "-1") return "Couldn't Save, invalid GCGID";
             int temp1 = -1;
-            if (CardID == "NA")
+            if (pAction == "AddCard")
             {
-                if (CardNumber != "-1")
+                string[][] data = sqlh.GetMultiValuesOfSQL("SELECT Count(*) FROM tblRUCardData WHERE CardNumber=@P0 AND GCGUsersID=@P1", CardNumber, GCGID);
+                string Amnt = data[0][0];
+                int iAmnt = Convert.ToInt16(Amnt);
+                if (iAmnt>0)
                 {
-                //It's an insert
-                temp1 = sqlh.ExecuteSQLParamed("INSERT INTO tblRUCardData (GCGUsersID,CardType,CardNumber,CardPIN, CardLogin, CardPassword, DateLogged) VALUES (@P0,@P1,@P2,@P3,@P4,@P5,@P6)", GCGID, CardType, CardNumber, CardPIN, CardLogin, CardPass, DateTime.Now.ToString());
-
+                    return "Failed; you already have this gift card saved.";
                 }
+                temp1 = sqlh.ExecuteSQLParamed("INSERT INTO tblRUCardData (GCGUsersID,CardType,CardNumber,CardPIN, DateLogged) VALUES (@P0,@P1,@P2,@P3,@P4)", GCGID, CardType, CardNumber, CardPIN, DateTime.Now.ToString());
             }
-            else if (CardNumber == "")
+            else if (pAction == "UpdateCard")
             {
-                //We're just updating the balance info
-                temp1 = sqlh.ExecuteSQLParamed("UPDATE tblRUCardData SET LastKnownBalance=@P0, LastKnownBalanceDate=@P1 WHERE RUCardDataID=@P2 AND GCGUsersID=@P3", LastKnownBalance, DateTime.Now.ToString(), CardID, GCGID);
+                temp1 = sqlh.ExecuteSQLParamed("UPDATE tblRUCardData SET CardType=@P0, CardNumber=@P1, CardPIN=@P2 WHERE RUCardDataID=@P3 AND GCGUsersID=@P4", CardType, CardNumber, CardPIN, CardID, GCGID);
             }
-            else if (CardNumber == "-1")
+            else if (pAction == "DeleteCard")
             {
-                //We're deleting the card
                 temp1 = sqlh.ExecuteSQLParamed("DELETE FROM tblRUCardData WHERE RUCardDataID=@P0 AND GCGUsersID=@P1", CardID, GCGID);
             }
-            else
+            else if (pAction == "UpdateBalance")
             {
-                //We're updating the card with all the info we have
-                if (CardType == "") return "Couldn't Save, No Card Type";
-                temp1 = sqlh.ExecuteSQLParamed("UPDATE tblRUCardData SET CardType=@P0, CardNumber=@P1, CardPIN=@P2, CardLogin=@P3, CardPassword=@P4 WHERE RUCardDataID=@P5 AND GCGUsersID=@P6", CardType, CardNumber, CardPIN, CardLogin, CardPass, CardID, GCGID);
+                temp1 = sqlh.ExecuteSQLParamed("UPDATE tblRUCardData SET LastKnownBalance=@P0, LastKnownBalanceDate=@P1 WHERE RUCardDataID=@P2 AND GCGUsersID=@P3", LastKnownBalance, DateTime.Now.ToString(), CardID, GCGID);
             }
             retVal = temp1.ToString();
             return retVal;
         }
-        public string NewRequest(string pGCGKey, string pCardType, string pCardNumber, string pPIN, string pLogin, string pPassword)
+        public string NewRequest(string pGCGKey, string pCardType, string pCardNumber, string pPIN)
         {
             string retVal = "";
             string CAPTCHAAdditionalInfo = "";
@@ -370,7 +371,7 @@ namespace AppAdminSite
             string GCGID = GCGWebWSSM.GCGKeyToGCGUsersID(pGCGKey);
             if (GCGID == "-1")
             {
-                GCGWebWSSM.InsertFailedRequest(pGCGKey, pCardType, pCardNumber, pPIN, pLogin, pPassword);
+                GCGWebWSSM.InsertFailedRequest(pGCGKey, pCardType, pCardNumber, pPIN);
                 return "Couldn't do request, invalid GCGID";
             }
             string[][] data = sqlh.GetMultiValuesOfSQL("SELECT GeneralNote FROM tblMerchants WHERE CleanName=@P0", pCardType);
@@ -388,7 +389,7 @@ namespace AppAdminSite
             {
                 rsType = "OUTOFLOOKUPS";
                 rsValue = "Sorry, you're out of free lookups - please consider purchasing Gift Card Genie.";
-                string OK = GCGWebWSSM.InsertNewRequest(GCGID, RqRsFileName, pCardType, "", "", "", "");
+                string OK = GCGWebWSSM.InsertNewRequest(GCGID, RqRsFileName, pCardType, "", "");
                 OK = GCGWebWSSM.InsertReponse(GCGID, RqRsFileName, "OUTOFLOOKUPS", rsValue);
                 retVal = rsType + LINEDEL + rsValue;
                 return retVal;
@@ -399,11 +400,11 @@ namespace AppAdminSite
                 bool FileMade = false;
                 if (LogLevel == "1")
                 {
-                    string OK = GCGWebWSSM.InsertNewRequest(GCGID, RqRsFileName, pCardType, "", "", "", "");
+                    string OK = GCGWebWSSM.InsertNewRequest(GCGID, RqRsFileName, pCardType, "", "");
                 }
                 else
                 {
-                    string OK = GCGWebWSSM.InsertNewRequest(GCGID, RqRsFileName, pCardType, pCardNumber, pPIN, pLogin, pPassword);
+                    string OK = GCGWebWSSM.InsertNewRequest(GCGID, RqRsFileName, pCardType, pCardNumber, pPIN);
                 }
                 string MakeRqFile = gloPathToRqRs + "\\" + RqRsFileName + "-0rq.txt";
                 string RsFileToRead = gloPathToRqRs + "\\" + RqRsFileName + "-0rs.txt";
@@ -426,10 +427,7 @@ namespace AppAdminSite
                 s.WriteLine(EXE);
                 s.WriteLine(pCardNumber);
                 s.WriteLine(pPIN);
-                s.WriteLine(pLogin);
-                s.WriteLine(pPassword);
                 s.Close();
-                GCGCommon.SupportMethods.WriteToWindowsEventLog("GCG WebserviceCreated1", "NewRequest - Created ", "W");
                 string filetomake = "";
                 try
                 {
@@ -439,11 +437,9 @@ namespace AppAdminSite
                     string pArguments = @"""" + MakeRqFile + @""" 1";
                     s.Write(pFileName + " " + pArguments);
                     s.Close();
-                    GCGCommon.SupportMethods.WriteToWindowsEventLog("GCG WebserviceCreated2", "NewRequest - Created " + filetomake, "I");
                 }
                 catch (Exception)
                 {
-                    GCGCommon.SupportMethods.WriteToWindowsEventLog("GCG WebserviceFailed", "NewRequest - Failed " + filetomake, "W");
                 }
 
                 FileMade = GCGWebWSSM.WaitForResponseFileCreation(RsFileToRead, gloiWebserviceTimeout);
