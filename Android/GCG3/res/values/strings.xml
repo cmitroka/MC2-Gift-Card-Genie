@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GCG Cloud</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">GCG Cloud</string>
+    <string name="title_activity_splashscreen">SplashscreenActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_confirm_login">ConfirmLoginActivity</string>
+    <string name="title_activity_test_area">TestAreaActivity</string>
+    <string name="title_activity_overlay">OverlayActivity</string>
+
+</resources>
