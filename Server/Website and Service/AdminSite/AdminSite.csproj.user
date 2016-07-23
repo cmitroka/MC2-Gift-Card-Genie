@@ -34,7 +34,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58881</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://192.168.10.1/AdminSite</IISUrl>
+          <IISUrl>http://192.168.0.194/AdminSite</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>https://gcg.mc2techservices.com</CustomServerUrl>

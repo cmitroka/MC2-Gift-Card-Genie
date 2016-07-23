@@ -71,12 +71,17 @@ function GCGHandleResponse(resptype, respdetails, respadditionaldetails) {
         var msg = "Your balance is <br>" + respdetails;
         msg = "Your balance is\n" + respdetails;
         document.getElementById('txtCardBalance').value = respdetails;
-        DoRUCardDataModBalThenRefresh(0)
+        DoRUCardDataModBalThenRefresh(1)
         DoCustomPopup01("Balance", msg);
     }
     else if (resptype == "GCBALANCEERR") {
         DoCustomPopup01("Balance Error", 'Sorry, there was a problem with the Card and/or PIN number.');
         //$.mobile.changePage("#MyCards");
+    }
+    else if (resptype == "REDIRECTING") {
+        //DoCustomPopup01(resptype, respdetails);
+        //$.mobile.changePage("#ModCardBalance");
+        window.location.href = document.getElementById('hdnCardURL').value;
     }
     else if (resptype == "OUTOFLOOKUPS") {
         $.mobile.changePage("#PleasePurchaseGCG");

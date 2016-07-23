@@ -1,12 +1,13 @@
 ﻿function DoNothing() {
 }
 
-function DoMyProfileSel() {
+function DoMyProfileSel(anddiplayit) {
     $.ajax({
         type: "POST",
         url: "GCGWebWS.asmx/MyProfileSel",
         dataType: "text",
         data: { pGCGKey: document.getElementById('hdnGCGID').value },
+        async: false,
         success:
             function (xml) {
                 var temp1 = EncodedHTMLToText(xml);
@@ -15,7 +16,9 @@ function DoMyProfileSel() {
                 document.getElementById('txtLookupHistorySuccessful').value = temp3[1];
                 document.getElementById('txtLookupHistoryUnsuccessful').value = temp3[2];
                 document.getElementById('txtLookupHistoryRemaining').value = temp3[3];
-                $.mobile.changePage("#MyProfile", { transition: "slideup" });
+                if (anddiplayit==1) {
+                    $.mobile.changePage("#MyProfile", { transition: "slideup" });
+                }
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             DoCustomPopup02(errorThrown);
@@ -25,6 +28,10 @@ function DoMyProfileSel() {
 
 function DoPleasePurchaseGCG() {
     $.mobile.changePage("#PleasePurchaseGCG", { transition: "slideup" });
+}
+
+function DoWebPurchase() {
+    $.mobile.changePage("#WebPurchase", { transition: "slideup" });
 }
 
 function MulitReqDelAndRefresh() {
@@ -50,18 +57,45 @@ function MulitReqUpdateBalanceRefresh() {
     MyCardsDataSelThenChange();
 }
 
+function copyToClipboard() {
+    text = document.getElementById('txtCardNumber').value;
+    var resp=window.prompt("Copy the card number; your being directed to the merchants site to get the balance.", text);
+    if (resp != null)
+    {
+        DoNewManualRequest();
+    }
+}
+function DoNewManualRequest() {
+    var OK = AreValuesInRange("lookup");
+    if (OK == true)
+    {
+        var status = AreLookupsRemaining();
+        if (status == true) {
+            status = DoNewRequest();
+        }
+    }
+}
+function AreLookupsRemaining()
+{
+    var retVal = true;
+    DoMyProfileSel(0);
+    if (document.getElementById('txtLookupHistoryRemaining').value < 1) {
+        DoPleasePurchaseGCG();
+        retVal = false;
+    }
+return retVal
+}
 function DoNewRequest() {
-    var OK=AreValuesInRange("lookup");
+    var OK = AreValuesInRange("lookup");
     if (OK==false) {
         return;
     }
-
     $.ajax({
         type: "POST",
         //url: "https://gcg.mc2techservices.com/GCGWebWS.asmx/NewRequest",
         url: "GCGWebWS.asmx/NewRequest",
         dataType: "text",
-        data: { pGCGKey: document.getElementById('hdnGCGID').value, pCardType: document.getElementById('txtCardType').value, pCardNumber: document.getElementById('txtCardNumber').value, pPIN: document.getElementById('txtCardPIN').value, pLogin: document.getElementById('txtCardLogin').value, pPassword: document.getElementById('txtCardPassword').value },
+        data: { pGCGKey: document.getElementById('hdnGCGID').value, pCardType: document.getElementById('txtCardType').value, pCardNumber: document.getElementById('txtCardNumber').value, pPIN: document.getElementById('txtCardPIN').value},
         success:
             function (xml) {
                 var temp1 = EncodedHTMLToText(xml);
@@ -135,8 +169,9 @@ function DoInitGCGWeb() {
         GetSupportedCards();
         MyCardsDataSel();
         //$("#InitScreen").hide();
-        $.mobile.changePage("#MyCards");
-        $("#MyCards").show();
+        //This now happens when setting up and loading 'My Cards'
+        //$.mobile.changePage("#MyCards");
+        //$("#MyCards").show();
     }
     else {
         $.mobile.changePage("GCGWebLogin.htm");
@@ -157,15 +192,11 @@ function popupDialog() {
     $("#popupDialog").show();
 }
 
-function DoLoadAddModCardScreen(pMerchData, pValidationInfo) {
-    var ValidationInfoArr = pValidationInfo.split("~_~");
-    var MerchDataArr = pMerchData.split("~_~");
-    //document.getElementById('txtCardType').value = result1[0];
+function DoLoadAddModCardScreen(pMyCardID, pCardSpecificsID) {
+    var pAllInfo=pMyCardID + "-" + pCardSpecificsID
+    SSAddModCard(pAllInfo);
 
-    SSAndLoadMerchNameAndValInfo(pValidationInfo);
-    SSAddModCard(pMerchData);
-
-    if (MerchDataArr[0] == "NA") {
+    if (pMyCardID == "New Record") {
         var myhtml = "    <header data-role=\"header\" data-position=\"fixed\">    <h1>Add A Card</h1><a href=\"javascript:MyCardsDataSelThenChange()\">Back</a>    </header>";
         $('#AddModCardSpan').html(myhtml).trigger('create');
     }
@@ -251,25 +282,6 @@ function MyCardsDataSelThenChange() {
     $.unblockUI();
 }
 
-function RUCardDataIns() {
-    $.ajax({
-        type: "POST",
-        url: "WebService.asmx/RUCardDataIns",
-        dataType: "text",
-        data: { GCGID: pGCGID },
-        async: false,
-        success:
-            function (xml) {
-                var temp1 = EncodedHTMLToText(xml);
-                var temp2 = RemoveGCGHeader(temp1);
-                $('#Ul1').append(temp2);
-                $.mobile.changePage("#testarea4", { transition: "slideup", changeHash: false });
-            },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            DoCustomPopup02(errorThrown);
-        }
-    });
-}
 function DoChangePassword() {
     if (document.getElementById('txtChangePWDNew').value != document.getElementById('txtChangePWDConfirm').value) {
         DoCustomPopup01("Mismatch", "The passwords you entered did not match.");
@@ -302,67 +314,86 @@ function DoChangePasswordScreen() {
 
 }
 
-function SSAndLoadMerchNameAndValInfo(pCardAndValInfoIn) {
-    var result1 = pCardAndValInfoIn.split("~_~");
-    document.getElementById('txtCardType').value = result1[0];
-    if (result1[2] == 998) {
-        $("#txtCardType").removeAttr("disabled");
+function SSAddModCard(pAllInfoIn) {
+    var AllInfoInArr = pAllInfoIn.split("-");
+    var pMyCardID = AllInfoInArr[0];
+    var pCardSpecificsIDIn = AllInfoInArr[1];
+
+    try {
+        var CardSpecifics = document.getElementById(pCardSpecificsIDIn).value
+        var CardSpecificsArr = CardSpecifics.split("~_~");
+    } catch (e) {
+        var CardSpecifics = document.getElementById(pMyCardID).value
+        var CardSpecificsArr = CardSpecifics.split("~_~");
+        var CardSpecifics = CardSpecificsArr[1] + "~_~NOURL~_~1~_~999~_~-1~_~999~_~1";
+        var CardSpecificsArr = CardSpecifics.split("~_~");
+    }
+
+    try {
+        var MyCard = document.getElementById(pMyCardID).value
+        var MyCardArr = MyCard.split("~_~");
+    } catch (e) {
+        //var MyCard = "NewRecord~_~Name of Merch~_~Card Num~_~PIN~_~Bal~_~Bal Date Time~_~1"
+        var MyCard = "NewRecord~_~" + CardSpecificsArr[0]+ "~_~~_~~_~~_~"
+        var MyCardArr = MyCard.split("~_~");
+    }
+
+    if (MyCardArr[0] == "NewRecord") {
+        document.getElementById("tridAdjustBalance").style.opacity = 0;
+    }
+    else
+    {
+        document.getElementById("tridAdjustBalance").style.opacity = 1;
+    }
+
+    document.getElementById('txtCardType').value = CardSpecificsArr[0];
+    if (CardSpecificsArr[1] == "NOURL") {
+        document.getElementById("txtCardType").removeAttribute("disabled")
+        document.getElementById("txtCardType").style.opacity = 1;
     }
     else {
-        $("#txtCardType").attr("disabled", true);
+        document.getElementById("txtCardType").setAttribute("disabled", true);
+        document.getElementById("txtCardType").style.opacity = 0.5;
     }
-    document.getElementById('hdnCardNumMin').value = result1[1];
-    document.getElementById('hdnCardNumMax').value = result1[2];
-    document.getElementById('hdnCardPINMin').value = result1[3];
-    document.getElementById('hdnCardPINMax').value = result1[4];
-    if (result1[3] == "") {
+    document.getElementById('hdnCardNumMin').value = CardSpecificsArr[2];
+    document.getElementById('hdnCardNumMax').value = CardSpecificsArr[3];
+    document.getElementById('hdnCardPINMin').value = CardSpecificsArr[4];
+    document.getElementById('hdnCardPINMax').value = CardSpecificsArr[5];
+    if (CardSpecificsArr[4] == "0") {
         document.getElementById("tridCardPIN").style.display = 'none';
         document.getElementById("tridCardPIN").value = '';
-        document.getElementById('hdnCardPINMin').value = '-1';
-        document.getElementById('hdnCardPINMax').value = '999';
     }
     else {
         document.getElementById("tridCardPIN").style.display = '';
     }
-    if (result1[5] == "0") {
-        document.getElementById("tridLogin").style.display = 'none';
-        document.getElementById("tridLogin").value = '';
-        document.getElementById("tridPassword").style.display = 'none';
-        document.getElementById("tridPassword").value = '';
-    }
-    else {
-        http: //localhost:53065/GCGWeb.htm#MyCards
-        document.getElementById("tridLogin").style.display = '';
-        document.getElementById("tridPassword").style.display = '';
-    }
-}
 
-function SSAddModCard(allCardDataIn) {
-    var result1 = allCardDataIn.split("~_~");
-    var CardID = result1[0];
-    var CardType = result1[1];
-    var CardNumber = result1[2];
-    var CardPIN = result1[3];
-    var CardLogin = result1[4];
-    var CardPass = result1[5];
-    var LastKnownBal = result1[6];
-    var LastKnownBalDate = result1[7];
-    var AllowAutolookup = result1[8];
-    document.getElementById('hdnCardID').value = CardID;
+    var CardType = MyCardArr[1];
+    var CardURL = CardSpecificsArr[1];
+    var CardNumber = MyCardArr[2];
+    var CardPIN = MyCardArr[3];
+    var LastKnownBal = MyCardArr[4];
+    var LastKnownBalDate = MyCardArr[5];
+    var IsLookupManual = CardSpecificsArr[6];
+    document.getElementById('hdnCardID').value = MyCardArr[0];
+    document.getElementById('hdnCardURL').value = CardURL;
     document.getElementById('txtCardType').value = CardType;
     document.getElementById('txtCardNumber').value = CardNumber;
     document.getElementById('txtCardPIN').value = CardPIN;
-    document.getElementById('txtCardLogin').value = CardLogin;
-    document.getElementById('txtCardPassword').value = CardPass;
     document.getElementById('txtCardBalance').value = LastKnownBal;
     //document.getElementById('ta5Lookup').disabled = AllowAutolookup;
-    if (AllowAutolookup == "0") {
+    if (IsLookupManual == "1") {
         var ta5Lookup = document.getElementById("ta5Lookup");
         var ta5Save = document.getElementById("ta5Save");
         var ta5Delete = document.getElementById("ta5Delete");
         var txtCardType = document.getElementById('txtCardType');
+        if (CardURL=="NOURL") {
+            var myhtml = "<nav data-role=\"navbar\">        <ul>          <li><a data-icon=\"save\" id=\"ta5Save\" href=\"javascript:DoRUCardDataModSave()\">Save</a></li>          <li><a data-icon=\"delete\" id=\"ta5Delete\" href=\"javascript:DoDeletePopup()\">Delete</a></li>        </ul>      </nav>";
+        }
+        else
+        {
+            var myhtml = "<nav data-role=\"navbar\">        <ul>          <li><a data-icon=\"save\" id=\"ta5Save\" href=\"javascript:DoRUCardDataModSave()\">Save</a></li>          <li><a data-icon=\"search\" id=\"ta5Lookup\" href=\"javascript:copyToClipboard()\"><font color=\"red\">Lookup</font></a></li>          <li><a data-icon=\"delete\" id=\"ta5Delete\" href=\"javascript:DoDeletePopup()\">Delete</a></li>        </ul>      </nav>";
+        }
         //$(txtCardType).removeAttr('disabled')
-        var myhtml = "<nav data-role=\"navbar\">        <ul>          <li><a data-icon=\"save\" id=\"ta5Save\" href=\"javascript:DoRUCardDataModSave()\">Save</a></li>          <li><a data-icon=\"delete\" id=\"ta5Delete\" href=\"javascript:DoDeletePopup()\">Delete</a></li>        </ul>      </nav>";
         $('#aaaa').html(myhtml).trigger('create');
         $('#AddModCardHeader').html("").trigger('create');
     }
@@ -417,7 +448,8 @@ function DoRUCardDataModBalThenRefresh(change) {
         type: "POST",
         url: "GCGWebWS.asmx/RUCardDataMod",
         dataType: "text",
-        data: { pGCGKey: pGCGID, CardID: pCardID, CardType: "", CardNumber: "", CardPIN: "", CardLogin: "", CardPass: "", LastKnownBalance: pLastKnownBalance, LastKnownBalanceDate: "" },
+        data: { pGCGKey: pGCGID, CardID: pCardID, CardType: "", CardNumber: "", CardPIN: "", LastKnownBalance: pLastKnownBalance, LastKnownBalanceDate: "", pAction:"UpdateBalance" },
+        async: false,
         success:
             function (xml) {
                 if (change == "1") {
@@ -435,23 +467,18 @@ function DoRUCardDataModBalThenRefresh(change) {
 }
 
 function AreValuesInRange(action) {
+    retVal = true;
     var pGCGID = document.getElementById('hdnGCGID').value;
     var pCardID = document.getElementById('hdnCardID').value;
     var pCardType = document.getElementById('txtCardType').value;
     var pCardNumber = document.getElementById('txtCardNumber').value;
     var pCardPIN = document.getElementById('txtCardPIN').value;
-    var pCardLogin = document.getElementById('txtCardLogin').value;
-    var pCardPass = document.getElementById('txtCardPassword').value;
     var pLastKnownBalance = ""; // document.getElementById('LastKnownBalance').value;
     var pLastKnownBalanceDate = ""; // document.getElementById('LastKnownBalanceDate').value;
     var pCardNumMin = document.getElementById('hdnCardNumMin').value;
     var pCardNumMax = document.getElementById('hdnCardNumMax').value;
     var pCardPINMin = document.getElementById('hdnCardPINMin').value;
     var pCardPINMax = document.getElementById('hdnCardPINMax').value;
-    if (pCardNumMin == "") pCardNumMin = -1;
-    if (pCardNumMax == "") pCardNumMax = 999;
-    if (pCardPINMin == "") pCardPINMin = -1;
-    if (pCardPINMax == "") pCardPINMax = 999;
     var alertmsg = "";
     if (pCardType.length < 1) {
         alertmsg = "Can't " + action + " - you need to have something for the Card Type.";
@@ -471,15 +498,16 @@ function AreValuesInRange(action) {
     if (alertmsg != "") {
 
         DoCustomPopup02(alertmsg);
-        return false;
+        retVal=false;
     }
     else
     {
-        return true;
+        retVal = true;
     }
+    return retVal;
 }
 
-
+//This has to do one of the following for action: AddCard, UpdateCard, DeleteCard, UpdateBalance
 function DoRUCardDataMod(action) {
     //string GCGID, string CardID, string CardType, string CardNumber, string CardPIN, string CardLogin, string CardPass, string LastKnownBalance, string LastKnownBalanceDate
 
@@ -488,8 +516,6 @@ function DoRUCardDataMod(action) {
     var pCardType = document.getElementById('txtCardType').value;
     var pCardNumber = document.getElementById('txtCardNumber').value;
     var pCardPIN = document.getElementById('txtCardPIN').value;
-    var pCardLogin = document.getElementById('txtCardLogin').value;
-    var pCardPass = document.getElementById('txtCardPassword').value;
     var pLastKnownBalance = ""; // document.getElementById('LastKnownBalance').value;
     var pLastKnownBalanceDate = ""; // document.getElementById('LastKnownBalanceDate').value;
     var pCardNumMin = document.getElementById('hdnCardNumMin').value;
@@ -498,7 +524,7 @@ function DoRUCardDataMod(action) {
     var pCardPINMax = document.getElementById('hdnCardPINMax').value;
     if (action == "delete") {
 
-        if (pCardID == "NA")
+        if (pCardID == "NewRecord")
         {
             alertmsg = "Can't delete; this card entry is incomplete.";
             DoCustomPopup02(alertmsg);
@@ -506,19 +532,28 @@ function DoRUCardDataMod(action) {
         }
         else
         {
-            pCardNumber = "-1";
-            pCardNumMin = "";
-            pCardNumMax = "";
-            pCardPINMin = "";
-            pCardPINMax = "";
+            pAction = "DeleteCard";
         }
     }
-    else
+    else if (action == "updatebal") {
+        pAction = "UpdateBalance";
+        var pLastKnownBalance = document.getElementById('txtCardBalance').value;
+    }
+
+    else if (action == "save")
     {
         var OK = AreValuesInRange(action);
-        if (OK==false)
+        if (OK == false)
         {
             return;
+        }
+        if (pCardID == "NewRecord")
+        {
+            var pAction = "AddCard"
+        }
+        else
+        {
+            var pAction = "UpdateCard"
         }
     }
 
@@ -526,14 +561,19 @@ function DoRUCardDataMod(action) {
         type: "POST",
         url: "GCGWebWS.asmx/RUCardDataMod",
         dataType: "text",
-        data: { pGCGKey: pGCGID, CardID: pCardID, CardType: pCardType, CardNumber: pCardNumber, CardPIN: pCardPIN, CardLogin: pCardLogin, CardPass: pCardPass, LastKnownBalance: pLastKnownBalance, LastKnownBalanceDate: pLastKnownBalanceDate },
+        data: { pGCGKey: pGCGID, CardID: pCardID, CardType: pCardType, CardNumber: pCardNumber, CardPIN: pCardPIN, LastKnownBalance: pLastKnownBalance, LastKnownBalanceDate: pLastKnownBalanceDate, pAction: pAction},
         async: false,
         success:
             function (xml) {
                 var temp1 = EncodedHTMLToText(xml);
                 var temp2 = RemoveGCGHeader(temp1);
                 if (temp2 == "1") {
+                    if (action == "updatebal") action="Update Balance"
                     var mymsg="Complete!";
+                }
+                else
+                {
+                    var mymsg = temp2;
                 }
                 var capaction = action.charAt(0).toUpperCase() + action.slice(1);;
                 MyCardsDataSelThenChange();

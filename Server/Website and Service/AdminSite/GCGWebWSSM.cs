@@ -86,7 +86,7 @@ namespace AppAdminSite
             retVal[1] = amntUsed;
 
             string amntFailed = "0";
-            string[][] data1 = sqlh.GetMultiValuesOfSQL("Select Count(*) from qryResponses WHERE [GCGUsersID]=@P0 AND ResponseType<>'GCBALANCE'", pGCGUsersID);
+            string[][] data1 = sqlh.GetMultiValuesOfSQL("Select Count(*) from qryResponses WHERE (((qryResponses.[GCGUsersID])=@P0) AND ((qryResponses.[ResponseType])<>'GCBALANCE' And (qryResponses.[ResponseType])<>'MANUALLOOKUP'));", pGCGUsersID);
             amntFailed = data1[0][0];
             if (amntFailed == "") amntFailed = "0";
             retVal[2] = amntFailed;
@@ -272,7 +272,7 @@ namespace AppAdminSite
             string[] pieces1 = GCGCommon.SupportMethods.SplitByString(retValIn, GCGCommon.EnumExtensions.Description(GCGCommon.EnumExtensions.Delimiters.LINEDEL));
             string rsType = pieces1[0];
             string rsValue = pieces1[1];
-            if (rsType.ToUpper() == GCGCommon.EnumExtensions.GCTypes.GCBALANCE.ToString())
+            if ((rsType.ToUpper() == GCGCommon.EnumExtensions.GCTypes.GCBALANCE.ToString()) || (rsType.ToUpper() == "MANUALLOOKUP"))
             {
 
                 string[] LookupsCntData = GetLookupsCntData(pGCGUsersID);

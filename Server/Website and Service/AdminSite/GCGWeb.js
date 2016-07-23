@@ -1,12 +1,13 @@
 ﻿function DoNothing() {
 }
 
-function DoMyProfileSel() {
+function DoMyProfileSel(anddiplayit) {
     $.ajax({
         type: "POST",
         url: "GCGWebWS.asmx/MyProfileSel",
         dataType: "text",
         data: { pGCGKey: document.getElementById('hdnGCGID').value },
+        async: false,
         success:
             function (xml) {
                 var temp1 = EncodedHTMLToText(xml);
@@ -15,7 +16,9 @@ function DoMyProfileSel() {
                 document.getElementById('txtLookupHistorySuccessful').value = temp3[1];
                 document.getElementById('txtLookupHistoryUnsuccessful').value = temp3[2];
                 document.getElementById('txtLookupHistoryRemaining').value = temp3[3];
-                $.mobile.changePage("#MyProfile", { transition: "slideup" });
+                if (anddiplayit==1) {
+                    $.mobile.changePage("#MyProfile", { transition: "slideup" });
+                }
             },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             DoCustomPopup02(errorThrown);
@@ -25,6 +28,10 @@ function DoMyProfileSel() {
 
 function DoPleasePurchaseGCG() {
     $.mobile.changePage("#PleasePurchaseGCG", { transition: "slideup" });
+}
+
+function DoWebPurchase() {
+    $.mobile.changePage("#WebPurchase", { transition: "slideup" });
 }
 
 function MulitReqDelAndRefresh() {
@@ -50,16 +57,39 @@ function MulitReqUpdateBalanceRefresh() {
     MyCardsDataSelThenChange();
 }
 
-
+function copyToClipboard() {
+    text = document.getElementById('txtCardNumber').value;
+    var resp=window.prompt("Copy the card number; your being directed to the merchants site to get the balance.", text);
+    if (resp != null)
+    {
+        DoNewManualRequest();
+    }
+}
 function DoNewManualRequest() {
-    window.location.href = document.getElementById('hdnCardURL').value;
+    var OK = AreValuesInRange("lookup");
+    if (OK == true)
+    {
+        var status = AreLookupsRemaining();
+        if (status == true) {
+            status = DoNewRequest();
+        }
+    }
+}
+function AreLookupsRemaining()
+{
+    var retVal = true;
+    DoMyProfileSel(0);
+    if (document.getElementById('txtLookupHistoryRemaining').value < 1) {
+        DoPleasePurchaseGCG();
+        retVal = false;
+    }
+return retVal
 }
 function DoNewRequest() {
-    var OK=AreValuesInRange("lookup");
+    var OK = AreValuesInRange("lookup");
     if (OK==false) {
         return;
     }
-
     $.ajax({
         type: "POST",
         //url: "https://gcg.mc2techservices.com/GCGWebWS.asmx/NewRequest",
@@ -130,7 +160,7 @@ function DoInitGCGWeb() {
     var DoReg = 0;
     sesvar = getURLParameter('Session');
     channelvar = getURLParameter('Channel');
-    sesvar = '977ABD97C2C236A';
+    //sesvar = '977ABD97C2C236A';
     var SessionOK = IsSessionValid(sesvar);
     document.getElementById('hdnGCGID').value = sesvar;
     var pGCGID = document.getElementById('hdnGCGID').value;
@@ -139,8 +169,9 @@ function DoInitGCGWeb() {
         GetSupportedCards();
         MyCardsDataSel();
         //$("#InitScreen").hide();
-        $.mobile.changePage("#MyCards");
-        $("#MyCards").show();
+        //This now happens when setting up and loading 'My Cards'
+        //$.mobile.changePage("#MyCards");
+        //$("#MyCards").show();
     }
     else {
         $.mobile.changePage("GCGWebLogin.htm");
@@ -162,7 +193,6 @@ function popupDialog() {
 }
 
 function DoLoadAddModCardScreen(pMyCardID, pCardSpecificsID) {
-    SSAndLoadMerchNameAndValInfo(pCardSpecificsID);
     var pAllInfo=pMyCardID + "-" + pCardSpecificsID
     SSAddModCard(pAllInfo);
 
@@ -284,35 +314,6 @@ function DoChangePasswordScreen() {
 
 }
 
-function SSAndLoadMerchNameAndValInfo(pCardSpecificsIDIn) {
-/*
-    try {
-        var ValidationInfo = document.getElementById(pCardSpecificsIDIn).value
-    } catch (e) {
-        var ValidationInfo = ""
-    }
-    var result1 = ValidationInfo.split("~_~");
-    document.getElementById('txtCardType').value = result1[0];
-    if (result1[2] == 998) {
-        $("#txtCardType").removeAttr("disabled");
-    }
-    else {
-        $("#txtCardType").attr("disabled", true);
-    }
-    document.getElementById('hdnCardNumMin').value = result1[2];
-    document.getElementById('hdnCardNumMax').value = result1[3];
-    document.getElementById('hdnCardPINMin').value = result1[4];
-    document.getElementById('hdnCardPINMax').value = result1[5];
-    if (result1[4] == "0") {
-        document.getElementById("tridCardPIN").style.display = 'none';
-        document.getElementById("tridCardPIN").value = '';
-    }
-    else {
-        document.getElementById("tridCardPIN").style.display = '';
-    }
-*/
-}
-
 function SSAddModCard(pAllInfoIn) {
     var AllInfoInArr = pAllInfoIn.split("-");
     var pMyCardID = AllInfoInArr[0];
@@ -324,7 +325,7 @@ function SSAddModCard(pAllInfoIn) {
     } catch (e) {
         var CardSpecifics = document.getElementById(pMyCardID).value
         var CardSpecificsArr = CardSpecifics.split("~_~");
-        var CardSpecifics = CardSpecificsArr[1] + "~_~NOURL~_~-1~_~999~_~-1~_~999~_~1";
+        var CardSpecifics = CardSpecificsArr[1] + "~_~NOURL~_~1~_~999~_~-1~_~999~_~1";
         var CardSpecificsArr = CardSpecifics.split("~_~");
     }
 
@@ -337,8 +338,13 @@ function SSAddModCard(pAllInfoIn) {
         var MyCardArr = MyCard.split("~_~");
     }
 
-
-
+    if (MyCardArr[0] == "NewRecord") {
+        document.getElementById("tridAdjustBalance").style.opacity = 0;
+    }
+    else
+    {
+        document.getElementById("tridAdjustBalance").style.opacity = 1;
+    }
 
     document.getElementById('txtCardType').value = CardSpecificsArr[0];
     if (CardSpecificsArr[1] == "NOURL") {
@@ -385,7 +391,7 @@ function SSAddModCard(pAllInfoIn) {
         }
         else
         {
-            var myhtml = "<nav data-role=\"navbar\">        <ul>          <li><a data-icon=\"save\" id=\"ta5Save\" href=\"javascript:DoRUCardDataModSave()\">Save</a></li>          <li><a data-icon=\"search\" id=\"ta5Lookup\" href=\"javascript:DoNewManualRequest()\"><font color=\"red\">Lookup</font></a></li>          <li><a data-icon=\"delete\" id=\"ta5Delete\" href=\"javascript:DoDeletePopup()\">Delete</a></li>        </ul>      </nav>";
+            var myhtml = "<nav data-role=\"navbar\">        <ul>          <li><a data-icon=\"save\" id=\"ta5Save\" href=\"javascript:DoRUCardDataModSave()\">Save</a></li>          <li><a data-icon=\"search\" id=\"ta5Lookup\" href=\"javascript:copyToClipboard()\"><font color=\"red\">Lookup</font></a></li>          <li><a data-icon=\"delete\" id=\"ta5Delete\" href=\"javascript:DoDeletePopup()\">Delete</a></li>        </ul>      </nav>";
         }
         //$(txtCardType).removeAttr('disabled')
         $('#aaaa').html(myhtml).trigger('create');
@@ -442,7 +448,8 @@ function DoRUCardDataModBalThenRefresh(change) {
         type: "POST",
         url: "GCGWebWS.asmx/RUCardDataMod",
         dataType: "text",
-        data: { pGCGKey: pGCGID, CardID: pCardID, CardType: "", CardNumber: "", CardPIN: "", CardLogin: "", CardPass: "", LastKnownBalance: pLastKnownBalance, LastKnownBalanceDate: "" },
+        data: { pGCGKey: pGCGID, CardID: pCardID, CardType: "", CardNumber: "", CardPIN: "", LastKnownBalance: pLastKnownBalance, LastKnownBalanceDate: "", pAction:"UpdateBalance" },
+        async: false,
         success:
             function (xml) {
                 if (change == "1") {
@@ -460,6 +467,7 @@ function DoRUCardDataModBalThenRefresh(change) {
 }
 
 function AreValuesInRange(action) {
+    retVal = true;
     var pGCGID = document.getElementById('hdnGCGID').value;
     var pCardID = document.getElementById('hdnCardID').value;
     var pCardType = document.getElementById('txtCardType').value;
@@ -490,12 +498,13 @@ function AreValuesInRange(action) {
     if (alertmsg != "") {
 
         DoCustomPopup02(alertmsg);
-        return false;
+        retVal=false;
     }
     else
     {
-        return true;
+        retVal = true;
     }
+    return retVal;
 }
 
 //This has to do one of the following for action: AddCard, UpdateCard, DeleteCard, UpdateBalance

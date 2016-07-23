@@ -65,7 +65,7 @@
         <ul>
             <li><a data-icon="plus" href="#AddACard" >Add a Card</a></li>
             <li><a data-icon="align-justify" href="javascript:DoCardBalSummarySel();">Card Totals</a></li>
-            <li><a data-icon="info" href="javascript:DoMyProfileSel();">My Profile</a></li>
+            <li><a data-icon="info" href="javascript:DoMyProfileSel('1');">My Profile</a></li>
             <li><a data-icon="question" href="javascript:DoPleasePurchaseGCG();">Purchase</a></li>
 <!--
             <li><a data-icon="question" href="javascript:DoCustomPopup02('a');" id="openpopup">click me 1</a></li>
@@ -182,7 +182,7 @@
     <div data-role="header">
         <h1>Your Info</h1><a href="#MyCards">Back</a>
     </div>
-    <article>
+    <div data-role="content" data-theme="a">
     <table width="100%">
         <tr>
             <td width="160px"><span style="float:left">
@@ -200,18 +200,18 @@
         <tr>
             <td width="160px"><span style="float:left"><label class="textinput-fc">Successful:</label></span></td>
             <td><input id="txtLookupHistorySuccessful" type="text" placeholder="" 
-                    value="" disabled></td>
+                    value="" readonly></td>
         </tr>
         <tr>
             <td width="160px"><span style="float:left"><label class="textinput-fc">Unsuccessful:</label></span></td>
             <td><input id="txtLookupHistoryUnsuccessful" type="text" placeholder="" 
-                    value="" disabled></td>
+                    value="" readonly></td>
         </tr>
         <tr>
             <td width="160px"><span style="float:left"><label class="textinput-fc">Lookups 
                 Remaining:</label></span></td>
             <td><input id="txtLookupHistoryRemaining" type="text" 
-                    placeholder="" value="" disabled></td>
+                    placeholder="" value="" readonly></td>
         </tr>
         <tr>
             <td width="100%" colspan="2">
@@ -221,16 +221,26 @@
             </td>
         </tr>
     </table>
-    </article>
+    </div>
 </div>
 <div data-role="page" data-theme="b" id="PleasePurchaseGCG">
     <div data-role="header">
         <h1>Please Purchase GCG</h1><a href="#MyCards">Back</a>
     </div>
     <article data-role="content" data-theme="a">
-        Thanks for using GCG, unfortunatly you need to purchase some more lookups if you wish to automatically retrieve balances.
+        Thanks for using GCG, unfortunatly you need to purchase some more lookups if you wish to retrieve balances.
     </article>
 </div>
+
+<div data-role="page" data-theme="b" id="WebPurchase">
+    <div data-role="header">
+        <h1>Get GCG Lookups!</h1><a href="#MyCards">Back</a>
+    </div>
+    <article data-role="content" data-theme="a">
+        Thanks for using GCG!  If you're looking for a way to get some more lookups - it's easy!  Just view an ad or two from a sponsor below and you'll be given 5 more lookups.
+    </article>
+</div>
+
 
 <div data-role="page" data-theme="b" id="ChangePassword">
     <div data-role="header" data-theme="b">
@@ -343,7 +353,7 @@
 
 </body>
 
-<input id="UnlistedMerchant" value="~_~NOURL~_~-1~_~999~_~-1~_~999~_~1" type="hidden" />
+<input id="UnlistedMerchant" value="~_~NOURL~_~1~_~999~_~-1~_~999~_~1" type="hidden" />
 <input id="hdnContReqFileID" type="hidden" />
 <input id="hdnCardID" type="hidden" />
 <input id="hdnCardURL" type="hidden" />

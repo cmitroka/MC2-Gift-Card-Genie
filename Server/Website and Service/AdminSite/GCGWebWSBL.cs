@@ -242,7 +242,15 @@ namespace AppAdminSite
             string retVal = "";
             string GCGID = GCGWebWSSM.GCGKeyToGCGUsersID(pGCGKey);
             string[][] data = sqlh.GetMultiValuesOfSQL("SELECT * FROM qryRUCardData WHERE GCGUsersID=@P0", GCGID);
-            if (CommonForWS.isDatasetBad(data)) return null;
+            if (CommonForWS.isDatasetBad(data))
+            {
+                retVal = "<li>" +
+                "<a href = '#AddACard'\">" + "Click Here (or 'Add a Card' at the bottom) to get Started!" +
+                "</a>" +
+                "</li>";
+                return retVal; 
+            }
+
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             string template = "";
             int max = data.Length;
@@ -334,13 +342,21 @@ namespace AppAdminSite
         public string RUCardDataMod(string pGCGKey, string CardID, string CardType, string CardNumber, string CardPIN, string LastKnownBalance, string LastKnownBalanceDate, string pAction)
         {
             string retVal = "";
+            string Amnt = "0";
             string GCGID = GCGWebWSSM.GCGKeyToGCGUsersID(pGCGKey);
             if (GCGID == "-1") return "Couldn't Save, invalid GCGID";
             int temp1 = -1;
             if (pAction == "AddCard")
             {
                 string[][] data = sqlh.GetMultiValuesOfSQL("SELECT Count(*) FROM tblRUCardData WHERE CardNumber=@P0 AND GCGUsersID=@P1", CardNumber, GCGID);
-                string Amnt = data[0][0];
+                if (CommonForWS.isDatasetBad(data))
+                {
+                    return "Failed; need a card number.";
+                }
+                else
+                {
+                    Amnt = data[0][0];
+                }
                 int iAmnt = Convert.ToInt16(Amnt);
                 if (iAmnt>0)
                 {
@@ -365,8 +381,13 @@ namespace AppAdminSite
         }
         public string NewRequest(string pGCGKey, string pCardType, string pCardNumber, string pPIN)
         {
+            //return "GCBALANCE^)(1.23";
             string retVal = "";
             string CAPTCHAAdditionalInfo = "";
+            string isLookupManual = "";
+            string rsType = "";
+            string rsValue = "";
+
             //pGCGKey = "FAIL";
             string GCGID = GCGWebWSSM.GCGKeyToGCGUsersID(pGCGKey);
             if (GCGID == "-1")
@@ -376,9 +397,23 @@ namespace AppAdminSite
             }
             string[][] data = sqlh.GetMultiValuesOfSQL("SELECT GeneralNote FROM tblMerchants WHERE CleanName=@P0", pCardType);
             if (CommonForWS.isDatasetBad(data)==false) CAPTCHAAdditionalInfo = data[0][0];
-            string rsType = GCGCommon.EnumExtensions.WebserviceTypes.WSERR.ToString();
+
+            data = sqlh.GetMultiValuesOfSQL("SELECT IsLookupManual FROM qryMerchantsSupported WHERE CleanName=@P0", pCardType);
+            if (CommonForWS.isDatasetBad(data) == false) isLookupManual = data[0][0];
+            if (isLookupManual=="1")
+            {
+                string tempRqRsFileName = GCGCommon.SupportMethods.CreateHexKey(20);
+                rsType = "MANUALLOOKUP";
+                rsValue = "0.00";
+                string tempRetVal = rsType + GCGCommon.EnumExtensions.Description(GCGCommon.EnumExtensions.Delimiters.LINEDEL) + rsValue;
+                string OK = GCGWebWSSM.InsertNewRequest(GCGID, tempRqRsFileName, pCardType, pCardNumber, pPIN);
+                OK = GCGWebWSSM.InsertReponseUsingRetVal(GCGID, tempRqRsFileName, tempRetVal);
+                return "REDIRECTING" + "^)(" + "Your being taken to the merchants website to complete the lookup...";
+            }
+
+            rsType = GCGCommon.EnumExtensions.WebserviceTypes.WSERR.ToString();
             string RqRsFileName = "";
-            string rsValue = "";
+            rsValue = "";
             var testDate = DateTime.Now;
             RqRsFileName = testDate.ToString("yyyyMMdd_HHmmssfff");
             pCardNumber = pCardNumber.Replace(" ", "");
