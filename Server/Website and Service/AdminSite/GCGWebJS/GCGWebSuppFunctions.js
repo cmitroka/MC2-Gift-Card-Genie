@@ -101,6 +101,7 @@ function GCGHandleResponse(resptype, respdetails, respadditionaldetails) {
         //$.mobile.changePage("#MyCards");
     }
     else if (resptype == "GCCAPTCHA") {
+        document.getElementById('txtMoreInfoAnswer').value = "";
         document.getElementById('hdnContReqFileID').value = respdetails;
         $("#WhatToDoImg01").attr("src", "CAPTCHAs/" + respdetails + ".bmp");
         $("#NeedMoreInfoAboveImg").html("<label>Please enter the letters and numbers seen in the image.</label>");

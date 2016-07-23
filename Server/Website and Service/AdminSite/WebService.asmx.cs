@@ -146,16 +146,6 @@ namespace AppAdminSite
         }
 
         [WebMethod(Description = @"")]
-        public string NewManualRequest(string UUID, string CardType, string CardNumber, string PIN)
-        {
-            BusinessLogic bl = new BusinessLogic();
-            string retVal = bl.NewManualRequest(UUID, CardType, CardNumber, PIN);
-            bl.CloseIt();
-            return retVal;
-        }
-
-
-        [WebMethod(Description = @"")]
         public string NewRequest(string UUID, string SessionID, string CheckSum, string CardType, string CardNumber, string PIN, string Login, string Password)
         {
             string ip = GetIPAddress();

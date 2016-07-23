@@ -69,7 +69,7 @@ namespace AppAdminSite
         {
             string[] retVal = new string[4];
             //0=AmntOfLookupsAllowed, 1=AmntOfSuccessfulLookups, 2=AmntOfUnsuccessfulLookups, 3=AmntOfLookupsRemaining
-            int amntAllowed = 5;
+            int amntAllowed = 2;
             GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
             string[][] overridedata = sqlh.GetMultiValuesOfSQL("Select [PurchaseType] from tblPurchases WHERE [GCGUsersID]=@P0", pGCGUsersID);
             int loopamnt = MVDataRowCount(overridedata);

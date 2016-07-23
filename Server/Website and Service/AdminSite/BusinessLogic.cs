@@ -35,16 +35,6 @@ namespace AppAdminSite
         {
             sqlh.CloseIt();
         }
-        public string NewManualRequest(string pUUID, string pCardType, string pCardNumber, string pPIN)
-        {
-            string retVal = "";
-            int temp0 = sqlh.ExecuteSQLParamed("INSERT INTO tblManualRequests (UUID,CardType,CardNumber,PIN,TimeLogged) VALUES (@P0,@P1,@P2,@P3,@P4)", pUUID, pCardType, pCardNumber, pPIN, DateTime.Now.ToString());
-            int intSuccessfulLookups = GetAmntOfSuccessfulLookups(pUUID) + 1;
-            int temp1 = sqlh.ExecuteSQLParamed("DELETE FROM tblSuccessfulLookupCount WHERE UDID=@P0", pUUID);
-            int temp2 = sqlh.ExecuteSQLParamed("INSERT INTO tblSuccessfulLookupCount (UDID,LookupCount,TimeLogged) VALUES (@P0,@P1,@P2)", pUUID, intSuccessfulLookups.ToString(), DateTime.Now.ToString());
-            retVal = "INSERT INTO tblManualRequests:" + temp0.ToString() + " INSERT INTO tblSuccessfulLookupCount:" + temp2.ToString();
-            return retVal;
-        }
         public string NewRequest(string pUUID, string pSessionID, string pCheckSum, string pCardType, string pCardNumber, string pPIN, string pLogin, string pPassword, string pIP)
         {
             string pFileName = "";
@@ -68,7 +58,7 @@ namespace AppAdminSite
             }
 
             string sAmntTest = GetAmntOfLookupsRemaining(pUUID);
-            int AmntTest = Convert.ToInt16(sAmntTest); 
+            int AmntTest = Convert.ToInt16(sAmntTest);
             if (AmntTest <= 0)
             {
                 rsType = GCGCommon.EnumExtensions.GCTypes.GCCUSTOM.ToString();
@@ -102,14 +92,33 @@ namespace AppAdminSite
                 string TestForValid = SetGlobalVariables();
                 if (TestForValid != "") return rsType + LINEDEL + "We seem to have a setup problem, try again or send us an email.";
                 bool FileMade = false;
-                if (LogLevel == "1")
+
+                string isLookupManual = "0";
+                data = sqlh.GetMultiValuesOfSQL("SELECT IsLookupManual FROM qryMerchantsSupported WHERE CleanName=@P0", pCardType);
+                if (CommonForWS.isDatasetBad(data) == false) isLookupManual = data[0][0];
+                if (isLookupManual == "1")
                 {
-                    string OK = InsertNewRequest(pUUID, RqRsFileName, pCardType, "", "", "", "");
+                    string tempRqRsFileName = GCGCommon.SupportMethods.CreateHexKey(20);
+                    rsType = "MANUALLOOKUP";
+                    rsValue = "0.00";
+                    string tempRetVal = rsType + GCGCommon.EnumExtensions.Description(GCGCommon.EnumExtensions.Delimiters.LINEDEL) + rsValue;
+                    string OK = InsertNewRequest(pUUID, tempRqRsFileName, pCardType, pCardNumber, pPIN, "", "");
+                    InsertReponseUsingRetVal(pUUID, tempRqRsFileName, tempRetVal);
+                    PossiblyLogSuccessfulLookup(tempRetVal, pUUID);
+                    return "REDIRECTING" + "^)(" + "Your being taken to the merchants website to complete the lookup...";
                 }
                 else
                 {
-                    string OK = InsertNewRequest(pUUID, RqRsFileName, pCardType, pCardNumber, pPIN, pLogin, pPassword);
+                    if (LogLevel == "1")
+                    {
+                        string OK = InsertNewRequest(pUUID, RqRsFileName, pCardType, "", "", "", "");
+                    }
+                    else
+                    {
+                        string OK = InsertNewRequest(pUUID, RqRsFileName, pCardType, pCardNumber, pPIN, pLogin, pPassword);
+                    }
                 }
+
 
                 string MakeRqFile = gloPathToRqRs + "\\" + RqRsFileName + "-0rq.txt";
                 string RsFileToRead = gloPathToRqRs + "\\" + RqRsFileName + "-0rs.txt";
@@ -188,7 +197,7 @@ namespace AppAdminSite
                 FileMade = WaitForResponseFileCreation(RsFileToRead);
                 if (FileMade == true)
                 {
-                    retVal = ProcessResponse(RsFileToRead,pUUID);
+                    retVal = ProcessResponse(RsFileToRead, pUUID);
                     if (retVal.Contains(GCGCommon.EnumExtensions.JanitorTypes.JEXEMISSING.ToString()))
                     {
                         AddMerchantRequest(pCardType, GCGCommon.EnumExtensions.JanitorTypes.JEXEMISSING.ToString(), pCardNumber, pPIN, pUUID, pIP);
@@ -205,6 +214,7 @@ namespace AppAdminSite
                 retVal = rsType + LINEDEL + rsValue;
             }
             InsertReponseUsingRetVal(pUUID, RqRsFileName, retVal);
+            PossiblyLogSuccessfulLookup(retVal, pUUID);
             return retVal;
 
         }
@@ -234,7 +244,7 @@ namespace AppAdminSite
         public string ArchiveNewVendorRequest(string UUID, string Merchant, string URL, string CardNumber, string CardPIN, string TimeLogged)
         {
             string retVal = "";
-            sqlh.ExecuteSQLParamed("INSERT INTO tblArchivedMerchantRequests (Merchant, URL, CardNum, CardPIN, OtherInfo, TimeLogged) VALUES (@P1, @P2, @P3, @P4, @P5, @P6)", Merchant, URL, CardNumber,CardPIN,UUID,TimeLogged);
+            sqlh.ExecuteSQLParamed("INSERT INTO tblArchivedMerchantRequests (Merchant, URL, CardNum, CardPIN, OtherInfo, TimeLogged) VALUES (@P1, @P2, @P3, @P4, @P5, @P6)", Merchant, URL, CardNumber, CardPIN, UUID, TimeLogged);
             return retVal;
         }
         public string GetMerchantStatuses(string pSupportCode)
@@ -244,7 +254,7 @@ namespace AppAdminSite
             int test = data.GetUpperBound(0);
             for (int i = 0; i <= test; i++)
             {
-                retVal = retVal + data[i][1] + POSDEL;                
+                retVal = retVal + data[i][1] + POSDEL;
             }
             return retVal;
         }
@@ -298,7 +308,7 @@ namespace AppAdminSite
                 FileMade = WaitForResponseFileCreation(RsFileToRead);
                 if (FileMade == true)
                 {
-                    retVal = ProcessResponse(RsFileToRead,pUDID);
+                    retVal = ProcessResponse(RsFileToRead, pUDID);
                 }
                 else
                 {
@@ -357,7 +367,7 @@ namespace AppAdminSite
                 f.Delete();
                 //Now check to see if the checksum is right...
 
-                string IncomingChannel = GCGCommon.SupportMethods.ValidateSession(SessionID,Checksum);
+                string IncomingChannel = GCGCommon.SupportMethods.ValidateSession(SessionID, Checksum);
                 if (IncomingChannel != "")
                 {
                     retVal = true;
@@ -389,14 +399,23 @@ namespace AppAdminSite
                 rsType = GCGCommon.EnumExtensions.GCTypes.GCBALANCEERR.ToString();
                 //rsType = GCGCommon.EnumExtensions.GCTypes.GCCUSTOM.ToString();
             }
-            if (rsType.ToUpper() == GCGCommon.EnumExtensions.GCTypes.GCBALANCE.ToString())
+            retVal = rsType + LINEDEL + rsValue;
+            return retVal;
+        }
+        private string PossiblyLogSuccessfulLookup(string rsTypeAndInfo, string UDID)
+        {
+            string retVal = "";
+            string[] pieces1 = GCGCommon.SupportMethods.SplitByString(rsTypeAndInfo, GCGCommon.EnumExtensions.Description(GCGCommon.EnumExtensions.Delimiters.LINEDEL));
+            string rsType = pieces1[0];
+            string rsValue = pieces1[1];
+            if ((rsType.ToUpper() == GCGCommon.EnumExtensions.GCTypes.GCBALANCE.ToString()) || rsType.ToUpper() == "MANUALLOOKUP")
             {
                 int intSuccessfulLookups = GetAmntOfSuccessfulLookups(UDID) + 1;
                 int temp1 = sqlh.ExecuteSQLParamed("DELETE FROM tblSuccessfulLookupCount WHERE UDID=@P0", UDID);
                 int temp2 = sqlh.ExecuteSQLParamed("INSERT INTO tblSuccessfulLookupCount (UDID,LookupCount,TimeLogged) VALUES (@P0,@P1,@P2)", UDID, intSuccessfulLookups.ToString(), DateTime.Now.ToString());
             }
-            retVal = rsType + LINEDEL + rsValue;
             return retVal;
+
         }
 
         private string SetGlobalVariables()
@@ -837,7 +856,7 @@ namespace AppAdminSite
         }
         public int GetAmntOfLookupsAvail(string pUDID)
         {
-            int amntAllowed = 5;
+            int amntAllowed = 2;
             string[][] overridedata = sqlh.GetMultiValuesOfSQL("Select [PurchaseType] from tblPurchases WHERE [UUID]=@P0", pUDID);
             int loopamnt = MVDataRowCount(overridedata);
             for (int i = 0; i < loopamnt; i++)
@@ -875,7 +894,7 @@ namespace AppAdminSite
                 {
                     temp = sqlh.ExecuteSQLParamed("INSERT INTO tblAdsClicked (UUID, Details, DateLogged) VALUES (@P0,@P1,@P2)", pUUID, "Interstitial", DateTime.Now.ToString());
                 }
-                temp = sqlh.ExecuteSQLParamed("INSERT INTO tblPurchases (UUID, TimeLogged, PurchaseType) VALUES (@P0,@P1,@P2)", pUUID, DateTime.Now.ToString(), "5");
+                temp = sqlh.ExecuteSQLParamed("INSERT INTO tblPurchases (UUID, TimeLogged, PurchaseType) VALUES (@P0,@P1,@P2)", pUUID, DateTime.Now.ToString(), "3");
                 retVal = temp.ToString();
             }
             return retVal;

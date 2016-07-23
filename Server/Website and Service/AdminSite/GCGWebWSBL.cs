@@ -36,7 +36,7 @@ namespace AppAdminSite
             string[][] data = sqlh.GetMultiValuesOfSQL("SELECT Count(*) FROM tblBlockedIPs WHERE BlockedIP=@P0", VisitorsIPAddr);
             string Amnt = data[0][0];
             int iAmnt = Convert.ToInt16(Amnt);
-            iAmnt = 0;
+            //iAmnt = 0;
             if (iAmnt > 0)
             {
                 gloHacker = "1";
@@ -47,7 +47,7 @@ namespace AppAdminSite
             data = sqlh.GetMultiValuesOfSQL("SELECT Count(*) FROM tblTraffic WHERE RecdIP=@P0 AND DateLogged>@P1", VisitorsIPAddr, adjDate.ToString());
             Amnt = data[0][0];
             iAmnt = Convert.ToInt16(Amnt);
-            iAmnt = 0;
+            //iAmnt = 0;
             if (iAmnt>99)
             {
                 sqlh.ExecuteSQLParamed("INSERT INTO tblBlockedIPs (BlockedIP,DateLogged) VALUES (@P0,@P1)", VisitorsIPAddr, DateTime.Now.ToString());
