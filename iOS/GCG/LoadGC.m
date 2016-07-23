@@ -105,6 +105,49 @@ static int timeout;
 
 -(IBAction)DoLookup:(id)sender
 {
+        StaticData *sd=[StaticData sd];
+        if (sd.pMode==@"Offline")
+        {
+            [CJMUtilities ShowOfflineAlert];
+            return;
+        }
+        int iAmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining];
+        if (iAmntOfLookupsRemaining<=0)
+        {
+            OutOfLookups *v = [[OutOfLookups alloc] init];
+            [self.navigationController pushViewController:v animated:YES];
+            //[CJMUtilities ShowOOLAlert];
+            return;
+        }
+        WebAccess *wa=[[WebAccess alloc]init];
+        NSString *SessionIDAndAdInfo =[wa pmGetSessionIDAndAdInfo:pMyGC.p_gctype];
+        NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
+        pSessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
+        pChecksum=[GCGSpecific pmGetChecksum:pSessionID];
+        spinner.hidden=FALSE;
+        [spinner startAnimating];
+        btnLookup.enabled=FALSE;
+        btnLookup.alpha=.5;
+        [self performSelector:@selector(rqNewRequest:) withObject:nil afterDelay:.1];
+}
+
+-(void)rqNewRequest:(NSTimer*)theTimer
+{
+    WebAccess *wa=[[WebAccess alloc]init];
+    NSString *rs;
+    rs=[wa pmNewRequest:@"UDID" SessionID:pSessionID CheckSum:pChecksum CardType:pMyGC.p_gctype CardNumber:pMyGC.p_gcnum PIN:pMyGC.p_gcpin Login:pMyGC.p_credlogin Password:pMyGC.p_credpass];
+    
+    
+    NSLog(rs);
+    [spinner stopAnimating];
+    spinner.hidden=TRUE;
+    btnLookup.enabled=TRUE;
+    btnLookup.alpha=1;
+    NSMutableArray *tempArray=[CJMUtilities ConvertNSStringToNSMutableArray:rs delimiter:gcgLINEDEL];
+    NSString *rsType=[tempArray objectAtIndex:0];
+    NSString *rsValue=[tempArray objectAtIndex:1];
+    
+
     
     if ([lookupletter isEqualToString:@"M"]) {
         
@@ -120,48 +163,9 @@ static int timeout;
         [CJMUtilities ShowAlert:@"Redirecting" Message:@"The card number has been copied to the clipboard, just paste it in the card number and get your balance." ButtonText:@"OK"];
         WebView *pWV=[[WebView alloc] initWithURL:pLoadedGC.p_url];
         [self.navigationController pushViewController:pWV animated:YES];
+        return;
     }
-    else
-    {
-        StaticData *sd=[StaticData sd];
-        if (sd.pMode==@"Offline")
-        {
-            [CJMUtilities ShowOfflineAlert];
-            return;
-        }
-        int iAmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining];
-        if (iAmntOfLookupsRemaining<=0)
-        {
-            [CJMUtilities ShowOOLAlert];
-            return;
-        }
-        WebAccess *wa=[[WebAccess alloc]init];
-        NSString *SessionIDAndAdInfo =[wa pmGetSessionIDAndAdInfo:pMyGC.p_gctype];
-        NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
-        pSessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
-        pChecksum=[GCGSpecific pmGetChecksum:pSessionID];
-        spinner.hidden=FALSE;
-        [spinner startAnimating];
-        btnLookup.enabled=FALSE;
-        btnLookup.alpha=.5;
-        [self performSelector:@selector(rqNewRequest:) withObject:nil afterDelay:.1];
-    }
-}
 
--(void)rqNewRequest:(NSTimer*)theTimer
-{
-    WebAccess *wa=[[WebAccess alloc]init];
-    NSString *rs=[wa pmNewRequest:@"UDID" SessionID:pSessionID CheckSum:pChecksum CardType:pMyGC.p_gctype CardNumber:pMyGC.p_gcnum PIN:pMyGC.p_gcpin Login:pMyGC.p_credlogin Password:pMyGC.p_credpass];
-    NSLog(rs);
-    [spinner stopAnimating];
-    spinner.hidden=TRUE;
-    btnLookup.enabled=TRUE;
-    btnLookup.alpha=1;
-    NSMutableArray *tempArray=[CJMUtilities ConvertNSStringToNSMutableArray:rs delimiter:gcgLINEDEL];
-    NSString *rsType=[tempArray objectAtIndex:0];
-    NSString *rsValue=[tempArray objectAtIndex:1];
-    
-    
     if ([rsType isEqualToString:gcgGCCAPTCHA])
     {
         pIDFileName=rsValue;

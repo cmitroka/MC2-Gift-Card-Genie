@@ -172,7 +172,7 @@ NSString *allMerchantData;
         int pAmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining];
 
         TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
-        if (pAmntOfLookupsRemaining<=2)
+        if (pAmntOfLookupsRemaining<=1)
         {
             sd.pDemoAcknowledged=@"FromSplash";
             [appDelegate useNavController:[IAP class]];

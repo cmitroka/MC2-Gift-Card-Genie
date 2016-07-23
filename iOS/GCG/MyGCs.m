@@ -225,17 +225,14 @@ StaticData *sd;
 {
     int iAmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining];
     if (iAmntOfLookupsRemaining<=0) {
-        OutOfLookups *v = [[OutOfLookups alloc] init];
-        [self.navigationController pushViewController:v animated:YES];
+        //OutOfLookups *v = [[OutOfLookups alloc] init];
+        //[self.navigationController pushViewController:v animated:YES];
     }
-    else
-    {
         MyCard *myCard = [sql.myCards objectAtIndex:indexPath.row];
         sd.pLoadGCKey=myCard.p_mygcname;
         LoadGC *pLoadGC=[[LoadGC alloc] init];
         [toolbar removeFromSuperview];
         [self.navigationController pushViewController:pLoadGC animated:YES];
-    }
 }
 
 @end

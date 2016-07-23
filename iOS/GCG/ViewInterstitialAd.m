@@ -58,12 +58,6 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 
 /// Called just before presenting an interstitial.
 - (void)interstitialWillPresentScreen:(GADInterstitial *)ad {
-    WebAccess *wa=[[WebAccess alloc]init];
-    NSString *SessionIDAndAdInfo =[wa pmGetSessionIDAndAdInfo:@""];
-    NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
-    NSString *SessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
-    NSString *Checksum=[GCGSpecific pmGetChecksum:SessionID];
-    [wa pmLogPurchase:SessionID CheckSum:Checksum PurchaseType:@"04"];
     NSLog(@"interstitialWillPresentScreen");
 }
 
@@ -82,7 +76,12 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 /// ad that will launch another app (such as the App Store).
 - (void)interstitialWillLeaveApplication:(GADInterstitial *)ad {
     NSLog(@"adViewDidLeaveApplication");
-    
+    WebAccess *wa=[[WebAccess alloc]init];
+    NSString *SessionIDAndAdInfo =[wa pmGetSessionIDAndAdInfo:@""];
+    NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
+    NSString *SessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
+    NSString *Checksum=[GCGSpecific pmGetChecksum:SessionID];
+    [wa pmLogPurchase:SessionID CheckSum:Checksum PurchaseType:@"04"];
     NSLog(@"Out of here");
 }
 -(IBAction)Exit:(id)sender

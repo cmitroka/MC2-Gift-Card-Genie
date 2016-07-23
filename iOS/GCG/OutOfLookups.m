@@ -42,9 +42,19 @@
 }
 -(IBAction)GoToWatchAd:(id)sender
 {
-    TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate useNavController:[ViewInterstitialAd class]];
-    return;
+    UIAlertView *av=[[UIAlertView alloc] initWithTitle:@"Reminder" message:[NSString stringWithFormat:@"%@%@",@"You're going to have to actually click the ad for it to count; ",@"still good with this?"] delegate:self cancelButtonTitle:@"Forget It" otherButtonTitles:@"Yeah, I'm Got It", nil];
+    [av show];
+}
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+        if(buttonIndex==0)
+        {
+        }
+        else
+        {
+            TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate useNavController:[ViewInterstitialAd class]];
+        }
 }
 
 
