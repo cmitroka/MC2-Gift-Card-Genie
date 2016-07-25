@@ -1,0 +1,61 @@
+package com.mc2techservices.gcbg;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
+
+public class InitActivity extends Activity {
+	Timer myTimer;
+	TextView txtSSLabel;
+	int position;
+	final String AppName="Realtime Recalls";
+	String displayIt;
+	String SessionID;
+	String CurrCall;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_init);
+		myTimer = new Timer();
+	    myTimer.schedule(new TimerTask() {
+	        @Override
+	        public void run() {
+	    		Log.d("RTR", "run1");
+	            TimerMethod();
+	        }
+
+	    }, 0, 500);
+	}
+
+
+	private void TimerMethod()
+	{
+		Log.d("RTR", "run2");
+		position++;
+		if (position==3) {
+			myTimer.cancel();
+			Init();
+			return;
+		}
+		this.runOnUiThread(Timer_Tick);
+	}
+
+	private Runnable Timer_Tick = new Runnable() {
+		public void run() {
+			Log.d("RTR", "run3");
+		}
+	};	
+	private void Init()
+	{
+		Intent intent = new Intent(this, SplashscreenActivity.class);
+		startActivity(intent);										
+	}
+}
