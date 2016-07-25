@@ -220,10 +220,10 @@ public final class R {
 		public static final int google_play_services_version = 0x7f0a0000;
 	}
 	public static final class layout {
-		public static final int place_autocomplete_fragment = 0x7f030008;
-		public static final int place_autocomplete_item_powered_by_google = 0x7f030009;
-		public static final int place_autocomplete_item_prediction = 0x7f03000a;
-		public static final int place_autocomplete_progress = 0x7f03000b;
+		public static final int place_autocomplete_fragment = 0x7f030009;
+		public static final int place_autocomplete_item_powered_by_google = 0x7f03000a;
+		public static final int place_autocomplete_item_prediction = 0x7f03000b;
+		public static final int place_autocomplete_progress = 0x7f03000c;
 	}
 	public static final class raw {
 		public static final int gtm_analytics = 0x7f040000;

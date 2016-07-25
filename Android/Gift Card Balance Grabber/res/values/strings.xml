@@ -4,5 +4,7 @@
     <string name="app_name">Gift Card Balance Grabber</string>
     <string name="menu_settings">Settings</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_watch_ad">WatchAdActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

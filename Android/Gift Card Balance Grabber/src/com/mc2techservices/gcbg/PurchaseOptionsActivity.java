@@ -6,6 +6,7 @@ import com.mc2techservices.gcbg.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,10 +60,31 @@ public class PurchaseOptionsActivity extends Activity {
 	}
 
 	public void onWatchAdClicked(View arg0) {
-        Log.d(TAG, "Watch an ad.");
-		Intent intent = new Intent(this, RegisterActivity.class);
-		startActivity(intent);
+
+			DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+			    @Override
+			    public void onClick(DialogInterface dialog, int which) {
+			        switch (which){
+			        case DialogInterface.BUTTON_POSITIVE:
+			    		Log.d("APP", "Watch an ad.");
+			    		WatchAd();
+			    		break;
+
+			        case DialogInterface.BUTTON_NEGATIVE:
+			    		Log.d("APP", "Dont Delete");
+			            break;
+			        }
+			    }
+			};
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("You're going to have to actually click the ad for it to count; still good with this?").setPositiveButton("Yes", dialogClickListener)
+			    .setNegativeButton("No", dialogClickListener).show();		
 	}
+	public void WatchAd() {
+		Intent intent = new Intent(this, WatchAdActivity.class);
+		startActivity(intent);
+		return;
+	}	
 	
 	public void onPurchaseInfClicked(View arg0) {
         Log.d(TAG, "Buy Infinte button clicked.");

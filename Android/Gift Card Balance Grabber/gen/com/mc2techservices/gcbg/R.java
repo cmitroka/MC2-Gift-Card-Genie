@@ -703,17 +703,19 @@ containing a value of this type.
         public static final int activity_purchaseoptions=0x7f030004;
         public static final int activity_register=0x7f030005;
         public static final int activity_splashscreen=0x7f030006;
-        public static final int activity_webview=0x7f030007;
-        public static final int place_autocomplete_fragment=0x7f030008;
-        public static final int place_autocomplete_item_powered_by_google=0x7f030009;
-        public static final int place_autocomplete_item_prediction=0x7f03000a;
-        public static final int place_autocomplete_progress=0x7f03000b;
+        public static final int activity_watch_ad=0x7f030007;
+        public static final int activity_webview=0x7f030008;
+        public static final int place_autocomplete_fragment=0x7f030009;
+        public static final int place_autocomplete_item_powered_by_google=0x7f03000a;
+        public static final int place_autocomplete_item_prediction=0x7f03000b;
+        public static final int place_autocomplete_progress=0x7f03000c;
     }
     public static final class menu {
         public static final int activity_purchase=0x7f0b0000;
         public static final int confirm_login=0x7f0b0001;
         public static final int splashscreen=0x7f0b0002;
         public static final int test_area=0x7f0b0003;
+        public static final int watch_ad=0x7f0b0004;
     }
     public static final class raw {
         public static final int gtm_analytics=0x7f040000;
@@ -840,6 +842,7 @@ containing a value of this type.
         public static final int create_calendar_message=0x7f060005;
         public static final int create_calendar_title=0x7f060004;
         public static final int decline=0x7f060003;
+        public static final int hello_world=0x7f06002f;
         public static final int menu_settings=0x7f06002c;
         /**  Description of the button that clears the search input when searching for places. 
          */
@@ -849,6 +852,7 @@ containing a value of this type.
         public static final int place_autocomplete_search_hint=0x7f060028;
         public static final int store_picture_message=0x7f060001;
         public static final int store_picture_title=0x7f060000;
+        public static final int title_activity_watch_ad=0x7f06002e;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
  Text on a button that allows a user to make a payment with Google Wallet
