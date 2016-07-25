@@ -523,7 +523,14 @@ namespace AppAdminSite
             if (GCGWebWSSM.IsKeyLegit(pGCGKey, pKey) == "1")
             {
                 //Insert the sale
-                temp1 = sqlh.ExecuteSQLParamed("INSERT INTO tblPurchases (GCGUsersID,PurchaseType,Channel,DateLogged) VALUES (@P0,@P1,@P2,@P3)", GCGID, pPurchType, pChannel, DateTime.Now.ToString());
+                if (pPurchType=="Interstitial")
+                {
+                    temp1 = sqlh.ExecuteSQLParamed("INSERT INTO tblPurchases (GCGUsersID,PurchaseType,Channel,DateLogged) VALUES (@P0,@P1,@P2,@P3)", GCGID, "3", pChannel, DateTime.Now.ToString());
+                }
+                else
+                {
+                    temp1 = sqlh.ExecuteSQLParamed("INSERT INTO tblPurchases (GCGUsersID,PurchaseType,Channel,DateLogged) VALUES (@P0,@P1,@P2,@P3)", GCGID, pPurchType, pChannel, DateTime.Now.ToString());
+                }
             }
             else
             {
