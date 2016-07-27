@@ -41,7 +41,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:enabled="false"
+                android:enabled="true"
                 android:onClick="onPurchaseInfClicked"
                 android:text="Purchase Infinite Lookups" />
 
@@ -50,7 +50,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:enabled="false"
+                android:enabled="true"
                 android:onClick="onPurchase15Clicked"
                 android:text="Purchase 15 Lookups" />
 

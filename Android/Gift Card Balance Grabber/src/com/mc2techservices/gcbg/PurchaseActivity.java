@@ -82,11 +82,11 @@ public class PurchaseActivity extends Activity {
     	Log.d("PurchaseActivity", "");
 		if (GlobalClass.gloPurchaseType.equals("15"))
 		{
-			ITEM_SKU = "15for1dollar";
+			ITEM_SKU = "gcbg15for1dollar";
 		}
 		else if (GlobalClass.gloPurchaseType.equals("999"))
 		{
-			ITEM_SKU = "unlimitedor3dollars";
+			ITEM_SKU = "unlimitedfor3dollars";
 		}	
 
 		if (GlobalClass.gloPurchaseType.equals("override"))
