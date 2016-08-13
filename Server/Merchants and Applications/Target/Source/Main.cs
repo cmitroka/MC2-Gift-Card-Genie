@@ -95,11 +95,9 @@ namespace DVB
         {
             try
             {
-                //WebProxy proxy = WebProxy.GetDefaultProxy();
                 txtRetryCntr.Text = RetryCnt.ToString();
                 string OK = "1";
                 Instruction++;
-                //IHTMLDocument2 FrameDoc = null;
                 GCGMethods.WriteTextBoxLog(txtLog, "Inst " + Instruction.ToString());
                 if (RetryCnt >= RetryCntMax)
                 {
@@ -117,15 +115,78 @@ namespace DVB
                     IntPtr x = (IntPtr)IE.HWND;
                     GCGCommon.SupportMethods.AdjustWindow(x, 0, 0, 800, 800);
                     //ShowWindow((IntPtr)IE.HWND, 3);
-                    IE.Navigate2(txtBaseURL.Text);
+                    //IE.Navigate2(txtBaseURL.Text);
                 }
                 else if (Instruction == 2)
                 {
-                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
-                    OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "giftCardNo", txtCardNumber.Text);
-                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "AccessNo", txtCardPIN.Text);
-                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zbutton, GCGMethods.HTMLAttributes.Zid, "checkBalance", "");
+                    IE.Navigate2(txtBaseURL.Text);
+
+                    /*
+                    try
+                    {
+                        IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                        IHTMLWindow2 parentWindow = x.parentWindow;
+                        OK = GCGMethods.ElementExists(x, GCGMethods.HTMLTagNames.Za, GCGMethods.HTMLAttributes.ZOuterText, "Check Your Balance");
+                        //if (OK=="1") parentWindow.execScript("window.location.href = 'http://www.dickssportinggoods.com/coreg/index.jsp?step=giftcardBalance&reset=true';", "javascript");
+                        if (OK == "1") IE.Navigate2("http://www.dickssportinggoods.com/coreg/index.jsp?step=giftcardBalance&reset=true");
+                    }
+                    catch (Exception)
+                    {
+                        OK = "-1";
+                    }
+                    */
                     HandleInstruction(OK);
+                    //gift-card-number
+                }
+
+                else if (Instruction == 3)
+                {
+
+                    //IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    //GCGMethods.CAPTCHAGetImage(x, "recaptcha/api/image", ad.CAPTCHAPathAndFileToWrite);
+                    //if (OK == "1") OK = DoHandleCAPTCHARqRs();
+                    HandleInstruction(OK);
+                }
+                else if (Instruction == 4)
+                {
+                    SetForegroundWindowByHWND(IE.HWND);
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    OK = GCGMethods.ElementExists(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "cardNumber");
+                    if (OK == "-1")
+                    {
+                        HandleInstruction(OK);
+                        return;
+                    }
+                    OK = SetFocusOnElement("cardNumber", GCGMethods.ByNameOrID.Id, -1);
+                    if (OK == "-1")
+                    {
+                        HandleInstruction(OK);
+                        return;
+                    }
+
+                    MouseMove(400, 255);
+                    MouseClick();
+                    DoGCGDelay(15, true);
+                    DoHandleTyper(txtCardNumber.Text);
+                    MouseMove(400, 310);
+                    MouseClick();
+                    DoGCGDelay(15, true);
+                    DoHandleTyper(txtCardPIN.Text);
+                    MouseMove(400, 365);
+                    MouseClick();
+                    DoGCGDelay(15, true);
+                    //SetForegroundWindowByHWND(IE.HWND);
+                    //DoGCGDelay(10, true);
+                    //DoHandleTyper(txtCardNumber.Text);
+                    //DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{ENTER}");
+                    //DoHandleTyper("{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}" + txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{TAB}" + txtCAPTCHAAnswer.Text + "{TAB}{ENTER}");
+                    /*
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "TextBoxCardNumber", txtCardNumber.Text);
+                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "txtCaptcha", txtCardPIN.Text);
+                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "ButtonCheckCardBalance", "");
+                    HandleInstruction(OK);
+                    */
                 }
                 else
                 {
@@ -147,11 +208,19 @@ namespace DVB
                         System.Diagnostics.Debug.WriteLine(ex.Message);
                         return;
                     }
+
+                    if (testi.Contains("T83072242"))
+                    {
+                        SpecificRetryCnt=0;
+                        Instruction = 1;
+                        return;
+                    }
                     //GCGMethods.WriteFile("C:\\test.txt", test, true);
                     //GCGMethods.WriteFile("C:\\testi.txt", testi, true);
                     //GCGMethods.WriteFile("C:\\testo.txt", testo, true);
-
-                    balanceResult = GetBalance("h-zeroMargin\"><strong>", "</strong>", testi);
+                    //string roughParse1 = GCGMethods.RoughExtract("Current Balance", "<div>", testi);
+                    //string roughParse2 = " abc" + GCGMethods.RoughExtract("$", "</p>", roughParse1) + "xyz ";
+                    balanceResult = GetBalance("card-giftCard--details", "/strong", testi);
                     if (balanceResult == "")
                     {
                         SpecificRetryCnt++;
@@ -159,7 +228,7 @@ namespace DVB
                         if (SpecificRetryCnt >= 10)
                         {
                             txtCardBalance.Text = "Error";
-                            SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "Sorry, we couldn't get the balance for some reason.", ad.RsPathAndFileToWrite);
+                            SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "Target seems to be blocking the lookup request.  You can try again, but they can be tricky sometimes.", ad.RsPathAndFileToWrite);
                             OK = "1";
                         }
                     }
@@ -183,9 +252,9 @@ namespace DVB
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                string err = ex.Message;
             }
         }
         private void HandleInstruction(string OK)
@@ -273,7 +342,8 @@ namespace DVB
             {
                 CLIrqFile = txtRqRsPath.Text + "\\test-0rq-" + AppName + ".txt";
                 CLIrqFile = CLIrqFile.Replace("\\\\", "\\");
-                GCGMethods.WriteTextBoxLog(txtLog, "A CLIrqFile WASN'T loaded; simulating with webservice data.");
+                GCGMethods.WriteTextBoxLog(txtLog, "A CLIrqFile WASN'T loaded; using " + AppName + "_LastRun.txt");
+                
             }
             ad = new GCGCommon.AllDetails(CLIrqFile, txtCAPTCHAPath.Text);
             return retVal;
@@ -287,6 +357,47 @@ namespace DVB
         {
             return true;
         }
+        private void SaveLastRun()
+        {
+            try
+            {
+                StreamWriter s = new StreamWriter(Application.StartupPath + "\\" + AppName + "_LastRun.txt");
+                s.WriteLine(txtCardNumber.Text);
+                s.WriteLine(txtCardPIN.Text);
+                s.WriteLine(txtTimeout.Text);
+                s.WriteLine(txtCleanName.Text);
+                s.WriteLine(txtBaseURL.Text);
+                s.Close();
+            }
+            catch (Exception e)
+            {
+                GCGMethods.WriteTextBoxLog(txtLog, "SaveLastRun failed");
+                return;
+            }
+            GCGMethods.WriteTextBoxLog(txtLog, "SaveLastRun completed");
+            return;
+        }
+        private void LoadLastRun()
+        {
+            try
+            {
+                StreamReader s = new StreamReader(Application.StartupPath + "\\" + AppName + "_LastRun.txt");
+                txtCardNumber.Text = s.ReadLine();
+                txtCardPIN.Text = s.ReadLine();
+                txtTimeout.Text = s.ReadLine();
+                txtCleanName.Text= s.ReadLine();
+                txtBaseURL.Text = s.ReadLine();
+                s.Close();
+            }
+            catch (Exception e)
+            {
+                GCGMethods.WriteTextBoxLog(txtLog, "LoadLastRun " + Application.StartupPath + "\\" + AppName + "_LastRun.txt failed");
+                return;
+            }
+            GCGMethods.WriteTextBoxLog(txtLog, "LoadLastRun completed");
+            return;
+        }
+
         private void cmdRunRequest_Click(object sender, EventArgs e)
         {
             ad = null;
@@ -306,6 +417,7 @@ namespace DVB
         {
             int MaxSeconds = 0;
             SecondsPassed = SecondsPassed + 1;
+            if (SecondsPassed==1){SaveLastRun();}
             txtTimeoutMonitor.Text = SecondsPassed.ToString();
             try
             {
@@ -383,6 +495,8 @@ namespace DVB
         {
             string OK = "1";
             whattotype = whatToType;
+            whattotypeloc = 0;
+            whattotypecompleted = false;
             tmrRunning.Enabled = false;
             tmrSendKeys.Enabled = true;
             do
@@ -658,15 +772,6 @@ namespace DVB
             //AuxFunctions.LoadEverything(this);
         }
 
-        private void cmdUpdate_Click(object sender, EventArgs e)
-        {
-            com.mc2techservices.gcg.WebService WS = new com.mc2techservices.gcg.WebService();
-            WebProxy proxy = WebProxy.GetDefaultProxy();
-            WS.Proxy = proxy;
-            WS.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
-            WS.SaveWDDataForEXE01(AppName, txtCleanName.Text, txtBaseURL.Text, txtCardNumber.Text, txtCardPIN.Text, txtLogin.Text, txtPassword.Text, cmbSupportCode.Text, txtTimeout.Text, "CJMGCG");
-            //WS.SaveURLForEXE(AppName,txtBaseURL.Text,"");
-        }
 
         private string copyImageToClipBoard(string containsimgname)
         {
@@ -756,15 +861,6 @@ namespace DVB
         {
             SaveLoad.LoadDataFromTestFile(this);
         }
-        private void MSaveDataToWebserver_Click(object sender, EventArgs e)
-        {
-            SaveLoad.SaveDataToWebserver(this);
-        }
-        private void MLoadDataFromWebserver_Click(object sender, EventArgs e)
-        {
-            SaveLoad.LoadDataFromWebserver(this);
-        }
-
 
         private void MLoadSettingsFromDB_Click(object sender, EventArgs e)
         {
@@ -875,7 +971,16 @@ namespace DVB
             }
             whattotypeall = "";
             whattotypeloc++;
+            Random rnd = new Random();
+            tmrSendKeys.Interval = rnd.Next(1, 500);
+            tmrSendKeys.Interval = 1;
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
         private void SetForegroundWindowByHWND(int hWnd)
         {
             IntPtr x = (IntPtr)hWnd;
@@ -893,6 +998,53 @@ namespace DVB
             // Simulate a key release
             keybd_event((byte)ALT, 0x45, EXTENDEDKEY | KEYUP, 0);
             SetForegroundWindow(x);
+        }
+
+        private void MSaveLastRun_Click(object sender, EventArgs e)
+        {
+            SaveLastRun();
+        }
+
+        private void MLoadLastRun_Click(object sender, EventArgs e)
+        {
+            LoadLastRun();
+        }
+
+        private string SetFocusOnElement(string pElement, GCGMethods.ByNameOrID pByNameOrID, int FrameIndex)
+        {
+            string retVal = "-1";
+            try
+            {
+                IHTMLDocument2 htmlDoc2 = GCGMethods.ConvertIEToIHTMLDocument2(IE, FrameIndex);
+                IHTMLWindow2 parentWindow = htmlDoc2.parentWindow;
+                if (parentWindow != null)
+                {
+                    try
+                    {
+
+                        parentWindow.execScript("document.getElementBy" + pByNameOrID.ToString() + "('" + pElement + "').focus();", "javascript");
+                        System.Diagnostics.Debug.WriteLine("SetFocusOnElement OK");
+                        retVal = "1";
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("SetFocusOnElement Err:" + ex.Message);
+                        retVal = "-1";
+                    }
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("SetFocusOnElement parentWindow != null");
+                    retVal = "-1";
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("SetFocusOnElement screen not ready: " + ex.Message);
+                retVal = "-1";
+            }
+            //mshtml.IHTMLDocument2 htmlDoc2 = IE.Document as mshtml.IHTMLDocument2;
+            return retVal;
         }
         private void SetForegroundWindowByName(string NameOfWindow)
         {
@@ -915,7 +1067,8 @@ namespace DVB
             p.y = Convert.ToInt16(pYPos);
             Win32.ClientToScreen(this.Handle, ref p);
             Win32.SetCursorPos(p.x, p.y);
-            */
+            */        
+            //Cursor.Position = new Point(pXPos, pYPos);
             SetCursorPos(pXPos, pYPos);
         }
         private void MouseClick()
@@ -923,6 +1076,43 @@ namespace DVB
             uint X = (uint)Cursor.Position.X;
             uint Y = (uint)Cursor.Position.Y;
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
+        }
+        public void DoMacro0()
+        {
+            tmrRunning.Enabled = false;
+            string FileToUse = GCGCommon.PMC.WriteMacro(txtRqRsPath.Text, "" +
+                "Pause,100~!~" +
+                "WinActivate,Balance Extractor - " + AppName + "~!~" +
+                "Pause,100~!~" +
+                "Move,400,255~!~" +
+                "LeftClick~!~" +
+                "Pause,100~!~" +
+                "SendText," + txtCardNumber.Text + "~!~" +
+                "Pause,100~!~" +
+                "Move,400,310~!~" +
+                "LeftClick~!~" +
+                "Pause,100~!~" +
+                "SendText," + txtCardPIN.Text + "~!~" +
+                "Pause,100~!~" +
+                "Move,400,365~!~" +
+                "LeftClick~!~"
+                );
+            PMC.RunMacro(FileToUse);
+            System.Diagnostics.Debug.WriteLine("DoMacro0 Done");
+            tmrRunning.Enabled = true;
+            /*
+            MouseMove(400, 255);
+            MouseClick();
+            DoGCGDelay(15, true);
+            DoHandleTyper(txtCardNumber.Text);
+            MouseMove(400, 310);
+            MouseClick();
+            DoGCGDelay(15, true);
+            DoHandleTyper(txtCardPIN.Text);
+            MouseMove(400, 365);
+            MouseClick();
+            DoGCGDelay(15, true);
+            */
         }
 
     }

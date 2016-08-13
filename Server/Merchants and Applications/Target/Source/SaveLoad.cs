@@ -48,53 +48,6 @@ namespace DVB
                 GCGMethods.WriteTextBoxLog(m.txtLog, "LoadDataFromTestFile Error " + e.Message);
             }
         }
-        public static void SaveDataToWebserver(Main m)
-        {
-            try
-            {
-                com.mc2techservices.gcg.WebService WS = new com.mc2techservices.gcg.WebService();
-                if (m.chkUseProxy.Checked == true)
-                {
-                    WebProxy proxy = WebProxy.GetDefaultProxy();
-                    WS.Proxy = proxy;
-                    WS.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
-                }
-                WS.SaveWDDataForEXE01(m.AppName, m.txtCleanName.Text, m.txtBaseURL.Text, m.txtCardNumber.Text, m.txtCardPIN.Text, m.txtLogin.Text, m.txtPassword.Text, m.cmbSupportCode.Text, m.txtTimeout.Text, "CJMGCG");
-            }
-            catch (Exception e)
-            {
-                GCGMethods.WriteTextBoxLog(m.txtLog, "SaveDataToWebserver Error " + e.Message);
-            }
-        }
-        public static void LoadDataFromWebserver(Main m)
-        {
-            try
-            {
-                com.mc2techservices.gcg.WebService WS = new com.mc2techservices.gcg.WebService();
-                if (m.chkUseProxy.Checked==true)
-                {
-                    WebProxy proxy = WebProxy.GetDefaultProxy();
-                    WS.Proxy = proxy;
-                    WS.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
-                }
-                //string WDData = WS.GetWDDataForEXE(m.AppName, "");
-                string WDData = WS.GetWDDataForEXE(m.AppName, "CJMGCG");
-                string POSDEL = GCGCommon.EnumExtensions.Description(GCGCommon.Delimiters.POSDEL);
-                string[] WDDataArray = GCGCommon.SupportMethods.SplitByString(WDData, POSDEL);
-                m.txtBaseURL.Text = WDDataArray[0];
-                m.txtCardNumber.Text = WDDataArray[1];
-                m.txtCardPIN.Text = WDDataArray[2];
-                m.txtLogin.Text = WDDataArray[3];
-                m.txtPassword.Text = WDDataArray[4];
-                m.txtCleanName.Text = WDDataArray[5];
-                m.cmbSupportCode.Text = WDDataArray[6];
-                m.txtTimeout.Text = WDDataArray[7];
-            }
-            catch (Exception e)
-            {
-                GCGMethods.WriteTextBoxLog(m.txtLog, "LoadDataFromWebserver Error " + e.Message);
-            }
-        }
         public static void LoadSettingsFromRegistry(Main m)
         {
             try
@@ -112,7 +65,7 @@ namespace DVB
                     m.chkUseProxy.Checked = false;
                 }
                 m.txtCAPTCHAPath.Text = MR.Read("CAPTCHAPath");
-                m.txtRqRsPath.Text = MR.Read("RqRsPath");
+                m.txtRqRsPath.Text = MR.Read("TestRqRsPath");
                 m.txtAppStaticDBPath.Text = MR.Read("AppStaticDBPath");
             }
             catch (Exception ex2)
