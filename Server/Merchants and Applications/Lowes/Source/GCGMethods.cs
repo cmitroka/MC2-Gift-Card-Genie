@@ -17,6 +17,7 @@ namespace DVB
 {
     static class GCGMethods
     {
+        public enum ByNameOrID { Id, Name };
         public enum FocusTypes { RemoveFocus, Focus, Click };
         public enum HTMLTagNames { Za, Zarea, Zbutton, Zdiv, Zform, Zhr, Zimg, Zinput, Zselect };
         public enum HTMLAttributes { Zalt, Zclass, Zhref, Zid, Zname, ZinnerHTML, ZInnerText, ZouterHtml, ZOuterText, Zsrc, Zvalue, };
@@ -361,6 +362,14 @@ namespace DVB
                 foreach (IHTMLElement div in c)
                 {
                     foreachcount++;
+
+                    if (attName == "CHECK YOUR BALANCE")
+                    {
+                        if (foreachcount < 500)
+                        {
+                            continue;
+                        }
+                    }
                     System.Diagnostics.Debug.WriteLine("foreachcount: " + foreachcount.ToString() + " of " + c.length.ToString());
                     System.Diagnostics.Debug.WriteLine("ID: " + div.id);
                     System.Diagnostics.Debug.WriteLine("OutterHTML: " + div.outerHTML);
