@@ -68,6 +68,8 @@
             this.txtCardNumber = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtChromePath = new System.Windows.Forms.TextBox();
             this.chkUseProxy = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtAppStaticDBPath = new System.Windows.Forms.TextBox();
@@ -83,19 +85,21 @@
             this.tmrGetCAPTCHA = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MSaveDataToWebserver = new System.Windows.Forms.ToolStripMenuItem();
-            this.MLoadDataFromWebserver = new System.Windows.Forms.ToolStripMenuItem();
             this.MSaveDataToTestFile = new System.Windows.Forms.ToolStripMenuItem();
             this.MLoadDataFromTestFile = new System.Windows.Forms.ToolStripMenuItem();
             this.MSaveSettingsToDB = new System.Windows.Forms.ToolStripMenuItem();
             this.MLoadSettingsFromDB = new System.Windows.Forms.ToolStripMenuItem();
             this.MSaveSettingsToRegistry = new System.Windows.Forms.ToolStripMenuItem();
             this.MLoadSettingsFromRegistry = new System.Windows.Forms.ToolStripMenuItem();
+            this.MSaveLastRun = new System.Windows.Forms.ToolStripMenuItem();
+            this.MLoadLastRun = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.navigationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MGoToBaseURL = new System.Windows.Forms.ToolStripMenuItem();
             this.shellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MOpenCAPTCHALocation = new System.Windows.Forms.ToolStripMenuItem();
             this.MOpenRqRSLocation = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtDelay = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -161,6 +165,7 @@
             // cmdUpdate
             // 
             this.cmdUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdUpdate.Enabled = false;
             this.cmdUpdate.Location = new System.Drawing.Point(840, 33);
             this.cmdUpdate.Name = "cmdUpdate";
             this.cmdUpdate.Size = new System.Drawing.Size(100, 21);
@@ -168,7 +173,6 @@
             this.cmdUpdate.TabStop = false;
             this.cmdUpdate.Text = "Update Data";
             this.cmdUpdate.UseVisualStyleBackColor = true;
-            this.cmdUpdate.Click += new System.EventHandler(this.cmdUpdate_Click);
             // 
             // cmdReloadRequest
             // 
@@ -257,6 +261,7 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupBox1.Controls.Add(this.txtDelay);
             this.groupBox1.Controls.Add(this.cmbSupportCode);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.txtCleanName);
@@ -473,9 +478,9 @@
             // 
             // cmdRunRequest
             // 
-            this.cmdRunRequest.Location = new System.Drawing.Point(834, 17);
+            this.cmdRunRequest.Location = new System.Drawing.Point(818, 17);
             this.cmdRunRequest.Name = "cmdRunRequest";
-            this.cmdRunRequest.Size = new System.Drawing.Size(100, 23);
+            this.cmdRunRequest.Size = new System.Drawing.Size(90, 23);
             this.cmdRunRequest.TabIndex = 0;
             this.cmdRunRequest.TabStop = false;
             this.cmdRunRequest.Text = "Run Request";
@@ -503,6 +508,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label13);
+            this.groupBox5.Controls.Add(this.txtChromePath);
             this.groupBox5.Controls.Add(this.chkUseProxy);
             this.groupBox5.Controls.Add(this.label12);
             this.groupBox5.Controls.Add(this.txtAppStaticDBPath);
@@ -517,10 +524,27 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "GCG Janitor (Common) Settings";
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(26, 82);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(71, 13);
+            this.label13.TabIndex = 63;
+            this.label13.Text = "Chrome Path:";
+            // 
+            // txtChromePath
+            // 
+            this.txtChromePath.Location = new System.Drawing.Point(103, 79);
+            this.txtChromePath.Name = "txtChromePath";
+            this.txtChromePath.Size = new System.Drawing.Size(515, 20);
+            this.txtChromePath.TabIndex = 62;
+            this.txtChromePath.TabStop = false;
+            // 
             // chkUseProxy
             // 
             this.chkUseProxy.AutoSize = true;
-            this.chkUseProxy.Location = new System.Drawing.Point(103, 80);
+            this.chkUseProxy.Location = new System.Drawing.Point(634, 26);
             this.chkUseProxy.Name = "chkUseProxy";
             this.chkUseProxy.Size = new System.Drawing.Size(74, 17);
             this.chkUseProxy.TabIndex = 61;
@@ -621,86 +645,94 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MSaveDataToWebserver,
-            this.MLoadDataFromWebserver,
             this.MSaveDataToTestFile,
             this.MLoadDataFromTestFile,
             this.MSaveSettingsToDB,
             this.MLoadSettingsFromDB,
             this.MSaveSettingsToRegistry,
-            this.MLoadSettingsFromRegistry});
+            this.MLoadSettingsFromRegistry,
+            this.MSaveLastRun,
+            this.MLoadLastRun,
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
-            // 
-            // MSaveDataToWebserver
-            // 
-            this.MSaveDataToWebserver.Name = "MSaveDataToWebserver";
-            this.MSaveDataToWebserver.Size = new System.Drawing.Size(207, 22);
-            this.MSaveDataToWebserver.Text = "Save Data to Webserver";
-            this.MSaveDataToWebserver.Click += new System.EventHandler(this.MSaveDataToWebserver_Click);
-            // 
-            // MLoadDataFromWebserver
-            // 
-            this.MLoadDataFromWebserver.Name = "MLoadDataFromWebserver";
-            this.MLoadDataFromWebserver.Size = new System.Drawing.Size(207, 22);
-            this.MLoadDataFromWebserver.Text = "Load Data from Webserver";
-            this.MLoadDataFromWebserver.Click += new System.EventHandler(this.MLoadDataFromWebserver_Click);
             // 
             // MSaveDataToTestFile
             // 
             this.MSaveDataToTestFile.Name = "MSaveDataToTestFile";
-            this.MSaveDataToTestFile.Size = new System.Drawing.Size(207, 22);
+            this.MSaveDataToTestFile.Size = new System.Drawing.Size(219, 22);
             this.MSaveDataToTestFile.Text = "Save Data to Test File";
             this.MSaveDataToTestFile.Click += new System.EventHandler(this.MSaveDataToTestFile_Click);
             // 
             // MLoadDataFromTestFile
             // 
             this.MLoadDataFromTestFile.Name = "MLoadDataFromTestFile";
-            this.MLoadDataFromTestFile.Size = new System.Drawing.Size(207, 22);
+            this.MLoadDataFromTestFile.Size = new System.Drawing.Size(219, 22);
             this.MLoadDataFromTestFile.Text = "Load Data from Test File";
             this.MLoadDataFromTestFile.Click += new System.EventHandler(this.MLoadDataFromTestFile_Click);
             // 
             // MSaveSettingsToDB
             // 
             this.MSaveSettingsToDB.Name = "MSaveSettingsToDB";
-            this.MSaveSettingsToDB.Size = new System.Drawing.Size(207, 22);
+            this.MSaveSettingsToDB.Size = new System.Drawing.Size(219, 22);
             this.MSaveSettingsToDB.Text = "Save Settings to DB";
             this.MSaveSettingsToDB.Click += new System.EventHandler(this.MSaveSettingsToDB_Click);
             // 
             // MLoadSettingsFromDB
             // 
             this.MLoadSettingsFromDB.Name = "MLoadSettingsFromDB";
-            this.MLoadSettingsFromDB.Size = new System.Drawing.Size(207, 22);
+            this.MLoadSettingsFromDB.Size = new System.Drawing.Size(219, 22);
             this.MLoadSettingsFromDB.Text = "Load Settings from DB";
             this.MLoadSettingsFromDB.Click += new System.EventHandler(this.MLoadSettingsFromDB_Click);
             // 
             // MSaveSettingsToRegistry
             // 
             this.MSaveSettingsToRegistry.Name = "MSaveSettingsToRegistry";
-            this.MSaveSettingsToRegistry.Size = new System.Drawing.Size(207, 22);
+            this.MSaveSettingsToRegistry.Size = new System.Drawing.Size(219, 22);
             this.MSaveSettingsToRegistry.Text = "Save Settings to Registry";
             this.MSaveSettingsToRegistry.Click += new System.EventHandler(this.MSaveSettingsToRegistry_Click);
             // 
             // MLoadSettingsFromRegistry
             // 
             this.MLoadSettingsFromRegistry.Name = "MLoadSettingsFromRegistry";
-            this.MLoadSettingsFromRegistry.Size = new System.Drawing.Size(207, 22);
+            this.MLoadSettingsFromRegistry.Size = new System.Drawing.Size(219, 22);
             this.MLoadSettingsFromRegistry.Text = "Load Settings from Registry";
             this.MLoadSettingsFromRegistry.Click += new System.EventHandler(this.MLoadSettingsFromRegistry_Click);
+            // 
+            // MSaveLastRun
+            // 
+            this.MSaveLastRun.Name = "MSaveLastRun";
+            this.MSaveLastRun.Size = new System.Drawing.Size(219, 22);
+            this.MSaveLastRun.Text = "Save as Last Run";
+            this.MSaveLastRun.Click += new System.EventHandler(this.MSaveLastRun_Click);
+            // 
+            // MLoadLastRun
+            // 
+            this.MLoadLastRun.Name = "MLoadLastRun";
+            this.MLoadLastRun.Size = new System.Drawing.Size(219, 22);
+            this.MLoadLastRun.Text = "Load Last Run";
+            this.MLoadLastRun.Click += new System.EventHandler(this.MLoadLastRun_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // navigationToolStripMenuItem
             // 
             this.navigationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MGoToBaseURL});
             this.navigationToolStripMenuItem.Name = "navigationToolStripMenuItem";
-            this.navigationToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.navigationToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             this.navigationToolStripMenuItem.Text = "Navigation";
             // 
             // MGoToBaseURL
             // 
             this.MGoToBaseURL.Name = "MGoToBaseURL";
-            this.MGoToBaseURL.Size = new System.Drawing.Size(150, 22);
+            this.MGoToBaseURL.Size = new System.Drawing.Size(157, 22);
             this.MGoToBaseURL.Text = "Go To Base URL";
             // 
             // shellToolStripMenuItem
@@ -709,20 +741,28 @@
             this.MOpenCAPTCHALocation,
             this.MOpenRqRSLocation});
             this.shellToolStripMenuItem.Name = "shellToolStripMenuItem";
-            this.shellToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.shellToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.shellToolStripMenuItem.Text = "Shell";
             // 
             // MOpenCAPTCHALocation
             // 
             this.MOpenCAPTCHALocation.Name = "MOpenCAPTCHALocation";
-            this.MOpenCAPTCHALocation.Size = new System.Drawing.Size(193, 22);
+            this.MOpenCAPTCHALocation.Size = new System.Drawing.Size(210, 22);
             this.MOpenCAPTCHALocation.Text = "Open CAPTCHA Location";
             // 
             // MOpenRqRSLocation
             // 
             this.MOpenRqRSLocation.Name = "MOpenRqRSLocation";
-            this.MOpenRqRSLocation.Size = new System.Drawing.Size(193, 22);
+            this.MOpenRqRSLocation.Size = new System.Drawing.Size(210, 22);
             this.MOpenRqRSLocation.Text = "Open RqRS Location";
+            // 
+            // txtDelay
+            // 
+            this.txtDelay.Location = new System.Drawing.Point(914, 19);
+            this.txtDelay.Name = "txtDelay";
+            this.txtDelay.Size = new System.Drawing.Size(20, 20);
+            this.txtDelay.TabIndex = 62;
+            this.txtDelay.TabStop = false;
             // 
             // Main
             // 
@@ -789,14 +829,12 @@
         public System.Windows.Forms.ComboBox cmbSupportCode;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem MSaveDataToWebserver;
         private System.Windows.Forms.ToolStripMenuItem MSaveDataToTestFile;
         private System.Windows.Forms.ToolStripMenuItem navigationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MGoToBaseURL;
         private System.Windows.Forms.ToolStripMenuItem shellToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MOpenCAPTCHALocation;
         private System.Windows.Forms.ToolStripMenuItem MOpenRqRSLocation;
-        private System.Windows.Forms.ToolStripMenuItem MLoadDataFromWebserver;
         private System.Windows.Forms.ToolStripMenuItem MLoadDataFromTestFile;
         private System.Windows.Forms.ToolStripMenuItem MSaveSettingsToDB;
         private System.Windows.Forms.ToolStripMenuItem MLoadSettingsFromDB;
@@ -821,7 +859,12 @@
         private System.Windows.Forms.Button cmdForceExit;
         private System.Windows.Forms.Button cmdLogOut;
         private System.Windows.Forms.Label label16;
-
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MSaveLastRun;
+        private System.Windows.Forms.ToolStripMenuItem MLoadLastRun;
+        private System.Windows.Forms.Label label13;
+        public System.Windows.Forms.TextBox txtChromePath;
+        private System.Windows.Forms.TextBox txtDelay;
     }
 }
 
