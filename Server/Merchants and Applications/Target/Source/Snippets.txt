@@ -19,6 +19,9 @@ CAPTCHA handling...
     if (OK=="1") OK= DoHandleCAPTCHARqRs();
     HandleInstruction(OK);
 
+Wildcards
+if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zimg, GCGMethods.HTMLAttributes.Zsrc, "*%LOWEB/check_your_balance_CTA.PNG", "");
+
 Changing the focus...
 	webBrowser1.Navigate("javascript:document.getElementById('password').focus();");
 
