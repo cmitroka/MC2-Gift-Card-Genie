@@ -20,6 +20,7 @@ Global
 		{63CAAC3C-D00E-4962-B0C0-1EEE9C996160}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{63CAAC3C-D00E-4962-B0C0-1EEE9C996160}.Debug|x64.Build.0 = Debug|Any CPU
 		{63CAAC3C-D00E-4962-B0C0-1EEE9C996160}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{63CAAC3C-D00E-4962-B0C0-1EEE9C996160}.Debug|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,12 @@
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\TJMaxx\Source\bin\Debug\TJMaxx.exe.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\TJMaxx\Source\obj\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\TJMaxx\Source\obj\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\TJMaxx\Source\obj\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\TJMaxx\Source\bin\Debug\TJMaxx.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\TJMaxx\Source\bin\Debug\TJMaxx.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\TJMaxx\Source\bin\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\TJMaxx\Source\obj\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\TJMaxx\Source\obj\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\TJMaxx\Source\obj\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\TJMaxx\Source\obj\Debug\TJMaxx.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\TJMaxx\Source\obj\Debug\TJMaxx.pdb

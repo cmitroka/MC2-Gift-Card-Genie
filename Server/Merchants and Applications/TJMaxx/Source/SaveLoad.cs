@@ -65,7 +65,7 @@ namespace DVB
                     m.chkUseProxy.Checked = false;
                 }
                 m.txtCAPTCHAPath.Text = MR.Read("CAPTCHAPath");
-                m.txtRqRsPath.Text = MR.Read("TestRqRsPath");
+                m.txtRqRsPath.Text = MR.Read("RqRsPath");
                 m.txtAppStaticDBPath.Text = MR.Read("AppStaticDBPath");
                 m.txtChromePath.Text = MR.Read("ChromePath");
             }
@@ -93,7 +93,7 @@ namespace DVB
             }
         }
 
-        public static void LoadSettingsFromDB(Main m)
+        public static bool LoadSettingsFromDB(Main m)
         {
             try
             {
@@ -104,11 +104,13 @@ namespace DVB
                 m.txtTimeout.Text = setting[0][2];
                 m.txtCardNumber.Text = setting[0][3];
                 m.txtCardPIN.Text = setting[0][4];
+                return true;
 
             }
             catch (Exception ex)
             {
                 GCGMethods.WriteTextBoxLog(m.txtLog, "LoadSettingsFromDB error " + ex.Message);
+                return false;
             }
         }
         public static void SaveSettingsToDB(Main m)

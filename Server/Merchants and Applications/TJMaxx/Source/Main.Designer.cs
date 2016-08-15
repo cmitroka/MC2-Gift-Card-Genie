@@ -43,6 +43,7 @@
             this.cmdLogOut = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtDelay = new System.Windows.Forms.TextBox();
             this.cmbSupportCode = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtCleanName = new System.Windows.Forms.TextBox();
@@ -77,6 +78,27 @@
             this.label18 = new System.Windows.Forms.Label();
             this.txtCAPTCHAPath = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.txtDelay5 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txtDelay4 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.txtDelay3 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtDelay2 = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtDelay1 = new System.Windows.Forms.TextBox();
             this.tmrRunning = new System.Windows.Forms.Timer(this.components);
             this.tmrTimeout = new System.Windows.Forms.Timer(this.components);
             this.tmrResponseHandler = new System.Windows.Forms.Timer(this.components);
@@ -85,8 +107,8 @@
             this.tmrGetCAPTCHA = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MSaveDataToTestFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.MLoadDataFromTestFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.MSaveDataForConfig = new System.Windows.Forms.ToolStripMenuItem();
+            this.MLoadDataForConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.MSaveSettingsToDB = new System.Windows.Forms.ToolStripMenuItem();
             this.MLoadSettingsFromDB = new System.Windows.Forms.ToolStripMenuItem();
             this.MSaveSettingsToRegistry = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,20 +121,22 @@
             this.shellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MOpenCAPTCHALocation = new System.Windows.Forms.ToolStripMenuItem();
             this.MOpenRqRSLocation = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtDelay = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
+            this.tabControl1.AccessibleDescription = "";
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
@@ -123,7 +147,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.Gainsboro;
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Window;
             this.tabPage1.Controls.Add(this.groupBox3);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -290,6 +314,14 @@
             this.groupBox1.Size = new System.Drawing.Size(946, 102);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
+            // 
+            // txtDelay
+            // 
+            this.txtDelay.Location = new System.Drawing.Point(914, 19);
+            this.txtDelay.Name = "txtDelay";
+            this.txtDelay.Size = new System.Drawing.Size(20, 20);
+            this.txtDelay.TabIndex = 62;
+            this.txtDelay.TabStop = false;
             // 
             // cmbSupportCode
             // 
@@ -497,7 +529,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage2.BackColor = System.Drawing.SystemColors.Window;
             this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -602,6 +634,210 @@
             this.label6.TabIndex = 52;
             this.label6.Text = "CAPTCHA Path:";
             // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPage3.Controls.Add(this.textBox5);
+            this.tabPage3.Controls.Add(this.label25);
+            this.tabPage3.Controls.Add(this.label26);
+            this.tabPage3.Controls.Add(this.txtDelay5);
+            this.tabPage3.Controls.Add(this.textBox3);
+            this.tabPage3.Controls.Add(this.label23);
+            this.tabPage3.Controls.Add(this.label24);
+            this.tabPage3.Controls.Add(this.txtDelay4);
+            this.tabPage3.Controls.Add(this.textBox1);
+            this.tabPage3.Controls.Add(this.label21);
+            this.tabPage3.Controls.Add(this.label22);
+            this.tabPage3.Controls.Add(this.txtDelay3);
+            this.tabPage3.Controls.Add(this.textBox7);
+            this.tabPage3.Controls.Add(this.label20);
+            this.tabPage3.Controls.Add(this.textBox4);
+            this.tabPage3.Controls.Add(this.label19);
+            this.tabPage3.Controls.Add(this.label15);
+            this.tabPage3.Controls.Add(this.txtDelay2);
+            this.tabPage3.Controls.Add(this.label14);
+            this.tabPage3.Controls.Add(this.txtDelay1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(954, 166);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Custom Delays";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(158, 117);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(140, 20);
+            this.textBox5.TabIndex = 45;
+            this.textBox5.TabStop = false;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(133, 120);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(19, 13);
+            this.label25.TabIndex = 44;
+            this.label25.Text = "for";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(8, 120);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(46, 13);
+            this.label26.TabIndex = 43;
+            this.label26.Text = "Delay 5:";
+            // 
+            // txtDelay5
+            // 
+            this.txtDelay5.Location = new System.Drawing.Point(60, 117);
+            this.txtDelay5.Name = "txtDelay5";
+            this.txtDelay5.Size = new System.Drawing.Size(67, 20);
+            this.txtDelay5.TabIndex = 42;
+            this.txtDelay5.TabStop = false;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(158, 91);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(140, 20);
+            this.textBox3.TabIndex = 41;
+            this.textBox3.TabStop = false;
+            this.textBox3.Text = "Retrieving the balance wait";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(133, 94);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(19, 13);
+            this.label23.TabIndex = 40;
+            this.label23.Text = "for";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(8, 94);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(46, 13);
+            this.label24.TabIndex = 39;
+            this.label24.Text = "Delay 4:";
+            // 
+            // txtDelay4
+            // 
+            this.txtDelay4.Location = new System.Drawing.Point(60, 91);
+            this.txtDelay4.Name = "txtDelay4";
+            this.txtDelay4.Size = new System.Drawing.Size(67, 20);
+            this.txtDelay4.TabIndex = 38;
+            this.txtDelay4.TabStop = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(158, 65);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(140, 20);
+            this.textBox1.TabIndex = 37;
+            this.textBox1.TabStop = false;
+            this.textBox1.Text = "Getting ready to grab CAPTCHA";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(133, 68);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(19, 13);
+            this.label21.TabIndex = 36;
+            this.label21.Text = "for";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(8, 68);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(46, 13);
+            this.label22.TabIndex = 35;
+            this.label22.Text = "Delay 3:";
+            // 
+            // txtDelay3
+            // 
+            this.txtDelay3.Location = new System.Drawing.Point(60, 65);
+            this.txtDelay3.Name = "txtDelay3";
+            this.txtDelay3.Size = new System.Drawing.Size(67, 20);
+            this.txtDelay3.TabIndex = 34;
+            this.txtDelay3.TabStop = false;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(158, 39);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(140, 20);
+            this.textBox7.TabIndex = 33;
+            this.textBox7.TabStop = false;
+            this.textBox7.Text = "Wait for page to load";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(133, 42);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(19, 13);
+            this.label20.TabIndex = 32;
+            this.label20.Text = "for";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(158, 13);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(140, 20);
+            this.textBox4.TabIndex = 31;
+            this.textBox4.TabStop = false;
+            this.textBox4.Text = "Chrome Launch";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(133, 16);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(19, 13);
+            this.label19.TabIndex = 30;
+            this.label19.Text = "for";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(8, 42);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(46, 13);
+            this.label15.TabIndex = 29;
+            this.label15.Text = "Delay 2:";
+            // 
+            // txtDelay2
+            // 
+            this.txtDelay2.Location = new System.Drawing.Point(60, 39);
+            this.txtDelay2.Name = "txtDelay2";
+            this.txtDelay2.Size = new System.Drawing.Size(67, 20);
+            this.txtDelay2.TabIndex = 28;
+            this.txtDelay2.TabStop = false;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 16);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(46, 13);
+            this.label14.TabIndex = 27;
+            this.label14.Text = "Delay 1:";
+            // 
+            // txtDelay1
+            // 
+            this.txtDelay1.Location = new System.Drawing.Point(60, 13);
+            this.txtDelay1.Name = "txtDelay1";
+            this.txtDelay1.Size = new System.Drawing.Size(67, 20);
+            this.txtDelay1.TabIndex = 26;
+            this.txtDelay1.TabStop = false;
+            // 
             // tmrRunning
             // 
             this.tmrRunning.Interval = 1000;
@@ -645,8 +881,8 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MSaveDataToTestFile,
-            this.MLoadDataFromTestFile,
+            this.MSaveDataForConfig,
+            this.MLoadDataForConfig,
             this.MSaveSettingsToDB,
             this.MLoadSettingsFromDB,
             this.MSaveSettingsToRegistry,
@@ -658,19 +894,19 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // MSaveDataToTestFile
+            // MSaveDataForConfig
             // 
-            this.MSaveDataToTestFile.Name = "MSaveDataToTestFile";
-            this.MSaveDataToTestFile.Size = new System.Drawing.Size(219, 22);
-            this.MSaveDataToTestFile.Text = "Save Data to Test File";
-            this.MSaveDataToTestFile.Click += new System.EventHandler(this.MSaveDataToTestFile_Click);
+            this.MSaveDataForConfig.Name = "MSaveDataForConfig";
+            this.MSaveDataForConfig.Size = new System.Drawing.Size(219, 22);
+            this.MSaveDataForConfig.Text = "Save Data for Config";
+            this.MSaveDataForConfig.Click += new System.EventHandler(this.MSaveDataForConfig_Click);
             // 
-            // MLoadDataFromTestFile
+            // MLoadDataForConfig
             // 
-            this.MLoadDataFromTestFile.Name = "MLoadDataFromTestFile";
-            this.MLoadDataFromTestFile.Size = new System.Drawing.Size(219, 22);
-            this.MLoadDataFromTestFile.Text = "Load Data from Test File";
-            this.MLoadDataFromTestFile.Click += new System.EventHandler(this.MLoadDataFromTestFile_Click);
+            this.MLoadDataForConfig.Name = "MLoadDataForConfig";
+            this.MLoadDataForConfig.Size = new System.Drawing.Size(219, 22);
+            this.MLoadDataForConfig.Text = "Load Data for Config";
+            this.MLoadDataForConfig.Click += new System.EventHandler(this.MLoadDataForConfig_Click);
             // 
             // MSaveSettingsToDB
             // 
@@ -756,14 +992,6 @@
             this.MOpenRqRSLocation.Size = new System.Drawing.Size(210, 22);
             this.MOpenRqRSLocation.Text = "Open RqRS Location";
             // 
-            // txtDelay
-            // 
-            this.txtDelay.Location = new System.Drawing.Point(914, 19);
-            this.txtDelay.Name = "txtDelay";
-            this.txtDelay.Size = new System.Drawing.Size(20, 20);
-            this.txtDelay.TabIndex = 62;
-            this.txtDelay.TabStop = false;
-            // 
             // Main
             // 
             this.AllowDrop = true;
@@ -785,6 +1013,8 @@
             this.tabPage2.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -829,13 +1059,13 @@
         public System.Windows.Forms.ComboBox cmbSupportCode;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem MSaveDataToTestFile;
+        private System.Windows.Forms.ToolStripMenuItem MSaveDataForConfig;
         private System.Windows.Forms.ToolStripMenuItem navigationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MGoToBaseURL;
         private System.Windows.Forms.ToolStripMenuItem shellToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MOpenCAPTCHALocation;
         private System.Windows.Forms.ToolStripMenuItem MOpenRqRSLocation;
-        private System.Windows.Forms.ToolStripMenuItem MLoadDataFromTestFile;
+        private System.Windows.Forms.ToolStripMenuItem MLoadDataForConfig;
         private System.Windows.Forms.ToolStripMenuItem MSaveSettingsToDB;
         private System.Windows.Forms.ToolStripMenuItem MLoadSettingsFromDB;
         private System.Windows.Forms.ToolStripMenuItem MSaveSettingsToRegistry;
@@ -865,6 +1095,27 @@
         private System.Windows.Forms.Label label13;
         public System.Windows.Forms.TextBox txtChromePath;
         private System.Windows.Forms.TextBox txtDelay;
+        private System.Windows.Forms.TabPage tabPage3;
+        public System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label20;
+        public System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label15;
+        public System.Windows.Forms.TextBox txtDelay2;
+        private System.Windows.Forms.Label label14;
+        public System.Windows.Forms.TextBox txtDelay1;
+        public System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        public System.Windows.Forms.TextBox txtDelay3;
+        public System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        public System.Windows.Forms.TextBox txtDelay5;
+        public System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        public System.Windows.Forms.TextBox txtDelay4;
     }
 }
 
