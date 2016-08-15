@@ -111,7 +111,7 @@ namespace DVB
                 if (Instruction == 1)
                 {
                     string sPntr=SupportMethods.LaunchIt(txtChromePath.Text);
-                    DoGCGDelay(15, true);
+                    DoGCGDelay(Convert.ToInt16(txtDelay1.Text), true);
                     long iPntr = Convert.ToInt64(SupportMethods.FindChromeHNWD());
                     IntPtr x = (IntPtr)iPntr;
                     GCGCommon.SupportMethods.AdjustWindow(x, 0, 0, 800, 800);
@@ -124,12 +124,13 @@ namespace DVB
                 }
                 else if (Instruction == 3)
                 {
+                    DoGCGDelay(Convert.ToInt16(txtDelay2.Text), true);
                     MouseMove(697, 407);
                     MouseClick();
                 }
                 else if (Instruction == 4)
                 {
-                    DoGCGDelay(25,true);
+                    DoGCGDelay(Convert.ToInt16(txtDelay3.Text),true);
                     OK=DoHandleCAPTCHARqRs(108, 448, 302, 59);
                     HandleInstruction(OK);
                 }
@@ -150,7 +151,7 @@ namespace DVB
                     MouseMove(177, 598);
                     MouseClick();
                     //Wait for the balance...
-                    DoGCGDelay(50, true);
+                    DoGCGDelay(Convert.ToInt16(txtDelay4.Text), true);
                     DoHandleTyper("{SELECTALL}");
                     DoGCGDelay(10, true);
                     DoHandleTyper("{COPY}");
@@ -240,8 +241,10 @@ namespace DVB
             this.Text = "Balance Extractor - " + AppName;
             SpecificRetryCntMax = 999;
             RetryCntMax = 30;
+            LoadConfig();
             SaveLoad.LoadSettingsFromRegistry(this);
-            SaveLoad.LoadSettingsFromDB(this);
+            bool OK = SaveLoad.LoadSettingsFromDB(this);
+            if (OK == false) { LoadLastRun(); }
             string result = LoadCLIrqFile();
             if (result != "1")
             {
@@ -280,8 +283,7 @@ namespace DVB
             {
                 CLIrqFile = txtRqRsPath.Text + "\\test-0rq-" + AppName + ".txt";
                 CLIrqFile = CLIrqFile.Replace("\\\\", "\\");
-                GCGMethods.WriteTextBoxLog(txtLog, "A CLIrqFile WASN'T loaded; using " + AppName + "_LastRun.txt");
-                
+                GCGMethods.WriteTextBoxLog(txtLog, "A CLIrqFile WASN'T loaded; using " + CLIrqFile);
             }
             ad = new GCGCommon.AllDetails(CLIrqFile, txtCAPTCHAPath.Text);
             return retVal;
@@ -313,6 +315,46 @@ namespace DVB
                 return;
             }
             GCGMethods.WriteTextBoxLog(txtLog, "SaveLastRun completed");
+            return;
+        }
+        private void SaveConfig()
+        {
+            try
+            {
+                StreamWriter s = new StreamWriter(Application.StartupPath + "\\" + AppName + "_Config.txt");
+                s.WriteLine(txtDelay1.Text);
+                s.WriteLine(txtDelay2.Text);
+                s.WriteLine(txtDelay3.Text);
+                s.WriteLine(txtDelay4.Text);
+                s.WriteLine(txtDelay5.Text);
+                s.Close();
+            }
+            catch (Exception e)
+            {
+                GCGMethods.WriteTextBoxLog(txtLog, "SaveConfig failed");
+                return;
+            }
+            GCGMethods.WriteTextBoxLog(txtLog, "SaveConfig completed");
+            return;
+        }
+        private void LoadConfig()
+        {
+            try
+            {
+                StreamReader s = new StreamReader(Application.StartupPath + "\\" + AppName + "_Config.txt");
+                txtDelay1.Text = s.ReadLine();
+                txtDelay2.Text = s.ReadLine();
+                txtDelay3.Text = s.ReadLine();
+                txtDelay4.Text = s.ReadLine();
+                txtDelay5.Text = s.ReadLine();
+                s.Close();
+            }
+            catch (Exception e)
+            {
+                GCGMethods.WriteTextBoxLog(txtLog, "LoadConfig " + Application.StartupPath + "\\" + AppName + "_LastRun.txt failed");
+                return;
+            }
+            GCGMethods.WriteTextBoxLog(txtLog, "LoadConfig completed");
             return;
         }
         private void LoadLastRun()
@@ -761,38 +803,6 @@ namespace DVB
         }
 
 
-        private void LoadSettingsFromDB()
-        {
-            try
-            {
-                GCGCommon.Registry MR = new GCGCommon.Registry();
-                MR.SubKey = "SOFTWARE\\GCG Apps\\GC-Common";
-                txtCAPTCHAPath.Text = MR.Read("CAPTCHAPath");
-                txtRqRsPath.Text = MR.Read("RqRsPath");
-                txtAppStaticDBPath.Text = MR.Read("AppStaticDBPath");
-                GCGCommon.DB db = new GCGCommon.DB(txtAppStaticDBPath.Text);
-                string[][] setting = db.GetMultiValuesOfSQL("SELECT URL,Timeout FROM tblMerchants WHERE EXE='" + AppName + "'");
-                txtBaseURL.Text = setting[0][0];
-                txtTimeout.Text = setting[0][1];
-            }
-            catch (Exception ex2)
-            {
-                GCGMethods.WriteTextBoxLog(txtLog, "LoadSettingsFromDB error " + ex2.Message);
-            }
-        }
-        private void SaveSettingsToDB()
-        {
-            try
-            {
-                GCGCommon.DB db = new GCGCommon.DB(txtAppStaticDBPath.Text);
-                int retV = db.ExecuteSQLParamed("UPDATE tblMerchants SET URL=P0, Timeout=P1", txtBaseURL.Text, txtTimeout.Text);
-                GCGMethods.WriteTextBoxLog(txtLog, retV.ToString());
-            }
-            catch (Exception ex2)
-            {
-                GCGMethods.WriteTextBoxLog(txtLog, "SaveSettingsToDB error " + ex2.Message);
-            }
-        }
         private void MSaveDataToTestFile_Click(object sender, EventArgs e)
         {
             SaveLoad.SaveDataToTestFile(this);
@@ -959,6 +969,15 @@ namespace DVB
             LoadLastRun();
         }
 
+        private void MSaveDataForConfig_Click(object sender, EventArgs e)
+        {
+            SaveConfig();
+        }
+
+        private void MLoadDataForConfig_Click(object sender, EventArgs e)
+        {
+            LoadConfig();
+        }
 
         private string SetFocusOnElement(string pElement, GCGMethods.ByNameOrID pByNameOrID, int FrameIndex)
         {
