@@ -11,4 +11,5 @@
 @interface WatchAd : UIViewController
 
 @property(nonatomic, weak) IBOutlet GADBannerView *bannerView;
+@property(nonatomic, retain) IBOutlet UILabel *lblMsg;
 @end

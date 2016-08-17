@@ -25,6 +25,10 @@ StaticData *sd;
     isClicked=@"";
     [self createAndLoadInterstitial];
     // Do any additional setup after loading the view from its nib.
+    
+    //For testing
+    //[self LogIt];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,6 +58,7 @@ StaticData *sd;
 - (void)interstitial:(GADInterstitial *)ad
 didFailToReceiveAdWithError:(GADRequestError *)error {
     NSLog(@"interstitial:didFailToReceiveAdWithError: %@", [error localizedDescription]);
+    [self ShowExit:0];
 }
 
 /// Called just before presenting an interstitial.
@@ -69,28 +74,43 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 /// Called just after dismissing an interstitial and it has animated off the screen.
 - (void)interstitialDidDismissScreen:(GADInterstitial *)ad {
     NSLog(@"interstitialDidDismissScreen");
-    [self ShowExit];
+    if ([isClicked isEqualToString:@"1"]) {
+        [self ShowExit:1];
+    }
 }
 
 /// Called just before the app will background or terminate because the user clicked on an
 /// ad that will launch another app (such as the App Store).
 - (void)interstitialWillLeaveApplication:(GADInterstitial *)ad {
     NSLog(@"adViewDidLeaveApplication");
-    WebAccess *wa=[[WebAccess alloc]init];
-    NSString *SessionIDAndAdInfo =[wa pmGetSessionIDAndAdInfo:@""];
-    NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
-    NSString *SessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
-    NSString *Checksum=[GCGSpecific pmGetChecksum:SessionID];
-    [wa pmLogPurchase:SessionID CheckSum:Checksum PurchaseType:@"04"];
+    isClicked=@"1";
+    [self LogIt];
     NSLog(@"Out of here");
 }
 -(IBAction)Exit:(id)sender
 {
     exit(0);
 }
-
--(void)ShowExit
+-(void)LogIt
 {
+    WebAccess *wa=[[WebAccess alloc]init];
+    NSString *SessionIDAndAdInfo =[wa pmGetSessionIDAndAdInfo:@""];
+    NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
+    NSString *SessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
+    NSString *Checksum=[GCGSpecific pmGetChecksum:SessionID];
+    [wa pmLogPurchase:SessionID CheckSum:Checksum PurchaseType:@"5"];
+
+}
+
+-(void)ShowExit:(int)MessageType
+{
+    if (MessageType==0) {
+        [_uiExit setTitle:@"Sorry, the ad couldn't load - probably blocked by the WiFi your on.  Try again later." forState:NULL];
+    }
+    else if (MessageType==1) {
+        [_uiExit setTitle:@"Thanks!  Click to exit, then relauch the app and you'll have more lookups!" forState:NULL];
+    }
+    
     _uiExit.hidden=NO;
     [_uiExit.titleLabel setTextAlignment: NSTextAlignmentCenter];
     _uiExit.layer.borderWidth=1.0f;

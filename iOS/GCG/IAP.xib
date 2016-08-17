@@ -11,6 +11,7 @@
                 <outlet property="btnPurchase" destination="5" id="22"/>
                 <outlet property="btnPurchaseQuantity" destination="38" id="47"/>
                 <outlet property="btnWatchAd" destination="lUj-Db-KNB" id="A5S-Wr-qdO"/>
+                <outlet property="btnWatchIntAd" destination="B4C-Z3-oYu" id="8P7-sp-wJA"/>
                 <outlet property="lblLookupInfo" destination="36" id="37"/>
                 <outlet property="lblPurchase" destination="16" id="27"/>
                 <outlet property="lblPurchaseQuantity" destination="40" id="48"/>
@@ -31,29 +32,30 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5">
-                    <rect key="frame" x="20" y="149" width="280" height="76"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="5">
+                    <rect key="frame" x="8" y="149" width="302" height="55"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="I want unlimited lookups!">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="PurchaseApp:" destination="-1" eventType="touchUpInside" id="26"/>
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="This will let you look up as many realtime balances as you'd like for as long as GCG's around." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="100" minimumFontSize="10" id="16">
-                    <rect key="frame" x="29" y="173" width="262" height="52"/>
+                    <rect key="frame" x="11" y="169" width="301" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" id="38">
-                    <rect key="frame" x="20" y="233" width="280" height="76"/>
+                    <rect key="frame" x="11" y="212" width="299" height="55"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="I'll take 10 more lookups please">
+                        <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -61,28 +63,35 @@
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="As the button tries to indicate, this purchase option will give you 10 successful lookups." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="100" minimumFontSize="10" id="40">
-                    <rect key="frame" x="29" y="252" width="262" height="52"/>
+                    <rect key="frame" x="11" y="223" width="301" height="52"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Watch an ad, get some lookups!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="100" minimumFontSize="10" id="1On-Qd-T9D">
-                    <rect key="frame" x="29" y="335" width="262" height="23"/>
+                    <rect key="frame" x="11" y="306" width="292" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Do an Interstitial ad, get some lookups!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="100" minimumFontSize="10" id="V98-pE-NLo">
+                    <rect key="frame" x="11" y="361" width="299" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You have ? lookups remaining" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="100" minimumFontSize="10" id="36">
-                    <rect key="frame" x="20" y="415" width="280" height="37"/>
+                    <rect key="frame" x="20" y="430" width="280" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WqL-GE-vnG">
-                    <rect key="frame" x="20" y="371" width="280" height="23"/>
+                    <rect key="frame" x="20" y="414" width="280" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="I'll use the app without lookups">
@@ -93,7 +102,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lUj-Db-KNB">
-                    <rect key="frame" x="20" y="317" width="280" height="46"/>
+                    <rect key="frame" x="8" y="288" width="302" height="41"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="I'll want 3 more free lookups!">
@@ -101,6 +110,17 @@
                     </state>
                     <connections>
                         <action selector="WatchAd:" destination="-1" eventType="touchUpInside" id="WQu-ob-BrX"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" id="B4C-Z3-oYu">
+                    <rect key="frame" x="11" y="342" width="299" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" title="I'll want 5 more free lookups!">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="WatchIntAd:" destination="-1" eventType="touchUpInside" id="E9a-8s-6Ul"/>
                     </connections>
                 </button>
             </subviews>

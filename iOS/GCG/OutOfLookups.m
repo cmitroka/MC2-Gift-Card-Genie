@@ -42,7 +42,7 @@
 }
 -(IBAction)GoToWatchAd:(id)sender
 {
-    UIAlertView *av=[[UIAlertView alloc] initWithTitle:@"Reminder" message:[NSString stringWithFormat:@"%@%@",@"You're going to have to actually click the ad for it to count; ",@"still good with this?"] delegate:self cancelButtonTitle:@"Forget It" otherButtonTitles:@"Yeah, I'm Got It", nil];
+    UIAlertView *av=[[UIAlertView alloc] initWithTitle:@"Reminder" message:[NSString stringWithFormat:@"%@%@",@"You're going to have to actually click the ad for it to count; ",@"still good with this?"] delegate:self cancelButtonTitle:@"Forget It" otherButtonTitles:@"Yeah, I've Got It", nil];
     [av show];
 }
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
