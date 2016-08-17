@@ -14,6 +14,7 @@
     IBOutlet UIButton *btnPurchase;
     IBOutlet UIButton *btnPurchaseQuantity;
     IBOutlet UIButton *btnWatchAd;
+    IBOutlet UIButton *btnWatchIntAd;
     IBOutlet UIButton *btnReReg;
     IBOutlet UILabel *lblPurchase;
     IBOutlet UILabel *lblPurchaseQuantity;

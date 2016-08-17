@@ -18,6 +18,7 @@
 #import "SplashScreen00.h"
 #import "GCGSpecific.h"
 #import "WatchAd.h"
+#import "ViewInterstitialAd.h"
 @interface IAP()
 -(void)disableExtend;
 -(void)disablePurchase;
@@ -45,6 +46,12 @@ StaticData *sd;
     [self LogConsideredBuying:[NSString stringWithFormat:@"%@", @"Unlimited"]];
     [self processsPurchaseRequest];
 }
+-(IBAction)WatchIntAd:(id)sender
+{
+    //TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
+    //[appDelegate useNavController:[WatchAd class]];
+    [self GoToWatchAd];
+}
 -(IBAction)WatchAd:(id)sender
 {
     //TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -69,25 +76,12 @@ StaticData *sd;
 {    
     NSLog(@"Purchase10Lookups");  
     NSLog(sd.pAmntForADollar,NULL);
-    pPurchaseType=@"20for1";
-
-    if ([sd.pAmntForADollar isEqualToString:@"10"]) {
-        pPurchaseType=@"10for1";
-    }
-    else if ([sd.pAmntForADollar isEqualToString:@"15"]) {
-        pPurchaseType=@"15for1";
-    }
-    else if ([sd.pAmntForADollar isEqualToString:@"20"]) {
-        pPurchaseType=@"20for1";
-    }
-    else if ([sd.pAmntForADollar isEqualToString:@"25"]) {
-        pPurchaseType=@"25for1";
-    }
+    pPurchaseType=@"15for1";
     
     //pPurchaseType=@"SetOfLookups";
     
     //tfStatus.text=[NSString stringWithFormat:@"%@ \r\n %@", @"Purchase 10 sent...", tfStatus.text];
-    [self LogConsideredBuying:[NSString stringWithFormat:@"%@ %@", sd.pAmntForADollar, @" for .99"]];
+    [self LogConsideredBuying:[NSString stringWithFormat:@"%@ %@", @"15", @" for .99"]];
     [self processsPurchaseRequest];
 }
 
@@ -165,7 +159,11 @@ StaticData *sd;
     //This will let you look up as many realtime balances as you'd like for as long as GCG's around.
     NSString *temp4=[NSString stringWithFormat:@"As the button indicates, this purchase option will give you %@ successful lookups for .99", sd.pAmntForADollar];
     [lblPurchaseQuantity setText:temp4];
-    
+
+    //For testing
+    //pPurchaseType=@"GiftCardGenie001";
+    //pPurchaseType=@"15for1";
+    //[self LogIt];
     
     //You get 5 successful lookups.  So far you've received X, you have Y remaining.
 
@@ -241,6 +239,24 @@ StaticData *sd;
         subscreen.hidden=FALSE;
     }
 }
+
+-(void)GoToWatchAd
+{
+    UIAlertView *av=[[UIAlertView alloc] initWithTitle:@"Reminder" message:[NSString stringWithFormat:@"%@%@",@"You're going to have to actually click the ad for it to count; ",@"still good with this?"] delegate:self cancelButtonTitle:@"Forget It" otherButtonTitles:@"Yeah, I've Got It", nil];
+    [av show];
+}
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    if(buttonIndex==0)
+    {
+    }
+    else
+    {
+        TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate useNavController:[ViewInterstitialAd class]];
+    }
+}
+
 -(void)LogIt
 {
     WebAccess *wa=[[WebAccess alloc]init];
@@ -248,7 +264,14 @@ StaticData *sd;
     NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];    
     NSString *SessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
     NSString *Checksum=[GCGSpecific pmGetChecksum:SessionID]; 
-    [wa pmLogPurchase:SessionID CheckSum:Checksum PurchaseType:pPurchaseType];
+    NSString *Amnt=@"0";
+    if ([pPurchaseType isEqualToString:@"GiftCardGenie001"]) {
+        Amnt=@"999";
+    }
+    else if ([pPurchaseType isEqualToString:@"15for1"]) {
+        Amnt=@"15";
+    }
+    [wa pmLogPurchase:SessionID CheckSum:Checksum PurchaseType:Amnt];
 }
 -(void)LogConsideredBuying:(NSString *)LogType
 {
@@ -269,6 +292,8 @@ StaticData *sd;
     btnWatchAd.layer.borderWidth=1.0f;
     btnDemoMode.layer.borderColor=[[UIColor blackColor] CGColor];
     btnDemoMode.layer.borderWidth=1.0f;
+    btnWatchIntAd.layer.borderColor=[[UIColor blackColor] CGColor];
+    btnWatchIntAd.layer.borderWidth=1.0f;
     int iAmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining];
     if (iAmntOfLookupsRemaining<=0) {
         [btnDemoMode setTitle:@"I'll use the app without lookups" forState:nil];

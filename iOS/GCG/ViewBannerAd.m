@@ -24,6 +24,7 @@ StaticData *sd;
 - (void)viewDidLoad {
     [super viewDidLoad];
     sd=[StaticData sd];
+    
     NSLog(@"Google Mobile Ads SDK version: %@", [GADRequest sdkVersion]);
     self.bannerView.adUnitID = @"ca-app-pub-2250341510214691/7256076768";
     self.bannerView.rootViewController = self;
@@ -42,6 +43,9 @@ StaticData *sd;
     _bannerView.layer.borderColor=[[UIColor blackColor] CGColor];
     _bannerView.layer.borderWidth=1.0f;
     
+    
+    //For testing
+    //[self LogIt];
 
 }
 
@@ -52,12 +56,7 @@ StaticData *sd;
 
 - (void)adViewWillLeaveApplication:(GADBannerView *)adView {
     NSLog(@"adViewDidLeaveApplication");
-    WebAccess *wa=[[WebAccess alloc]init];
-    NSString *SessionIDAndAdInfo =[wa pmGetSessionIDAndAdInfo:@""];
-    NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
-    NSString *SessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
-    NSString *Checksum=[GCGSpecific pmGetChecksum:SessionID];
-    [wa pmLogPurchase:SessionID CheckSum:Checksum PurchaseType:@"05"];
+    [self LogIt];
     NSLog(@"Out of here");
 }
 /// Called when an ad request loaded an ad.
@@ -93,5 +92,16 @@ StaticData *sd;
     NSLog(@"adViewDidDismissScreen");
     _uiLogB.text=[NSString stringWithFormat:@"%@/%@", _uiLogB.text, @"adViewDidDismissScreen"];
 }
+-(void)LogIt
+{
+    WebAccess *wa=[[WebAccess alloc]init];
+    NSString *SessionIDAndAdInfo =[wa pmGetSessionIDAndAdInfo:@""];
+    NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
+    NSString *SessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
+    NSString *Checksum=[GCGSpecific pmGetChecksum:SessionID];
+    [wa pmLogPurchase:SessionID CheckSum:Checksum PurchaseType:@"3"];
+    
+}
+
 
 @end

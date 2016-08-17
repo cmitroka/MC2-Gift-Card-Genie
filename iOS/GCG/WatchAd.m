@@ -20,11 +20,12 @@
 StaticData *sd;
 
 @implementation WatchAd
-
+@synthesize bannerView;
 - (void)viewDidLoad {
     [super viewDidLoad];
     sd=[StaticData sd];
     NSLog(@"Google Mobile Ads SDK version: %@", [GADRequest sdkVersion]);
+    [_lblMsg setText:@"Attempting to load ad..."];
     self.bannerView.adUnitID = @"ca-app-pub-2250341510214691/7256076768";
     self.bannerView.rootViewController = self;
     
@@ -37,6 +38,9 @@ StaticData *sd;
     [self.bannerView loadRequest:request];
     
     // Do any additional setup after loading the view from its nib.
+    //For testing
+    //[self LogIt];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,14 +50,24 @@ StaticData *sd;
 
 - (void)adViewWillLeaveApplication:(GADBannerView *)adView {
     NSLog(@"adViewDidLeaveApplication");
+    [self LogIt];
+    NSLog(@"Out of here");
+}
+- (void)adView:(GADBannerView *)adView didFailToReceiveAdWithError:(GADRequestError *)error {
+    NSLog(@"didFailToReceiveAdWithError");
+    [_lblMsg setText:@"Sorry, the ad couldn't load - probably blocked by the WiFi your on.  Try again later."];
+    bannerView.alpha=0;
+}
+
+-(void)LogIt
+{
     WebAccess *wa=[[WebAccess alloc]init];
     NSString *SessionIDAndAdInfo =[wa pmGetSessionIDAndAdInfo:@""];
     NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
     NSString *SessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
     NSString *Checksum=[GCGSpecific pmGetChecksum:SessionID];
-    [wa pmLogPurchase:SessionID CheckSum:Checksum PurchaseType:@"05"];
-    NSLog(@"Out of here");
+    [wa pmLogPurchase:SessionID CheckSum:Checksum PurchaseType:@"3"];
+    
 }
-
 
 @end

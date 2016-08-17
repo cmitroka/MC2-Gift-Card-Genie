@@ -23,7 +23,7 @@
                         <constraint firstAttribute="height" constant="89" id="Lmq-Xa-SZi"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                    <state key="normal" title="Thanks!  Click to exit, then relauch the app and you'll have more lookups!">
+                    <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
