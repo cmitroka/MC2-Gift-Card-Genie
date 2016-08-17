@@ -556,7 +556,7 @@ function DoRUCardDataMod(action) {
             var pAction = "UpdateCard"
         }
     }
-
+    var test = "test";
     $.ajax({
         type: "POST",
         url: "GCGWebWS.asmx/RUCardDataMod",

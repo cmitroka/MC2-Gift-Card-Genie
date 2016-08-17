@@ -877,24 +877,27 @@ namespace AppAdminSite
         {
             string retVal = "";
 
-            string amnt = "0";
             int temp;
-            amnt=pPurchaseType.Substring(0,2);
-            if (amnt=="Gi")
-            {
-                amnt = "999";
-            }
             if (IsRequestValid(pSessionID, pCheckSum, pIP) == true)
             {
-                if (amnt == "05")
+                if (pPurchaseType == "3")
                 {
                     temp = sqlh.ExecuteSQLParamed("INSERT INTO tblAdsClicked (UUID, Details, DateLogged) VALUES (@P0,@P1,@P2)", pUUID, "Banner", DateTime.Now.ToString());
                 }
-                if (amnt == "04")
+                if (pPurchaseType == "5")
                 {
                     temp = sqlh.ExecuteSQLParamed("INSERT INTO tblAdsClicked (UUID, Details, DateLogged) VALUES (@P0,@P1,@P2)", pUUID, "Interstitial", DateTime.Now.ToString());
                 }
-                temp = sqlh.ExecuteSQLParamed("INSERT INTO tblPurchases (UUID, TimeLogged, PurchaseType) VALUES (@P0,@P1,@P2)", pUUID, DateTime.Now.ToString(), "3");
+                //Leave in for now...
+                if (pPurchaseType == "GiftCardGenie001")
+                {
+                    pPurchaseType="1000";
+                }
+                if (pPurchaseType == "15for1")
+                {
+                    pPurchaseType = "16";
+                }
+                temp = sqlh.ExecuteSQLParamed("INSERT INTO tblPurchases (UUID, TimeLogged, PurchaseType) VALUES (@P0,@P1,@P2)", pUUID, DateTime.Now.ToString(), pPurchaseType);
                 retVal = temp.ToString();
             }
             return retVal;
