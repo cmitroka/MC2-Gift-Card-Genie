@@ -50,3 +50,14 @@ C:\Users\Administrator\Desktop\GCG Dev\Website and Service\AdminSite\bin\GCGComm
 C:\Users\Administrator\Desktop\GCG Dev\Website and Service\AdminSite\obj\Release\AdminSite.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Desktop\GCG Dev\Website and Service\AdminSite\obj\Release\AppAdminSite.dll
 C:\Users\Administrator\Desktop\GCG Dev\Website and Service\AdminSite\obj\Release\AppAdminSite.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\Website and Service\AdminSite\bin\AppAdminSite.dll.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\Website and Service\AdminSite\bin\AppAdminSite.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Website and Service\AdminSite\bin\AppAdminSite.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\Website and Service\AdminSite\bin\GCGCommon.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Website and Service\AdminSite\bin\Microsoft.mshtml.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Website and Service\AdminSite\bin\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Website and Service\AdminSite\bin\HtmlAgilityPack.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Website and Service\AdminSite\bin\GCGCommon.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\Website and Service\AdminSite\obj\Release\AdminSite.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\Website and Service\AdminSite\obj\Release\AppAdminSite.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Website and Service\AdminSite\obj\Release\AppAdminSite.pdb

@@ -313,6 +313,10 @@ namespace AppAdminSite
             {
                 template = "";
                 string CleanName = data[i][0];
+                if (CleanName.Contains("Low"))
+                {
+                    string test = "A";
+                }
                 string URL = data[i][1];
                 string TrueCardNumMin = data[i][2];
                 string CardNumMax = data[i][3];
@@ -323,7 +327,7 @@ namespace AppAdminSite
                 string IsLookupManual = data[i][6];
                 string CardTypeID = GCGCommon.SupportMethods.RemoveNonAlphaNumericChars(CleanName);
                 string ConcatData = CleanName + POSDEL + URL + POSDEL + TrueCardNumMin + POSDEL + CardNumMax + POSDEL + TruePINMin + POSDEL + PINMax + POSDEL + IsLookupManual;
-                ConcatData = ConcatData.Replace("'", "\\'");
+                //ConcatData = ConcatData.Replace("'", "\\'");
                 template = "" +
                 "<li>" +
                 "<a onclick=\"DoLoadAddModCardScreen('NewRecord','" + CardTypeID +"')\">" + CleanName +
