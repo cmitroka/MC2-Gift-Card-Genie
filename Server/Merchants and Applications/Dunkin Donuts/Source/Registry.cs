@@ -7,12 +7,12 @@ using System.Collections;
 using System.Diagnostics;
 using Microsoft.Win32;
 
-namespace DVB
+namespace GCGCommon
 {
     /// <summary>
     /// An useful class to read/write/delete/count registry keys
     /// </summary>
-    public class GCGRegistry
+    public class Registry
     {
         private bool showError = false;
         /// <summary>
@@ -49,6 +49,28 @@ namespace DVB
 
         /* **************************************************************************
          * **************************************************************************/
+
+        public string[] Read(int KeyIndex)
+        {
+            string[] retVal = new string[2];
+            string temp = "";
+            RegistryKey rk = baseRegistryKey;
+            // Open a subKey as read-only
+            RegistryKey sk1 = rk.OpenSubKey(subKey);
+            string[] s = sk1.GetValueNames();
+            try
+            {
+                temp = s[KeyIndex];
+                retVal[0]=temp;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return null;
+            }
+            retVal[1]=Read(temp);
+            return retVal;
+        }
 
         /// <summary>
         /// To read a registry key.
