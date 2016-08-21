@@ -31,23 +31,7 @@ namespace DVB
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         static extern bool SetCursorPos(int x, int y);
-
-        public class Win32
-        {
-            [DllImport("User32.Dll")]
-            public static extern long SetCursorPos(int x, int y);
-
-            [DllImport("User32.Dll")]
-            public static extern bool ClientToScreen(IntPtr hWnd, ref POINT point);
-
-            [StructLayout(LayoutKind.Sequential)]
-            public struct POINT
-            {
-                public int x;
-                public int y;
-            }
-        }
-
+        
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
 
@@ -114,13 +98,17 @@ namespace DVB
                     IE.Visible = true;
                     IntPtr x = (IntPtr)IE.HWND;
                     GCGCommon.SupportMethods.AdjustWindow(x, 0, 0, 800, 800);
-                    //ShowWindow((IntPtr)IE.HWND, 3);
-                    //IE.Navigate2(txtBaseURL.Text);
+                    IE.Navigate2(txtBaseURL.Text);
+                    HandleInstruction("1");
                 }
                 else if (Instruction == 2)
                 {
-                    IE.Navigate2(txtBaseURL.Text);
-
+                    SetForegroundWindowByHWND(IE.HWND);
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "accountNumber", txtCardNumber.Text);
+                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "pin", txtCardPIN.Text);
+                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zimg, GCGMethods.HTMLAttributes.Zid, "checkAccountBtn", "");
+                    HandleInstruction(OK);
                     /*
                     try
                     {
@@ -134,58 +122,6 @@ namespace DVB
                     {
                         OK = "-1";
                     }
-                    */
-                    HandleInstruction(OK);
-                    //gift-card-number
-                }
-
-                else if (Instruction == 3)
-                {
-
-                    //IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
-                    //GCGMethods.CAPTCHAGetImage(x, "recaptcha/api/image", ad.CAPTCHAPathAndFileToWrite);
-                    //if (OK == "1") OK = DoHandleCAPTCHARqRs();
-                    HandleInstruction(OK);
-                }
-                else if (Instruction == 4)
-                {
-                    SetForegroundWindowByHWND(IE.HWND);
-                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
-                    OK = GCGMethods.ElementExists(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "cardNumber");
-                    if (OK == "-1")
-                    {
-                        HandleInstruction(OK);
-                        return;
-                    }
-                    OK = SetFocusOnElement("cardNumber", GCGMethods.ByNameOrID.Id, -1);
-                    if (OK == "-1")
-                    {
-                        HandleInstruction(OK);
-                        return;
-                    }
-
-                    MouseMove(400, 255);
-                    MouseClick();
-                    DoGCGDelay(15, true);
-                    DoHandleTyper(txtCardNumber.Text);
-                    MouseMove(400, 310);
-                    MouseClick();
-                    DoGCGDelay(15, true);
-                    DoHandleTyper(txtCardPIN.Text);
-                    MouseMove(400, 365);
-                    MouseClick();
-                    DoGCGDelay(15, true);
-                    //SetForegroundWindowByHWND(IE.HWND);
-                    //DoGCGDelay(10, true);
-                    //DoHandleTyper(txtCardNumber.Text);
-                    //DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{ENTER}");
-                    //DoHandleTyper("{TAB}{TAB}{TAB}{TAB}{TAB}{TAB}" + txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{TAB}" + txtCAPTCHAAnswer.Text + "{TAB}{ENTER}");
-                    /*
-                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
-                    OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "TextBoxCardNumber", txtCardNumber.Text);
-                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "txtCaptcha", txtCardPIN.Text);
-                    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "ButtonCheckCardBalance", "");
-                    HandleInstruction(OK);
                     */
                 }
                 else
@@ -206,29 +142,19 @@ namespace DVB
                     catch (Exception ex)
                     {
                         System.Diagnostics.Debug.WriteLine(ex.Message);
-                        return;
-                    }
-
-                    if (testi.Contains("T83072242"))
-                    {
-                        SpecificRetryCnt=0;
-                        Instruction = 1;
-                        return;
                     }
                     //GCGMethods.WriteFile("C:\\test.txt", test, true);
-                    //GCGMethods.WriteFile("C:\\testi.txt", testi, true);
-                    //GCGMethods.WriteFile("C:\\testo.txt", testo, true);
-                    //string roughParse1 = GCGMethods.RoughExtract("Current Balance", "<div>", testi);
-                    //string roughParse2 = " abc" + GCGMethods.RoughExtract("$", "</p>", roughParse1) + "xyz ";
-                    balanceResult = GetBalance("card-giftCard--details", "/strong", testi);
+                    string roughParse1 = GCGMethods.RoughExtract("Gift Card Balance as of", "allowedHtgiFilter", test);
+                    string roughParse2 = GCGMethods.RoughExtract(":", "else", roughParse1);
+                    balanceResult = GetBalance("$", "</div>", roughParse2);
                     if (balanceResult == "")
                     {
                         SpecificRetryCnt++;
                         GCGMethods.WriteTextBoxLog(txtLog, "SpecificRetryCnt: " + SpecificRetryCnt.ToString());
-                        if (SpecificRetryCnt >= 10)
+                        if (SpecificRetryCnt >= 17)
                         {
                             txtCardBalance.Text = "Error";
-                            SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "Target seems to be blocking the lookup request.  You can try again, but they can be tricky sometimes.", ad.RsPathAndFileToWrite);
+                            SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "We couldn't get a balance; please recheck your card/PIN numbers", ad.RsPathAndFileToWrite);
                             OK = "1";
                         }
                     }
@@ -405,6 +331,7 @@ namespace DVB
             Instruction = 0;
             RetryCnt = 0;
             SpecificRetryCnt = 0;
+            SecondsPassed = 0;
             txtCardBalance.Text = "";
             tmrTimeout.Enabled = true;
             tmrRunning.Enabled = true;
@@ -737,23 +664,12 @@ namespace DVB
 
         private void cmdGo_Click(object sender, EventArgs e)
         {
-            string retVal = "-1";
             IE = new SHDocVw.InternetExplorer();
             IE.Visible = true;
-            do
-            {
-                try
-                {
-                    DoGCGDelay(10, false);
-                    IE.Navigate2(txtBaseURL.Text);
-                    retVal = "1";
-                }
-                catch (Exception ex)
-                {
-
-                }
-                Application.DoEvents();
-            } while (retVal == "-1");
+            Instruction = 0;
+            txtCardBalance.Text = "";
+            tmrTimeout.Enabled = true;
+            tmrRunning.Enabled = true;
         }
         private void cmdViewLog_Click(object sender, EventArgs e)
         {

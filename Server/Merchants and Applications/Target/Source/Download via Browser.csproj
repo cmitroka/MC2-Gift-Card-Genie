@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DVB</RootNamespace>
-    <AssemblyName>Target</AssemblyName>
+    <AssemblyName>X R Us</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -195,7 +195,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Old Code.txt" />
+    <Content Include="Code Dictionary.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
