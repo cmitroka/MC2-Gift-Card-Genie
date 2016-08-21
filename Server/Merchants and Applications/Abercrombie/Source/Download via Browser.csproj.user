@@ -15,11 +15,4 @@
     <StartArguments>
     </StartArguments>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug from C temp|AnyCPU'">
-    <StartArguments>"C:\temp\Testrq.txt" 1</StartArguments>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Development|AnyCPU'">
-    <StartArguments>
-    </StartArguments>
-  </PropertyGroup>
 </Project>
