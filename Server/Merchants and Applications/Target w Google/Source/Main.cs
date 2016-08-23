@@ -93,7 +93,7 @@ namespace DVB
                 }
                 else
                 {
-                    DoHandleCAPTCHARqRs(108, 448, 302, 59);
+                    DoHandleCAPTCHARqRs(14, 490, 300, 70);
                     GCGCommon.SupportMethods.SetForegroundWindowByHWND(MainWindowHWND);
                     DoGCGDelay(5, true);
                     DoUI.DoMouseClick(179, 376);
