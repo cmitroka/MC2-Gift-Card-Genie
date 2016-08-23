@@ -29,7 +29,8 @@ namespace DVB
         private static string whattotypeall;
         private static int whattotypeloc;
         private static bool whattotypecompleted;
-
+        IntPtr MainWindowHWND;
+        bool tmrDelayLog;
         bool CAPTCHAFound;
         public int SpecificRetryCnt, SpecificRetryCntMax;
         public int RetryCnt, RetryCntMax;
@@ -47,93 +48,105 @@ namespace DVB
         int IEQuit;
         private void ProcessInstructions()
         {
-                txtRetryCntr.Text = RetryCnt.ToString();
-                string OK = "1";
-                Instruction++;
-                GCGMethods.WriteTextBoxLog(txtLog, "Inst " + Instruction.ToString());
-                if (RetryCnt >= RetryCntMax)
+            txtRetryCntr.Text = RetryCnt.ToString();
+            string OK = "1";
+            Instruction++;
+            GCGMethods.WriteTextBoxLog(txtLog, "Inst " + Instruction.ToString());
+            if (RetryCnt >= RetryCntMax)
+            {
+                txtCardBalance.Text = "N/A";
+                SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCERR.ToString(), "The retry count went above " + RetryCntMax, ad.RsPathAndFileToWrite);
+                tmrRunning.Enabled = false;
+                tmrTimeout.Enabled = false;
+                MaybeExitApp();
+                return;
+            }
+            if (Instruction == 1)
+            {
+                CloseAllChromeBrowsers();
+                DoGCGDelay(5, true);
+                string sPntr =SupportMethods.LaunchIt(txtChromePath.Text, "-incognito --new-window " + txtBaseURL.Text);
+                DoGCGDelay(15, true);
+                long iPntr = Convert.ToInt64(SupportMethods.FindChromeHNWD());
+                MainWindowHWND = (IntPtr)iPntr;
+                GCGCommon.SupportMethods.AdjustWindow(MainWindowHWND, 0, 0, 800, 800);
+            }
+            else if (Instruction == 2)
+            {
+                DoHandleValidateBytesSize2(0, 0, 80, 40, txtVBS1.Text);
+                DoHandleTyper("{PGDN}");
+                DoGCGDelay(5, true);
+                DoUI.DoMouseClick(342, 307);
+                DoGCGDelay(5, true);
+            }
+            else if (Instruction == 3)
+            {
+                DoHandleValidateBytesSize2(0, 0, 80, 40, txtVBS1.Text);
+                DoUI.DoMouseClick(375, 100);
+                bool isThere = IsTextPresent("Security Check");
+                if (isThere == false)
                 {
-                    txtCardBalance.Text = "N/A";
-                    SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCERR.ToString(), "The retry count went above " + RetryCntMax, ad.RsPathAndFileToWrite);
+                    GCGCommon.SupportMethods.SetForegroundWindowByHWND(MainWindowHWND);
+                    DoGCGDelay(5, true);
+                    DoUI.DoMouseClick(179, 376);
+                    DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{TAB}{ENTER}");
+                }
+                else
+                {
+                    DoHandleCAPTCHARqRs(108, 448, 302, 59);
+                    GCGCommon.SupportMethods.SetForegroundWindowByHWND(MainWindowHWND);
+                    DoGCGDelay(5, true);
+                    DoUI.DoMouseClick(179, 376);
+                    DoGCGDelay(5, true);
+                    DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{TAB}{TAB}{TAB}" + txtCAPTCHAAnswer.Text +"{TAB}{ENTER}");
+                }
+                HandleInstruction("1");
+            }
+            else
+            {
+                OK = "-1";
+                DoHandleTyper("{SELECTALL}");
+                DoGCGDelay(5, true);
+                DoHandleTyper("{COPY}");
+                string test= Clipboard.GetText();
+                string lfour = "";
+                try
+                {
+                    lfour = txtCardNumber.Text.Substring(txtCardNumber.TextLength - 4, 4);
+                }
+                catch (Exception) { }
+                //GCGMethods.WriteFile("C:\\test" + SpecificRetryCnt + ".txt", test, false);
+                string balanceResult = GetBalance(lfour, "check", test);
+                if (balanceResult == "")
+                {
+                    SpecificRetryCnt++;
+                    GCGMethods.WriteTextBoxLog(txtLog, "SpecificRetryCnt: " + SpecificRetryCnt.ToString());
+                    if (SpecificRetryCnt >= 10)
+                    {
+                        txtCardBalance.Text = "Error";
+                        SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "Sorry, we couldn't get the balance for some reason.", ad.RsPathAndFileToWrite);
+                        OK = "1";
+                    }
+                }
+                else
+                {
+                    txtCardBalance.Text = balanceResult;
+                    SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCBALANCE.ToString(), balanceResult, ad.RsPathAndFileToWrite);
+                    OK = "1";
+                }
+                if (OK == "1")
+                {
+                    if (CLIrqFile == "") File.Delete(ad.RsPathAndFileToWrite);
+                    DoGCGDelay(10, true);
                     tmrRunning.Enabled = false;
                     tmrTimeout.Enabled = false;
                     MaybeExitApp();
-                    return;
                 }
-                if (Instruction == 1)
+                else
                 {
-                    CloseAllChromeBrowsers();
-                    DoGCGDelay(5, true);
-                    string sPntr =SupportMethods.LaunchIt(txtChromePath.Text, "-incognito --new-window " + txtBaseURL.Text);
-                    DoGCGDelay(15, true);
-                    long iPntr = Convert.ToInt64(SupportMethods.FindChromeHNWD());
-                    IntPtr x = (IntPtr)iPntr;
-                    GCGCommon.SupportMethods.AdjustWindow(x, 0, 0, 800, 800);
+                    HandleInstruction(OK);
                 }
-                else if (Instruction == 2)
-                {
-                    //DoUI.DoMouseClick(382, 62);
-                    //DoHandleTyper(txtBaseURL.Text + "{ENTER}",0);
-                    //HandleInstruction(OK);
             }
-            else if (Instruction == 3)
-                {
-                    DoHandleValidateBytesSize2(220, 233, 50, 30, txtVBS1.Text);
-                    DoUI.DoMouseClick(391, 256);
-                    DoGCGDelay(2, true);
-                    DoHandleTyper(txtCardNumber.Text,1);
-                    DoGCGDelay(2, true);
-                    DoUI.DoMouseClick(386, 309);
-                    DoHandleTyper(txtCardPIN.Text);
-                    DoGCGDelay(2, true);
-                    DoUI.DoMouseClick(405, 378);
-                    DoGCGDelay(10, true);
-            }
-            else
-                {
-                    OK = "-1";
-                    DoHandleTyper("{SELECTALL}");
-                    DoGCGDelay(10, true);
-                    DoHandleTyper("{COPY}");
-                    string testi = Clipboard.GetText();
-                    string lfour = "";
-                    try
-                    {
-                        lfour = txtCardPIN.Text.Substring(txtCardPIN.TextLength - 3, 3);
-                    }
-                    catch (Exception) { }
-
-                    string balanceResult = GetBalance(lfour, "scan", testi);
-                    if (balanceResult == "")
-                    {
-                        SpecificRetryCnt++;
-                        GCGMethods.WriteTextBoxLog(txtLog, "SpecificRetryCnt: " + SpecificRetryCnt.ToString());
-                        if (SpecificRetryCnt >= 10)
-                        {
-                            txtCardBalance.Text = "Error";
-                            SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "Sorry, we couldn't get the balance for some reason.", ad.RsPathAndFileToWrite);
-                            OK = "1";
-                        }
-                    }
-                    else
-                    {
-                        txtCardBalance.Text = balanceResult;
-                        SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCBALANCE.ToString(), balanceResult, ad.RsPathAndFileToWrite);
-                        OK = "1";
-                    }
-                    if (OK == "1")
-                    {
-                        if (CLIrqFile == "") File.Delete(ad.RsPathAndFileToWrite);
-                        DoGCGDelay(10, true);
-                        tmrRunning.Enabled = false;
-                        tmrTimeout.Enabled = false;
-                        MaybeExitApp();
-                    }
-                    else
-                    {
-                        HandleInstruction(OK);
-                    }
-                }
         }
         private void HandleInstruction(string OK)
         {
@@ -181,7 +194,7 @@ namespace DVB
             AppName = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
             this.Text = "Balance Extractor - " + AppName;
             SpecificRetryCntMax = 999;
-            RetryCntMax = 5;
+            RetryCntMax = 100;
             LoadConfig();
             SaveLoad.LoadSettingsFromRegistry(this);
             bool OK = SaveLoad.LoadSettingsFromDB(this);
@@ -407,8 +420,9 @@ namespace DVB
             ApplicationExit();
         }
 
-        public string DoGCGDelay(int pDelayAmnt, bool ResumetmrRunning)
+        public string DoGCGDelay(int pDelayAmnt, bool WriteToLog)
         {
+            tmrDelayLog = WriteToLog;
             DelayAmnt = pDelayAmnt;
             DelayCnt = 0;
             tmrRunning.Enabled = false;
@@ -417,24 +431,22 @@ namespace DVB
             {
                 Application.DoEvents();
             } while (tmrDelay.Enabled == true);
-            if (ResumetmrRunning == true)
-            {
-                tmrRunning.Enabled = true;
-                txtDelay.Text = "";
-            }
+            tmrRunning.Enabled = true;
+            txtDelay.Text = "";
             return "1";
         }
         private void tmrDelay_Tick(object sender, EventArgs e)
         {
             DelayCnt++;
             txtDelay.Text = DelayCnt.ToString();
-            GCGMethods.WriteTextBoxLog(txtLog, "Waiting " + DelayCnt.ToString() + " of " + DelayAmnt.ToString());
+            if (tmrDelayLog == true) GCGMethods.WriteTextBoxLog(txtLog, "Waiting " + DelayCnt.ToString() + " of " + DelayAmnt.ToString());
             if (DelayCnt >= DelayAmnt)
             {
                 tmrDelay.Enabled = false;
-                GCGMethods.WriteTextBoxLog(txtLog, "Done Waiting");
+                if (tmrDelayLog == true) GCGMethods.WriteTextBoxLog(txtLog, "Done Waiting");
             }
         }
+
 
         private void DoHandleValidateBytesSize2(int pX, int pY, int pW, int pH, string pSizeShouldBe)
         {
@@ -447,9 +459,12 @@ namespace DVB
             {
                 pSize = DoUI.ValidateBytesSize2(pX, pY, pW, pH);
                 GCGMethods.WriteTextBoxLog(txtLog, pSize.ToString());
-                if (pSize==pSizeShouldBe)
+                if (pSizeShouldBe.Length != 0)
                 {
-                    break;
+                    if (pSize == pSizeShouldBe)
+                    {
+                        break;
+                    }
                 }
                 System.Threading.Thread.Sleep(1000);
                 RetryCnt++;
@@ -463,6 +478,41 @@ namespace DVB
             } while (pSize != pSizeShouldBe);
             tmrRunning.Enabled = true;
             if (DoApplicationExit == true) { ApplicationExit(); }
+        }
+        private bool IsTextPresent(string TextToCheck)
+        {
+            tmrRunning.Enabled = false;
+            bool OK = false;
+            GCGCommon.SupportMethods.SetForegroundWindowByHWND(MainWindowHWND);
+            DoGCGDelay(3, true);
+            DoHandleTyper("{SELECTALL}");
+            DoGCGDelay(3, true);
+            DoHandleTyper("{COPY}");
+            DoGCGDelay(3, true);
+            TextToCheck = TextToCheck.ToUpper();
+            string test = Clipboard.GetText().ToUpper();
+            if (test.Contains(TextToCheck))
+            {
+                OK = true;
+            }
+            tmrRunning.Enabled = true;
+            return OK;
+
+        }
+        private bool IsUIGraphicPresent(int pX, int pY, int pW, int pH, string pSizeShouldBe)
+        {
+            tmrRunning.Enabled = false;
+            string pSize = "-999";
+            bool OK = false;
+            RetryCnt = 0;
+            pSize = DoUI.ValidateBytesSize2(pX, pY, pW, pH);
+            GCGMethods.WriteTextBoxLog(txtLog, pSize.ToString());
+            if (pSize == pSizeShouldBe)
+            {
+                OK = true;
+            }
+            tmrRunning.Enabled = false;
+            return OK;
         }
         private void DoHandleValidateBytesSize(int pX, int pY, int pW, int pH, string pSizeShouldBe, int pWiggleRoom)
         {
@@ -479,7 +529,7 @@ namespace DVB
                 OK = DoUI.ValidateBytesSize(pX, pY, pW, pH, pSizeShouldBe, pWiggleRoom);
                 System.Threading.Thread.Sleep(1000);
                 RetryCnt++;
-                if (RetryCnt>10)
+                if (RetryCnt>100)
                 {
                     SupportMethods.WriteResponseFile(GCGCommon.GCTypes.GCCUSTOM.ToString(), "There was a problem getting the balance.", ad.RsPathAndFileToWrite);
                     DoApplicationExit = true;
@@ -489,11 +539,6 @@ namespace DVB
             } while (OK=="-1");
             tmrRunning.Enabled = true;
             if (DoApplicationExit == true) { ApplicationExit(); }
-        }
-        private string DoHandleCAPTCHARqRs()
-        {
-            string retVal = DoHandleCAPTCHARqRs(null, -1);
-            return retVal;
         }
         private string DoHandleTyper(string whatToType)
         {
@@ -523,37 +568,7 @@ namespace DVB
             return OK;
 
         }
-        private string DoHandleCAPTCHARqRs(string ImgSrcOfCaptcha)
-        {
-            string retVal = DoHandleCAPTCHARqRs(ImgSrcOfCaptcha, -1);
-            return retVal;
-        }
-        private string DoHandleCAPTCHARqRs(string ImgSrcOfCaptcha, int FrameItsIn)
-        {
-            string OK = "1";
-            tmrRunning.Enabled = false;
-            if (ImgSrcOfCaptcha == null)
-            {
-                OK = GetAndSaveCAPTCHAFromClipboard();
-            }
-            else if (FrameItsIn == 999)
-            {
-                copyImageToClipBoard(ImgSrcOfCaptcha);
-                OK = "1";
-            }
-            if (OK != "1")
-            {
-                tmrRunning.Enabled = true;
-            }
-            else
-            {
-                GCGCommon.SupportMethods.WriteResponseFile(ad.GCCAPTCHA, ad.NextRxFileWOExt, ad.RsPathAndFileToWrite);
-                tmrResponseHandlerSt = "";
-                tmrResponseHandler.Enabled = true;
-            }
-            return OK;
-        }
-        private string DoHandleCAPTCHARqRs(int X, int Y, int width, int height)
+        private void DoHandleCAPTCHARqRs(int X, int Y, int width, int height)
         {
             string OK = "1";
             tmrRunning.Enabled = false;
@@ -562,7 +577,7 @@ namespace DVB
             try
             {
                 //GCGMethods.ForceForegroundWindow(this.Handle);                            //or SnagIt to get the positions
-                DoGCGDelay(5, false);
+                DoGCGDelay(5, true);
                 if ((X == 0) && (Y == 0) && (width == 0) && (height == 0))
                 {
                     IDataObject d = Clipboard.GetDataObject();
@@ -574,9 +589,36 @@ namespace DVB
                 }
                 bmp.Save(PathToWriteCAPTCHA); //img.nameProp
                 GCGMethods.WriteTextBoxLog(txtLog, "SaveCAPTCHA Completed.");
+                GCGMethods.WriteTextBoxLog(txtLog, "Waiting for...");
+                GCGMethods.WriteTextBoxLog(txtLog, ad.NextRqPathAndFileToRead);
                 GCGCommon.SupportMethods.WriteResponseFile(ad.GCCAPTCHA, ad.NextRxFileWOExt, ad.RsPathAndFileToWrite);
-                tmrResponseHandlerSt = "";
-                tmrResponseHandler.Enabled = true;
+                bool Complete = false;
+                do
+                {
+                    DoGCGDelay(10, false);
+                    if (File.Exists(ad.NextRqPathAndFileToRead) == false)
+                    {
+                        if (tmrResponseHandlerSt == "")
+                        {
+                            GCGMethods.WriteTextBoxLog(txtLog, "Waiting for " + ad.NextRqPathAndFileToRead);
+                            tmrResponseHandlerSt = "Waiting";
+                        }
+                    }
+                    else
+                    {
+                        Complete = true;
+                        tmrResponseHandlerSt = "";
+                        GCGMethods.WriteTextBoxLog(txtLog, "Recieved " + ad.NextRqPathAndFileToRead);
+                        txtCAPTCHAAnswer.Text = GCGCommon.SupportMethods.GetAnswerFromFile(ad.NextRqPathAndFileToRead);
+                        do
+                        {
+                            File.Delete(ad.NextRqPathAndFileToRead);
+                        } while (File.Exists(ad.NextRqPathAndFileToRead) == true);
+                        tmrResponseHandler.Enabled = false;
+                        ad.UpdateAllDetails(ad.NextRqPathAndFileToRead, txtCAPTCHAPath.Text);
+                        System.Diagnostics.Debug.WriteLine(Instruction.ToString());
+                    }
+                } while (Complete == false);
             }
             catch (Exception ex)
             {
@@ -584,8 +626,6 @@ namespace DVB
                 GetAndSaveCAPTCHAResult = "SaveCAPTCHA Error bmp.Save: " + ex.Message + Environment.NewLine + "(Probably cant write to " + PathToWriteCAPTCHA + ")";
                 OK = "-1";
             }
-            return OK;
-
         }
         private string GetAndSaveCAPTCHAFromClipboard()
         {

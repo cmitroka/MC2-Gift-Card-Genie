@@ -14,6 +14,11 @@ namespace GCGCommon
         protected delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         private static extern int GetWindowText(IntPtr hWnd, StringBuilder strText, int maxCount);
+
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         private static extern int GetWindowTextLength(IntPtr hWnd);
         [DllImport("user32.dll")]
@@ -33,9 +38,18 @@ namespace GCGCommon
 
         [DllImport("user32.dll")]
         private static extern bool ShowWindow(IntPtr hwnd, int nCmdShow);
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool IsIconic(IntPtr hWnd);
 
         [DllImport("user32.dll")]
         private static extern bool EnableWindow(IntPtr hwnd, bool enabled);
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+        private const int ALT = 0xA4;
+        private const int EXTENDEDKEY = 0x1;
+        private const int KEYUP = 0x2;
+        private const uint Restore = 9;
 
         //Initialization
         private const uint SHOWWINDOW = 0x0040;
@@ -45,6 +59,19 @@ namespace GCGCommon
             bool OK=MoveWindow(hWnd, X, Y, nWidth, nHeight,true);
             return OK;
         }
+        public static void SetForegroundWindowByHWND(IntPtr hWnd)
+        {
+            IntPtr x = (IntPtr)hWnd;
+            //check if already has focus
+            if (x == GetForegroundWindow()) return;
+            //check if window is minimized
+            if (IsIconic(x))
+            {
+                ShowWindow(x, 9);
+            }
+            SetForegroundWindow(x);
+        }
+
         public static void UnhideWindow()
         {
             ProcessStartInfo info = new ProcessStartInfo();
