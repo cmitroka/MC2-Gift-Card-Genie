@@ -1,0 +1,32 @@
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\X R Us\Source\bin\x86\Debug\X R Us.exe.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\X R Us\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\X R Us\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\X R Us\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\bin\x86\Debug\American Eagle.exe.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\bin\x86\Debug\American Eagle.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\bin\x86\Debug\American Eagle.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\American Eagle.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\American Eagle.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\DVB.DoTyper.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\bin\x86\Debug\AMC Theatres.exe.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\bin\x86\Debug\AMC Theatres.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\bin\x86\Debug\AMC Theatres.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\DVB.DoTyper.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\AMC Theatres.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\AMC Theatres.pdb

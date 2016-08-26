@@ -1,0 +1,2150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="gcg.mc2techservices.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="gcg.mc2techservices.com/AbstractTypes" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="gcg.mc2techservices.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="gcg.mc2techservices.com">
+      <s:element name="DiagSayHello">
+        <s:complexType />
+      </s:element>
+      <s:element name="DiagSayHelloResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DiagSayHelloResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InitGCGWeb">
+        <s:complexType />
+      </s:element>
+      <s:element name="InitGCGWebResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InitGCGWebResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RUCardDataSel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GCGID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RUCardDataSelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RUCardDataSelResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RUCardDataMod">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GCGID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CardID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CardType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CardNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CardPIN" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CardLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CardPass" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LastKnownBalance" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LastKnownBalanceDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RUCardDataModResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RUCardDataModResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegisterUserIns">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserPass" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegisterUserInsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegisterUserInsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegisterUserSel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserPass" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegisterUserSelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegisterUserSelResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DiagSayHelloToWMsg">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nameIn" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DiagSayHelloToWMsgResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DiagSayHelloToWMsgResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DiagSayHelloTo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nameIn" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DiagSayHelloToResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DiagSayHelloToResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LoginResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetURLForEXE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pEXE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetURLForEXEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetURLForEXEResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveURLForEXE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pEXE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pURL" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveURLForEXEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveURLForEXEResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWDDataForEXE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pEXE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWDDataForEXEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWDDataForEXEResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImageToOCR">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataIn" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImageToOCRResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImageToOCRResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveWDDataForEXE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pEXE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pURL" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCardNum" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCardPIN" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCredLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCredPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveWDDataForEXEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveWDDataForEXEResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveWDDataForEXE01">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pEXE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCleanName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pURL" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCardNum" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCardPIN" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCredLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCredPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pSupportCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pTimeout" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveWDDataForEXE01Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveWDDataForEXE01Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddMerchantRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pMerchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pURL" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCardNum" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCardPIN" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pOtherInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddMerchantRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddMerchantRequestResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSessionIDAndAdInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CardType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSessionIDAndAdInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSessionIDAndAdInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadAllData">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownloadAllDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadAllDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CheckSum" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CardType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CardNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PIN" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewRequestResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArchiveNewVendorRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Merchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="URL" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CardNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CardPIN" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TimeLogged" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArchiveNewVendorRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ArchiveNewVendorRequestResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ContinueRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pUUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pIDFileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pAnswer" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ContinueRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ContinueRequestResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalSettings">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetGlobalSettingsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalSettingsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMerchantStatuses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pSupportCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMerchantStatusesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMerchantStatusesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMerchantCount">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetMerchantCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMerchantCountResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckWebConfig">
+        <s:complexType />
+      </s:element>
+      <s:element name="CheckWebConfigResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckWebConfigResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecordFeedback">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Feedback" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecordFeedbackResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecordFeedbackResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DoAppStartup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DoAppStartupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DoAppStartupResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DoAppStartup2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Version" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DoAppStartup2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DoAppStartup2Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogPurchase">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CheckSum" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PurchaseType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogPurchaseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LogPurchaseResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogConsideredBuying">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Option" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogConsideredBuyingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LogConsideredBuyingResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteOldBackup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteOldBackupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteOldBackupResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BackupData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AllData" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BackupDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BackupDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RetrieveData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RetrievalKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RetrieveDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RetrieveDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="boolean" type="s:boolean" />
+    </s:schema>
+    <s:schema targetNamespace="gcg.mc2techservices.com/AbstractTypes">
+      <s:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <s:complexType name="StringArray">
+        <s:complexContent mixed="false">
+          <s:restriction base="soapenc:Array">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="unbounded" name="String" type="s:string" />
+            </s:sequence>
+          </s:restriction>
+        </s:complexContent>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="DiagSayHelloSoapIn">
+    <wsdl:part name="parameters" element="tns:DiagSayHello" />
+  </wsdl:message>
+  <wsdl:message name="DiagSayHelloSoapOut">
+    <wsdl:part name="parameters" element="tns:DiagSayHelloResponse" />
+  </wsdl:message>
+  <wsdl:message name="InitGCGWebSoapIn">
+    <wsdl:part name="parameters" element="tns:InitGCGWeb" />
+  </wsdl:message>
+  <wsdl:message name="InitGCGWebSoapOut">
+    <wsdl:part name="parameters" element="tns:InitGCGWebResponse" />
+  </wsdl:message>
+  <wsdl:message name="RUCardDataSelSoapIn">
+    <wsdl:part name="parameters" element="tns:RUCardDataSel" />
+  </wsdl:message>
+  <wsdl:message name="RUCardDataSelSoapOut">
+    <wsdl:part name="parameters" element="tns:RUCardDataSelResponse" />
+  </wsdl:message>
+  <wsdl:message name="RUCardDataModSoapIn">
+    <wsdl:part name="parameters" element="tns:RUCardDataMod" />
+  </wsdl:message>
+  <wsdl:message name="RUCardDataModSoapOut">
+    <wsdl:part name="parameters" element="tns:RUCardDataModResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegisterUserInsSoapIn">
+    <wsdl:part name="parameters" element="tns:RegisterUserIns" />
+  </wsdl:message>
+  <wsdl:message name="RegisterUserInsSoapOut">
+    <wsdl:part name="parameters" element="tns:RegisterUserInsResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegisterUserSelSoapIn">
+    <wsdl:part name="parameters" element="tns:RegisterUserSel" />
+  </wsdl:message>
+  <wsdl:message name="RegisterUserSelSoapOut">
+    <wsdl:part name="parameters" element="tns:RegisterUserSelResponse" />
+  </wsdl:message>
+  <wsdl:message name="DiagSayHelloToWMsgSoapIn">
+    <wsdl:part name="parameters" element="tns:DiagSayHelloToWMsg" />
+  </wsdl:message>
+  <wsdl:message name="DiagSayHelloToWMsgSoapOut">
+    <wsdl:part name="parameters" element="tns:DiagSayHelloToWMsgResponse" />
+  </wsdl:message>
+  <wsdl:message name="DiagSayHelloToSoapIn">
+    <wsdl:part name="parameters" element="tns:DiagSayHelloTo" />
+  </wsdl:message>
+  <wsdl:message name="DiagSayHelloToSoapOut">
+    <wsdl:part name="parameters" element="tns:DiagSayHelloToResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetURLForEXESoapIn">
+    <wsdl:part name="parameters" element="tns:GetURLForEXE" />
+  </wsdl:message>
+  <wsdl:message name="GetURLForEXESoapOut">
+    <wsdl:part name="parameters" element="tns:GetURLForEXEResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveURLForEXESoapIn">
+    <wsdl:part name="parameters" element="tns:SaveURLForEXE" />
+  </wsdl:message>
+  <wsdl:message name="SaveURLForEXESoapOut">
+    <wsdl:part name="parameters" element="tns:SaveURLForEXEResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWDDataForEXESoapIn">
+    <wsdl:part name="parameters" element="tns:GetWDDataForEXE" />
+  </wsdl:message>
+  <wsdl:message name="GetWDDataForEXESoapOut">
+    <wsdl:part name="parameters" element="tns:GetWDDataForEXEResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImageToOCRSoapIn">
+    <wsdl:part name="parameters" element="tns:ImageToOCR" />
+  </wsdl:message>
+  <wsdl:message name="ImageToOCRSoapOut">
+    <wsdl:part name="parameters" element="tns:ImageToOCRResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveWDDataForEXESoapIn">
+    <wsdl:part name="parameters" element="tns:SaveWDDataForEXE" />
+  </wsdl:message>
+  <wsdl:message name="SaveWDDataForEXESoapOut">
+    <wsdl:part name="parameters" element="tns:SaveWDDataForEXEResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveWDDataForEXE01SoapIn">
+    <wsdl:part name="parameters" element="tns:SaveWDDataForEXE01" />
+  </wsdl:message>
+  <wsdl:message name="SaveWDDataForEXE01SoapOut">
+    <wsdl:part name="parameters" element="tns:SaveWDDataForEXE01Response" />
+  </wsdl:message>
+  <wsdl:message name="AddMerchantRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:AddMerchantRequest" />
+  </wsdl:message>
+  <wsdl:message name="AddMerchantRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:AddMerchantRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionIDAndAdInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSessionIDAndAdInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionIDAndAdInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSessionIDAndAdInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadAllDataSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadAllData" />
+  </wsdl:message>
+  <wsdl:message name="DownloadAllDataSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadAllDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="NewRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:NewRequest" />
+  </wsdl:message>
+  <wsdl:message name="NewRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:NewRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ArchiveNewVendorRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:ArchiveNewVendorRequest" />
+  </wsdl:message>
+  <wsdl:message name="ArchiveNewVendorRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:ArchiveNewVendorRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ContinueRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:ContinueRequest" />
+  </wsdl:message>
+  <wsdl:message name="ContinueRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:ContinueRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalSettingsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalSettings" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalSettingsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalSettingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMerchantStatusesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMerchantStatuses" />
+  </wsdl:message>
+  <wsdl:message name="GetMerchantStatusesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMerchantStatusesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMerchantCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMerchantCount" />
+  </wsdl:message>
+  <wsdl:message name="GetMerchantCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMerchantCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckWebConfigSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckWebConfig" />
+  </wsdl:message>
+  <wsdl:message name="CheckWebConfigSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckWebConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecordFeedbackSoapIn">
+    <wsdl:part name="parameters" element="tns:RecordFeedback" />
+  </wsdl:message>
+  <wsdl:message name="RecordFeedbackSoapOut">
+    <wsdl:part name="parameters" element="tns:RecordFeedbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="DoAppStartupSoapIn">
+    <wsdl:part name="parameters" element="tns:DoAppStartup" />
+  </wsdl:message>
+  <wsdl:message name="DoAppStartupSoapOut">
+    <wsdl:part name="parameters" element="tns:DoAppStartupResponse" />
+  </wsdl:message>
+  <wsdl:message name="DoAppStartup2SoapIn">
+    <wsdl:part name="parameters" element="tns:DoAppStartup2" />
+  </wsdl:message>
+  <wsdl:message name="DoAppStartup2SoapOut">
+    <wsdl:part name="parameters" element="tns:DoAppStartup2Response" />
+  </wsdl:message>
+  <wsdl:message name="LogPurchaseSoapIn">
+    <wsdl:part name="parameters" element="tns:LogPurchase" />
+  </wsdl:message>
+  <wsdl:message name="LogPurchaseSoapOut">
+    <wsdl:part name="parameters" element="tns:LogPurchaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogConsideredBuyingSoapIn">
+    <wsdl:part name="parameters" element="tns:LogConsideredBuying" />
+  </wsdl:message>
+  <wsdl:message name="LogConsideredBuyingSoapOut">
+    <wsdl:part name="parameters" element="tns:LogConsideredBuyingResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteOldBackupSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteOldBackup" />
+  </wsdl:message>
+  <wsdl:message name="DeleteOldBackupSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteOldBackupResponse" />
+  </wsdl:message>
+  <wsdl:message name="BackupDataSoapIn">
+    <wsdl:part name="parameters" element="tns:BackupData" />
+  </wsdl:message>
+  <wsdl:message name="BackupDataSoapOut">
+    <wsdl:part name="parameters" element="tns:BackupDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveDataSoapIn">
+    <wsdl:part name="parameters" element="tns:RetrieveData" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveDataSoapOut">
+    <wsdl:part name="parameters" element="tns:RetrieveDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="DiagSayHelloHttpPostIn" />
+  <wsdl:message name="DiagSayHelloHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="InitGCGWebHttpPostIn" />
+  <wsdl:message name="InitGCGWebHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RUCardDataSelHttpPostIn">
+    <wsdl:part name="GCGID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RUCardDataSelHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RUCardDataModHttpPostIn">
+    <wsdl:part name="GCGID" type="s:string" />
+    <wsdl:part name="CardID" type="s:string" />
+    <wsdl:part name="CardType" type="s:string" />
+    <wsdl:part name="CardNumber" type="s:string" />
+    <wsdl:part name="CardPIN" type="s:string" />
+    <wsdl:part name="CardLogin" type="s:string" />
+    <wsdl:part name="CardPass" type="s:string" />
+    <wsdl:part name="LastKnownBalance" type="s:string" />
+    <wsdl:part name="LastKnownBalanceDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RUCardDataModHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RegisterUserInsHttpPostIn">
+    <wsdl:part name="UserLogin" type="s:string" />
+    <wsdl:part name="UserPass" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegisterUserInsHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RegisterUserSelHttpPostIn">
+    <wsdl:part name="UserLogin" type="s:string" />
+    <wsdl:part name="UserPass" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegisterUserSelHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DiagSayHelloToWMsgHttpPostIn">
+    <wsdl:part name="nameIn" type="s:string" />
+    <wsdl:part name="msg" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DiagSayHelloToWMsgHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DiagSayHelloToHttpPostIn">
+    <wsdl:part name="nameIn" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DiagSayHelloToHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LoginHttpPostIn">
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoginHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetURLForEXEHttpPostIn">
+    <wsdl:part name="pEXE" type="s:string" />
+    <wsdl:part name="pPassword" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetURLForEXEHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SaveURLForEXEHttpPostIn">
+    <wsdl:part name="pEXE" type="s:string" />
+    <wsdl:part name="pURL" type="s:string" />
+    <wsdl:part name="pPassword" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SaveURLForEXEHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetWDDataForEXEHttpPostIn">
+    <wsdl:part name="pEXE" type="s:string" />
+    <wsdl:part name="pPassword" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetWDDataForEXEHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ImageToOCRHttpPostIn">
+    <wsdl:part name="dataIn" type="s1:StringArray" />
+  </wsdl:message>
+  <wsdl:message name="ImageToOCRHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SaveWDDataForEXEHttpPostIn">
+    <wsdl:part name="pEXE" type="s:string" />
+    <wsdl:part name="pURL" type="s:string" />
+    <wsdl:part name="pCardNum" type="s:string" />
+    <wsdl:part name="pCardPIN" type="s:string" />
+    <wsdl:part name="pCredLogin" type="s:string" />
+    <wsdl:part name="pCredPassword" type="s:string" />
+    <wsdl:part name="pPassword" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SaveWDDataForEXEHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SaveWDDataForEXE01HttpPostIn">
+    <wsdl:part name="pEXE" type="s:string" />
+    <wsdl:part name="pCleanName" type="s:string" />
+    <wsdl:part name="pURL" type="s:string" />
+    <wsdl:part name="pCardNum" type="s:string" />
+    <wsdl:part name="pCardPIN" type="s:string" />
+    <wsdl:part name="pCredLogin" type="s:string" />
+    <wsdl:part name="pCredPassword" type="s:string" />
+    <wsdl:part name="pSupportCode" type="s:string" />
+    <wsdl:part name="pTimeout" type="s:string" />
+    <wsdl:part name="pPassword" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SaveWDDataForEXE01HttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AddMerchantRequestHttpPostIn">
+    <wsdl:part name="pMerchant" type="s:string" />
+    <wsdl:part name="pURL" type="s:string" />
+    <wsdl:part name="pCardNum" type="s:string" />
+    <wsdl:part name="pCardPIN" type="s:string" />
+    <wsdl:part name="pOtherInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddMerchantRequestHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionIDAndAdInfoHttpPostIn">
+    <wsdl:part name="UUID" type="s:string" />
+    <wsdl:part name="CardType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionIDAndAdInfoHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DownloadAllDataHttpPostIn" />
+  <wsdl:message name="DownloadAllDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="NewRequestHttpPostIn">
+    <wsdl:part name="UUID" type="s:string" />
+    <wsdl:part name="SessionID" type="s:string" />
+    <wsdl:part name="CheckSum" type="s:string" />
+    <wsdl:part name="CardType" type="s:string" />
+    <wsdl:part name="CardNumber" type="s:string" />
+    <wsdl:part name="PIN" type="s:string" />
+    <wsdl:part name="Login" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="NewRequestHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ArchiveNewVendorRequestHttpPostIn">
+    <wsdl:part name="UUID" type="s:string" />
+    <wsdl:part name="Merchant" type="s:string" />
+    <wsdl:part name="URL" type="s:string" />
+    <wsdl:part name="CardNumber" type="s:string" />
+    <wsdl:part name="CardPIN" type="s:string" />
+    <wsdl:part name="TimeLogged" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ArchiveNewVendorRequestHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ContinueRequestHttpPostIn">
+    <wsdl:part name="pUUID" type="s:string" />
+    <wsdl:part name="pIDFileName" type="s:string" />
+    <wsdl:part name="pAnswer" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ContinueRequestHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalSettingsHttpPostIn" />
+  <wsdl:message name="GetGlobalSettingsHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMerchantStatusesHttpPostIn">
+    <wsdl:part name="pSupportCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMerchantStatusesHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMerchantCountHttpPostIn" />
+  <wsdl:message name="GetMerchantCountHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckWebConfigHttpPostIn" />
+  <wsdl:message name="CheckWebConfigHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RecordFeedbackHttpPostIn">
+    <wsdl:part name="UUID" type="s:string" />
+    <wsdl:part name="Name" type="s:string" />
+    <wsdl:part name="ContactInfo" type="s:string" />
+    <wsdl:part name="Feedback" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RecordFeedbackHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DoAppStartupHttpPostIn">
+    <wsdl:part name="UUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DoAppStartupHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DoAppStartup2HttpPostIn">
+    <wsdl:part name="UUID" type="s:string" />
+    <wsdl:part name="Version" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DoAppStartup2HttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LogPurchaseHttpPostIn">
+    <wsdl:part name="SessionID" type="s:string" />
+    <wsdl:part name="CheckSum" type="s:string" />
+    <wsdl:part name="UUID" type="s:string" />
+    <wsdl:part name="PurchaseType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LogPurchaseHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LogConsideredBuyingHttpPostIn">
+    <wsdl:part name="UUID" type="s:string" />
+    <wsdl:part name="Option" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LogConsideredBuyingHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DeleteOldBackupHttpPostIn">
+    <wsdl:part name="UUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DeleteOldBackupHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="BackupDataHttpPostIn">
+    <wsdl:part name="UUID" type="s:string" />
+    <wsdl:part name="AllData" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BackupDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveDataHttpPostIn">
+    <wsdl:part name="UUID" type="s:string" />
+    <wsdl:part name="RetrievalKey" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="WebServiceSoap">
+    <wsdl:operation name="DiagSayHello">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Will just return 'Hello'</wsdl:documentation>
+      <wsdl:input message="tns:DiagSayHelloSoapIn" />
+      <wsdl:output message="tns:DiagSayHelloSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InitGCGWeb">
+      <wsdl:input message="tns:InitGCGWebSoapIn" />
+      <wsdl:output message="tns:InitGCGWebSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RUCardDataSel">
+      <wsdl:input message="tns:RUCardDataSelSoapIn" />
+      <wsdl:output message="tns:RUCardDataSelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RUCardDataMod">
+      <wsdl:input message="tns:RUCardDataModSoapIn" />
+      <wsdl:output message="tns:RUCardDataModSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterUserIns">
+      <wsdl:input message="tns:RegisterUserInsSoapIn" />
+      <wsdl:output message="tns:RegisterUserInsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterUserSel">
+      <wsdl:input message="tns:RegisterUserSelSoapIn" />
+      <wsdl:output message="tns:RegisterUserSelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DiagSayHelloToWMsg">
+      <wsdl:input message="tns:DiagSayHelloToWMsgSoapIn" />
+      <wsdl:output message="tns:DiagSayHelloToWMsgSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DiagSayHelloTo">
+      <wsdl:input message="tns:DiagSayHelloToSoapIn" />
+      <wsdl:output message="tns:DiagSayHelloToSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input message="tns:LoginSoapIn" />
+      <wsdl:output message="tns:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetURLForEXE">
+      <wsdl:input message="tns:GetURLForEXESoapIn" />
+      <wsdl:output message="tns:GetURLForEXESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveURLForEXE">
+      <wsdl:input message="tns:SaveURLForEXESoapIn" />
+      <wsdl:output message="tns:SaveURLForEXESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWDDataForEXE">
+      <wsdl:input message="tns:GetWDDataForEXESoapIn" />
+      <wsdl:output message="tns:GetWDDataForEXESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImageToOCR">
+      <wsdl:input message="tns:ImageToOCRSoapIn" />
+      <wsdl:output message="tns:ImageToOCRSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveWDDataForEXE">
+      <wsdl:input message="tns:SaveWDDataForEXESoapIn" />
+      <wsdl:output message="tns:SaveWDDataForEXESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveWDDataForEXE01">
+      <wsdl:input message="tns:SaveWDDataForEXE01SoapIn" />
+      <wsdl:output message="tns:SaveWDDataForEXE01SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddMerchantRequest">
+      <wsdl:input message="tns:AddMerchantRequestSoapIn" />
+      <wsdl:output message="tns:AddMerchantRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionIDAndAdInfo">
+      <wsdl:input message="tns:GetSessionIDAndAdInfoSoapIn" />
+      <wsdl:output message="tns:GetSessionIDAndAdInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadAllData">
+      <wsdl:input message="tns:DownloadAllDataSoapIn" />
+      <wsdl:output message="tns:DownloadAllDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewRequest">
+      <wsdl:input message="tns:NewRequestSoapIn" />
+      <wsdl:output message="tns:NewRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ArchiveNewVendorRequest">
+      <wsdl:input message="tns:ArchiveNewVendorRequestSoapIn" />
+      <wsdl:output message="tns:ArchiveNewVendorRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ContinueRequest">
+      <wsdl:input message="tns:ContinueRequestSoapIn" />
+      <wsdl:output message="tns:ContinueRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalSettings">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">gloPathToRqRs, gloPathToMerchantEXEs, gloCAPTCHAURLPrefix, gloWebserviceTimeout</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalSettingsSoapIn" />
+      <wsdl:output message="tns:GetGlobalSettingsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantStatuses">
+      <wsdl:input message="tns:GetMerchantStatusesSoapIn" />
+      <wsdl:output message="tns:GetMerchantStatusesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantCount">
+      <wsdl:input message="tns:GetMerchantCountSoapIn" />
+      <wsdl:output message="tns:GetMerchantCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckWebConfig">
+      <wsdl:input message="tns:CheckWebConfigSoapIn" />
+      <wsdl:output message="tns:CheckWebConfigSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecordFeedback">
+      <wsdl:input message="tns:RecordFeedbackSoapIn" />
+      <wsdl:output message="tns:RecordFeedbackSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DoAppStartup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This logs the user, then reponsed with http://gcg.mc2techservices.com/CAPTCHAs/@#@We're Upgrading!@#@0</wsdl:documentation>
+      <wsdl:input message="tns:DoAppStartupSoapIn" />
+      <wsdl:output message="tns:DoAppStartupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DoAppStartup2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This logs the user, then reponsed with http://gcg.mc2techservices.com/CAPTCHAs/@#@We're Upgrading!@#@0</wsdl:documentation>
+      <wsdl:input message="tns:DoAppStartup2SoapIn" />
+      <wsdl:output message="tns:DoAppStartup2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogPurchase">
+      <wsdl:input message="tns:LogPurchaseSoapIn" />
+      <wsdl:output message="tns:LogPurchaseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogConsideredBuying">
+      <wsdl:input message="tns:LogConsideredBuyingSoapIn" />
+      <wsdl:output message="tns:LogConsideredBuyingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOldBackup">
+      <wsdl:input message="tns:DeleteOldBackupSoapIn" />
+      <wsdl:output message="tns:DeleteOldBackupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BackupData">
+      <wsdl:input message="tns:BackupDataSoapIn" />
+      <wsdl:output message="tns:BackupDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveData">
+      <wsdl:input message="tns:RetrieveDataSoapIn" />
+      <wsdl:output message="tns:RetrieveDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WebServiceHttpPost">
+    <wsdl:operation name="DiagSayHello">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Will just return 'Hello'</wsdl:documentation>
+      <wsdl:input message="tns:DiagSayHelloHttpPostIn" />
+      <wsdl:output message="tns:DiagSayHelloHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InitGCGWeb">
+      <wsdl:input message="tns:InitGCGWebHttpPostIn" />
+      <wsdl:output message="tns:InitGCGWebHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RUCardDataSel">
+      <wsdl:input message="tns:RUCardDataSelHttpPostIn" />
+      <wsdl:output message="tns:RUCardDataSelHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RUCardDataMod">
+      <wsdl:input message="tns:RUCardDataModHttpPostIn" />
+      <wsdl:output message="tns:RUCardDataModHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterUserIns">
+      <wsdl:input message="tns:RegisterUserInsHttpPostIn" />
+      <wsdl:output message="tns:RegisterUserInsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterUserSel">
+      <wsdl:input message="tns:RegisterUserSelHttpPostIn" />
+      <wsdl:output message="tns:RegisterUserSelHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DiagSayHelloToWMsg">
+      <wsdl:input message="tns:DiagSayHelloToWMsgHttpPostIn" />
+      <wsdl:output message="tns:DiagSayHelloToWMsgHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DiagSayHelloTo">
+      <wsdl:input message="tns:DiagSayHelloToHttpPostIn" />
+      <wsdl:output message="tns:DiagSayHelloToHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input message="tns:LoginHttpPostIn" />
+      <wsdl:output message="tns:LoginHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetURLForEXE">
+      <wsdl:input message="tns:GetURLForEXEHttpPostIn" />
+      <wsdl:output message="tns:GetURLForEXEHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveURLForEXE">
+      <wsdl:input message="tns:SaveURLForEXEHttpPostIn" />
+      <wsdl:output message="tns:SaveURLForEXEHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWDDataForEXE">
+      <wsdl:input message="tns:GetWDDataForEXEHttpPostIn" />
+      <wsdl:output message="tns:GetWDDataForEXEHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImageToOCR">
+      <wsdl:input message="tns:ImageToOCRHttpPostIn" />
+      <wsdl:output message="tns:ImageToOCRHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveWDDataForEXE">
+      <wsdl:input message="tns:SaveWDDataForEXEHttpPostIn" />
+      <wsdl:output message="tns:SaveWDDataForEXEHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveWDDataForEXE01">
+      <wsdl:input message="tns:SaveWDDataForEXE01HttpPostIn" />
+      <wsdl:output message="tns:SaveWDDataForEXE01HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddMerchantRequest">
+      <wsdl:input message="tns:AddMerchantRequestHttpPostIn" />
+      <wsdl:output message="tns:AddMerchantRequestHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionIDAndAdInfo">
+      <wsdl:input message="tns:GetSessionIDAndAdInfoHttpPostIn" />
+      <wsdl:output message="tns:GetSessionIDAndAdInfoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadAllData">
+      <wsdl:input message="tns:DownloadAllDataHttpPostIn" />
+      <wsdl:output message="tns:DownloadAllDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewRequest">
+      <wsdl:input message="tns:NewRequestHttpPostIn" />
+      <wsdl:output message="tns:NewRequestHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ArchiveNewVendorRequest">
+      <wsdl:input message="tns:ArchiveNewVendorRequestHttpPostIn" />
+      <wsdl:output message="tns:ArchiveNewVendorRequestHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ContinueRequest">
+      <wsdl:input message="tns:ContinueRequestHttpPostIn" />
+      <wsdl:output message="tns:ContinueRequestHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalSettings">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">gloPathToRqRs, gloPathToMerchantEXEs, gloCAPTCHAURLPrefix, gloWebserviceTimeout</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalSettingsHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalSettingsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantStatuses">
+      <wsdl:input message="tns:GetMerchantStatusesHttpPostIn" />
+      <wsdl:output message="tns:GetMerchantStatusesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantCount">
+      <wsdl:input message="tns:GetMerchantCountHttpPostIn" />
+      <wsdl:output message="tns:GetMerchantCountHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckWebConfig">
+      <wsdl:input message="tns:CheckWebConfigHttpPostIn" />
+      <wsdl:output message="tns:CheckWebConfigHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecordFeedback">
+      <wsdl:input message="tns:RecordFeedbackHttpPostIn" />
+      <wsdl:output message="tns:RecordFeedbackHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DoAppStartup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This logs the user, then reponsed with http://gcg.mc2techservices.com/CAPTCHAs/@#@We're Upgrading!@#@0</wsdl:documentation>
+      <wsdl:input message="tns:DoAppStartupHttpPostIn" />
+      <wsdl:output message="tns:DoAppStartupHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DoAppStartup2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This logs the user, then reponsed with http://gcg.mc2techservices.com/CAPTCHAs/@#@We're Upgrading!@#@0</wsdl:documentation>
+      <wsdl:input message="tns:DoAppStartup2HttpPostIn" />
+      <wsdl:output message="tns:DoAppStartup2HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogPurchase">
+      <wsdl:input message="tns:LogPurchaseHttpPostIn" />
+      <wsdl:output message="tns:LogPurchaseHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogConsideredBuying">
+      <wsdl:input message="tns:LogConsideredBuyingHttpPostIn" />
+      <wsdl:output message="tns:LogConsideredBuyingHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOldBackup">
+      <wsdl:input message="tns:DeleteOldBackupHttpPostIn" />
+      <wsdl:output message="tns:DeleteOldBackupHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BackupData">
+      <wsdl:input message="tns:BackupDataHttpPostIn" />
+      <wsdl:output message="tns:BackupDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveData">
+      <wsdl:input message="tns:RetrieveDataHttpPostIn" />
+      <wsdl:output message="tns:RetrieveDataHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebServiceSoap" type="tns:WebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DiagSayHello">
+      <soap:operation soapAction="gcg.mc2techservices.com/DiagSayHello" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InitGCGWeb">
+      <soap:operation soapAction="gcg.mc2techservices.com/InitGCGWeb" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RUCardDataSel">
+      <soap:operation soapAction="gcg.mc2techservices.com/RUCardDataSel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RUCardDataMod">
+      <soap:operation soapAction="gcg.mc2techservices.com/RUCardDataMod" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterUserIns">
+      <soap:operation soapAction="gcg.mc2techservices.com/RegisterUserIns" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterUserSel">
+      <soap:operation soapAction="gcg.mc2techservices.com/RegisterUserSel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DiagSayHelloToWMsg">
+      <soap:operation soapAction="gcg.mc2techservices.com/DiagSayHelloToWMsg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DiagSayHelloTo">
+      <soap:operation soapAction="gcg.mc2techservices.com/DiagSayHelloTo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="gcg.mc2techservices.com/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetURLForEXE">
+      <soap:operation soapAction="gcg.mc2techservices.com/GetURLForEXE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveURLForEXE">
+      <soap:operation soapAction="gcg.mc2techservices.com/SaveURLForEXE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWDDataForEXE">
+      <soap:operation soapAction="gcg.mc2techservices.com/GetWDDataForEXE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImageToOCR">
+      <soap:operation soapAction="gcg.mc2techservices.com/ImageToOCR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveWDDataForEXE">
+      <soap:operation soapAction="gcg.mc2techservices.com/SaveWDDataForEXE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveWDDataForEXE01">
+      <soap:operation soapAction="gcg.mc2techservices.com/SaveWDDataForEXE01" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddMerchantRequest">
+      <soap:operation soapAction="gcg.mc2techservices.com/AddMerchantRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionIDAndAdInfo">
+      <soap:operation soapAction="gcg.mc2techservices.com/GetSessionIDAndAdInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadAllData">
+      <soap:operation soapAction="gcg.mc2techservices.com/DownloadAllData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewRequest">
+      <soap:operation soapAction="gcg.mc2techservices.com/NewRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ArchiveNewVendorRequest">
+      <soap:operation soapAction="gcg.mc2techservices.com/ArchiveNewVendorRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ContinueRequest">
+      <soap:operation soapAction="gcg.mc2techservices.com/ContinueRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalSettings">
+      <soap:operation soapAction="gcg.mc2techservices.com/GetGlobalSettings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantStatuses">
+      <soap:operation soapAction="gcg.mc2techservices.com/GetMerchantStatuses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantCount">
+      <soap:operation soapAction="gcg.mc2techservices.com/GetMerchantCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckWebConfig">
+      <soap:operation soapAction="gcg.mc2techservices.com/CheckWebConfig" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordFeedback">
+      <soap:operation soapAction="gcg.mc2techservices.com/RecordFeedback" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoAppStartup">
+      <soap:operation soapAction="gcg.mc2techservices.com/DoAppStartup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoAppStartup2">
+      <soap:operation soapAction="gcg.mc2techservices.com/DoAppStartup2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogPurchase">
+      <soap:operation soapAction="gcg.mc2techservices.com/LogPurchase" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogConsideredBuying">
+      <soap:operation soapAction="gcg.mc2techservices.com/LogConsideredBuying" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOldBackup">
+      <soap:operation soapAction="gcg.mc2techservices.com/DeleteOldBackup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BackupData">
+      <soap:operation soapAction="gcg.mc2techservices.com/BackupData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveData">
+      <soap:operation soapAction="gcg.mc2techservices.com/RetrieveData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebServiceSoap12" type="tns:WebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DiagSayHello">
+      <soap12:operation soapAction="gcg.mc2techservices.com/DiagSayHello" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InitGCGWeb">
+      <soap12:operation soapAction="gcg.mc2techservices.com/InitGCGWeb" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RUCardDataSel">
+      <soap12:operation soapAction="gcg.mc2techservices.com/RUCardDataSel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RUCardDataMod">
+      <soap12:operation soapAction="gcg.mc2techservices.com/RUCardDataMod" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterUserIns">
+      <soap12:operation soapAction="gcg.mc2techservices.com/RegisterUserIns" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterUserSel">
+      <soap12:operation soapAction="gcg.mc2techservices.com/RegisterUserSel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DiagSayHelloToWMsg">
+      <soap12:operation soapAction="gcg.mc2techservices.com/DiagSayHelloToWMsg" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DiagSayHelloTo">
+      <soap12:operation soapAction="gcg.mc2techservices.com/DiagSayHelloTo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="gcg.mc2techservices.com/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetURLForEXE">
+      <soap12:operation soapAction="gcg.mc2techservices.com/GetURLForEXE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveURLForEXE">
+      <soap12:operation soapAction="gcg.mc2techservices.com/SaveURLForEXE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWDDataForEXE">
+      <soap12:operation soapAction="gcg.mc2techservices.com/GetWDDataForEXE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImageToOCR">
+      <soap12:operation soapAction="gcg.mc2techservices.com/ImageToOCR" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveWDDataForEXE">
+      <soap12:operation soapAction="gcg.mc2techservices.com/SaveWDDataForEXE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveWDDataForEXE01">
+      <soap12:operation soapAction="gcg.mc2techservices.com/SaveWDDataForEXE01" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddMerchantRequest">
+      <soap12:operation soapAction="gcg.mc2techservices.com/AddMerchantRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionIDAndAdInfo">
+      <soap12:operation soapAction="gcg.mc2techservices.com/GetSessionIDAndAdInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadAllData">
+      <soap12:operation soapAction="gcg.mc2techservices.com/DownloadAllData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewRequest">
+      <soap12:operation soapAction="gcg.mc2techservices.com/NewRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ArchiveNewVendorRequest">
+      <soap12:operation soapAction="gcg.mc2techservices.com/ArchiveNewVendorRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ContinueRequest">
+      <soap12:operation soapAction="gcg.mc2techservices.com/ContinueRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalSettings">
+      <soap12:operation soapAction="gcg.mc2techservices.com/GetGlobalSettings" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantStatuses">
+      <soap12:operation soapAction="gcg.mc2techservices.com/GetMerchantStatuses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantCount">
+      <soap12:operation soapAction="gcg.mc2techservices.com/GetMerchantCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckWebConfig">
+      <soap12:operation soapAction="gcg.mc2techservices.com/CheckWebConfig" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordFeedback">
+      <soap12:operation soapAction="gcg.mc2techservices.com/RecordFeedback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoAppStartup">
+      <soap12:operation soapAction="gcg.mc2techservices.com/DoAppStartup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoAppStartup2">
+      <soap12:operation soapAction="gcg.mc2techservices.com/DoAppStartup2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogPurchase">
+      <soap12:operation soapAction="gcg.mc2techservices.com/LogPurchase" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogConsideredBuying">
+      <soap12:operation soapAction="gcg.mc2techservices.com/LogConsideredBuying" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOldBackup">
+      <soap12:operation soapAction="gcg.mc2techservices.com/DeleteOldBackup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BackupData">
+      <soap12:operation soapAction="gcg.mc2techservices.com/BackupData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveData">
+      <soap12:operation soapAction="gcg.mc2techservices.com/RetrieveData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebServiceHttpPost" type="tns:WebServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="DiagSayHello">
+      <http:operation location="/DiagSayHello" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InitGCGWeb">
+      <http:operation location="/InitGCGWeb" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RUCardDataSel">
+      <http:operation location="/RUCardDataSel" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RUCardDataMod">
+      <http:operation location="/RUCardDataMod" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterUserIns">
+      <http:operation location="/RegisterUserIns" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterUserSel">
+      <http:operation location="/RegisterUserSel" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DiagSayHelloToWMsg">
+      <http:operation location="/DiagSayHelloToWMsg" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DiagSayHelloTo">
+      <http:operation location="/DiagSayHelloTo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <http:operation location="/Login" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetURLForEXE">
+      <http:operation location="/GetURLForEXE" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveURLForEXE">
+      <http:operation location="/SaveURLForEXE" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWDDataForEXE">
+      <http:operation location="/GetWDDataForEXE" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImageToOCR">
+      <http:operation location="/ImageToOCR" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveWDDataForEXE">
+      <http:operation location="/SaveWDDataForEXE" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveWDDataForEXE01">
+      <http:operation location="/SaveWDDataForEXE01" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddMerchantRequest">
+      <http:operation location="/AddMerchantRequest" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionIDAndAdInfo">
+      <http:operation location="/GetSessionIDAndAdInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadAllData">
+      <http:operation location="/DownloadAllData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewRequest">
+      <http:operation location="/NewRequest" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ArchiveNewVendorRequest">
+      <http:operation location="/ArchiveNewVendorRequest" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ContinueRequest">
+      <http:operation location="/ContinueRequest" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalSettings">
+      <http:operation location="/GetGlobalSettings" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantStatuses">
+      <http:operation location="/GetMerchantStatuses" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantCount">
+      <http:operation location="/GetMerchantCount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckWebConfig">
+      <http:operation location="/CheckWebConfig" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordFeedback">
+      <http:operation location="/RecordFeedback" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoAppStartup">
+      <http:operation location="/DoAppStartup" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoAppStartup2">
+      <http:operation location="/DoAppStartup2" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogPurchase">
+      <http:operation location="/LogPurchase" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogConsideredBuying">
+      <http:operation location="/LogConsideredBuying" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOldBackup">
+      <http:operation location="/DeleteOldBackup" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BackupData">
+      <http:operation location="/BackupData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveData">
+      <http:operation location="/RetrieveData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebService">
+    <wsdl:port name="WebServiceSoap" binding="tns:WebServiceSoap">
+      <soap:address location="https://gcg.mc2techservices.com/WebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebServiceSoap12" binding="tns:WebServiceSoap12">
+      <soap12:address location="https://gcg.mc2techservices.com/WebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebServiceHttpPost" binding="tns:WebServiceHttpPost">
+      <http:address location="https://gcg.mc2techservices.com/WebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
