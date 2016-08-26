@@ -1,0 +1,43 @@
+﻿Method one of sending actions:
+    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+    OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "TextBoxCardNumber", txtCardNumber.Text);
+    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "txtCaptcha", txtCardPIN.Text);
+    if (OK == "1") OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zname, "ButtonCheckCardBalance", "");
+    HandleInstruction(OK);
+
+Method two of sending actions:
+        SetForegroundWindowByHWND(IE.HWND);
+        IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+        OK = GCGMethods.ElementExists(x, GCGMethods.HTMLTagNames.Zinput, GCGMethods.HTMLAttributes.Zid, "CARD_NUMBER");
+        if (OK == "-1")
+        {
+            HandleInstruction(OK);
+            return;
+        }
+        OK = SetFocusOnElement("CARD_NUMBER", GCGMethods.ByNameOrID.Id, -1);
+        if (OK == "-1")
+        {
+            HandleInstruction(OK);
+            return;
+        }
+		MouseMove(400, 255);
+        MouseClick();
+        DoGCGDelay(15, true);
+        DoHandleTyper(txtCardNumber.Text);
+        MouseMove(400, 310);
+        MouseClick();
+        DoGCGDelay(15, true);
+        DoHandleTyper(txtCardPIN.Text);
+        MouseMove(400, 365);
+        MouseClick();
+        DoGCGDelay(15, true);
+Method three of sending actions:
+        DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{TAB}" + txtCAPTCHAAnswer.Text + "{TAB}{ENTER}");
+		DoHandleTyper(txtCardNumber.Text, 0);
+        DoHandleTyper("{TAB}" + txtCardPIN.Text + "{TAB}{ENTER}");
+
+Getting Balances
+        string roughParse1 = GCGMethods.RoughExtract("Current Balance", "<div>", testi);
+        string roughParse2 = " abc" + GCGMethods.RoughExtract("$", "</p>", roughParse1) + "xyz ";
+        balanceResult = GetBalance("****", "card balance", testi);
+		string roughParse2 = GCGMethods.RoughExtract("id=\"gcResults\">", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", roughParse1);

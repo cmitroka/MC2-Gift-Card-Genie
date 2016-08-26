@@ -1,0 +1,34 @@
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\bin\x86\Debug\Costco.exe.config
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\bin\x86\Debug\Costco.exe
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\bin\x86\Debug\Costco.pdb
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\bin\x86\Debug\GCGCommon.dll
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\bin\x86\Debug\HtmlAgilityPack.dll
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\bin\x86\Debug\GCGCommon.pdb
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\obj\x86\Debug\DVB.Typer.resources
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\obj\x86\Debug\Costco.exe
+C:\Users\chmitro\Desktop\CJM Development\GCG Merchants\Costco\Source\obj\x86\Debug\Costco.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\bin\x86\Debug\Costco.exe.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\obj\x86\Debug\Costco.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\obj\x86\Debug\Costco.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\obj\x86\Debug\DVB.Typer.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\bin\x86\Debug\Costco.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\bin\x86\Debug\Costco.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\bin\x86\Debug\GCGCommon.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\bin\x86\Debug\HtmlAgilityPack.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Costco\Source\bin\x86\Debug\GCGCommon.pdb
