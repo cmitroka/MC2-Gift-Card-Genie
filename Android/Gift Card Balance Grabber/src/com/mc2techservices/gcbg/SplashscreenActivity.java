@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.mc2techservices.common.GeneralFunctions;
+import com.mc2techservices.gcbg.LoginActivity.AsyncWebCallRunner;
 
 import android.app.Activity;
 import android.content.Context;
@@ -38,6 +39,22 @@ public class SplashscreenActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		context = this;
 		super.onCreate(savedInstanceState);
+
+		
+		//Test
+		/*
+		String pParams = "pGCGKey=string&pChannel=string";
+		String pURL = GlobalClass.gloWebServiceURL + "/GCGLogin";
+		WebServiceHandlerASynch runner = new WebServiceHandlerASynch();
+		runner.execute("GCGLogUser", pParams); // "pGCGLogin=cjm&pGCGPassword=cjm"
+		WebServiceHandlerSynch.DoWSCall("GCGLogUser", pParams);
+		*/
+		DoOnCreate();
+		
+	}
+
+	private void DoOnCreate()
+	{
 		Log.d("SplashscreenActivity", "");
 
 		setContentView(R.layout.activity_splashscreen);
@@ -55,7 +72,7 @@ public class SplashscreenActivity extends Activity {
 					runOnUiThread(new Runnable() {
 						public void run() {
 							TextView tvTimer = (TextView) findViewById(R.id.etTimer);
-							tvTimer.setText(String.valueOf(TimeCounter)); 
+							tvTimer.setText(String.valueOf(TimeCounter));
 							TimeCounter--;
 							Log.d("Count: ", String.valueOf(TimeCounter));
 							if (TimeCounter == 0) {
@@ -90,7 +107,8 @@ public class SplashscreenActivity extends Activity {
 							// do the loop each 1 sec.
 		}
 	}
-
+	
+	
 	public void onCancelClick(View arg0) {
 		t.cancel();
 		AppSpecificFunctions.WriteSharedPreference(context, "DoAutoStart", "0");

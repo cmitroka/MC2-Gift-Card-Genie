@@ -282,7 +282,7 @@ public class LoginActivity extends Activity {
 			Log.d("barcodefastpass", "onPostExecute Response 1:" + Response);
 			if (Response.length() == 15) {
 				GlobalClass.gloLoggedInAs = Response;
-				GlobalClass.gloLaunchURL = GlobalClass.gloWebURL + "/GCGWeb.htm?Session="
+				GlobalClass.gloLaunchURL = GlobalClass.gloWebURL + "GCGWeb.htm?Session="
 						+ Response;
 				GoToWebformActivity();
 			} else if (result.equals("CallWebService Exception Occured 1")) {
