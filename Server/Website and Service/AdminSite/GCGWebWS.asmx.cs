@@ -186,6 +186,30 @@ namespace AppAdminSite
             bl.CloseIt();
             return retVal;
         }
+        [WebMethod]
+        public string GetMLParams(string pGCGKey)
+        {
+            string retVal = "";
+            GCGWebWSBL bl = new GCGWebWSBL();
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.GetMLParams(pGCGKey);
+            }
+            bl.CloseIt();
+            return retVal;
+        }
+        [WebMethod]
+        public string SetMLParams(string pGCGKey, string pParams)
+        {
+            string retVal = "";
+            GCGWebWSBL bl = new GCGWebWSBL();
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.SetMLParams(pGCGKey, pParams);
+            }
+            bl.CloseIt();
+            return retVal;
+        }
 
     }
 }

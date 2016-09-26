@@ -78,10 +78,13 @@ function GCGHandleResponse(resptype, respdetails, respadditionaldetails) {
         DoCustomPopup01("Balance Error", 'Sorry, there was a problem with the Card and/or PIN number.');
         //$.mobile.changePage("#MyCards");
     }
-    else if (resptype == "REDIRECTING") {
+    else if (resptype == "REDIRECTING") {  //"MANUALLOOKUP"
         //DoCustomPopup01(resptype, respdetails);
         //$.mobile.changePage("#ModCardBalance");
-        window.location.href = document.getElementById('hdnCardURL').value;
+
+        //$.mobile.changePage("#PleasePurchaseGCG");
+        SetMLParams();
+        //window.location.href = document.getElementById('hdnCardURL').value;
     }
     else if (resptype == "OUTOFLOOKUPS") {
         $.mobile.changePage("#PleasePurchaseGCG");

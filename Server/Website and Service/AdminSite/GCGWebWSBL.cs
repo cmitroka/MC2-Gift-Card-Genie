@@ -207,6 +207,8 @@ namespace AppAdminSite
             string retVal = "";
             string GCGID = GCGWebWSSM.GCGKeyToGCGUsersID(pGCGKey);
             int temp1 = sqlh.ExecuteSQLParamed("INSERT INTO tblUserLog (GCGUsersID, Channel, DateLogged) VALUES (@P0,@P1,@P2)", GCGID, pChannel, DateTime.Now.ToString());
+            retVal = GCGID;
+            if (retVal != "-1") retVal = "1";
             return retVal;
         }
         
@@ -603,5 +605,38 @@ namespace AppAdminSite
             retVal=LookupsCntData[0]+LINEDEL+LookupsCntData[1]+LINEDEL+LookupsCntData[2]+LINEDEL+LookupsCntData[3];
             return retVal;
         }
+        public string GetMLParams(string pGCGKey)
+        {
+            string retVal = "";
+            string rsType = GCGCommon.EnumExtensions.WebserviceTypes.WSERR.ToString();
+            string GCGID = GCGWebWSSM.GCGKeyToGCGUsersID(pGCGKey);
+            if (GCGID == "-1")
+            {
+                retVal = "Error";
+            }
+            else
+            {
+                string[][] data = sqlh.GetMultiValuesOfSQL("SELECT ParamString FROM qryMLParams WHERE GCGUsersID=@P0", GCGID);
+                retVal = data[0][0];
+            }
+            return retVal;
+        }
+        public string SetMLParams(string pGCGKey, string pParams)
+        {
+            string retVal = "";
+            string rsType = GCGCommon.EnumExtensions.WebserviceTypes.WSERR.ToString();
+            string GCGID = GCGWebWSSM.GCGKeyToGCGUsersID(pGCGKey);
+            if (GCGID == "-1")
+            {
+                retVal= "Error";
+            }
+            else
+            {
+                int test = sqlh.ExecuteSQLParamed("INSERT INTO tblManualLookupParams (GCGUsersID,ParamString,DateLogged) VALUES (@P0,@P1,@P2)", GCGID, pParams, DateTime.Now.ToString());
+                retVal = test.ToString();
+            }
+            return retVal;
+        }
+
     }
 }
