@@ -41,8 +41,12 @@ public class InitActivity extends Activity {
 		GlobalClass.gloDelim="~_~";
 		GlobalClass.gloWebServiceURL="https://gcg.mc2techservices.com/GCGWebWS.asmx";
 		GlobalClass.gloWebURL="https://gcg.mc2techservices.com";
-		//GlobalClass.gloWebServiceURL="http://192.168.0.194/AdminSite/GCGWebWS.asmx";
-		//GlobalClass.gloWebURL="http://192.168.0.194/AdminSite";
+		GlobalClass.gloWebServiceURL="http://192.168.0.189/AdminSite/GCGWebWS.asmx";
+		GlobalClass.gloWebURL="http://192.168.0.189/AdminSite/";
+		GlobalClass.gloWebServiceURL="http://10.76.186.221/AdminSite/GCGWebWS.asmx";
+		GlobalClass.gloWebURL="http://10.76.186.221/AdminSite/";
+				
+		
 		
 		String strTemp=GeneralFunctions.cgfNVDtoEmpty(GeneralFunctions.cgfReadSharedPreference(this, "Purchased"));
 		GlobalClass.gloPurchased=strTemp;

@@ -64,6 +64,11 @@ public class WebformActivity extends Activity {
 		Intent intent = new Intent(this, PurchaseOptionsActivity.class);
 		startActivity(intent);
 	}
+	private void SwitchScreenMLA() {
+		Intent intent = new Intent(this, ManualLookupActivity.class);
+		startActivity(intent);
+	}
+
 
 	private class MyWebViewClient extends WebViewClient {
 		@Override
@@ -73,9 +78,19 @@ public class WebformActivity extends Activity {
 				SwitchScreen();
 				finish();
 			}
-		}
+			else if (url.contains("DoManualLookup")) {
+				SwitchScreenMLA();
+				finish();
+			}
 
-		@Override
+		}
+		 @Override
+		 public void onReceivedError(WebView view, int errorCode, String description, String failingUrl)
+		 {
+				Log.v("", "LOG: " +"A");
+		 }
+
+		 @Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
 			Log.d("GCGX", "shouldOverrideUrlLoading");
 			webView.loadUrl(url);
