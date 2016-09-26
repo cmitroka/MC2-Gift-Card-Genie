@@ -12,6 +12,7 @@ namespace AppAdminSite
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Page.IsPostBack == true) { return; }
+            Request.Path.ToString();
             AppAdminSite.WebService GCWS = new AppAdminSite.WebService();
             //com.mc2techservices.gcg.WebService GCWS = new com.mc2techservices.gcg.WebService();
             string AllSettings = GCWS.GetGlobalSettings();
@@ -19,16 +20,9 @@ namespace AppAdminSite
 
             string prevrs = Page.Request["rsVal"];
             string[] pieces = GCGCommon.SupportMethods.SplitByString(prevrs, GCGCommon.EnumExtensions.Description(GCGCommon.EnumExtensions.Delimiters.POSDEL));
-            if (Request.Url.ToString().Contains("localhost"))
-            {
-                //AllSettingsArray[3] = @"http://localhost/CAPTCHAs/";
-                //http://localhost/CAPTCHAs/20121114_211449689-1rx.bmp
-                Image1.ImageUrl = @"http://localhost/CAPTCHAs/" +pieces[0] + ".bmp";
-            }
-            else
-            {
-                Image1.ImageUrl = AllSettingsArray[3] + pieces[0] + ".bmp";
-            }
+            //string BaseURL = GCGCommon.SupportMethods.GetBaseURL(Request.Url.ToString());
+
+            Image1.ImageUrl = @"CAPTCHAs/" +pieces[0] + ".bmp";
             Image1.ToolTip = pieces[0];
         }
 
