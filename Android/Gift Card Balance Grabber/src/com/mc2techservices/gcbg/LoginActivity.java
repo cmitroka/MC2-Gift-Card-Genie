@@ -283,7 +283,7 @@ public class LoginActivity extends Activity {
 			if (Response.length() == 15) {
 				GlobalClass.gloLoggedInAs = Response;
 				GlobalClass.gloLaunchURL = GlobalClass.gloWebURL + "GCGWeb.htm?Session="
-						+ Response;
+						+ Response + "&Channel=GCBG";
 				GoToWebformActivity();
 			} else if (result.equals("CallWebService Exception Occured 1")) {
 				ReportError("Are you sure your online?  GCG is showing there's no connection.  Please check and try again.");

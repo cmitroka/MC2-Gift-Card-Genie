@@ -11,8 +11,12 @@ import android.util.Log;
 
 public class WebServiceHandlerASynch extends AsyncTask<String, String, String>{
 	private String resp;
-	private String xmlns = "xmlns=\"gcg.mc2techservices.com\">";
-	private static String WSURL = "http://192.168.0.189/AdminSite/GCGWebWS.asmx";
+	//private String xmlns = "xmlns=\"gcg.mc2techservices.com\">";
+	//private String WSURL = "http://192.168.0.189/AdminSite/GCGWebWS.asmx";
+
+	private String xmlns = GlobalClass.gloxmlns;
+	private String WSURL = GlobalClass.gloWebServiceURL;
+	
 	private String USER_AGENT = "Mozilla/5.0";
 
 	@Override

@@ -16,6 +16,7 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 public class WebformActivity extends Activity {
 	private WebView webView;
@@ -25,6 +26,9 @@ public class WebformActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_webview);
+		ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar1);
+		pb.setVisibility(View.VISIBLE);
+		pb.animate();
 		Log.d("WebformActivity", "");
 
 		webView = (WebView) findViewById(R.id.webView1);
@@ -73,14 +77,18 @@ public class WebformActivity extends Activity {
 	private class MyWebViewClient extends WebViewClient {
 		@Override
 		public void onPageFinished(WebView view, String url) {
+			ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar1);
+			pb.setVisibility(View.GONE);
 			Log.d("GCGX", "onPageFinished");
 			if (url.contains("PleasePurchaseGCG")) {
 				SwitchScreen();
 				finish();
 			}
 			else if (url.contains("DoManualLookup")) {
-				SwitchScreenMLA();
-				finish();
+				String pParams=WebServiceHandlerSynch.DoWSCall("GetMLParams", "pGCGKey="+GlobalClass.gloLoggedInAs);
+				if (!pParams.equals("X")) {
+					SwitchScreenMLA();					
+				}
 			}
 
 		}
