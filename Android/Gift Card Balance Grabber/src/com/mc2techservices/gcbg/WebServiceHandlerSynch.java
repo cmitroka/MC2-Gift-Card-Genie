@@ -19,8 +19,11 @@ import android.os.StrictMode;
 import android.util.Log;
 
 public class WebServiceHandlerSynch {
-	private static String xmlns = "xmlns=\"gcg.mc2techservices.com\">";
-	private static String WSURL = "http://192.168.0.189/AdminSite/GCGWebWS.asmx";
+	//private String xmlns = "xmlns=\"gcg.mc2techservices.com\">";
+	//private String WSURL = "http://192.168.0.189/AdminSite/GCGWebWS.asmx";
+
+	private static String xmlns = GlobalClass.gloxmlns;
+	private static String WSURL = GlobalClass.gloWebServiceURL;
 
     private static String EncodedHTMLToText(String str)
     {

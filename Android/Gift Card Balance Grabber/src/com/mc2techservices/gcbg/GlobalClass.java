@@ -4,6 +4,7 @@ public class GlobalClass extends Application {
 	 
     public static String gloLaunchURL;
     public static String gloWebServiceURL;
+    public static String gloxmlns;
     public static String gloWebURL;
     public static String gloDelim;
     public static String gloUUID;
