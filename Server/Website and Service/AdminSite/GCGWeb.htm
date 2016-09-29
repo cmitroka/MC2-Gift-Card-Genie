@@ -5,8 +5,6 @@
     <title>GCG Mobile</title>
   <meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
 
-    <link rel="shortcut icon" href="http://designshack.net/favicon.ico">
-    <link rel="icon" href="http://designshack.net/favicon.ico">
     <link href="GCGWebCSS/jquery.mobile-1.4.0.min.css" rel="stylesheet" type="text/css" />
     <link href="GCGWebCSS/jquery.mobile.external-png-1.4.0.min.css" rel="stylesheet" type="text/css" />
     <link href="GCGWebCSS/jquery.mobile.inline-png-1.4.0.min.css" rel="stylesheet" type="text/css" />
@@ -233,10 +231,12 @@
 </div>
 <div data-role="page" data-theme="b" id="DoManualLookup">
     <div data-role="header">
-        <h1>App Specific Implementation</h1><a href="#MyCards">Back</a>
+        <h1>Reload</h1><a href="#MyCards">Back</a>
     </div>
     <article data-role="content" data-theme="a">
-        App Specific Implementation.
+        <a style="text-decoration:none;" href="javascript:MyCardsDataSelThenChange();" data-rel="dialog">
+            <button>Reload Cards and Balances</button>
+        </a>
     </article>
 </div>
 
@@ -364,6 +364,7 @@
 <input id="UnlistedMerchant" value="~_~NOURL~_~1~_~999~_~-1~_~999~_~1" type="hidden" />
 <input id="hdnWSURL" type="hidden" />
 <input id="hdnContReqFileID" type="hidden" />
+<input id="hdnChannel" type="hidden" />
 <input id="hdnCardID" type="hidden" />
 <input id="hdnCardURL" type="hidden" />
 <input id="hdnGCGID" type="hidden" />

@@ -58,11 +58,16 @@ function MulitReqUpdateBalanceRefresh() {
 }
 
 function copyToClipboard() {
-    text = document.getElementById('txtCardNumber').value;
-    var resp=window.prompt("Copy the card number; your being directed to the merchants site to get the balance.", text);
-    if (resp != null)
-    {
+    if (document.getElementById('hdnChannel').value == "GCBG") {
         DoNewManualRequest();
+    }
+    else
+    {
+        text = document.getElementById('txtCardNumber').value;
+        var resp = window.prompt("Copy the card number; your being directed to the merchants site to get the balance.", text);
+        if (resp != null) {
+            DoNewManualRequest();
+        }
     }
 }
 function DoNewManualRequest() {
@@ -163,10 +168,11 @@ function DoInitGCGWeb() {
     var DoReg = 0;
     sesvar = getURLParameter('Session');
     channelvar = getURLParameter('Channel');
-    //sesvar = 'E3AA7A1E9B8F313';
+    //sesvar = '62248B9BC1317B3';  //Test
     var SessionOK = IsSessionValid(sesvar);
     document.getElementById('hdnWSURL').value = "https://gcg.mc2techservices.com/GCGWebWS.asmx";
     document.getElementById('hdnGCGID').value = sesvar;
+    document.getElementById('hdnChannel').value = channelvar;
     var pGCGID = document.getElementById('hdnGCGID').value;
     if (SessionOK) {
         LogUser(channelvar);
@@ -257,7 +263,7 @@ function SetMLParams() {
     if (document.getElementById('txtCardPIN').value.length == 0) {
         endDel = " ~_~";
     }
-    var pParams = document.getElementById('hdnCardURL').value + "~_~" + document.getElementById('txtCardNumber').value + "~_~" + document.getElementById('txtCardPIN').value + endDel;
+    var pParams = document.getElementById('hdnCardURL').value + "~_~" + document.getElementById('hdnCardID').value + "~_~" + document.getElementById('txtCardNumber').value + "~_~" + document.getElementById('txtCardPIN').value + endDel;
     $.ajax({
         type: "POST",
         url: "GCGWebWS.asmx/SetMLParams",
@@ -268,7 +274,8 @@ function SetMLParams() {
                 function (xml) {
                     var temp1 = EncodedHTMLToText(xml);
                     var temp2 = RemoveGCGHeader(temp1);
-                    if (temp2=="1") {
+                    if (temp2 == "1") {
+                        //window.location.href = 'https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=DoManualLookup';
                         $.mobile.changePage("#DoManualLookup");
                     }
                     return 1;
@@ -283,7 +290,8 @@ function ViewAllGloablVariables()
 {
     var temp="";
     temp=document.getElementById('UnlistedMerchant').value;
-    temp=document.getElementById('hdnWSURL').value;
+    temp = document.getElementById('hdnChannel').value;
+    temp = document.getElementById('hdnWSURL').value;
     temp=document.getElementById('hdnContReqFileID').value;
     temp=document.getElementById('hdnCardID').value;
     temp=document.getElementById('hdnCardURL').value;
