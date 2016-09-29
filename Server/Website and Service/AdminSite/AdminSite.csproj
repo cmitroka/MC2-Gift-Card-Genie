@@ -101,6 +101,7 @@
     <Content Include="AllUUIDsWVersion.aspx" />
     <Content Include="GCGAdminWeb.htm" />
     <Content Include="GCGAdminWebWS.asmx" />
+    <Content Include="GCGCommon.csproj" />
     <Content Include="GCGC\Login.aspx" />
     <Content Include="GCGC\Main.aspx" />
     <Content Include="GCGDiag.htm" />
@@ -1101,7 +1102,7 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GCG Common\GCGCommon.csproj">
+    <ProjectReference Include="..\..\Merchants and Applications\GCG Common\GCGCommon.csproj">
       <Project>{66360c67-de8f-43c4-b4df-8581b98f6323}</Project>
       <Name>GCGCommon</Name>
     </ProjectReference>
