@@ -58,12 +58,11 @@ function MulitReqUpdateBalanceRefresh() {
 }
 
 function copyToClipboard() {
-    text = document.getElementById('txtCardNumber').value;
-    var resp=window.prompt("Copy the card number; your being directed to the merchants site to get the balance.", text);
-    if (resp != null)
-    {
+    //text = document.getElementById('txtCardNumber').value;
+    //var resp = window.prompt("Copy the card number; your being directed to the merchants site to get the balance.", text);
+    //if (resp != null) {
         DoNewManualRequest();
-    }
+    //}
 }
 function DoNewManualRequest() {
     var OK = AreValuesInRange("lookup");
@@ -90,6 +89,9 @@ function DoNewRequest() {
     if (OK==false) {
         return;
     }
+    var delim="^)(";
+
+    document.getElementById('hdnTempVar').value = delim + document.getElementById('hdnCardURL').value + delim + document.getElementById('txtCardNumber').value + delim + document.getElementById('txtCardPIN').value
     $.ajax({
         type: "POST",
         //url: "https://gcg.mc2techservices.com/GCGWebWS.asmx/NewRequest",
@@ -160,9 +162,11 @@ function DoInitGCGWeb() {
     var DoReg = 0;
     sesvar = getURLParameter('Session');
     channelvar = getURLParameter('Channel');
-    //sesvar = '977ABD97C2C236A';
+    //sesvar = '62248B9BC1317B3';  //Test
     var SessionOK = IsSessionValid(sesvar);
+    document.getElementById('hdnWSURL').value = "https://gcg.mc2techservices.com/GCGWebWS.asmx";
     document.getElementById('hdnGCGID').value = sesvar;
+    document.getElementById('hdnChannel').value = channelvar;
     var pGCGID = document.getElementById('hdnGCGID').value;
     if (SessionOK) {
         LogUser(channelvar);
@@ -246,6 +250,60 @@ function GetSupportedCards() {
         }
     });
 }
+
+function SetMLParams() {
+    ViewAllGloablVariables();
+    var endDel = "~_~";
+    if (document.getElementById('txtCardPIN').value.length == 0) {
+        endDel = " ~_~";
+    }
+    var pParams = document.getElementById('hdnCardURL').value + "~_~" + document.getElementById('hdnCardID').value + "~_~" + document.getElementById('txtCardNumber').value + "~_~" + document.getElementById('txtCardPIN').value + endDel;
+    $.ajax({
+        type: "POST",
+        url: "GCGWebWS.asmx/SetMLParams",
+        dataType: "text",
+        data: { pGCGKey: document.getElementById('hdnGCGID').value, pParams: pParams },
+        async: false,
+        success:
+                function (xml) {
+                    var temp1 = EncodedHTMLToText(xml);
+                    var temp2 = RemoveGCGHeader(temp1);
+                    if (temp2 == "1") {
+                        //window.location.href = 'https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=DoManualLookup';
+                        $.mobile.changePage("#DoManualLookup");
+                    }
+                    return 1;
+                },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            DoCustomPopup02(errorThrown);
+            return 0;
+        }
+    });
+}
+function ViewAllGloablVariables()
+{
+    var temp="";
+    temp=document.getElementById('UnlistedMerchant').value;
+    temp = document.getElementById('hdnChannel').value;
+    temp = document.getElementById('hdnWSURL').value;
+    temp=document.getElementById('hdnContReqFileID').value;
+    temp=document.getElementById('hdnCardID').value;
+    temp=document.getElementById('hdnCardURL').value;
+    temp=document.getElementById('hdnGCGID').value;
+    temp=document.getElementById('hdnCardNumMin').value;
+    temp=document.getElementById('hdnCardNumMax').value;
+    temp=document.getElementById('hdnCardPINMin').value;
+    temp=document.getElementById('hdnCardPINMax').value;
+    temp=document.getElementById('hdnSendToPage').value;
+    temp=document.getElementById('CurrAddACardMode').value;
+    temp=document.getElementById('LastAddACardMode').value;
+    temp=document.getElementById('hdnTempVar').value;
+    temp = document.getElementById('txtCardType').value;
+    temp = document.getElementById('txtCardNumber').value;
+    temp = document.getElementById('txtCardPIN').value;
+    temp = document.getElementById('txtCardBalance').value;
+}
+
 function MyCardsDataSel() {
     var DoReg = 0;
     $.ajax({
@@ -339,11 +397,12 @@ function SSAddModCard(pAllInfoIn) {
     }
 
     if (MyCardArr[0] == "NewRecord") {
-        document.getElementById("tridAdjustBalance").style.opacity = 0;
+        document.getElementById("tridAdjustBalance").style.visibility = "hidden";
+
     }
     else
     {
-        document.getElementById("tridAdjustBalance").style.opacity = 1;
+        document.getElementById("tridAdjustBalance").style.visibility = "visible";
     }
 
     document.getElementById('txtCardType').value = CardSpecificsArr[0];
