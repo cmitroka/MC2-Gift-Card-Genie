@@ -286,7 +286,7 @@ public class LoginActivity extends Activity {
 						+ Response + "&Channel=GCBG";
 				GoToWebformActivity();
 			} else if (result.equals("CallWebService Exception Occured 1")) {
-				ReportError("Are you sure your online?  GCG is showing there's no connection.  Please check and try again.");
+				ReportError("Are you sure your online?  We're showing there's no connection.  Please check and try again.");
 
 			} else if (Response.equals("1234567890")) {
 				ReportError("Couldn't log in, seems there's a problem with the username/password.");

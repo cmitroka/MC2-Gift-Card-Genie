@@ -16,12 +16,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ManualLookupActivity extends Activity {
 	private WebView webView;
@@ -59,7 +62,8 @@ public class ManualLookupActivity extends Activity {
 		webView.getSettings().setLoadWithOverviewMode(true);
 		webView.getSettings().setDomStorageEnabled(true);
 		webView.loadUrl(pParamArr[0]); // URL
-
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+	    Toast.makeText(this, "1 - Copy and paste the Card #/PIN.\r\n2 - Do the CAPTCHA if needed.\r\n3 - Once you get your balance, click the 'Update Balance'.", Toast.LENGTH_LONG).show();
 	}
 
 	public void onUpdateBalanceClick(View arg0) {
