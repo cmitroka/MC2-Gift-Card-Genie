@@ -14,9 +14,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class WebformActivity extends Activity {
 	private WebView webView;
@@ -29,6 +32,9 @@ public class WebformActivity extends Activity {
 		ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar1);
 		pb.setVisibility(View.VISIBLE);
 		pb.animate();
+		TextView txtProgress = (TextView)findViewById(R.id.txtProgress);
+		txtProgress.setVisibility(View.VISIBLE);
+
 		Log.d("WebformActivity", "");
 
 		webView = (WebView) findViewById(R.id.webView1);
@@ -44,7 +50,7 @@ public class WebformActivity extends Activity {
 		webView.getSettings().setLoadWithOverviewMode(true);
 		webView.getSettings().setDomStorageEnabled(true);
 		webView.loadUrl(GlobalClass.gloLaunchURL);
-
+		/*
 		webView.setWebViewClient(new WebViewClient() {
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				String url_new = view.getUrl();
@@ -52,6 +58,7 @@ public class WebformActivity extends Activity {
 				return false;
 			}
 		});
+		*/
 		webView.setWebViewClient(new MyWebViewClient());
 	}
 
@@ -79,6 +86,9 @@ public class WebformActivity extends Activity {
 		public void onPageFinished(WebView view, String url) {
 			ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar1);
 			pb.setVisibility(View.GONE);
+			TextView txtProgress = (TextView)findViewById(R.id.txtProgress);
+			txtProgress.setVisibility(View.GONE);
+
 			Log.d("GCGX", "onPageFinished");
 			if (url.contains("PleasePurchaseGCG")) {
 				SwitchScreen();
@@ -86,19 +96,17 @@ public class WebformActivity extends Activity {
 			}
 			else if (url.contains("DoManualLookup")) {
 				String pParams=WebServiceHandlerSynch.DoWSCall("GetMLParams", "pGCGKey="+GlobalClass.gloLoggedInAs);
-				if (!pParams.equals("X")) {
+				if (pParams.length()>1) {
 					SwitchScreenMLA();					
 				}
 			}
-
 		}
-		 @Override
-		 public void onReceivedError(WebView view, int errorCode, String description, String failingUrl)
-		 {
-				Log.v("", "LOG: " +"A");
-		 }
-
-		 @Override
+		@Override
+		public void onReceivedError(WebView view, int errorCode, String description, String failingUrl)
+		{
+			Log.d("GCGX", "onReceivedError");
+		}
+		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
 			Log.d("GCGX", "shouldOverrideUrlLoading");
 			webView.loadUrl(url);

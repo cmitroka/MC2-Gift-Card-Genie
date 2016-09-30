@@ -41,17 +41,17 @@ public class WatchAdActivity extends Activity {
 						DotCounter++;
 						Log.d("DotCounter: ", String.valueOf(DotCounter));
 						if (DotCounter == 1) {
-					        TextView tvLabel = (TextView) findViewById(R.id.textView1);
+					        TextView tvLabel = (TextView) findViewById(R.id.txtProgress);
 							tvLabel.setText(".");  
 							//t.cancel();
 						}
 						else if (DotCounter == 2) {
-					        TextView tvLabel = (TextView) findViewById(R.id.textView1);
+					        TextView tvLabel = (TextView) findViewById(R.id.txtProgress);
 							tvLabel.setText("..");  
 
 						}
 						else if (DotCounter == 3) {
-					        TextView tvLabel = (TextView) findViewById(R.id.textView1);
+					        TextView tvLabel = (TextView) findViewById(R.id.txtProgress);
 							tvLabel.setText("...");  
 							DotCounter =0;
 						}
