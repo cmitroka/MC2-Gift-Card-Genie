@@ -1081,7 +1081,7 @@
     <Content Include="GCGC\Admin.Master" />
     <None Include="GCGWebCSS\jqm-icon-pack-fa.scss" />
     <None Include="Properties\PublishProfiles\Copy to GCG PC.pubxml" />
-    <None Include="Properties\PublishProfiles\Copy to GCG VM.pubxml" />
+    <None Include="Properties\PublishProfiles\Copy to GCG.pubxml" />
     <None Include="Properties\PublishProfiles\Make Local Copy.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

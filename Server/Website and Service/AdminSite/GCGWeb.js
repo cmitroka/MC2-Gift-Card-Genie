@@ -58,17 +58,11 @@ function MulitReqUpdateBalanceRefresh() {
 }
 
 function copyToClipboard() {
-    if (document.getElementById('hdnChannel').value == "GCBG") {
+    //text = document.getElementById('txtCardNumber').value;
+    //var resp = window.prompt("Copy the card number; your being directed to the merchants site to get the balance.", text);
+    //if (resp != null) {
         DoNewManualRequest();
-    }
-    else
-    {
-        text = document.getElementById('txtCardNumber').value;
-        var resp = window.prompt("Copy the card number; your being directed to the merchants site to get the balance.", text);
-        if (resp != null) {
-            DoNewManualRequest();
-        }
-    }
+    //}
 }
 function DoNewManualRequest() {
     var OK = AreValuesInRange("lookup");
@@ -403,11 +397,12 @@ function SSAddModCard(pAllInfoIn) {
     }
 
     if (MyCardArr[0] == "NewRecord") {
-        document.getElementById("tridAdjustBalance").style.opacity = 0;
+        document.getElementById("tridAdjustBalance").style.visibility = "hidden";
+
     }
     else
     {
-        document.getElementById("tridAdjustBalance").style.opacity = 1;
+        document.getElementById("tridAdjustBalance").style.visibility = "visible";
     }
 
     document.getElementById('txtCardType').value = CardSpecificsArr[0];

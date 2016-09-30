@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>GCG Mobile</title>
-  <meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+  <meta name="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 
     <link href="GCGWebCSS/jquery.mobile-1.4.0.min.css" rel="stylesheet" type="text/css" />
     <link href="GCGWebCSS/jquery.mobile.external-png-1.4.0.min.css" rel="stylesheet" type="text/css" />
@@ -100,10 +100,21 @@
             <td width="140px"><span style="float:left"><label class="textinput-fc">Card Type:</label></span></td>
             <td><input id="txtCardType" name="txtCardType" type="text" placeholder="Card Type" value=""></td>
         </tr>
-
-        <tr>
-            <td width="140px"><span style="float:left"><label class="textinput-fc">Card Number:</label></span></td>
-            <td><input id="txtCardNumber" type="text" placeholder="Card Number" value=""></td>
+        <tr id="tridCardNumber">
+            <td colspan="2">
+                <table  style="width: 100%;">
+                    <tr>
+                        <td style="width: 100%">
+                            <span style="float:left"><label class="textinput-fc">Card Number:</label></span></td>
+                    </tr>
+                </table>
+                <table  style="width: 100%;">
+                    <tr>
+                        <td style="width: 100%">
+                            <input id="txtCardNumber" type="text" placeholder="Card Number" value=""></td>
+                    </tr>
+                </table>
+            </td>
         </tr>
         <tr id="tridCardPIN">
             <td width="140px"><span style="float:left"><label class="textinput-fc">Card PIN:</label></span></td>
