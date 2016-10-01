@@ -321,6 +321,7 @@ namespace AppAdminSite
             }
 
             string OK = InsertReponseUsingRetVal(pUDID, FileID, retVal);
+            PossiblyLogSuccessfulLookup(retVal, pUDID);
             return retVal;
         }
 
