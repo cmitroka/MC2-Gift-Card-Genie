@@ -12,6 +12,8 @@
 #import "StaticData.h"
 #import "WebAccess.h"
 #import "DataAccess.h"
+#import "ManualLookupWebviewHelper.h"
+#import "ManualLookupWebview.h"
 @implementation RespNeedsCAPTCHA
 @synthesize timer;
 static NSString *pRespID;
@@ -68,7 +70,30 @@ static NSString *pCAPTCHAURL;
         [self TurnButtonOn];
         timer=nil;
         [spinner stopAnimating];
-        [GCGSpecific pmHandleResponse:retRS PassNavView:self.navigationController];
+        //[GCGSpecific pmHandleResponse:retRS PassNavView:self.navigationController];
+        NSMutableArray *tempArray=[CJMUtilities ConvertNSStringToNSMutableArray:retRS delimiter:gcgLINEDEL];
+        NSString *rsType=[tempArray objectAtIndex:0];
+        NSString *rsValue=[tempArray objectAtIndex:1];
+
+        if ([rsType isEqualToString:gcgGCBALANCE])
+        {
+            NSString *Balance=@"";
+            Balance=rsValue;
+            NSString *temp=[CJMUtilities GetCurrentDate];
+            StaticData *sd=[StaticData sd];
+            DataAccess *da = [DataAccess da];
+            ManualLookupWebviewHelper *pMLWH=[ManualLookupWebviewHelper mlwh];
+            [da pmUpdateMyCardBalanceInfo:pMLWH.pID lastbalknown:Balance lastbaldate:temp];
+            [CJMUtilities ShowAlert:@"Your Balance Is..." Message:Balance ButtonText:@"Thanks!"];
+            int AmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining]-1;
+            sd.pAmntOfLookupsRemaining=[CJMUtilities ConvertIntToNSString:AmntOfLookupsRemaining];
+        }
+        else
+        {
+            UIAlertView *av=[[UIAlertView alloc] initWithTitle:@"Try Alternate Lookup?" message:[NSString stringWithFormat:@"%@%@",@"We couldn't automatically get the balance; ",@"would you like to use the alternate lookup method?"] delegate:self cancelButtonTitle:@"No thanks" otherButtonTitles:@"Yeah, let's try that", nil];
+            [av show];
+        }
+        
         UINavigationController *navController = self.navigationController;
         NSMutableArray *controllers = [self.navigationController.viewControllers mutableCopy];
         //[controllers removeLastObject];
@@ -133,6 +158,24 @@ static NSString *pCAPTCHAURL;
     [textField resignFirstResponder];
     //    [self doScreenConfig];
     return NO;
+}
+-(void)DoManualRequest
+{
+    WebAccess *wa=[[WebAccess alloc]init];
+    ManualLookupWebviewHelper *pMLWH=[ManualLookupWebviewHelper mlwh];
+    [wa pmNewManualRequest:pMLWH.pGCType CardNumber:pMLWH.pGCNum PIN:pMLWH.pPIN];
+    NSLog(@"pMLWH.pGCNum: %@",pMLWH.pGCNum);
+    NSLog(@"pMLWH.pPIN: %@",pMLWH.pPIN);
+    NSLog(@"pMLWH.pURL: %@",pMLWH.pURL);
+    ManualLookupWebview *pMLW=[[ManualLookupWebview alloc] init];
+    [self.navigationController pushViewController:pMLW animated:YES];
+}
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    if(buttonIndex==1)
+    {
+        [self DoManualRequest];
+    }
 }
 
 @end

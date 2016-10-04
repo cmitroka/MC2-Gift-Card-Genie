@@ -196,6 +196,7 @@ NSString *allMerchantData;
 }
 -(void)doInit
 {
+    sd.pAdUnitID=@"ca-app-pub-2250341510214691/3397200761";
     WebAccess *wa=[[WebAccess alloc]init];
     BOOL OK=[wa pmIsConnectedToInternet];
     if (OK==NO)
@@ -226,8 +227,8 @@ NSString *allMerchantData;
     }
     OK=[SFHFKeychainUtils pmUpdateSettingName:@"UUID" SettingValue:uuid];
     sd.pUUID=uuid;
-    //sd.pUUID=@"714E4E58-516D-427A-BFCC-DF7B47A722D1";
-    //sd.pUUID=@"DF700EFC-F1E8-4245-9A96-542500D26F54";
+    sd.pUUID=@"GCG";  //TEST
+    //sd.pUUID=@"703417D7-BE51-4739-A935-5794550EE5D8";
     NSString *retRS=@"";
     retRS=wa.pmDoAppStartup;
     retRS=retRS;

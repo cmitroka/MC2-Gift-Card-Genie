@@ -25,7 +25,8 @@
 -(void)LogIt;
 -(void)LogConsideredBuying:(NSString *)LogType;
 @end
-
+NSString *LAWD;
+BOOL DeActivate;
 @implementation IAP
 StaticData *sd;
 @synthesize request, pPurchaseType, verified;
@@ -50,6 +51,7 @@ StaticData *sd;
 {
     //TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
     //[appDelegate useNavController:[WatchAd class]];
+    
     [self GoToWatchAd];
 }
 -(IBAction)WatchAd:(id)sender
@@ -131,7 +133,15 @@ StaticData *sd;
 {
     [super viewDidLoad];
     sd=[StaticData sd];
-    int iRemAmnt=sd.pAmntOfLookupsRemaining.integerValue;    
+    int iRemAmnt=sd.pAmntOfLookupsRemaining.integerValue;
+    
+    
+    NSString *temp=[CJMUtilities GetTodaysDate];
+    LAWD=[SFHFKeychainUtils pmGetValueForSetting:@"AdWatchDate"];
+    if ([temp isEqualToString:LAWD]) {
+        DeActivate=true;
+    }
+    
     NSString *sRemAmnt=[CJMUtilities ConvertIntToNSString:iRemAmnt];
     if (iRemAmnt<0)
     {
@@ -151,10 +161,10 @@ StaticData *sd;
     [lblLookupInfo setText:temp1];    
     
     NSString *temp2=[NSString stringWithFormat:@"I'll take %@ more lookups please", sd.pAmntForADollar];
-    [btnPurchaseQuantity setTitle:temp2 forState:NULL];
+    //[btnPurchaseQuantity setTitle:temp2 forState:NULL];
 
-    NSString *temp3=[NSString stringWithFormat:@"This will let you look up as many realtime balances as you'd like for as long as GCG's around%@.", sd.pCostForApp];
-    [lblPurchase setText:temp3];
+//    NSString *temp3=[NSString stringWithFormat:@"Look up as many realtime balances as you'd like for as long as GCG's around%@.", sd.pCostForApp];
+//    [lblPurchase setText:temp3];
     
     //This will let you look up as many realtime balances as you'd like for as long as GCG's around.
     NSString *temp4=[NSString stringWithFormat:@"As the button indicates, this purchase option will give you %@ successful lookups for .99", sd.pAmntForADollar];
@@ -242,6 +252,11 @@ StaticData *sd;
 
 -(void)GoToWatchAd
 {
+    if (DeActivate==true) {
+        [CJMUtilities ShowAlert:@"Sorry" Message:[NSString stringWithFormat:@"%@%@",@"You're only able to do this ",@"once a day."] ButtonText:@"Oh well, maybe tomorrow..."];
+        return;
+    }
+
     UIAlertView *av=[[UIAlertView alloc] initWithTitle:@"Reminder" message:[NSString stringWithFormat:@"%@%@",@"You're going to have to actually click the ad for it to count; ",@"still good with this?"] delegate:self cancelButtonTitle:@"Forget It" otherButtonTitles:@"Yeah, I've Got It", nil];
     [av show];
 }
@@ -283,17 +298,17 @@ StaticData *sd;
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
     
-    btnPurchase.layer.borderWidth=1.0f;
-    btnPurchase.layer.borderColor=[[UIColor blackColor] CGColor];
-    btnPurchase.layer.borderWidth=1.0f;
-    btnPurchaseQuantity.layer.borderColor=[[UIColor blackColor] CGColor];
-    btnPurchaseQuantity.layer.borderWidth=1.0f;
-    btnWatchAd.layer.borderColor=[[UIColor blackColor] CGColor];
-    btnWatchAd.layer.borderWidth=1.0f;
-    btnDemoMode.layer.borderColor=[[UIColor blackColor] CGColor];
-    btnDemoMode.layer.borderWidth=1.0f;
-    btnWatchIntAd.layer.borderColor=[[UIColor blackColor] CGColor];
-    btnWatchIntAd.layer.borderWidth=1.0f;
+    //btnPurchase.layer.borderWidth=1.0f;
+    //btnPurchase.layer.borderColor=[[UIColor blackColor] CGColor];
+    //btnPurchase.layer.borderWidth=1.0f;
+    //btnPurchaseQuantity.layer.borderColor=[[UIColor blackColor] CGColor];
+    //btnPurchaseQuantity.layer.borderWidth=1.0f;
+    //btnWatchAd.layer.borderColor=[[UIColor blackColor] CGColor];
+    //btnWatchAd.layer.borderWidth=1.0f;
+    //btnDemoMode.layer.borderColor=[[UIColor blackColor] CGColor];
+    //btnDemoMode.layer.borderWidth=1.0f;
+    //btnWatchIntAd.layer.borderColor=[[UIColor blackColor] CGColor];
+    //btnWatchIntAd.layer.borderWidth=1.0f;
     int iAmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining];
     if (iAmntOfLookupsRemaining<=0) {
         [btnDemoMode setTitle:@"I'll use the app without lookups" forState:nil];
