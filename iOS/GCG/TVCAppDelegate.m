@@ -12,7 +12,6 @@
 #import "Communicator.h"
 #import "CJMUtilities.h"
 #import "Feedback.h"
-#import "RespNeedsCAPTCHA.h"
 #import "StaticData.h"
 #import "DataAccess.h"
 #import "MyGCs.h"
@@ -88,21 +87,7 @@
     [self.window makeKeyAndVisible];
 }
 
--(void)pushView:(NSString *)xibName 
-{
-    
-    if ([xibName isEqualToString:@"RespNeedsCAPTCHA"])
-    {
-        RespNeedsCAPTCHA *rnc = [[RespNeedsCAPTCHA alloc]init];
-        [self.navigationController pushViewController:rnc animated:YES];
-    } else 
-    {
-        Feedback *f=[[Feedback alloc]init];
-        [self.navigationController pushViewController:f animated:YES];
-        
-    }
 
-}
 
 /*
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

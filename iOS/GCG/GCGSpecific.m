@@ -8,7 +8,6 @@
 
 #import "GCGSpecific.h"
 #import "CJMUtilities.h"
-#import "RespNeedsCAPTCHA.h"
 #import "MyGCs.h"
 #import "StaticData.h"
 #import "DataAccess.h"

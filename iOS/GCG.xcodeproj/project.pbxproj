@@ -67,8 +67,6 @@
 		83A0E4B115D0E6D8007C2B08 /* WebAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0E4AF15D0E6D7007C2B08 /* WebAccess.m */; };
 		83A1A005167484B3000A1BBC /* SwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A1A004167484AD000A1BBC /* SwitchViewController.m */; };
 		83A81686161710C500468ACA /* GCGSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A81684161710C500468ACA /* GCGSpecific.m */; };
-		83A8168B1617479A00468ACA /* RespNeedsCAPTCHA.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A816881617479A00468ACA /* RespNeedsCAPTCHA.m */; };
-		83A8168D1617479A00468ACA /* RespNeedsCAPTCHA.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83A816891617479A00468ACA /* RespNeedsCAPTCHA.xib */; };
 		83C02B5D1D1A4DCC00E2D69D /* TVCMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83C02B5C1D1A4DCC00E2D69D /* TVCMasterViewController.xib */; };
 		83C02B5F1D1A520300E2D69D /* 50Black.gif in Resources */ = {isa = PBXBuildFile; fileRef = 83C02B5E1D1A520300E2D69D /* 50Black.gif */; };
 		83C02B651D1B5E5E00E2D69D /* BlankSquareButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 83C02B641D1B5E5E00E2D69D /* BlankSquareButton.png */; };
@@ -196,9 +194,6 @@
 		83A1A004167484AD000A1BBC /* SwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchViewController.m; sourceTree = "<group>"; };
 		83A81683161710C500468ACA /* GCGSpecific.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCGSpecific.h; sourceTree = "<group>"; };
 		83A81684161710C500468ACA /* GCGSpecific.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCGSpecific.m; sourceTree = "<group>"; };
-		83A816871617479900468ACA /* RespNeedsCAPTCHA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RespNeedsCAPTCHA.h; sourceTree = "<group>"; };
-		83A816881617479A00468ACA /* RespNeedsCAPTCHA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespNeedsCAPTCHA.m; sourceTree = "<group>"; };
-		83A816891617479A00468ACA /* RespNeedsCAPTCHA.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RespNeedsCAPTCHA.xib; sourceTree = "<group>"; };
 		83ADB6BC183DDD3A00806237 /* GCG-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GCG-Prefix.pch"; path = "GCG/GCG-Prefix.pch"; sourceTree = "<group>"; };
 		83C02B5C1D1A4DCC00E2D69D /* TVCMasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TVCMasterViewController.xib; sourceTree = "<group>"; };
 		83C02B5E1D1A520300E2D69D /* 50Black.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 50Black.gif; sourceTree = "<group>"; };
@@ -391,9 +386,6 @@
 				83F323CE1D0CB07D00DC9F0D /* OutOfLookups.h */,
 				83F323CF1D0CB07D00DC9F0D /* OutOfLookups.m */,
 				83F323D01D0CB07D00DC9F0D /* OutOfLookups.xib */,
-				83A816871617479900468ACA /* RespNeedsCAPTCHA.h */,
-				83A816881617479A00468ACA /* RespNeedsCAPTCHA.m */,
-				83A816891617479A00468ACA /* RespNeedsCAPTCHA.xib */,
 				83C7EB8E16504017000C251D /* Restore.h */,
 				83C7EB8F16504017000C251D /* Restore.m */,
 				83C7EB9016504017000C251D /* Restore.xib */,
@@ -558,7 +550,6 @@
 				83D27C6E15E8AE330008ED5C /* LoadGC.xib in Resources */,
 				83C2F87E16082DA500554EBB /* MyGCs.xib in Resources */,
 				8377BE131D1EE47900CF92CF /* IconOnly_AboutV2.png in Resources */,
-				83A8168D1617479A00468ACA /* RespNeedsCAPTCHA.xib in Resources */,
 				8301E6FB162E172200EA53A0 /* IAP.xib in Resources */,
 				83C02B651D1B5E5E00E2D69D /* BlankSquareButton.png in Resources */,
 				8377BE181D1EE47900CF92CF /* IconOnly_Settings.png in Resources */,
@@ -630,7 +621,6 @@
 				83179F3616002B5F00DB8F1D /* StaticData.m in Sources */,
 				83C2F87C16082DA500554EBB /* MyGCs.m in Sources */,
 				83A81686161710C500468ACA /* GCGSpecific.m in Sources */,
-				83A8168B1617479A00468ACA /* RespNeedsCAPTCHA.m in Sources */,
 				8377BE1D1D202D8400CF92CF /* Reachability.m in Sources */,
 				8301E6F9162E172200EA53A0 /* IAP.m in Sources */,
 				83306A2D1645775F0049E61B /* SFHFKeychainUtils.m in Sources */,
