@@ -96,6 +96,7 @@ namespace AppAdminSite
                 string isLookupManual = "0";
                 data = sqlh.GetMultiValuesOfSQL("SELECT IsLookupManual FROM qryMerchantsSupported WHERE CleanName=@P0", pCardType);
                 if (CommonForWS.isDatasetBad(data) == false) isLookupManual = data[0][0];
+                if (pPassword == "MANUAL") isLookupManual = "1";
                 if (isLookupManual == "1")
                 {
                     string tempRqRsFileName = GCGCommon.SupportMethods.CreateHexKey(20);
