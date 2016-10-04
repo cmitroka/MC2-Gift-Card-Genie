@@ -8,7 +8,6 @@
 
 #import "TVCMasterViewController.h"
 #import "TVCAppDelegate.h"
-#import "RespNeedsCAPTCHA.h"
 #import "MyGCs.h"
 #import "About.h"
 #import "Feedback.h"
@@ -69,12 +68,6 @@ StaticData *sd;
     [self.navigationController pushViewController:iap animated:YES];
     
 }
--(IBAction)testIt:(id)sender
-{
-    RespNeedsCAPTCHA *test=[[RespNeedsCAPTCHA alloc]init];
-    [self.navigationController pushViewController:test animated:YES];
-}
-
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

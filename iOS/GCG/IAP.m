@@ -31,7 +31,6 @@ BOOL DeActivate;
 StaticData *sd;
 @synthesize request, pPurchaseType, verified;
 
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -156,6 +155,10 @@ StaticData *sd;
         sRemAmnt=@"? (your offline)";        
     }
     
+    if ([sd.pAlertMessage isEqualToString:@"OOL"]) {
+        [CJMUtilities ShowAlert:@"Uh Oh!" Message:@"You're out of lookups!  Don't worry, it's easy to get more - take a look at the options we offer." ButtonText:@"OK"];
+        sd.pAlertMessage=@"";
+    }
     
     NSString *temp1=[NSString stringWithFormat:@"%@ %@ lookups remaining.", @"You have", sRemAmnt];
     [lblLookupInfo setText:temp1];    

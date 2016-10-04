@@ -227,7 +227,7 @@ NSString *allMerchantData;
     }
     OK=[SFHFKeychainUtils pmUpdateSettingName:@"UUID" SettingValue:uuid];
     sd.pUUID=uuid;
-    sd.pUUID=@"GCG";  //TEST
+    //sd.pUUID=@"GCG";  //TEST
     //sd.pUUID=@"703417D7-BE51-4739-A935-5794550EE5D8";
     NSString *retRS=@"";
     retRS=wa.pmDoAppStartup;

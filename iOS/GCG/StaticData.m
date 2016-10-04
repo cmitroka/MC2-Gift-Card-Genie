@@ -34,7 +34,6 @@ static NSString *_pPurchased=@"";
 static NSString *_pAmntForADollar=@"";
 static NSString *_pCostForApp=@"";
 static NSString *_pAdUnitID=@"";
-static NSString *_pPromptForAltLookup=@"";
 static int _pVersionNumeric=0;
 static int _pPopAmount=0;
 static StaticData *_sd;

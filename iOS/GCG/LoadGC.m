@@ -15,7 +15,6 @@
 #import "WebView.h"
 #import "AddModGC.h"
 #import "WebAccess.h"
-#import "RespNeedsCAPTCHA.h"
 #import "Feedback.h"
 #import "GCGSpecific.h"
 #import "MyGCs.h"
@@ -97,16 +96,6 @@ static int timeout;
     //NSLog(rsValue);
     //[GCGSpecific pmHandleResponse:rs PassNavView:nil];
     [self HandleResponse:rs];
-    
-    
-    
-    
-    NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-    for (UIViewController *aViewController in allViewControllers) {
-        if ([aViewController isKindOfClass:[MyGCs class]]) {
-            [self.navigationController popToViewController:aViewController animated:NO];
-        }
-    }
 }
 
 -(IBAction)DoLookup:(id)sender
@@ -119,8 +108,11 @@ static int timeout;
         int iAmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining];
         if (iAmntOfLookupsRemaining<=0)
         {
-            OutOfLookups *v = [[OutOfLookups alloc] init];
+            //OutOfLookups *v = [[OutOfLookups alloc] init];
+            sd.pAlertMessage=@"OOL";
+            IAP *v=[[IAP alloc]init];
             [self.navigationController pushViewController:v animated:YES];
+            
             //[CJMUtilities ShowOOLAlert];
             return;
         }
@@ -141,16 +133,18 @@ static int timeout;
     WebAccess *wa=[[WebAccess alloc]init];
     if ([lookupletter isEqualToString:@"M"]) {
         [self DoManualRequest];
-        return;
     }
-    NSString *rs;
-    rs=[wa pmNewRequest:@"UDID" SessionID:pSessionID CheckSum:pChecksum CardType:pMyGC.p_gctype CardNumber:pMyGC.p_gcnum PIN:pMyGC.p_gcpin Login:pMyGC.p_credlogin Password:pMyGC.p_credpass];
-    NSLog(rs);
-    [spinner stopAnimating];
-    spinner.hidden=TRUE;
-    btnLookup.enabled=TRUE;
-    btnLookup.alpha=1;
-    [self HandleResponse:rs];
+    else
+    {
+        NSString *rs;
+        rs=[wa pmNewRequest:@"UDID" SessionID:pSessionID CheckSum:pChecksum CardType:pMyGC.p_gctype CardNumber:pMyGC.p_gcnum PIN:pMyGC.p_gcpin Login:pMyGC.p_credlogin Password:pMyGC.p_credpass];
+        NSLog(@"rs: %@",rs);
+        [spinner stopAnimating];
+        spinner.hidden=TRUE;
+        btnLookup.enabled=TRUE;
+        btnLookup.alpha=1;
+        [self HandleResponse:rs];
+    }
 }
 -(void)HandleResponse:(NSString *)rsIn
 {
@@ -178,18 +172,34 @@ static int timeout;
         sd.pDemoAcknowledged=@"";
         int AmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining]-1;
         sd.pAmntOfLookupsRemaining=[CJMUtilities ConvertIntToNSString:AmntOfLookupsRemaining];
-    }
+        [self GoBackToMyCards];
+   }
     else
     {
         UIAlertView *av=[[UIAlertView alloc] initWithTitle:@"Try Alternate Lookup?" message:[NSString stringWithFormat:@"%@%@",@"We couldn't automatically get the balance; ",@"would you like to use the alternate lookup method?"] delegate:self cancelButtonTitle:@"No thanks" otherButtonTitles:@"Yeah, let's try that", nil];
         [av show];
     }
-
+}
+-(void)GoBackToMyCards
+{
+    NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+    for (UIViewController *aViewController in allViewControllers) {
+        if ([aViewController isKindOfClass:[MyGCs class]]) {
+            [self.navigationController popToViewController:aViewController animated:NO];
+        }
+    }
 }
 -(void)DoManualRequest
 {
     WebAccess *wa=[[WebAccess alloc]init];
+    NSString *rs;
+    rs=[wa pmNewRequest:@"UDID" SessionID:pSessionID CheckSum:pChecksum CardType:pMyGC.p_gctype CardNumber:pMyGC.p_gcnum PIN:pMyGC.p_gcpin Login:pMyGC.p_credlogin Password:@"MANUAL"];
+    NSLog(@"rs: %@",rs);
+
+    //Have to finish this...
     [wa pmNewManualRequest:pMyGC.p_gctype CardNumber:pMyGC.p_gcnum PIN:pMyGC.p_gcpin];
+    //Put an option to see them on the webpage
+    
     ManualLookupWebviewHelper *pMLWH=[ManualLookupWebviewHelper mlwh];
     pMLWH.pGCNum=pMyGC.p_gcnum;
     pMLWH.pGCType=pMyGC.p_gctype;
@@ -262,9 +272,9 @@ static int timeout;
         btnLookup.alpha=.5;
         lookuptype.alpha=.5;
     }
-    if (sd.pP) {
-        <#statements#>
-    }
+    //if ([sd.pPromptForAltLookup isEqualToString:@"1"]) {
+    //    NSLog(@"1");
+    //}
 }
 - (void)viewDidLoad
 {
@@ -282,6 +292,10 @@ static int timeout;
     if(buttonIndex==1)
     {
         [self DoManualRequest];
+    }
+    else
+    {
+        [self GoBackToMyCards];
     }
 }
 

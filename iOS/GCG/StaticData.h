@@ -33,6 +33,7 @@
 @property (readwrite, retain) NSString *pCostForApp;
 @property (readwrite, retain) NSString *pCallback;
 @property (readwrite, retain) NSString *pAdUnitID;
+@property (readwrite, retain) NSString *pPromptForAltLookup;
 @property int pPopAmount;
 @property int pVersionNumeric;
 
