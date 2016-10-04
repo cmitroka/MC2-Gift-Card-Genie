@@ -14,6 +14,7 @@
 +(void)ShowOOLAlert;
 +(NSDate *)ConvertNSStringDateToNSDate:(NSString *)NSStringIn;
 +(NSString *)GetGeneratedUUID;
++(NSString *)GetTodaysDate;
 +(NSString *)ConvertIntToNSString:(int)myInt;
 +(NSString *)ConvertFloatToNSString:(float)myFloat;
 +(NSString *)ConvertNSMutableStringToNSString: (NSMutableString *)textIn;

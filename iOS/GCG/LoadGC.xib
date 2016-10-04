@@ -135,10 +135,6 @@ Card</string>
                     <rect key="frame" x="8" y="66" width="301" height="181"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="jDe-F7-caj">
-                            <rect key="frame" x="12" y="34" width="277" height="99"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="N8A-Za-zmZ">
                             <rect key="frame" x="221" y="141" width="72" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -167,6 +163,10 @@ Card</string>
                                 <outlet property="delegate" destination="-1" id="l1d-Br-19H"/>
                             </connections>
                         </textField>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="jDe-F7-caj">
+                            <rect key="frame" x="12" y="34" width="277" height="99"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>

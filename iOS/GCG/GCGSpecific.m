@@ -30,17 +30,6 @@
     NSMutableArray *tempArray=[CJMUtilities ConvertNSStringToNSMutableArray:rs delimiter:gcgLINEDEL];
     rsType=[tempArray objectAtIndex:0];
     rsValue=[tempArray objectAtIndex:1];
-    /*
-    if ([rsType isEqualToString:gcgGCCAPTCHA])
-    {
-        sd.pPopAmount=sd.pPopAmount+1;
-        //RespNeedsCAPTCHA *rnc =[[RespNeedsCAPTCHA alloc]initWithParamString:rsValue];
-        //[ViewToSwitchTo pushViewController:rnc animated:YES];
-
-        RespNeedsCAPTCHA *rnc2=[[RespNeedsCAPTCHA alloc] init];
-        [ViewToSwitchTo.navigationController pushViewController:rnc2 animated:YES];
-    }
-    */
     if ([rsType isEqualToString:gcgGCBALANCE])
     {
         NSString *Balance=@"";
@@ -54,25 +43,11 @@
         int AmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining]-1;
         sd.pAmntOfLookupsRemaining=[CJMUtilities ConvertIntToNSString:AmntOfLookupsRemaining];        
     }
-    else if ([rsType isEqualToString:gcgGCBALANCEERR]||[rsType isEqualToString:gcgGCERR])
+
+    else
     {
-        [CJMUtilities ShowAlert:@"Hmmm..." Message:@"We couldn't get a balance, which means 1 of 3 thing....\r\n\r\n1 - You balance may be $0.00\r\n2 - Some piece of the data sent was incorrectly entered\r\n3 - The vendors balance lookup webpage is offline\r\n\r\nTry the 'Go To Website' button and see if that works." ButtonText:@"OK"];
-    } else if ([rsType isEqualToString:gcgWSBLOCKEDIP])
-    {
-        [CJMUtilities ShowAlert:@"Not Good" Message:@"This IP has been blocked.  Please send us an email so we can figure out what happened." ButtonText:@"OK"];
-    } else if ([rsType isEqualToString:gcgGCCUSTOM])
-    {
-        NSString *Response=@"";
-        Response=rsValue;
-        [CJMUtilities ShowAlert:@"Server Response" Message:Response ButtonText:@"OK"];
-    } else if ([rsType isEqualToString:gcgJEXEMISSING])
-    {
-        NSString *Response=@"";
-        Response=rsValue;
-        [CJMUtilities ShowAlert:@"Back Soon" Message:@"We're doing some work on this merchant, we'll try to have the lookup back online within 48hrs." ButtonText:@"OK"];
-    } else
-    {
-        [CJMUtilities ShowAlert:@"Our Bad..." Message:@"Somethings wacked out on our end, we'll fix it.  Check back a little later." ButtonText:@"OK"];
+        UIAlertView *av=[[UIAlertView alloc] initWithTitle:@"Try Alternate Lookup?" message:[NSString stringWithFormat:@"%@%@",@"We couldn't automatically get the balance; ",@"would you like to use the alternate lookup method?"] delegate:self cancelButtonTitle:@"Yeah, let's try that" otherButtonTitles:@"No thanks", nil];
+        [av show];
     }
     
 }

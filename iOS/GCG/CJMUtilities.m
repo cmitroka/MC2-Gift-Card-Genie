@@ -18,6 +18,13 @@
 {
     [self ShowAlert:@"In Offline Mode" Message:@"This feature requires the app to be in online mode.  You may want to restart the app." ButtonText:@"OK"];
 }
++(NSString *)GetTodaysDate
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"YYYY/MM/dd"];
+    NSString *dateString=[dateFormatter stringFromDate:[NSDate date]];
+    return dateString;
+}
 +(void)ShowOOLAlert
 {
     [self ShowAlert:@"Out of Lookups" Message:@"You're out of lookups! Please consider getting some more with a purchase or by watching an ad." ButtonText:@"OK"];

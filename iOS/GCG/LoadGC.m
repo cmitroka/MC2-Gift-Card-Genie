@@ -23,6 +23,8 @@
 #import "IAP.h"
 #import "TVCAppDelegate.h"
 #import "AdjustBalance.h"
+#import "ManualLookupWebview.h"
+#import "ManualLookupWebviewHelper.h"
 @interface LoadGC()
 -(void)monitorResp:(NSTimer*)theTimer;
 -(void)rsDone;
@@ -30,6 +32,7 @@
 NSString *pIDFileName;
 NSString *pSessionID;
 NSString *pChecksum;
+StaticData *sd;
 @implementation LoadGC
 @synthesize tfID,timer,pMyGC,pLoadedGC,lookupletter,mygcname;
 static int timeout;
@@ -46,8 +49,6 @@ static int timeout;
     retRS=wa.pmDoAppStartup;
     retRS=retRS;
     NSMutableArray *temp=[CJMUtilities ConvertNSStringToNSMutableArray:retRS delimiter:gcgPIECEDEL];
-    StaticData *sd=[StaticData sd];
-
     if (temp.count>0)
     {
         sd.pAmntOfLookupsRemaining=[temp objectAtIndex:2];
@@ -90,11 +91,16 @@ static int timeout;
     spinner.hidden=TRUE;
     btnLookup.enabled=TRUE;
     btnLookup.alpha=1;
-    NSMutableArray *tempArray=[CJMUtilities ConvertNSStringToNSMutableArray:rs delimiter:gcgLINEDEL];
-    NSString *rsType=[tempArray objectAtIndex:0];
-    NSString *rsValue=[tempArray objectAtIndex:1];
-    NSLog(rsValue);
-    [GCGSpecific pmHandleResponse:rs PassNavView:nil];
+    //NSMutableArray *tempArray=[CJMUtilities ConvertNSStringToNSMutableArray:rs delimiter:gcgLINEDEL];
+    //NSString *rsType=[tempArray objectAtIndex:0];
+    //NSString *rsValue=[tempArray objectAtIndex:1];
+    //NSLog(rsValue);
+    //[GCGSpecific pmHandleResponse:rs PassNavView:nil];
+    [self HandleResponse:rs];
+    
+    
+    
+    
     NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
     for (UIViewController *aViewController in allViewControllers) {
         if ([aViewController isKindOfClass:[MyGCs class]]) {
@@ -105,7 +111,6 @@ static int timeout;
 
 -(IBAction)DoLookup:(id)sender
 {
-        StaticData *sd=[StaticData sd];
         if (sd.pMode==@"Offline")
         {
             [CJMUtilities ShowOfflineAlert];
@@ -134,62 +139,72 @@ static int timeout;
 -(void)rqNewRequest:(NSTimer*)theTimer
 {
     WebAccess *wa=[[WebAccess alloc]init];
+    if ([lookupletter isEqualToString:@"M"]) {
+        [self DoManualRequest];
+        return;
+    }
     NSString *rs;
     rs=[wa pmNewRequest:@"UDID" SessionID:pSessionID CheckSum:pChecksum CardType:pMyGC.p_gctype CardNumber:pMyGC.p_gcnum PIN:pMyGC.p_gcpin Login:pMyGC.p_credlogin Password:pMyGC.p_credpass];
-    
-    
     NSLog(rs);
     [spinner stopAnimating];
     spinner.hidden=TRUE;
     btnLookup.enabled=TRUE;
     btnLookup.alpha=1;
-    NSMutableArray *tempArray=[CJMUtilities ConvertNSStringToNSMutableArray:rs delimiter:gcgLINEDEL];
+    [self HandleResponse:rs];
+}
+-(void)HandleResponse:(NSString *)rsIn
+{
+    NSMutableArray *tempArray=[CJMUtilities ConvertNSStringToNSMutableArray:rsIn delimiter:gcgLINEDEL];
     NSString *rsType=[tempArray objectAtIndex:0];
     NSString *rsValue=[tempArray objectAtIndex:1];
-    
-
-    
-    if ([lookupletter isEqualToString:@"M"]) {
-        
-        WebAccess *wa=[[WebAccess alloc]init];
-        [wa pmNewManualRequest:pMyGC.p_gctype CardNumber:pMyGC.p_gcnum PIN:pMyGC.p_gcpin];
-        //7-Elevel=6050 6566 9828 2801
-        //AMC=6006 4966 9520 8294 719
-        
-        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        pasteboard.string = tfGCNumber.text;
-        pasteboard.string = tfGCNumber.text;
-        
-        [CJMUtilities ShowAlert:@"Redirecting" Message:@"The card number has been copied to the clipboard, just paste it in the card number and get your balance." ButtonText:@"OK"];
-        WebView *pWV=[[WebView alloc] initWithURL:pLoadedGC.p_url];
-        [self.navigationController pushViewController:pWV animated:YES];
-        return;
-    }
-
     if ([rsType isEqualToString:gcgGCCAPTCHA])
     {
         pIDFileName=rsValue;
         _uiCAPTCHAView.hidden=NO;
-        StaticData *sd=[StaticData sd];
         NSString *pCAPTCHAURL=[NSString stringWithFormat:@"%@%@%@", sd.pCAPTCHAURLInfo,rsValue,@".bmp"];
         NSURL *imageURL = [NSURL URLWithString:pCAPTCHAURL];
         NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
         UIImage * image = [UIImage imageWithData:imageData];
         _uiCAPTCHAImage.image = image;
     }
+    else if ([rsType isEqualToString:gcgGCBALANCE])
+    {
+        NSString *Balance=@"";
+        Balance=rsValue;
+        NSString *temp=[CJMUtilities GetCurrentDate];
+        DataAccess *da = [DataAccess da];
+        [da pmUpdateMyCardBalanceInfo:sd.pLoadGCKey lastbalknown:Balance lastbaldate:temp];
+        [CJMUtilities ShowAlert:@"Your Balance Is..." Message:Balance ButtonText:@"Thanks!"];
+        sd.pDemoAcknowledged=@"";
+        int AmntOfLookupsRemaining=[CJMUtilities ConvertNSStringToInt:sd.pAmntOfLookupsRemaining]-1;
+        sd.pAmntOfLookupsRemaining=[CJMUtilities ConvertIntToNSString:AmntOfLookupsRemaining];
+    }
     else
     {
-        [GCGSpecific pmHandleResponse:rs PassNavView:nil];
-        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-        for (UIViewController *aViewController in allViewControllers) {
-            if ([aViewController isKindOfClass:[MyGCs class]]) {
-                [self.navigationController popToViewController:aViewController animated:NO];
-            }
-        }
-
+        UIAlertView *av=[[UIAlertView alloc] initWithTitle:@"Try Alternate Lookup?" message:[NSString stringWithFormat:@"%@%@",@"We couldn't automatically get the balance; ",@"would you like to use the alternate lookup method?"] delegate:self cancelButtonTitle:@"No thanks" otherButtonTitles:@"Yeah, let's try that", nil];
+        [av show];
     }
-}
 
+}
+-(void)DoManualRequest
+{
+    WebAccess *wa=[[WebAccess alloc]init];
+    [wa pmNewManualRequest:pMyGC.p_gctype CardNumber:pMyGC.p_gcnum PIN:pMyGC.p_gcpin];
+    ManualLookupWebviewHelper *pMLWH=[ManualLookupWebviewHelper mlwh];
+    pMLWH.pGCNum=pMyGC.p_gcnum;
+    pMLWH.pGCType=pMyGC.p_gctype;
+    pMLWH.pPIN=pMyGC.p_gcpin;
+    pMLWH.pURL=pLoadedGC.p_url;
+    pMLWH.pID=sd.pLoadGCKey;
+    NSLog(@"pMLWH.pGCNum: %@",pMLWH.pGCNum);
+    NSLog(@"pMLWH.pGCType: %@",pMLWH.pGCType);
+    NSLog(@"pMLWH.pPIN: %@",pMLWH.pPIN);
+    NSLog(@"pMLWH.pURL: %@",pMLWH.pURL);
+    NSLog(@"pMLWH.pID: %@",pMLWH.pID);
+    NSLog(@"Launching MLW%@",@"");
+    ManualLookupWebview *pMLW=[[ManualLookupWebview alloc] init];
+    [self.navigationController pushViewController:pMLW animated:YES];
+}
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -219,6 +234,7 @@ static int timeout;
     self.navigationController.navigationBarHidden=NO;
     //self.title=@"Card Actions";
     [super viewWillAppear:animated];
+    sd=[StaticData sd];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -228,7 +244,6 @@ static int timeout;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    StaticData *sd=[StaticData sd];
     mygcname=sd.pLoadGCKey;
     pMyGC=[[MyCard alloc] initWithName:mygcname];
     pLoadedGC=[[MerchantInfo alloc]initWithName:pMyGC.p_gctype];
@@ -247,6 +262,9 @@ static int timeout;
         btnLookup.alpha=.5;
         lookuptype.alpha=.5;
     }
+    if (sd.pP) {
+        <#statements#>
+    }
 }
 - (void)viewDidLoad
 {
@@ -258,6 +276,13 @@ static int timeout;
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+}
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    if(buttonIndex==1)
+    {
+        [self DoManualRequest];
+    }
 }
 
 @end

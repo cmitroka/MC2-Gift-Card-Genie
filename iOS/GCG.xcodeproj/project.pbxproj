@@ -87,6 +87,9 @@
 		83D27C6E15E8AE330008ED5C /* LoadGC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83D27C6A15E8AE320008ED5C /* LoadGC.xib */; };
 		83D3923D1D28434300CFA8FD /* MainIcon in Resources */ = {isa = PBXBuildFile; fileRef = 83D3923C1D28434300CFA8FD /* MainIcon */; };
 		83D392411D28439000CFA8FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83D392401D28439000CFA8FD /* Images.xcassets */; };
+		83D47A391DA2D35300A8ABF7 /* ManualLookupWebview.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D47A371DA2D35300A8ABF7 /* ManualLookupWebview.m */; };
+		83D47A3A1DA2D35300A8ABF7 /* ManualLookupWebview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83D47A381DA2D35300A8ABF7 /* ManualLookupWebview.xib */; };
+		83D47A3D1DA320EC00A8ABF7 /* ManualLookupWebviewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D47A3C1DA320EC00A8ABF7 /* ManualLookupWebviewHelper.m */; };
 		83D531E91D1215480069630D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D531E11D1215480069630D /* AdSupport.framework */; };
 		83D531EA1D1215480069630D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D531E21D1215480069630D /* AudioToolbox.framework */; };
 		83D531EB1D1215480069630D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D531E31D1215480069630D /* AVFoundation.framework */; };
@@ -221,6 +224,11 @@
 		83D27C6A15E8AE320008ED5C /* LoadGC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadGC.xib; sourceTree = "<group>"; };
 		83D3923C1D28434300CFA8FD /* MainIcon */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MainIcon; sourceTree = "<group>"; };
 		83D392401D28439000CFA8FD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		83D47A361DA2D35300A8ABF7 /* ManualLookupWebview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManualLookupWebview.h; sourceTree = "<group>"; };
+		83D47A371DA2D35300A8ABF7 /* ManualLookupWebview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManualLookupWebview.m; sourceTree = "<group>"; };
+		83D47A381DA2D35300A8ABF7 /* ManualLookupWebview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ManualLookupWebview.xib; sourceTree = "<group>"; };
+		83D47A3B1DA320EC00A8ABF7 /* ManualLookupWebviewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManualLookupWebviewHelper.h; sourceTree = "<group>"; };
+		83D47A3C1DA320EC00A8ABF7 /* ManualLookupWebviewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManualLookupWebviewHelper.m; sourceTree = "<group>"; };
 		83D531E11D1215480069630D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		83D531E21D1215480069630D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		83D531E31D1215480069630D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -396,6 +404,7 @@
 				D93E26CF1501E7F400179E48 /* SplashScreen00.m */,
 				D93E26D01501E7F500179E48 /* SplashScreen00.xib */,
 				83A1A003167484AB000A1BBC /* SwitchViewController.h */,
+				83DEA17A1D165CAD00A1A0B4 /* WatchAd.m */,
 				83A1A004167484AD000A1BBC /* SwitchViewController.m */,
 				832BDE1814D9BC0000B2000D /* TVCMasterViewController.h */,
 				832BDE1914D9BC0000B2000D /* TVCMasterViewController.m */,
@@ -410,11 +419,13 @@
 				83DC8C1C1D2DF79300E33303 /* ViewInterstitialAd.m */,
 				83DC8C1D1D2DF79300E33303 /* ViewInterstitialAd.xib */,
 				83DEA1791D165CAD00A1A0B4 /* WatchAd.h */,
-				83DEA17A1D165CAD00A1A0B4 /* WatchAd.m */,
 				83DEA17B1D165CAD00A1A0B4 /* WatchAd.xib */,
 				83C3935715D4DC12006C3594 /* WebView.h */,
 				83C3935815D4DC12006C3594 /* WebView.m */,
 				83C3935915D4DC13006C3594 /* WebView.xib */,
+				83D47A361DA2D35300A8ABF7 /* ManualLookupWebview.h */,
+				83D47A371DA2D35300A8ABF7 /* ManualLookupWebview.m */,
+				83D47A381DA2D35300A8ABF7 /* ManualLookupWebview.xib */,
 			);
 			name = "UI Based Code";
 			sourceTree = "<group>";
@@ -478,6 +489,8 @@
 				83A0E4AF15D0E6D7007C2B08 /* WebAccess.m */,
 				839A67E0164E35E9009418AB /* WebAccessResults.h */,
 				839A67E1164E35EA009418AB /* WebAccessResults.m */,
+				83D47A3B1DA320EC00A8ABF7 /* ManualLookupWebviewHelper.h */,
+				83D47A3C1DA320EC00A8ABF7 /* ManualLookupWebviewHelper.m */,
 			);
 			name = "Supporting Code";
 			sourceTree = "<group>";
@@ -571,6 +584,7 @@
 				8377BE171D1EE47900CF92CF /* IconOnly_GetMore.png in Resources */,
 				83306A2A164576A00049E61B /* GCG-Info.plist in Resources */,
 				83C02B5F1D1A520300E2D69D /* 50Black.gif in Resources */,
+				83D47A3A1DA2D35300A8ABF7 /* ManualLookupWebview.xib in Resources */,
 				8377BE021D1EE01B00CF92CF /* ButtonGreyGradientWidest.png in Resources */,
 				83E4F90816477F5700B60B20 /* Spashscreen_640X960.png in Resources */,
 				8377BE141D1EE47900CF92CF /* IconOnly_AddCard.png in Resources */,
@@ -600,6 +614,7 @@
 				8371419815CA3DB200AF04F5 /* Feedback.m in Sources */,
 				8371419B15CA3DB200AF04F5 /* ViewGCs.m in Sources */,
 				83A0E4A815D0D8B9007C2B08 /* DataAccess.m in Sources */,
+				83D47A3D1DA320EC00A8ABF7 /* ManualLookupWebviewHelper.m in Sources */,
 				83A0E4B115D0E6D8007C2B08 /* WebAccess.m in Sources */,
 				83C3935B15D4DC14006C3594 /* WebView.m in Sources */,
 				83DC8C1E1D2DF79300E33303 /* ViewInterstitialAd.m in Sources */,
@@ -620,6 +635,7 @@
 				8301E6F9162E172200EA53A0 /* IAP.m in Sources */,
 				83306A2D1645775F0049E61B /* SFHFKeychainUtils.m in Sources */,
 				839A67E2164E35EA009418AB /* WebAccessResults.m in Sources */,
+				83D47A391DA2D35300A8ABF7 /* ManualLookupWebview.m in Sources */,
 				83C7EB8C16503FE9000C251D /* Backup.m in Sources */,
 				83C7EB9116504017000C251D /* Restore.m in Sources */,
 				83DD1EFC166A258F00262041 /* MyGCwDetails.m in Sources */,

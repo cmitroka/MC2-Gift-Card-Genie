@@ -11,6 +11,7 @@
 #import "WebAccess.h"
 #import "GCGSpecific.h"
 #import "CJMUtilities.h"
+#import "SFHFKeychainUtils.h"
 
 @interface ViewInterstitialAd () <GADInterstitialDelegate>
 @property(nonatomic, strong) GADInterstitial *interstitial;
@@ -38,8 +39,7 @@ StaticData *sd;
 - (void)createAndLoadInterstitial {
     self.interstitial = [[GADInterstitial alloc] init];
     //self.interstitial =
-    //[[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-3940256099942544/4411468910"];
-    self.interstitial.adUnitID=@"ca-app-pub-2250341510214691/3397200761";
+    self.interstitial.adUnitID=sd.pAdUnitID;
     self.interstitial.delegate=self;
     GADRequest *request = [GADRequest request];
     // Request test ads on devices you specify. Your test device ID is printed to the console when
@@ -93,12 +93,14 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 }
 -(void)LogIt
 {
+    NSString *temp=[CJMUtilities GetTodaysDate];
+    [SFHFKeychainUtils pmUpdateSettingName:@"AdWatchDate" SettingValue:temp];
     WebAccess *wa=[[WebAccess alloc]init];
     NSString *SessionIDAndAdInfo =[wa pmGetSessionIDAndAdInfo:@""];
     NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
     NSString *SessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
     NSString *Checksum=[GCGSpecific pmGetChecksum:SessionID];
-    [wa pmLogPurchase:SessionID CheckSum:Checksum PurchaseType:@"5"];
+    [wa pmLogPurchase:SessionID CheckSum:Checksum PurchaseType:@"3"];
 
 }
 
