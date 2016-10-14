@@ -26,7 +26,7 @@ using System.Web.Script.Services;
         public string GetPurchaseLog()
         {
             string retVal = "";
-            AppAdminSite.SQLHelper sqlh = new AppAdminSite.SQLHelper("App.mdb");
+            SQLHelper sqlh = new SQLHelper(SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\App.mdb");;
             string[][] data = sqlh.GetMultiValuesOfSQL("SELECT UUID, MinOfTimeLogged, MaxOfPurchaseType FROM qryPurchasedWType");
             if (CommonForWS.isDatasetBad(data)) return null;
             int max = data.Length;
@@ -53,7 +53,7 @@ using System.Web.Script.Services;
         {
             string retVal = "";
             Context.Response.AddHeader("Access-Control-Allow-Origin", "*");
-            AppAdminSite.SQLHelper sqlh = new AppAdminSite.SQLHelper("App.mdb");
+            SQLHelper sqlh = new SQLHelper(SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\App.mdb");;
             string[][] data = sqlh.GetMultiValuesOfSQL("SELECT TOP 250 CardType, CardNumber, PIN, ResponseType, Response, TimeLogged, TrueAmnt FROM qryReportRqRsResultsV01 ORDER BY TimeLogged DESC");
             if (CommonForWS.isDatasetBad(data)) return null;
             int max = data.Length;
@@ -94,7 +94,7 @@ using System.Web.Script.Services;
         public string GetMetricsSummary()
         {
             string retVal = "";
-            AppAdminSite.SQLHelper sqlh = new AppAdminSite.SQLHelper("App.mdb");
+            SQLHelper sqlh = new SQLHelper(SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\App.mdb");;
             string[][] temp = null;
             int temp1 = 0;
             int temp2 = 0;

@@ -11,10 +11,10 @@ namespace AppAdminSite
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            AppAdminSite.SQLHelper s = null;
+            SQLHelper s = null;
             try
             {
-                s = new AppAdminSite.SQLHelper("App.mdb");
+                s = new SQLHelper(SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\App.mdb");;
                 int temp1 = 0;
                 int temp2 = 0;
                 string[][] temp;
@@ -46,7 +46,7 @@ namespace AppAdminSite
         {
             try
             {
-                AppAdminSite.SQLHelper s = new AppAdminSite.SQLHelper("App.mdb");
+                SQLHelper s = new SQLHelper(SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\App.mdb");;
                 int st;
                 //My Phone: 8BB2A5E9-FC0B-464F-8536-F24157FC4F4D, WebsiteRequest, My Mac:
                 string InClause = "'8BB2A5E9-FC0B-464F-8536-F24157FC4F4D','WebsiteRequest','8D9E77C5-C41F-472F-945A-F30FB646AC54'";

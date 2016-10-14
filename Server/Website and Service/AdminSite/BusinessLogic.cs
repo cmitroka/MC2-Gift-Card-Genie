@@ -26,7 +26,7 @@ namespace AppAdminSite
         public BusinessLogic()
         {
             GetGlobalSettings();
-            sqlh = new SQLHelper("App.mdb");
+            sqlh = new SQLHelper(SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\App.mdb");;
             LogLevel = GetSystemParam("LogLevel");
             LogLevel = LogLevel;
 
