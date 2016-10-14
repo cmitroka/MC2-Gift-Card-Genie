@@ -20,7 +20,7 @@ namespace AppAdminSite
         SQLHelper sqlh;
         public BusinessLogic01()
         {
-            sqlh = new SQLHelper("App.mdb");
+            sqlh = new SQLHelper(SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\App.mdb");;
         }
         public void CloseIt()
         {
