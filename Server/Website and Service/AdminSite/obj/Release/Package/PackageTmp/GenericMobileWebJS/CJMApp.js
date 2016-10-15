@@ -56,7 +56,11 @@ function BuildDynamicPageV2(pFromWhere, TitleOfPage) {
         }
     });
 }
-
+function DoAdminLogin(pLogin, pPassword) {
+    document.getElementById('username').value = pLogin;
+    document.getElementById('password').value = pPassword;
+    $.mobile.changePage("#main");
+}
 function BuildDynamicPageV3(pFromWhere, TitleOfPage) {
     var pUser=document.getElementById('username').value;
     var pPass=document.getElementById('password').value;
@@ -112,31 +116,6 @@ function BuildUserReport00(pUserID, TitleOfPage) {
 }
 
 
-function DoAdminLogin() {
-    $.ajax({
-        type: "POST",
-        url: "CJMAppWS.asmx/DoAdminLogin",
-        dataType: "text",
-        data: { pGCGLogin: document.getElementById('username').value, pGCGPassword: document.getElementById('password').value },
-        success:
-            function (xml) {
-                var temp1 = EncodedHTMLToText(xml);
-                var temp2 = RemoveGCGHeader(temp1);
-                if (temp2 == "1234567890") {
-                    alert("Invalid username and/or password.");
-                    document.getElementById('username').value = "";
-                    document.getElementById('password').value = "";
-                }
-                else {
-                    window.location.href = "GCGWeb.htm?Session=" + temp2 + "&Channel=Web";
-                    //DoInitGCGWeb();
-                }
-            },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
-        }
-    });
-}
 function RemoveHeader(dataIn) {
     var retVal = PMGetSubstring(dataIn, 'CJMApp.mc2techservices.com">', '</string>');
     return retVal;
