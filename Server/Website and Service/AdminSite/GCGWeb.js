@@ -250,6 +250,26 @@ function GetSupportedCards() {
         }
     });
 }
+function DoNewManualRequest() {
+    var delim="^)(";
+
+    document.getElementById('hdnTempVar').value = delim + document.getElementById('hdnCardURL').value + delim + document.getElementById('txtCardNumber').value + delim + document.getElementById('txtCardPIN').value;
+    $.ajax({
+        type: "POST",
+        //url: "https://gcg.mc2techservices.com/GCGWebWS.asmx/NewManualRequest",
+        url: "GCGWebWS.asmx/NewManualRequest",
+        dataType: "text",
+        data: { pGCGKey: document.getElementById('hdnGCGID').value, pCardType: document.getElementById('txtCardType').value, pCardNumber: document.getElementById('txtCardNumber').value, pPIN: document.getElementById('txtCardPIN').value},
+        async: false,
+        success:
+            function (xml) {
+                SetMLParams();
+            },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            DoCustomPopup02(errorThrown);
+        }
+    });
+}
 
 function SetMLParams() {
     ViewAllGloablVariables();
