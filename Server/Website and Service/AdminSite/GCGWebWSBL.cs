@@ -48,7 +48,7 @@ namespace AppAdminSite
             Amnt = data[0][0];
             iAmnt = Convert.ToInt16(Amnt);
             //iAmnt = 0;
-            if (iAmnt>99)
+            if (iAmnt>300)
             {
                 sqlh.ExecuteSQLParamed("INSERT INTO tblBlockedIPs (BlockedIP,DateLogged) VALUES (@P0,@P1)", VisitorsIPAddr, DateTime.Now.ToString());
                 gloHacker="1";
@@ -483,7 +483,8 @@ namespace AppAdminSite
                 {
                 }
 
-                FileMade = GCGWebWSSM.WaitForResponseFileCreation(RsFileToRead, gloiWebserviceTimeout);
+                FileMade = GCGWebWSSM.WaitForResponseFileCreation(RsFileToRead, gloiWebserviceTimeout);  //Test
+                //FileMade = false;
                 if (FileMade == true)
                 {
                     retVal = GCGWebWSSM.ProcessResponse(RsFileToRead);
@@ -621,6 +622,27 @@ namespace AppAdminSite
             }
             return retVal;
         }
+        public string NewManualRequest(string pGCGKey, string pCardType, string pCardNumber, string pPIN)
+        {
+            string retVal = "";
+            string rsType = GCGCommon.EnumExtensions.WebserviceTypes.WSERR.ToString();
+            string GCGID = GCGWebWSSM.GCGKeyToGCGUsersID(pGCGKey);
+            if (GCGID == "-1")
+            {
+                retVal = "Error";
+            }
+            else
+            {
+                String UniqueID=GCGCommon.SupportMethods.CreateHexKey(20);
+                //String[] CardData = GCGCommon.SupportMethods.SplitByString(pParams, "~_~");
+                int test = sqlh.ExecuteSQLParamed("INSERT INTO tblNewRequests (GCGUsersID,FileID,CardType,CardNumber,PIN,TimeLogged) VALUES (@P0,@P1,@P2,@P3,@P4,@P5)", GCGID, UniqueID, pCardType, pCardNumber, pPIN, DateTime.Now.ToString());
+                test = sqlh.ExecuteSQLParamed("INSERT INTO tblResponses (GCGUsersID,FileID,ResponseType,Response,TimeLogged) VALUES (@P0,@P1,@P2,@P3,@P4)", GCGID, UniqueID, "MANUALLOOKUP","0.00", DateTime.Now.ToString());
+                GCGWebWSSM.InsertReponseUsingRetVal(GCGID, UniqueID, "MANUALLOOKUP" + GCGCommon.EnumExtensions.Description(GCGCommon.EnumExtensions.Delimiters.LINEDEL) + "0.00");
+                retVal = test.ToString();
+            }
+            return retVal;
+        }
+
         public string SetMLParams(string pGCGKey, string pParams)
         {
             string retVal = "";
@@ -632,6 +654,10 @@ namespace AppAdminSite
             }
             else
             {
+                //String UniqueID=GCGCommon.SupportMethods.CreateHexKey(20);
+                //String[] CardData = GCGCommon.SupportMethods.SplitByString(pParams, "~_~");
+                //int test = sqlh.ExecuteSQLParamed("INSERT INTO tblNewRequests (GCGUsersID,FileID,TimeLogged) VALUES (@P0,@P1,@P2)", GCGID, UniqueID, DateTime.Now.ToString());
+                //test = sqlh.ExecuteSQLParamed("INSERT INTO tblResponses (GCGUsersID,FileID,ResponseType,Response,TimeLogged) VALUES (@P0,@P1,@P2,@P3,@P4)", GCGID, UniqueID, "MANUALLOOKUP","0.00", DateTime.Now.ToString());
                 int test = sqlh.ExecuteSQLParamed("INSERT INTO tblManualLookupParams (GCGUsersID,ParamString,DateLogged) VALUES (@P0,@P1,@P2)", GCGID, pParams, DateTime.Now.ToString());
                 retVal = test.ToString();
             }

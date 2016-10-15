@@ -274,7 +274,6 @@ namespace AppAdminSite
             string rsValue = pieces1[1];
             if ((rsType.ToUpper() == GCGCommon.EnumExtensions.GCTypes.GCBALANCE.ToString()) || (rsType.ToUpper() == "MANUALLOOKUP"))
             {
-
                 string[] LookupsCntData = GetLookupsCntData(pGCGUsersID);
                 int intSuccessfulLookups = Convert.ToInt16(LookupsCntData[1]) + 1;
                 GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");

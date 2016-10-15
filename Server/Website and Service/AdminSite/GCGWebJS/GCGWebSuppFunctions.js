@@ -71,70 +71,29 @@ function GCGHandleResponse(resptype, respdetails, respadditionaldetails) {
         var msg = "Your balance is <br>" + respdetails;
         msg = "Your balance is\n" + respdetails;
         document.getElementById('txtCardBalance').value = respdetails;
-        DoRUCardDataModBalThenRefresh(1)
+        DoRUCardDataModBalThenRefresh(1);
         DoCustomPopup01("Balance", msg);
     }
-    else if (resptype == "GCBALANCEERR") {
-        DoCustomPopup01("Balance Error", 'Sorry, there was a problem with the Card and/or PIN number.');
-        //$.mobile.changePage("#MyCards");
-    }
     else if (resptype == "REDIRECTING") {  //"MANUALLOOKUP"
-        //DoCustomPopup01(resptype, respdetails);
-        //$.mobile.changePage("#ModCardBalance");
-
-        //$.mobile.changePage("#PleasePurchaseGCG");
         SetMLParams();
-        //window.location.href = document.getElementById('hdnCardURL').value;
     }
     else if (resptype == "OUTOFLOOKUPS") {
         $.mobile.changePage("#PleasePurchaseGCG");
-        //$.mobile.changePage("#PleasePurchaseGCG", { transition: "slideup" });
-        //DoCustomPopup01("Purchase?", 'You are out of free lookups.  To continue use, please restart the app and purchase more through the initial screen.');
-        //$.mobile.changePage("#MyCards");
-    }
-    else if (resptype == "POPUPTEST00") {
-        DoCustomPopup00();
-        //$.mobile.changePage("#MyCards");
-    }
-    else if (resptype == "POPUPTEST01") {
-        $('#popupSpan01title').html("title").trigger('create');
-        $('#popupSpan01msg').html("msg").trigger('create');
-        $('#CustomPopup01').popup();
-        $('#CustomPopup01').popup('open', { theme: "b", positionTo: "origin", transition: "flip" });
-        //$.mobile.changePage("#MyCards");
     }
     else if (resptype == "GCCAPTCHA") {
         document.getElementById('txtMoreInfoAnswer').value = "";
         document.getElementById('hdnContReqFileID').value = respdetails;
         $("#WhatToDoImg01").attr("src", "CAPTCHAs/" + respdetails + ".bmp");
         $("#NeedMoreInfoAboveImg").html("<label>Please enter the letters and numbers seen in the image.</label>");
-        $("#NeedMoreInfoBelowImg").html("Click 'Send CAPTCHA' to continue");
+        $("#NeedMoreInfoBelowImg").html("Click 'Send CAPTCHA' to continue.  NOTE: They are CASE SENSTIVE!");
         $.mobile.changePage("#NeedMoreInfo", { role: "dialog" });
-    }
-    else if (resptype == "GCNEEDSMOREINFO") {
-        var respdetailsarr = respdetails.split("~_~");
-        var rqrs = (respdetailsarr[0]);
-        var respdetails1 = (respdetailsarr[1]);
-        document.getElementById('hdnContReqFileID').value = rqrs;
-        $("#WhatToDoImg01").attr("src", "GCGWebImages/Transparent.gif");  //may have to set to a pixel...
-        $("#NeedMoreInfoAboveImg").html("<label>" + respdetails1 + "</label>");
-        $("#NeedMoreInfoBelowImg").html("Click 'Send Response' to continue");
-        $.mobile.changePage("#NeedMoreInfo", { role: "dialog" });
-    }
-    else if (resptype == "GCCUSTOM") {
-        DoCustomPopup01("Hmm...", respdetails);
-        //$.mobile.changePage("#MyCards");
-    }
-    else if (resptype == "WSERR") {
-        DoCustomPopup01("Oops", 'We seem to have a server error; looking into it.');
-        //$.mobile.changePage("#MyCards");
-    }
-    else if (resptype == "WSTIMEOUT") {
-        DoCustomPopup01("Timeout", 'The server timed out waiting for a response.');
-        //$.mobile.changePage("#MyCards");
     }
     else {
-        DoCustomPopup01("Error", 'Some failure occured.');
+        if (confirm("We couldn't automatically get the balance; would you like to use the alternate lookup method?")) {
+            DoNewManualRequest();
+        } else {
+            DoRUCardDataModBalThenRefresh(1);
+        }
         //$.mobile.changePage("#MyCards");
     }
 }

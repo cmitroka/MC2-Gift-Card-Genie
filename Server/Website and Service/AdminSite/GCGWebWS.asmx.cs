@@ -151,6 +151,20 @@ namespace AppAdminSite
             return retVal;
         }
         [WebMethod]
+        public string NewManualRequest(string pGCGKey, string pCardType, string pCardNumber, string pPIN)
+        {
+            string retVal = "";
+            //retVal = "OUTOFLOOKUPS^)(OUT OF LOOKUPS";
+            //retVal = "GCBALANCE^)($11.00";
+            GCGWebWSBL bl = new GCGWebWSBL();
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.NewManualRequest(pGCGKey, pCardType, pCardNumber, pPIN);
+            }
+            bl.CloseIt();
+            return retVal;
+        }
+        [WebMethod]
         public string ContinueRequest(string pGCGKey, string pIDFileName, string pAnswer)
         {
             string retVal = "";
