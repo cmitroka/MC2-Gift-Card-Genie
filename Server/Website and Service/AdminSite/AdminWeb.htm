@@ -18,6 +18,15 @@
 
  
 <script type="text/javascript">
+    $(document).ready(function () {
+        $("input").keypress(function (event) {
+            if (event.which == 13) {
+                event.preventDefault();
+                DoAdminLogin();
+            }
+        });
+    });
+
     $(document).ajaxStart(function () {
         $.blockUI({ message: '<img src="spinner.gif" />' });
     })
@@ -78,7 +87,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <a href="#main"><input type="submit" value="Proceed"></a>
+                                <input type="submit" onclick="DoAdminLogin(document.getElementById('username').value, document.getElementById('password').value);" value="Log In" tabindex="3">
                             </td>
                         </tr>
                     </table>
