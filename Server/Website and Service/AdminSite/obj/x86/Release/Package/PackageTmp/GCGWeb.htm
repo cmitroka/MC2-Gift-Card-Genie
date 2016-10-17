@@ -3,10 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <title>GCG Mobile</title>
-  <meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+  <meta name="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 
-    <link rel="shortcut icon" href="http://designshack.net/favicon.ico">
-    <link rel="icon" href="http://designshack.net/favicon.ico">
     <link href="GCGWebCSS/jquery.mobile-1.4.0.min.css" rel="stylesheet" type="text/css" />
     <link href="GCGWebCSS/jquery.mobile.external-png-1.4.0.min.css" rel="stylesheet" type="text/css" />
     <link href="GCGWebCSS/jquery.mobile.inline-png-1.4.0.min.css" rel="stylesheet" type="text/css" />
@@ -37,6 +35,8 @@
     $(document).ajaxStop($.unblockUI);
     $(document).ready(function () {
         $("#CustomPopup01").hide();
+        $("#CustomPopup02").hide();
+        $('#CustomPopupYN').hide();
     });
     $(window).load(function () {
         DoInitGCGWeb();
@@ -63,11 +63,12 @@
         <ul>
             <li><a data-icon="plus" href="#AddACard" >Add a Card</a></li>
             <li><a data-icon="align-justify" href="javascript:DoCardBalSummarySel();">Card Totals</a></li>
-            <li><a data-icon="info" href="javascript:DoMyProfileSel();">My Profile</a></li>
+            <li><a data-icon="info" href="javascript:DoMyProfileSel('1');">My Profile</a></li>
             <li><a data-icon="question" href="javascript:DoPleasePurchaseGCG();">Purchase</a></li>
-            <li><a data-icon="question" href="javascript:DoCustomPopupYesNo();">YNTest</a></li>
-
-<!--            <li><a data-icon="question" href="javascript:DoPopup01();" id="openpopup">click me 1</a></li>-->
+<!--
+            <li><a data-icon="question" href="javascript:DoCustomPopup02('a');" id="openpopup">click me 1</a></li>
+            <li><a data-icon="question" href="javascript:DoDeletePopup();">YNTest</a></li>
+-->
         </ul>
         </nav>
     </footer>
@@ -81,7 +82,9 @@
     <article data-role="content" data-theme="a">
       <ul data-role="listview" data-filter="true" id="ulofSupportedCards">
         <li>
-        <a href="javascript:DoLoadAddModCardScreen('NA~_~~_~~_~~_~~_~~_~~_~~_~0','~_~3~_~998~_~0~_~996~_~0')">Unlisted Merchant</a>
+
+
+        <a href="javascript:DoLoadAddModCardScreen('NewRecord','UnlistedMerchant')">Unlisted Merchant</a>
         </li>
       </ul>
      </article>
@@ -95,24 +98,27 @@
         <input id="Hidden1" type="hidden" />
         <tr>
             <td width="140px"><span style="float:left"><label class="textinput-fc">Card Type:</label></span></td>
-            <td><input id="txtCardType" type="text" placeholder="Card Type" value=""></td>
+            <td><input id="txtCardType" name="txtCardType" type="text" placeholder="Card Type" value=""></td>
         </tr>
-
-        <tr>
-            <td width="140px"><span style="float:left"><label class="textinput-fc">Card Number:</label></span></td>
-            <td><input id="txtCardNumber" type="text" placeholder="Card Number" value=""></td>
+        <tr id="tridCardNumber">
+            <td colspan="2">
+                <table  style="width: 100%;">
+                    <tr>
+                        <td style="width: 100%">
+                            <span style="float:left"><label class="textinput-fc">Card Number:</label></span></td>
+                    </tr>
+                </table>
+                <table  style="width: 100%;">
+                    <tr>
+                        <td style="width: 100%">
+                            <input id="txtCardNumber" type="text" placeholder="Card Number" value=""></td>
+                    </tr>
+                </table>
+            </td>
         </tr>
         <tr id="tridCardPIN">
             <td width="140px"><span style="float:left"><label class="textinput-fc">Card PIN:</label></span></td>
             <td><input id="txtCardPIN" type="text" placeholder="Card PIN" value=""></td>
-        </tr>
-        <tr id="tridLogin">
-            <td width="140px"><span style="float:left"><label class="textinput-fc">Login:</label></span></td>
-            <td><input id="txtCardLogin" type="text" placeholder="Login" value=""></td>
-        </tr>
-        <tr id="tridPassword">
-            <td width="140px"><span style="float:left"><label class="textinput-fc">Password:</label></span></td>
-            <td><input id="txtCardPassword" type="password" placeholder="Password" value=""></td>
         </tr>
         <tr id="tridAdjustBalance">
             <td colspan="2">
@@ -157,7 +163,7 @@
                         <td style="width: 33%">
                             </td>
                         <td style="width: 33%">
-                            <a style="text-decoration: none" href="javascript:DoRUCardDataModBalThenRefresh(1);" data-rel="dialog">
+                            <a style="text-decoration: none" href="javascript:DoRUCardDataMod('updatebal');" data-rel="dialog">
                                 <button>Update Balance</button>
                             </a>
                         <td style="width: 33%">
@@ -185,7 +191,7 @@
     <div data-role="header">
         <h1>Your Info</h1><a href="#MyCards">Back</a>
     </div>
-    <article>
+    <div data-role="content" data-theme="a">
     <table width="100%">
         <tr>
             <td width="160px"><span style="float:left">
@@ -203,18 +209,18 @@
         <tr>
             <td width="160px"><span style="float:left"><label class="textinput-fc">Successful:</label></span></td>
             <td><input id="txtLookupHistorySuccessful" type="text" placeholder="" 
-                    value="" disabled></td>
+                    value="" readonly></td>
         </tr>
         <tr>
             <td width="160px"><span style="float:left"><label class="textinput-fc">Unsuccessful:</label></span></td>
             <td><input id="txtLookupHistoryUnsuccessful" type="text" placeholder="" 
-                    value="" disabled></td>
+                    value="" readonly></td>
         </tr>
         <tr>
             <td width="160px"><span style="float:left"><label class="textinput-fc">Lookups 
                 Remaining:</label></span></td>
             <td><input id="txtLookupHistoryRemaining" type="text" 
-                    placeholder="" value="" disabled></td>
+                    placeholder="" value="" readonly></td>
         </tr>
         <tr>
             <td width="100%" colspan="2">
@@ -224,16 +230,36 @@
             </td>
         </tr>
     </table>
-    </article>
+    </div>
 </div>
 <div data-role="page" data-theme="b" id="PleasePurchaseGCG">
     <div data-role="header">
         <h1>Please Purchase GCG</h1><a href="#MyCards">Back</a>
     </div>
     <article data-role="content" data-theme="a">
-        Thanks for using GCG, unfortunatly you need to purchase some more lookups if you wish to automatically retrieve balances.
+        Thanks for using GCG, unfortunatly you need to purchase some more lookups if you wish to retrieve balances.
     </article>
 </div>
+<div data-role="page" data-theme="b" id="DoManualLookup">
+    <div data-role="header">
+        <h1>Reload</h1><a href="#MyCards">Back</a>
+    </div>
+    <article data-role="content" data-theme="a">
+        <a style="text-decoration:none;" href="javascript:MyCardsDataSelThenChange();" data-rel="dialog">
+            <button>Reload Cards and Balances</button>
+        </a>
+    </article>
+</div>
+
+<div data-role="page" data-theme="b" id="WebPurchase">
+    <div data-role="header">
+        <h1>Get GCG Lookups!</h1><a href="#MyCards">Back</a>
+    </div>
+    <article data-role="content" data-theme="a">
+        Thanks for using GCG!  If you're looking for a way to get some more lookups - it's easy!  Just view an ad or two from a sponsor below and you'll be given 5 more lookups.
+    </article>
+</div>
+
 
 <div data-role="page" data-theme="b" id="ChangePassword">
     <div data-role="header" data-theme="b">
@@ -298,7 +324,22 @@
     </div>
     <div data-role="content">
         <span style="font-size: medium; font-weight: lighter; color: #000000" id="popupSpan01msg">Message</span><br />
-        <a href="javascript:BackToMain();" data-position-to="window" data-transition="slideup">
+        <a href="javascript:$('#CustomPopup01').popup('close');" data-position-to="window" data-transition="slideup">
+        <button style="width: 100px">
+        Got It
+        </button>
+        </a>
+    </div>
+    </center>
+</div>
+<div data-role="popup" data-dismissible="false" id="CustomPopup02" style="width: 250px; background-color: #FFFFFF; border-color: #FFFFFF; border-width: 10px;" >
+    <center>
+    <div data-role="header">
+        <span id="popupSpan02title" style="font-size: large; color: #000000">Info</span>
+    </div>
+    <div data-role="content">
+        <span style="font-size: medium; font-weight: lighter; color: #000000" id="popupSpan02msg">Message</span><br />
+        <a href="javascript:$('#CustomPopup02').popup('close');" data-position-to="window" data-transition="slideup">
         <button style="width: 100px">
         Got It
         </button>
@@ -315,12 +356,12 @@
     </div>
     <div data-role="content">
         <span style="font-size: medium; font-weight: lighter; color: #000000" id="popupSpanYNmsg">Message</span><br />
-        <a href="javascript:BackToMain();" data-position-to="window" data-transition="slideup">
+        <a href="javascript:HandleDeletePopup('Y');" data-position-to="window" data-transition="slideup">
         <button style="width: 100px">
         Yes
         </button>
         </a>
-        <a href="javascript:BackToMain();" data-position-to="window" data-transition="slideup">
+        <a href="javascript:$('#CustomPopupYN').popup('close');" data-position-to="window" data-transition="slideup">
         <button style="width: 100px">
         No
         </button>
@@ -331,8 +372,12 @@
 
 </body>
 
+<input id="UnlistedMerchant" value="~_~NOURL~_~1~_~999~_~-1~_~999~_~1" type="hidden" />
+<input id="hdnWSURL" type="hidden" />
 <input id="hdnContReqFileID" type="hidden" />
+<input id="hdnChannel" type="hidden" />
 <input id="hdnCardID" type="hidden" />
+<input id="hdnCardURL" type="hidden" />
 <input id="hdnGCGID" type="hidden" />
 <input id="hdnCardNumMin" type="hidden"/>
 <input id="hdnCardNumMax" type="hidden"/>
@@ -340,6 +385,7 @@
 <input id="hdnCardPINMax" type="hidden"/>
 <input id="hdnSendToPage" type="hidden"/>
 <input id="CurrAddACardMode" type="hidden"/>
-<input id="LastAddACardMode" type="hidden"/>    
+<input id="LastAddACardMode" type="hidden"/>
+<input id="hdnTempVar" type="hidden"/>
     
 </html>

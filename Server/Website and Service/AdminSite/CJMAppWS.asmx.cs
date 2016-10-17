@@ -53,7 +53,7 @@ namespace CJMApp
         }
         private bool CredentialsOK(string pUsername, string pPassword)
         {
-            if ((pUsername.ToUpper() == "CJMX") && (pPassword.ToUpper() == "CJMX"))
+            if ((pUsername.ToUpper() == "CJM") && (pPassword.ToUpper() == "GCGADMINPWD"))
             {
                 return true;
             }
