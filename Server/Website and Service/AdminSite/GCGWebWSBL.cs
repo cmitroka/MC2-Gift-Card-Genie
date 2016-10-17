@@ -636,7 +636,9 @@ namespace AppAdminSite
                 String UniqueID=GCGCommon.SupportMethods.CreateHexKey(20);
                 //String[] CardData = GCGCommon.SupportMethods.SplitByString(pParams, "~_~");
                 int test = sqlh.ExecuteSQLParamed("INSERT INTO tblNewRequests (GCGUsersID,FileID,CardType,CardNumber,PIN,TimeLogged) VALUES (@P0,@P1,@P2,@P3,@P4,@P5)", GCGID, UniqueID, pCardType, pCardNumber, pPIN, DateTime.Now.ToString());
-                test = sqlh.ExecuteSQLParamed("INSERT INTO tblResponses (GCGUsersID,FileID,ResponseType,Response,TimeLogged) VALUES (@P0,@P1,@P2,@P3,@P4)", GCGID, UniqueID, "MANUALLOOKUP","0.00", DateTime.Now.ToString());
+
+                //test = sqlh.ExecuteSQLParamed("INSERT INTO tblResponses (GCGUsersID,FileID,ResponseType,Response,TimeLogged) VALUES (@P0,@P1,@P2,@P3,@P4)", GCGID, UniqueID, "MANUALLOOKUP","0.00", DateTime.Now.ToString());
+
                 GCGWebWSSM.InsertReponseUsingRetVal(GCGID, UniqueID, "MANUALLOOKUP" + GCGCommon.EnumExtensions.Description(GCGCommon.EnumExtensions.Delimiters.LINEDEL) + "0.00");
                 retVal = test.ToString();
             }
