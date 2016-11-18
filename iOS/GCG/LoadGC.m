@@ -15,6 +15,7 @@
 #import "WebView.h"
 #import "AddModGC.h"
 #import "WebAccess.h"
+#import "WatchIAd.h"
 #import "Feedback.h"
 #import "GCGSpecific.h"
 #import "MyGCs.h"
@@ -31,6 +32,7 @@
 NSString *pIDFileName;
 NSString *pSessionID;
 NSString *pChecksum;
+NSString *pCaller;
 StaticData *sd;
 @implementation LoadGC
 @synthesize tfID,timer,pMyGC,pLoadedGC,lookupletter,mygcname;
@@ -116,16 +118,57 @@ static int timeout;
             //[CJMUtilities ShowOOLAlert];
             return;
         }
-        WebAccess *wa=[[WebAccess alloc]init];
-        NSString *SessionIDAndAdInfo =[wa pmGetSessionIDAndAdInfo:pMyGC.p_gctype];
-        NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
-        pSessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
-        pChecksum=[GCGSpecific pmGetChecksum:pSessionID];
-        spinner.hidden=FALSE;
-        [spinner startAnimating];
-        btnLookup.enabled=FALSE;
-        btnLookup.alpha=.5;
-        [self performSelector:@selector(rqNewRequest:) withObject:nil afterDelay:.1];
+    NSString *appStatus=[SFHFKeychainUtils pmGetValueForSetting:@"AppStatus"];
+    if (![appStatus isEqualToString:@"Purchased"])
+        {
+            /*
+            pCaller=@"ShowAd";
+            UIAlertView *showAlert=[[UIAlertView alloc]initWithTitle:@"We’re About to do your Lookup" message:@"While we do this, you may be shown an ad.  You can check it out (the process will continue in the background) or close it and wait for the process to finish." delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
+            [showAlert show];
+            */
+            WatchIAd *wia =[WatchIAd wia];
+            if ([wia.pWatchAdStatus isEqualToString:@"AdCompleted"]) {
+                [self PrepNewRequest];
+            }
+            else
+            {
+                //[self PrepNewRequest];
+                [self PrepAd];
+            }
+        }
+}
+
+-(void)PrepAd
+{
+    
+    WatchIAd *wia =[WatchIAd wia];
+    wia.pWatchAdStatus=@"AS";
+    wia.pWatchAdNagDesc=@"ND";
+    wia.pWatchAdDoneFrom=@"PreLookup";
+    wia.pWatchAdGoToPage=@"LoadGC";
+    wia.pWatchAdIDtoLog=sd.pUUID;
+    //TVCAppDelegate *appDelegate = (TVCAppDelegate *)[[UIApplication sharedApplication] delegate];
+    //[appDelegate useViewControllerS:@"WatchIAd"];
+
+    WatchIAd *myWatchIAd = [[WatchIAd alloc]init];
+    [self.navigationController pushViewController:myWatchIAd animated:YES];
+
+    //[self PrepNewRequest];
+}
+
+
+-(void)PrepNewRequest
+{
+    WebAccess *wa=[[WebAccess alloc]init];
+    NSString *SessionIDAndAdInfo =[wa pmGetSessionIDAndAdInfo:pMyGC.p_gctype];
+    NSMutableArray *SessionIDAndAdInfoPieces=[CJMUtilities ConvertNSStringToNSMutableArray:SessionIDAndAdInfo delimiter:gcgPIECEDEL];
+    pSessionID=[SessionIDAndAdInfoPieces objectAtIndex:0];
+    pChecksum=[GCGSpecific pmGetChecksum:pSessionID];
+    spinner.hidden=FALSE;
+    [spinner startAnimating];
+    btnLookup.enabled=FALSE;
+    btnLookup.alpha=.5;
+    [self performSelector:@selector(rqNewRequest:) withObject:nil afterDelay:.1];
 }
 
 -(void)rqNewRequest:(NSTimer*)theTimer
@@ -176,6 +219,7 @@ static int timeout;
    }
     else
     {
+        pCaller=@"DoManualRequest";
         UIAlertView *av=[[UIAlertView alloc] initWithTitle:@"Try Alternate Lookup?" message:[NSString stringWithFormat:@"%@%@",@"We couldn't automatically get the balance; ",@"would you like to use the alternate lookup method?"] delegate:self cancelButtonTitle:@"No thanks" otherButtonTitles:@"Yeah, let's try that", nil];
         [av show];
     }
@@ -288,14 +332,19 @@ static int timeout;
     [super viewDidUnload];
 }
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    
-    if(buttonIndex==1)
-    {
-        [self DoManualRequest];
+    if ([pCaller isEqualToString:@"ShowAd"]) {
+        [self PrepAd];
     }
     else
     {
-        [self GoBackToMyCards];
+        if(buttonIndex==1)
+        {
+            [self DoManualRequest];
+        }
+        else
+        {
+            [self GoBackToMyCards];
+        }
     }
 }
 

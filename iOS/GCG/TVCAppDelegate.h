@@ -34,4 +34,5 @@
 -(void)useNavController:(Class)classType;
 -(void)pushView:(NSString *)xibName;
 -(void)useSubview;
+-(void)useViewControllerS:(NSString *)className;
 @end
