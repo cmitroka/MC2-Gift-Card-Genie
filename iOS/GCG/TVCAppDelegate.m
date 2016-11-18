@@ -87,7 +87,13 @@
     [self.window makeKeyAndVisible];
 }
 
-
+-(void)useViewControllerS:(NSString *)className {
+    UIViewController *tempUIViewController;
+    Class classFromString = NSClassFromString(className);
+    tempUIViewController= [[classFromString alloc] initWithNibName:className bundle:nil];
+    self.window.rootViewController = tempUIViewController;
+    [self.window makeKeyAndVisible];
+}
 
 /*
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

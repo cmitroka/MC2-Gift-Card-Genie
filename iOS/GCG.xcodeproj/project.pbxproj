@@ -28,6 +28,8 @@
 		83306A2A164576A00049E61B /* GCG-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83306A29164576A00049E61B /* GCG-Info.plist */; };
 		83306A2D1645775F0049E61B /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 83306A2C1645775F0049E61B /* SFHFKeychainUtils.m */; };
 		8356965415E33E9800380E1F /* GiftCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 8356965215E33E9800380E1F /* GiftCard.m */; };
+		83647EF51DDEC05D00D17039 /* WatchIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 83647EF31DDEC05D00D17039 /* WatchIAd.m */; };
+		83647EF61DDEC05D00D17039 /* WatchIAd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83647EF41DDEC05D00D17039 /* WatchIAd.xib */; };
 		8365563C15D4ECD300D4168E /* DataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8365563915D4ECD200D4168E /* DataUpdater.m */; };
 		8365563E15D4ECD300D4168E /* DataUpdater.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8365563A15D4ECD300D4168E /* DataUpdater.xib */; };
 		8366FA7E182F440400599D83 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8366FA7D182F440400599D83 /* MessageUI.framework */; };
@@ -158,6 +160,9 @@
 		835C20091586FBB000AEC40A /* Feedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feedback.m; sourceTree = "<group>"; };
 		835C200A1586FBB000AEC40A /* Feedback.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Feedback.xib; sourceTree = "<group>"; };
 		8362BF15183DDEE6005567DD /* GCG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GCG.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		83647EF21DDEC05D00D17039 /* WatchIAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchIAd.h; sourceTree = "<group>"; };
+		83647EF31DDEC05D00D17039 /* WatchIAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchIAd.m; sourceTree = "<group>"; };
+		83647EF41DDEC05D00D17039 /* WatchIAd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WatchIAd.xib; sourceTree = "<group>"; };
 		8365563815D4ECD200D4168E /* DataUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataUpdater.h; sourceTree = "<group>"; };
 		8365563915D4ECD200D4168E /* DataUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataUpdater.m; sourceTree = "<group>"; };
 		8365563A15D4ECD300D4168E /* DataUpdater.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataUpdater.xib; sourceTree = "<group>"; };
@@ -337,6 +342,9 @@
 		832BDE0C14D9BC0000B2000D /* GCG */ = {
 			isa = PBXGroup;
 			children = (
+				83647EF21DDEC05D00D17039 /* WatchIAd.h */,
+				83647EF31DDEC05D00D17039 /* WatchIAd.m */,
+				83647EF41DDEC05D00D17039 /* WatchIAd.xib */,
 				8313E5EA14DCDEA400A518BC /* libsqlite3.dylib */,
 				832BDE1514D9BC0000B2000D /* TVCAppDelegate.h */,
 				832BDE1614D9BC0000B2000D /* TVCAppDelegate.m */,
@@ -543,6 +551,7 @@
 				837141BB15CA3DB200AF04F5 /* Feedback.xib in Resources */,
 				8377BE161D1EE47900CF92CF /* IconOnly_Contact.png in Resources */,
 				837141C215CA3DB200AF04F5 /* ViewGCs.xib in Resources */,
+				83647EF61DDEC05D00D17039 /* WatchIAd.xib in Resources */,
 				83C3935D15D4DC14006C3594 /* WebView.xib in Resources */,
 				8365563E15D4ECD300D4168E /* DataUpdater.xib in Resources */,
 				83072C6415D7F70B001D7ECD /* Settings.xib in Resources */,
@@ -610,6 +619,7 @@
 				83C3935B15D4DC14006C3594 /* WebView.m in Sources */,
 				83DC8C1E1D2DF79300E33303 /* ViewInterstitialAd.m in Sources */,
 				8365563C15D4ECD300D4168E /* DataUpdater.m in Sources */,
+				83647EF51DDEC05D00D17039 /* WatchIAd.m in Sources */,
 				83072C6215D7F70B001D7ECD /* Settings.m in Sources */,
 				83072C6915D7F850001D7ECD /* ResourceHandler.m in Sources */,
 				839788F315DA280D0065BFAE /* AddModGC.m in Sources */,

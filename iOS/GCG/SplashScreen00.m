@@ -19,6 +19,7 @@
 #import "IAP.h"
 #import "MyGCs.h"
 #import "SwitchViewController.h"
+#import "WatchIAd.h"
 
 @interface SplashScreen00()
 -(void)changeScreens01;
@@ -252,6 +253,11 @@ NSString *allMerchantData;
         {
             [SFHFKeychainUtils pmUpdateSettingName:@"AppStatus" SettingValue:@"Purchased"];
         }
+        else
+        {
+            [SFHFKeychainUtils pmUpdateSettingName:@"AppStatus" SettingValue:@"NotPurchased"];
+        }
+        
         //[SFHFKeychainUtils pmDeleteSetting:@"AppStatus"];
         appStatus=[SFHFKeychainUtils pmGetValueForSetting:@"AppStatus"];
         NSLog(appStatus, NULL);
