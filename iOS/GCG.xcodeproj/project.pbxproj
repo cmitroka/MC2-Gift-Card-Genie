@@ -342,9 +342,6 @@
 		832BDE0C14D9BC0000B2000D /* GCG */ = {
 			isa = PBXGroup;
 			children = (
-				83647EF21DDEC05D00D17039 /* WatchIAd.h */,
-				83647EF31DDEC05D00D17039 /* WatchIAd.m */,
-				83647EF41DDEC05D00D17039 /* WatchIAd.xib */,
 				8313E5EA14DCDEA400A518BC /* libsqlite3.dylib */,
 				832BDE1514D9BC0000B2000D /* TVCAppDelegate.h */,
 				832BDE1614D9BC0000B2000D /* TVCAppDelegate.m */,
@@ -361,6 +358,9 @@
 		832BDE0D14D9BC0000B2000D /* UI Based Code */ = {
 			isa = PBXGroup;
 			children = (
+				83647EF21DDEC05D00D17039 /* WatchIAd.h */,
+				83647EF31DDEC05D00D17039 /* WatchIAd.m */,
+				83647EF41DDEC05D00D17039 /* WatchIAd.xib */,
 				D97FB55D1558F085008809D5 /* About.h */,
 				D97FB55E1558F085008809D5 /* About.m */,
 				D97FB55F1558F086008809D5 /* About.xib */,
