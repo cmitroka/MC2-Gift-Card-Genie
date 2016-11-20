@@ -44,6 +44,14 @@ namespace AppAdminSite
             return retVal;
         }
         [WebMethod(Description = @"")]
+        public string LogAdClick(string UUID, string pSource)
+        {
+            BusinessLogic bl = new BusinessLogic();
+            string retVal = bl.LogAdClick(UUID, pSource);
+            bl.CloseIt();
+            return retVal;
+        }
+        [WebMethod(Description = @"")]
         public string SaveURLForEXE(string pEXE, string pURL, string pPassword)
         {
             BusinessLogic bl = new BusinessLogic();

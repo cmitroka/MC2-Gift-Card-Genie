@@ -1,0 +1,191 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>CJMApp Mobile Console</title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+
+    <link rel="stylesheet" href="GenericMobileWebCSS/jquery.mobile-1.4.0.min.css">
+    <script src="GenericMobileWebJS/jquery-2.1.3.min.js"></script>
+    <script src="GenericMobileWebJS/jquery.mobile-1.4.0.min.js"></script>
+    <script src="GenericMobileWebJS/jquery.json-2.4.min.js" type="text/javascript"></script>
+    <script src="GenericMobileWebJS/jquery.blockUI.js" type="text/javascript"></script>
+
+    <script src="GenericMobileWebJS/App.js" type="text/javascript"></script>
+    <script src="GenericMobileWebJS/CJMApp.js" type="text/javascript"></script>
+    <script src="GenericMobileWebJS/GenericMobileWebSuppFunctions.js" type="text/javascript"></script>
+
+
+ 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input").keypress(function (event) {
+            if (event.which == 13) {
+                event.preventDefault();
+                DoAdminLogin();
+            }
+        });
+    });
+
+    $(document).ajaxStart(function () {
+        $.blockUI({ message: '<img src="spinner.gif" />' });
+    })
+    $(document).ajaxStop($.unblockUI);
+
+    $(document).ready(function () {
+
+        $(window).load(function () {
+            //$.blockUI({ message: '<h1><img src="spinner.gif" /></h1>' });
+        });
+        $("table#myTable tr:even").css("background-color", "#F4F4F8");
+        $("table#myTable tr:odd").css("background-color", "#F4F4F8");
+    });
+
+
+</script>
+    <style>
+        th {
+            border-bottom: 1px solid #d6d6d6;
+        }
+        tr:nth-child(even) {
+            background: #e9e9e9;
+        }
+    </style>
+</head>
+ 
+<body>
+        <div data-role="page" id="LoginScreen">
+        <table style="background-color:#d9d9d9;position:fixed;margin-left:-150px;margin-top:-150px;top:50%;left:50%;">
+            <tr>
+                <td>
+                    <table style="border-style: groove" >
+                        <tr>
+                            <td colspan="2">
+    <header data-role="header" data-theme="a">
+        <h1>Login</h1>
+    </header>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>
+                                    Username:
+                                </label>
+                            </td>
+                            <td >
+                                <input type="text" id="username" tabindex="1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>
+                                    Password:
+                                </label>
+                            </td>
+                            <td>
+                                <input type="password"  id="password" tabindex="2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input type="submit" onclick="DoAdminLogin(document.getElementById('username').value, document.getElementById('password').value);" value="Log In" tabindex="3">
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
+            </tr>
+        </table>
+</div>
+
+    <div data-role="page" id="main">
+    <div data-role="header">
+
+      <a href="#LoginScreen" class="ui-btn ui-icon-home ui-btn-icon-left">Credentials</a>
+      <h1>Main</h1>
+      <a href="#decoder" class="ui-btn ui-icon-search ui-btn-icon-left">Decoder</a>
+    </div>
+        <article>
+          <ul data-role="listview" data-inset="true">
+              <li>
+                  <a href="javascript:BuildDynamicPageV3('qryRptPurchasesSpecific', 'Specific Purchases');">
+                      <h2>Specific Purchases</h2>
+                  </a>
+              </li>
+              <li>
+                  <a href="javascript:BuildDynamicPageV3('qryRptDownloadSpecifics', 'Download Specifics');">
+                      <h2>Download Specifics</h2>
+                  </a>
+              </li>
+              <li>
+                  <a href="javascript:BuildDynamicPageV3('qryRptManualLookupLog', 'Manual Lookup Log');">
+                      <h2>Manual Lookup Log</h2>
+                  </a>
+              </li>
+              <li>
+                  <a href="javascript:BuildDynamicPageV3('qryRptRqRsLog', 'Rq/Rs Log');">
+                      <h2>Rq/Rs Log</h2>
+                  </a>
+              </li>
+              <li>
+                  <a href="javascript:BuildDynamicPageV3('qryRptDownloadsPerDay', 'Downloads Per Day');">
+                      <h2>Downloads Per Day</h2>
+                  </a>
+              </li>
+          </ul>
+        </article>
+    </div>
+
+    <div data-role="page" id="dynamicpage">
+        <div data-role="header" data-position="fixed">
+            <a href="#main">Main</a>
+             <h2 id="dynamicpage_header">Dynamic Page</h2>
+        </div>
+        <div data-role="main" class="ui-content" id="dynamicpage_table">
+        </div>
+    </div>
+
+    <div data-role="page" id="decoder">
+        <div data-role="header" data-position="fixed">
+            <a href="#main">Main</a>
+             <h2 id="dynamicpage_header">Decoder</h2>
+        </div>
+        <div data-role="main" class="ui-content" id="dynamicpage_table">
+    <table width="100%">
+        <tr>
+            <td width="140px"><span style="float:left"><label class="textinput-fc">8 Char Code In:</label></span></td>
+            <td><input id="txtCodeIn" type="text" value=""></td>
+        </tr>
+
+        <tr>
+            <td width="140px"><span style="float:left"><label class="textinput-fc">Encryption Key:</label></span></td>
+            <td><input id="txtEncKey" type="password" value=""></td>
+        </tr>
+        <tr id="tridPassword">
+            <td width="140px" colspan="2"><span style="float:left"><label class="textinput-fc">Override Code:</label></span><br /><input id="txtOverrideCode" value=""></td>
+        </tr>
+        <tr id="tridAdjustBalance">
+            <td colspan="2">
+                <table  style="width: 100%;">
+                    <tr>
+                        <td style="width: 25%">
+                            </td>
+                        <td style="width: 25%">
+                        <a style="text-decoration:none;" href="javascript:DoGetOverrideCode()">
+                            <button style="width: 100%; text-align: center;" >Get Code</button>
+                        </a>
+                            </td>
+                        <td style="width: 25%" valign="top">
+                        <a style="text-decoration: none" href="javascript:DoClearScreen()">
+                            <button style="width: 100%; text-align: center;">Clear</button>
+                        </a>
+                        <td style="width: 25%">
+                            </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+        </div>
+    </div>
+</html>

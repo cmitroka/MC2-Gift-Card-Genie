@@ -715,6 +715,28 @@ namespace AppAdminSite
             Dt = DateTime.Parse(_Date, mFomatter);
             return Dt.ToString("yyyy-MM-dd");
         }
+        public string LogAdClick(string pUUID, string pSource)
+        {
+            string retVal = "1";
+            retVal = DoLogAdClick(pUUID, pSource);
+            return retVal;
+        }
+
+        private string DoLogAdClick(string pUUID, string pSource)
+        {
+            string retVal = "1";
+            int OK = sqlh.ExecuteSQLParamed("INSERT INTO tblAdsClicked (UUID, Details, DateLogged) VALUES (@P0,@P1,@P2)", pUUID, pSource, DateTime.Now.ToString());
+            if (OK == -1)
+            {
+                OK = sqlh.ExecuteSQLParamed("INSERT INTO tblErrorLog (Error01, Error02, DateLogged) VALUES (@P0, @P1,@P2)", "Error doing LogUserBasic", pUUID, DateTime.Now.ToString());
+                retVal = "-1";
+            }
+            else
+            {
+                retVal = "LogAdClick=1";
+            }
+            return retVal;
+        }
 
         public string LogUser(string UDID, string Version, string IP)
         {
@@ -882,15 +904,6 @@ namespace AppAdminSite
             int temp;
             if (IsRequestValid(pSessionID, pCheckSum, pIP) == true)
             {
-                if (pPurchaseType == "3")
-                {
-                    temp = sqlh.ExecuteSQLParamed("INSERT INTO tblAdsClicked (UUID, Details, DateLogged) VALUES (@P0,@P1,@P2)", pUUID, "Banner", DateTime.Now.ToString());
-                }
-                if (pPurchaseType == "5")
-                {
-                    temp = sqlh.ExecuteSQLParamed("INSERT INTO tblAdsClicked (UUID, Details, DateLogged) VALUES (@P0,@P1,@P2)", pUUID, "Interstitial", DateTime.Now.ToString());
-                }
-                //Leave in for now...
                 if (pPurchaseType == "GiftCardGenie001")
                 {
                     pPurchaseType="1000";
@@ -899,6 +912,11 @@ namespace AppAdminSite
                 {
                     pPurchaseType = "16";
                 }
+                else
+                {
+                    pPurchaseType = "3";
+                }
+                temp = sqlh.ExecuteSQLParamed("INSERT INTO tblAdsClicked (UUID, Details, DateLogged) VALUES (@P0,@P1,@P2)", pUUID, "Purchases", DateTime.Now.ToString());
                 temp = sqlh.ExecuteSQLParamed("INSERT INTO tblPurchases (UUID, TimeLogged, PurchaseType) VALUES (@P0,@P1,@P2)", pUUID, DateTime.Now.ToString(), pPurchaseType);
                 retVal = temp.ToString();
             }
