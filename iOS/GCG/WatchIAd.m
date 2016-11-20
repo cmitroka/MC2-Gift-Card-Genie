@@ -120,8 +120,8 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
     //NSLog(@"app.pBCBID: %@", app.pBCBID);
     //NSLog(@"pWatchAdDoneFrom: %@", app.pWatchAdDoneFrom);
     //NSLog(@"pWatchAdGoToPage: %@", app.pWatchAdGoToPage);
-    NSString *postData = [NSString stringWithFormat:@"UUID=%@&Option=%@", wia.pWatchAdIDtoLog, wia.pWatchAdDoneFrom];
-    [self sendRequest:postData operationToDo:@"LogConsideredBuying"];
+    NSString *postData = [NSString stringWithFormat:@"UUID=%@&pSource=%@", wia.pWatchAdIDtoLog, wia.pWatchAdDoneFrom];
+    [self sendRequest:postData operationToDo:@"LogAdClick"];
 }
 -(void)sendRequest:(NSString *)post operationToDo:(NSString *)pOperation
 {
