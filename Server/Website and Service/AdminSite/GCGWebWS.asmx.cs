@@ -112,6 +112,34 @@ namespace AppAdminSite
             bl.CloseIt();
             return retVal;
         }
+
+
+        [WebMethod]
+        public string GetMyCards(string pGCGKey)
+        {
+            string retVal = "";
+            GCGWebWSBL bl = new GCGWebWSBL();
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.GetMyCards(pGCGKey);
+            }
+            bl.CloseIt();
+            return retVal;
+        }
+
+        [WebMethod]
+        public string GetCardInfo()
+        {
+            string retVal = "";
+            GCGWebWSBL bl = new GCGWebWSBL();
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.GetCardInfo();
+            }
+            bl.CloseIt();
+            return retVal;
+        }
+
         [WebMethod]
         public string GetSupportedCards(string pGCGKey)
         {
@@ -200,6 +228,20 @@ namespace AppAdminSite
             bl.CloseIt();
             return retVal;
         }
+        [WebMethod]
+        public string MyProfileSel00(string pGCGKey)
+        {
+            string retVal = "";
+            GCGWebWSBL bl = new GCGWebWSBL();
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.MyProfileSel00(pGCGKey);
+            }
+            bl.CloseIt();
+            return retVal;
+        }
+
+
         [WebMethod]
         public string GetMLParams(string pGCGKey)
         {
