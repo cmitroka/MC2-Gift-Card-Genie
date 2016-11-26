@@ -301,6 +301,59 @@ namespace AppAdminSite
             retVal = sb.ToString();
             return retVal;
         }
+        public string GetMyCards(string pGCGKey)
+        {
+            string retVal = "";
+            string GCGID = GCGWebWSSM.GCGKeyToGCGUsersID(pGCGKey);
+            string[][] data = sqlh.GetMultiValuesOfSQL("SELECT * FROM qryRUCardData WHERE GCGUsersID=@P0", GCGID);
+            if (CommonForWS.isDatasetBad(data))
+            {
+                return retVal;
+            }
+
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            int max = data.Length;
+            for (int i = 0; i < max; i++)
+            {
+                string CardType = data[i][2];
+                string CardNumber = data[i][3];
+                string CardPIN = data[i][4];
+                string LastKnownBalance = data[i][5];
+                string LastKnownBalanceDate = data[i][6];
+                string DateLogged = data[i][7];
+                string ConcatData = CardType + POSDEL + CardNumber + POSDEL + CardPIN + POSDEL + LastKnownBalance + POSDEL + LastKnownBalanceDate + POSDEL + DateLogged + "XZQX";
+                sb.Append(ConcatData);
+            }
+            retVal = sb.ToString();
+            return retVal;
+        }
+        public string GetCardInfo()
+        {
+            string retVal = "";
+            string[][] data = sqlh.GetMultiValuesOfSQL("SELECT CleanName, URL, TrueCardNumMin, CardNumMax, TruePINMin, PINMax, IsLookupManual FROM qryMerchantsSupported ORDER BY CleanName");
+            if (CommonForWS.isDatasetBad(data))
+            {
+                return retVal;
+            }
+
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            int max = data.Length;
+            for (int i = 0; i < max; i++)
+            {
+                string CleanName = data[i][0];
+                string URL = data[i][1];
+                string TrueCardNumMin = data[i][2];
+                string CardNumMax = data[i][3];
+                string TruePINMin = data[i][4];
+                string PINMax = data[i][5];
+                string IsLookupManual = data[i][6];
+                string ConcatData = CleanName + POSDEL + URL + POSDEL + TrueCardNumMin + POSDEL + CardNumMax + POSDEL + TruePINMin + POSDEL + PINMax + POSDEL + IsLookupManual+"XZQX";
+                sb.Append(ConcatData);
+            }
+            retVal = sb.ToString();
+            return retVal;
+        }
+
         public string GetSupportedCards(string pGCGKey)
         {
             string retVal = "";
@@ -605,6 +658,13 @@ namespace AppAdminSite
             string[] LookupsCntData = GCGWebWSSM.GetLookupsCntData(GCGID);
             retVal=LookupsCntData[0]+LINEDEL+LookupsCntData[1]+LINEDEL+LookupsCntData[2]+LINEDEL+LookupsCntData[3];
             return retVal;
+        }
+        public string MyProfileSel00(string pGCGKey)
+        {
+            string retVal = "";
+            retVal = MyProfileSel(pGCGKey);
+            string retVal2 = retVal.Replace("^)(", "XZQX");
+            return retVal2;
         }
         public string GetMLParams(string pGCGKey)
         {
