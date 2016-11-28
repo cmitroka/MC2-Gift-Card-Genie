@@ -671,7 +671,9 @@ namespace AppAdminSite
             string retVal = "";
             string UserID = GCGLogin(pGCGLogin, pGCGPassword);
             if (UserID == "1234567890") return "";
-            int test = sqlh.ExecuteSQLParamed("INSERT INTO tblMigrated (OldGCGLogin,OldGCGPass,GCGLogin,GCGPass,TimeLogged) VALUES (@P0,@P1,@P2,@P3,@P4)", pGCGLogin, pGCGPassword, pNewGCGLogin, pNewGCGPassword, DateTime.Now.ToString());
+            string[][] data = sqlh.GetMultiValuesOfSQL("SELECT GCGUsersID FROM tblGCGUsers WHERE GCGKey=@P0", UserID);
+            string pGCGUsersID = data[0][0];
+            int test = sqlh.ExecuteSQLParamed("INSERT INTO tblMigrated (OldGCGLogin,OldGCGPass,GCGLogin,GCGPass,GCGUsersID,TimeLogged) VALUES (@P0,@P1,@P2,@P3,@P4,@P5)", pGCGLogin, pGCGPassword, pNewGCGLogin, pNewGCGPassword, pGCGUsersID, DateTime.Now.ToString());
             test = sqlh.ExecuteSQLParamed("DELETE FROM tblGCGUsers WHERE GCGLogin=@P0 AND GCGPassword=@P1", pNewGCGLogin, pNewGCGPassword);
             test = sqlh.ExecuteSQLParamed("UPDATE tblGCGUsers SET GCGLogin=@P0, GCGPassword=@P1 WHERE GCGKey=@P2", pNewGCGLogin, pNewGCGPassword, UserID);
             return test.ToString();
