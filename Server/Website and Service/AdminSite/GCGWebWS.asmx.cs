@@ -241,6 +241,18 @@ namespace AppAdminSite
             return retVal;
         }
 
+        [WebMethod]
+        public string MigrateUser(string pGCGLogin, string pGCGPassword, string pNewGCGLogin, string pNewGCGPassword)
+        {
+            string retVal = "";
+            GCGWebWSBL bl = new GCGWebWSBL();
+            if (bl.gloHacker != "1")
+            {
+                retVal = bl.MigrateUser(pGCGLogin, pGCGPassword, pNewGCGLogin, pNewGCGPassword);
+            }
+            bl.CloseIt();
+            return retVal;
+        }
 
         [WebMethod]
         public string GetMLParams(string pGCGKey)
