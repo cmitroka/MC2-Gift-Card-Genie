@@ -666,6 +666,16 @@ namespace AppAdminSite
             string retVal2 = retVal.Replace("^)(", "XZQX");
             return retVal2;
         }
+        public string MigrateUser(string pGCGLogin, string pGCGPassword, string pNewGCGLogin, string pNewGCGPassword)
+        {
+            string retVal = "";
+            string UserID = GCGLogin(pGCGLogin, pGCGPassword);
+            if (UserID == "1234567890") return "";
+            int test = sqlh.ExecuteSQLParamed("INSERT INTO tblMigrated (OldGCGLogin,OldGCGPass,GCGLogin,GCGPass,TimeLogged) VALUES (@P0,@P1,@P2,@P3,@P4)", pGCGLogin, pGCGPassword, pNewGCGLogin, pNewGCGPassword, DateTime.Now.ToString());
+            test = sqlh.ExecuteSQLParamed("DELETE FROM tblGCGUsers WHERE GCGLogin=@P0 AND GCGPassword=@P1", pNewGCGLogin, pNewGCGPassword);
+            test = sqlh.ExecuteSQLParamed("UPDATE tblGCGUsers SET GCGLogin=@P0, GCGPassword=@P1 WHERE GCGKey=@P2", pNewGCGLogin, pNewGCGPassword, UserID);
+            return test.ToString();
+        }
         public string GetMLParams(string pGCGKey)
         {
             string retVal = "";
