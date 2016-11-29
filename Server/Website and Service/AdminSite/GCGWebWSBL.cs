@@ -705,7 +705,19 @@ namespace AppAdminSite
             }
             else
             {
-                String UniqueID=GCGCommon.SupportMethods.CreateHexKey(20);
+                String UniqueID = GCGCommon.SupportMethods.CreateHexKey(20);
+                string[] LookupsCntData = GCGWebWSSM.GetLookupsCntData(GCGID);
+                int AmntTest = Convert.ToInt16(LookupsCntData[3]);
+                if (AmntTest <= 0)
+                {
+                    rsType = "OUTOFLOOKUPS";
+                    String rsValue = "Sorry, you're out of free lookups - please consider purchasing Gift Card Genie.";
+                    string OK = GCGWebWSSM.InsertNewRequest(GCGID, UniqueID, pCardType, "", "");
+                    OK = GCGWebWSSM.InsertReponse(GCGID, UniqueID, "OUTOFLOOKUPS", rsValue);
+                    retVal = rsType + LINEDEL + rsValue;
+                    return retVal;
+                }
+
                 //String[] CardData = GCGCommon.SupportMethods.SplitByString(pParams, "~_~");
                 int test = sqlh.ExecuteSQLParamed("INSERT INTO tblNewRequests (GCGUsersID,FileID,CardType,CardNumber,PIN,TimeLogged) VALUES (@P0,@P1,@P2,@P3,@P4,@P5)", GCGID, UniqueID, pCardType, pCardNumber, pPIN, DateTime.Now.ToString());
 
