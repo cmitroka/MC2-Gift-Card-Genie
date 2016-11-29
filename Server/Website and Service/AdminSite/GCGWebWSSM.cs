@@ -39,14 +39,17 @@ namespace AppAdminSite
             if (CommonForWS.isDatasetBad(data))
             {
                 retVal = "-1" + POSDEL + "Sorry, a system error occured.";
+                sqlh.CloseIt();
                 return retVal;
             }
             string pTemp = data[0][0];
             if (pTemp != "0")
             {
                 retVal = "-1" + POSDEL + "Sorry, the username has already been taken.";
+                sqlh.CloseIt();
                 return retVal;
             }
+            sqlh.CloseIt();
             return retVal;
         }
         public static string ValidateGCGPassword(string pGCGPassword)
@@ -93,7 +96,7 @@ namespace AppAdminSite
 
             int amntRem = amntAllowed - Convert.ToInt16(amntUsed);
             retVal[3] = amntRem.ToString();
-
+            sqlh.CloseIt();
             return retVal;
         }
         private static int MVDataRowCount(string[][] temp)
