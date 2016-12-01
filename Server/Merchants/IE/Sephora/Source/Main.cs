@@ -78,15 +78,25 @@ namespace DVB
                 }
                 else if (Instruction == 3)
                 {
-                    DoUI.SetForegroundWindowByHWND(IE.HWND);
-                    DoGCGDelay(30, true);
-                    DoUI.DoMouseClick(314, 158);
+                    //DoUI.SetForegroundWindowByHWND(IE.HWND);
+                    //DoGCGDelay(30, true);
+                    //DoUI.DoMouseClick(314, 158);
+                    //DoGCGDelay(10, true);
+                    //DoUI.DoMouseClick(390, 432);
+                    IHTMLDocument2 x = GCGMethods.ConvertIEToIHTMLDocument2(IE, -1);
+                    OK = GCGMethods.SimInput(x, GCGMethods.HTMLTagNames.Zbutton, GCGMethods.HTMLAttributes.ZOuterText, "Check now >", "");
                     DoGCGDelay(10, true);
-                    DoUI.DoMouseClick(390, 432);
-                    DoHandleTyper(txtCardNumber.Text + "{TAB}" +txtCardPIN.Text + "{TAB}{ENTER}");
+                    HandleInstruction(OK);
                 }
                 else if (Instruction == 4)
                 {
+                    DoHandleTyper("{TAB}"+txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{TAB}");
+                    //OK = DoHandleCAPTCHARqRs("CaptchaView?"); //image?c= //kaptcha?
+                    //HandleInstruction(OK);
+                }
+                else if (Instruction == 5)
+                {
+                    DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{TAB}{ENTER}");
                     //OK = DoHandleCAPTCHARqRs("CaptchaView?"); //image?c= //kaptcha?
                     //HandleInstruction(OK);
                 }
@@ -146,8 +156,9 @@ namespace DVB
                     catch (Exception ex)
                     {
                     }
-
-                    balanceResult = GetBalance("Balance =", "USD", testi);
+                    testi = SupportMethods.RemoveNonVisibleChars(testi);
+                    //GCGMethods.WriteFile("C:\\testi.txt", testi, true);
+                    balanceResult = GetBalance("Balance$", "USD", testi);
                     if (balanceResult == "")
                     {
                         OK = "-1";

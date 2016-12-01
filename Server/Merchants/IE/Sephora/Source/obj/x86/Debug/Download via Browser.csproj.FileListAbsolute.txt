@@ -86,3 +86,17 @@ C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Sephora\Source\
 C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Sephora\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
 C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Sephora\Source\obj\x86\Debug\Sephora.exe
 C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Sephora\Source\obj\x86\Debug\Sephora.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Sephora\Source\bin\x86\Debug\Sephora.exe.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Sephora\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Sephora\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Sephora\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Sephora\Source\obj\x86\Debug\Sephora.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Sephora\Source\obj\x86\Debug\Sephora.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Sephora\Source\bin\x86\Debug\Sephora.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Sephora\Source\bin\x86\Debug\Sephora.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Sephora\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Sephora\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Sephora\Source\obj\x86\Debug\DVB.DoTyper.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Sephora\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Sephora\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Sephora\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
