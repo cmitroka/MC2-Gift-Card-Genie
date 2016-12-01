@@ -92,6 +92,13 @@ namespace GCGCommon
             retVal = rgx.Replace(dataIn, "");
             return retVal;
         }
+        public static string RemoveNonVisibleChars(string dataIn)
+        {
+            string retVal = "";
+            System.Text.RegularExpressions.Regex rgx = new System.Text.RegularExpressions.Regex("[^a-zA-Z0-9.,$/<>?]");
+            retVal = rgx.Replace(dataIn, "");
+            return retVal;
+        }
 
         public static string GetWebUUID()
         {
