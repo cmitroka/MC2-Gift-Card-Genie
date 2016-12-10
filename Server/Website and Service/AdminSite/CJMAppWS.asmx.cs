@@ -32,13 +32,22 @@ namespace CJMApp
             string retVal = "";
             if (BlockUser(pUsername, pPassword)) return "RunQuery Blocked";
             if (CredentialsOK(pUsername, pPassword))
-                retVal = RunSecureQuery(pFromWhere);
+            {
+                if (pFromWhere== "qryClicksPerDay" || pFromWhere == "qryClicksPerDaySpecifics")
+                {
+                    retVal = RunSecureQuery(pFromWhere, 1);
+                }
+                else
+                {
+                    retVal = RunSecureQuery(pFromWhere, 2);
+                }
+            }
             return retVal;
         }
-        private string RunSecureQuery(string pFromWhere)
+        private string RunSecureQuery(string pFromWhere, int pDBVersion)
         {
             string retVal = "";
-            CJMAppWSBL bl = new CJMAppWSBL();
+            CJMAppWSBL bl = new CJMAppWSBL(pDBVersion);
             retVal = bl.RunQuery(pFromWhere);
             bl.CloseIt();
             return retVal;
@@ -46,7 +55,7 @@ namespace CJMApp
         private string RunUserReport(string pUserID)
         {
             string retVal = "";
-            CJMAppWSBL bl = new CJMAppWSBL();
+            CJMAppWSBL bl = new CJMAppWSBL(2);
             retVal = bl.RunUserReport(pUserID);
             bl.CloseIt();
             return retVal;

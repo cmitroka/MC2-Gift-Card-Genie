@@ -906,11 +906,11 @@ namespace AppAdminSite
             {
                 if (pPurchaseType == "GiftCardGenie001")
                 {
-                    pPurchaseType="1000";
+                    pPurchaseType="999";
                 }
                 if (pPurchaseType == "15for1")
                 {
-                    pPurchaseType = "16";
+                    pPurchaseType = "15";
                 }
                 else
                 {

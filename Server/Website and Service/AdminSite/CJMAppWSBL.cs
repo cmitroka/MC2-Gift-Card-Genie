@@ -11,9 +11,16 @@ namespace CJMApp
     {
         SQLHelper sqlh;
         public string gloHacker;
-        public CJMAppWSBL()
+        public CJMAppWSBL(int pDBVersion)
         {
-            sqlh = new SQLHelper(SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
+            if (pDBVersion==1)
+            {
+                sqlh = new SQLHelper(SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\App.mdb");
+            }
+            else if (pDBVersion == 2)
+            {
+                sqlh = new SQLHelper(SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
+            }
         }
         private string BuildHTMLTable(string SQLQueryIn)
         {
