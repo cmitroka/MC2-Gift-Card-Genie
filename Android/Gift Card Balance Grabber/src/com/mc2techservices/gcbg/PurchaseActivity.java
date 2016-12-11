@@ -41,13 +41,14 @@ public class PurchaseActivity extends Activity {
 	boolean Ready=false;
 	private int TimeCounter = 0;
 	private Timer t;
+	private String pOrderID;
 	
 	
 	private void LogPurchase()
 	{
         GlobalClass.gloGoToPage="";
 		String pKey = AppSpecificFunctions.PMMakeKey(GlobalClass.gloLoggedInAs);
-		String pParams = "pGCGKey=" + GlobalClass.gloLoggedInAs + "&pPurchType="+ GlobalClass.gloPurchaseType+"&pKey="+ pKey + "&pChannel=Android";
+		String pParams = "pGCGKey=" + GlobalClass.gloLoggedInAs + "&pPurchType="+ GlobalClass.gloPurchaseType+"&pKey="+ pKey + "&pChannel=GCBG-"+pOrderID;
 		String pURL = "https://gcg.mc2techservices.com/GCGWebWS.asmx/LogPurchase";
 					//pGCGKey=GlobalClass.gloUUID pPurchType		pKey		pChannel
 		AsyncWebCallRunner runner = new AsyncWebCallRunner();
@@ -60,6 +61,7 @@ public class PurchaseActivity extends Activity {
 	
 	private void updateStatus(String newTextIn)
 	{
+		if (1==1) return;
 		TextView textViewToUse=(TextView)findViewById(R.id.txtDefaultPurchaseStatus);
 		String temp0=textViewToUse.getText().toString();
 		int amnt=temp0.length();
@@ -77,6 +79,8 @@ public class PurchaseActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_purchase);
+        pOrderID="N/A";
+        //Log.d("gloLoggedInAs", GlobalClass.gloLoggedInAs);
     	Log.d("PurchaseActivity", "");
 		if (GlobalClass.gloPurchaseType.equals("15"))
 		{
@@ -84,118 +88,69 @@ public class PurchaseActivity extends Activity {
 		}
 		else if (GlobalClass.gloPurchaseType.equals("999"))
 		{
-			ITEM_SKU = "unlimitedfor3dollars";
+			ITEM_SKU = "unlimitedor3dollars";
 		}	
 
 		if (GlobalClass.gloPurchaseType.equals("override"))
 		{
 			GlobalClass.gloPurchaseType="999";
+			pOrderID="Override";					
 			LogPurchase();
 		}
-
-		else
-		{
-			t = new Timer();
-		    t.scheduleAtFixedRate(new TimerTask() {
-		        @Override
-		        public void run() {
-		            runOnUiThread(new Runnable() {
-		                public void run() {
-		                    TimeCounter++;
-		                    if (Ready==true) { //Ready==true
-		                    	t.cancel();
-		                    	DoPurchase();
-							}
-		                }
-		            });
-	
-		        }
-		    }, 1000, 1000);
-		}
-
-		Log.d(TAG, "Creating IAB helper.");
-        mHelper = new IabHelper(this, base64EncodedPublicKey);
-
-        // enable debug logging (for a production application, you should set this to false).
-        mHelper.enableDebugLogging(true);
-
-        // Start setup. This is asynchronous and the specified listener
-        // will be called once setup completes.
-        Log.d(TAG, "Starting setup.");
-        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-            public void onIabSetupFinished(IabResult result) {
-                Log.d(TAG, "Setup finished.");
-
-                if (!result.isSuccess()) {
-                    // Oh noes, there was a problem.
-                    complain("Problem setting up in-app billing: " + result);
-                    return;
-                }
-
-                // Have we been disposed of in the meantime? If so, quit.
-                if (mHelper == null) return;
-
-                // IAB is fully set up. Now, let's get an inventory of stuff we own.
-                Log.d(TAG, "Setup successful. Querying inventory.");
-                mHelper.queryInventoryAsync(mGotInventoryListener);
-            }
-        });
+        SetupIAP();
     }
-
-    // Listener that's called when we finish querying the items and subscriptions we own
-    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-            Log.d(TAG, "Query inventory finished.");
-            // Have we been disposed of in the meantime? If so, quit.
-            if (mHelper == null) return;
-
-            // Is it a failure?
-            if (result.isFailure()) {
-                updateStatus("Query inventory failed");
-                complain("Failed to query inventory: " + result);
-                return;
-            }
-            updateStatus("Query inventory OK");
-            Log.d(TAG, "Query inventory was successful.");
-
-            /*
-             * Check for items we own. Notice that for each purchase, we check
-             * the developer payload to see if it's correct! See
-             * verifyDeveloperPayload().
-             */
-
-            // Check for gas delivery -- if we own gas, we should fill up the tank immediately
-            Purchase gasPurchase = inventory.getPurchase(ITEM_SKU);
-            if (gasPurchase != null && verifyDeveloperPayload(gasPurchase)) {
-                Log.d(TAG, "We have gas. Consuming it.");
-                updateStatus("Consume 2");
-                //This isn't always hit.  
-                //LogPurchase();
-                mHelper.consumeAsync(inventory.getPurchase(ITEM_SKU), mConsumeFinishedListener);
-                return;
-            }
-            Log.d(TAG, "Initial inventory query finished; enabling main UI.");
-            Ready=true;
-        }
-    };
-
-        
-    private void DoPurchase()
+    private void SetupIAP()
     {
-        updateStatus("DoPurchase()");
-        Log.d(TAG, "Buy gas button clicked.");
-        // launch the gas purchase UI flow.
-        // We will be notified of completion via mPurchaseFinishedListener
-        Log.d(TAG, "Launching purchase flow for gas.");
-
-        /* TODO: for security, generate your payload here for verification. See the comments on
-         *        verifyDeveloperPayload() for more info. Since this is a SAMPLE, we just use
-         *        an empty string, but on a production app you should carefully generate this. */
-        String payload = "";
-
-        mHelper.launchPurchaseFlow(this, ITEM_SKU, RC_REQUEST,
-                mPurchaseFinishedListener, payload);        
-        updateStatus("DoPurchase() Finished");
+        updateStatus("SetupIAP()");
+    	mHelper = new IabHelper(this, base64EncodedPublicKey);
+    	mHelper.enableDebugLogging(true);
+    	mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+    	public void onIabSetupFinished(IabResult result) {
+	    	if (!result.isSuccess()) {
+	            updateStatus("Problem setting up in-app billing: " + result);
+	        	//return;
+	        }
+	    	if (mHelper == null)
+	    	{
+	            updateStatus("mHelper == null");    		
+	        	//return;
+	    	}
+        updateStatus("Setup successful. Querying inventory.");
+    	mHelper.queryInventoryAsync(mGotInventoryListener);
+    	}
+    	});
+    }
+    
+    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
+    	@Override
+    	public void onQueryInventoryFinished(final IabResult result, final Inventory inventory) {
+	    	if (mHelper == null) {
+	    		return;
+	    	}
+			if (result.isFailure()) {
+	            updateStatus("Failed to query inventory: " + result);
+				return;
+			}
+			// They've bought the  Consumable
+			Purchase ConsumablePurchase = inventory.getPurchase(ITEM_SKU);
+			if (ConsumablePurchase == null) {
+	            updateStatus("We've got to buy it");
+				LaunchPurchase();
+			}
+			else
+			{
+	            updateStatus("Consuming ConsumablePurchase.");
+				mHelper.consumeAsync(inventory.getPurchase(ITEM_SKU),
+				mConsumeFinishedListener);
+			}
+    	}
+    };
+   
+    private void LaunchPurchase()
+    {
+        updateStatus("LaunchPurchase() Started");
+		mHelper.launchPurchaseFlow(this, ITEM_SKU, RC_REQUEST,
+                mPurchaseFinishedListener, "");
     }
     
     @Override
@@ -270,10 +225,8 @@ public class PurchaseActivity extends Activity {
             }
 
             updateStatus("Purchase successful");
-            //LogPurchase();
             if (purchase.getSku().equals(ITEM_SKU)) {
-                // bought 1/4 tank of gas. So consume it.
-                Log.d(TAG, "Purchase is gas. Starting gas consumption.");
+                updateStatus("Now we have to consume it");
                 mHelper.consumeAsync(purchase, mConsumeFinishedListener);
             }
         }
@@ -282,30 +235,17 @@ public class PurchaseActivity extends Activity {
     // Called when consumption is complete
     IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
         public void onConsumeFinished(Purchase purchase, IabResult result) {
-            Log.d(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
-            updateStatus("Consumption eval");
-            // if we were disposed of in the meantime, quit.
+            updateStatus("Beging Consumption");
             if (mHelper == null) return;
-
-            // We know this is the "gas" sku because it's the only one we consume,
-            // so we don't check which sku was consumed. If you have more than one
-            // sku, you probably should check...
             if (result.isSuccess()) {
-                // successfully consumed, so we apply the effects of the item in our
-                // game world's logic, which in our case means filling the gas tank a bit
                 updateStatus("Consumption OK");
-                Log.d(TAG, "Consumption successful. Provisioning.");
-                //ALL GOOD
-                //LogPurchase();
+                pOrderID=purchase.getOrderId();
+                LogPurchase();
             }
             else {
                 updateStatus("Consumption Failed");
                 complain("Error while consuming: " + result);
-                //LogPurchase();
             }
-            updateStatus("Consumption Done");
-            LogPurchase();
-            Log.d(TAG, "End consumption flow.");
         }
     };
 
@@ -337,7 +277,6 @@ public class PurchaseActivity extends Activity {
         Log.d(TAG, "Showing alert dialog: " + message);
         bld.create().show();
     }
-
 
 
 

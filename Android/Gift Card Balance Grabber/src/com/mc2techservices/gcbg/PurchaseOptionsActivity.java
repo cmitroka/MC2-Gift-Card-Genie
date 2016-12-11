@@ -11,12 +11,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 public class PurchaseOptionsActivity extends Activity {
 	//private static final String NAMESPACE = "http://tempuri.org/";
 	String pFinalResult="";
     IabHelper mHelper;
     boolean mIsPremium = false;
+    boolean watched = false;    
     static final String TAG = "GCG IAP";
     static final String SKU_15= "15for1dollar";
     static final String SKU_999 = "unlimitedor3dollars";
@@ -29,6 +31,7 @@ public class PurchaseOptionsActivity extends Activity {
 		//setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_purchaseoptions);
+		CheckIfWatchAdIsAllowed();
 		Log.d("PurchaseOptionsActivity", "");
 
         mHelper = new IabHelper(this, "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiN6f1yPzXs+tag1L5HIJzF0ABsWBqhKeaJE0DQ/Nm3lyq+sTz2jRSPNh/fHAH7Rs6yTfT9zNo4+PPlKELwMgD+7lWVg8HN91yGQgM6zZ9dC2mW+3K8FX/43pypYpIi+bKv8mPrH/cONLh3tUApua3AqCR8P6hdDBIBTD0zav7hfsGtue++p5aG2strWiGdShmTFxcnz6lm99WA0XoJSPfhWLUawPt14lGGW18CFX+3GAHvosFoQNSM/kHzoIO8pIsuo4nCPjOufHpsiIP+dPfYN7bgPmx2Hj6M6sQPcfkOR2+0TE5KTbTI4nZTj6EPNBG4fHLesqkImPYywf/DQNTQIDAQAB");
@@ -58,9 +61,28 @@ public class PurchaseOptionsActivity extends Activity {
             }
         });
 	}
+	private void CheckIfWatchAdIsAllowed()
+	{
+		String AdViewDate="";
+		String AdViewCnt="";
+		Button cmdWatchAd = (Button)findViewById(R.id.Button2);
+		AdViewDate=GeneralFunctions.ReadSharedPreference(this, "WatchAdDate",true);
+		if (!AdViewDate.equals(""))
+		{
+			String currDate1=GeneralFunctions.GetCurrentDate();
+			if (currDate1.equals(AdViewDate))
+			{
+				watched=true;
+			}
+		}
+	}
 
 	public void onWatchAdClicked(View arg0) {
-
+		if (watched==true)
+		{
+            alert("Sorry, you can only do this once a day.");
+            return;
+		}
 			DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
 			    @Override
 			    public void onClick(DialogInterface dialog, int which) {

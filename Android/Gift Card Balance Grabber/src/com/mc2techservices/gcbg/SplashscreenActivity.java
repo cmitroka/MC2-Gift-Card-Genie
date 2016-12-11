@@ -3,6 +3,9 @@ package com.mc2techservices.gcbg;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.mc2techservices.common.GeneralFunctions;
 import com.mc2techservices.gcbg.LoginActivity.AsyncWebCallRunner;
 
@@ -34,12 +37,27 @@ public class SplashscreenActivity extends Activity {
 	Button btnStop;
 	Context context;
 	public static final String URL = "";
+    InterstitialAd mInterstitialAd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_splashscreen);	
+		//com.mc2techservices.gcg.GeneralFunctions.WriteSharedPreference(this, "WatchAdDate", "0"); //Test
+		GlobalClass.gloAdUnitID="ca-app-pub-2250341510214691/5929167165";
+		mInterstitialAd = new InterstitialAd(this);
+		mInterstitialAd.setAdUnitId(GlobalClass.gloAdUnitID);
+		requestNewInterstitial();
+		mInterstitialAd.setAdListener(new AdListener() {
+		    @Override
+		    public void onAdFailedToLoad(int errorCode) {
+				Log.d("APP", "Ad failed to load! error code: " + errorCode);
+		        //Toast.makeText(getApplicationContext(), "Ads are blocked: " + errorCode, Toast.LENGTH_SHORT).show();
+		    };
+		});
 		context = this;
 		super.onCreate(savedInstanceState);
-
+	
 		
 		//Test
 		/*
@@ -51,6 +69,13 @@ public class SplashscreenActivity extends Activity {
 		*/
 		DoOnCreate();
 		
+	}
+	private void requestNewInterstitial() {
+		AdRequest adRequest = new AdRequest.Builder()
+		.addTestDevice("E0C6CEB3413BBA174F125A98F2ED7789")
+		.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+		.build();
+		mInterstitialAd.loadAd(adRequest);
 	}
 
 	private void DoOnCreate()

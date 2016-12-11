@@ -869,7 +869,6 @@ containing a value of this type.
         public static final int Theme_AppInvite_Preview=0x7f050002;
         /**  Base preview application theme. 
  Base preview application theme. 
- Base preview application theme. 
          */
         public static final int Theme_AppInvite_Preview_Base=0x7f050001;
         public static final int Theme_IAPTheme=0x7f050000;
