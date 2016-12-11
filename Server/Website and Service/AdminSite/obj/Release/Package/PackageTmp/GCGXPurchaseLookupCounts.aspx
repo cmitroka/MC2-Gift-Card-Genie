@@ -37,7 +37,7 @@
         DataFile="~/App_Data/GCGApp.mdb"
         
         
-        SelectCommand="SELECT * FROM [qryPurchased]" 
+        SelectCommand="SELECT * FROM [qryPurchased] ORDER BY [MinOfDateLogged] DESC" 
         oninserting="AccessDataSource1_Inserting"></asp:AccessDataSource>
     <br />
     </asp:Content>

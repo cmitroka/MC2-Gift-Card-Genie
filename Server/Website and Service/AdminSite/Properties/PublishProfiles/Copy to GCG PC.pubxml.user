@@ -13,16 +13,49 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/29/2016 08:45:47</publishTime>
     </File>
     <File Include="AdminWeb.htm">
-      <publishTime>10/15/2016 00:47:55</publishTime>
+      <publishTime>12/10/2016 02:14:45</publishTime>
     </File>
     <File Include="AllUUIDsWVersion.aspx">
       <publishTime>09/29/2016 08:45:42</publishTime>
     </File>
     <File Include="bin/AppAdminSite.dll">
-      <publishTime>11/29/2016 00:41:43</publishTime>
+      <publishTime>12/10/2016 22:31:28</publishTime>
+    </File>
+    <File Include="bin/AppAdminSite.dll.config">
+      <publishTime>09/29/2016 08:45:47</publishTime>
+    </File>
+    <File Include="bin/AppAdminSite.pdb">
+      <publishTime>12/10/2016 02:14:51</publishTime>
+    </File>
+    <File Include="bin/Debug/AppAdminSite.dll">
+      <publishTime>10/10/2016 20:18:45</publishTime>
+    </File>
+    <File Include="bin/Debug/AppAdminSite.dll.config">
+      <publishTime>09/29/2016 08:45:47</publishTime>
+    </File>
+    <File Include="bin/Debug/AppAdminSite.pdb">
+      <publishTime>10/10/2016 20:18:45</publishTime>
+    </File>
+    <File Include="bin/Debug/GCGCommon.dll">
+      <publishTime>10/10/2016 20:18:01</publishTime>
+    </File>
+    <File Include="bin/Debug/GCGCommon.pdb">
+      <publishTime>10/10/2016 20:18:01</publishTime>
+    </File>
+    <File Include="bin/Debug/HtmlAgilityPack.dll">
+      <publishTime>08/23/2016 11:32:30</publishTime>
+    </File>
+    <File Include="bin/Debug/Interop.SHDocVw.dll">
+      <publishTime>10/10/2016 20:18:01</publishTime>
+    </File>
+    <File Include="bin/Debug/Microsoft.mshtml.dll">
+      <publishTime>05/28/2016 11:00:00</publishTime>
     </File>
     <File Include="bin/GCGCommon.dll">
       <publishTime>11/29/2016 00:12:09</publishTime>
+    </File>
+    <File Include="bin/GCGCommon.pdb">
+      <publishTime>12/09/2016 19:32:57</publishTime>
     </File>
     <File Include="bin/HtmlAgilityPack.dll">
       <publishTime>09/29/2016 08:45:42</publishTime>
@@ -32,6 +65,30 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/Microsoft.mshtml.dll">
       <publishTime>09/29/2016 08:45:42</publishTime>
+    </File>
+    <File Include="bin/x86/Release/AppAdminSite.dll">
+      <publishTime>10/16/2016 13:34:16</publishTime>
+    </File>
+    <File Include="bin/x86/Release/AppAdminSite.dll.config">
+      <publishTime>09/29/2016 08:45:47</publishTime>
+    </File>
+    <File Include="bin/x86/Release/AppAdminSite.pdb">
+      <publishTime>10/16/2016 13:34:16</publishTime>
+    </File>
+    <File Include="bin/x86/Release/GCGCommon.dll">
+      <publishTime>10/16/2016 13:32:57</publishTime>
+    </File>
+    <File Include="bin/x86/Release/GCGCommon.pdb">
+      <publishTime>10/16/2016 13:32:57</publishTime>
+    </File>
+    <File Include="bin/x86/Release/HtmlAgilityPack.dll">
+      <publishTime>08/23/2016 11:32:30</publishTime>
+    </File>
+    <File Include="bin/x86/Release/Interop.SHDocVw.dll">
+      <publishTime>10/16/2016 13:32:55</publishTime>
+    </File>
+    <File Include="bin/x86/Release/Microsoft.mshtml.dll">
+      <publishTime>05/28/2016 11:00:00</publishTime>
     </File>
     <File Include="CJMAppWS.asmx">
       <publishTime>08/17/2016 02:00:55</publishTime>
@@ -1921,7 +1978,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/29/2016 08:45:40</publishTime>
     </File>
     <File Include="GCGXPurchaseLookupCounts.aspx">
-      <publishTime>09/29/2016 08:45:44</publishTime>
+      <publishTime>12/09/2016 19:43:59</publishTime>
     </File>
     <File Include="GCGXRqRsLog.aspx">
       <publishTime>09/29/2016 08:45:41</publishTime>

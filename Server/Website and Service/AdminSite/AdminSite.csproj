@@ -100,6 +100,27 @@
   <ItemGroup>
     <Content Include="AdminWeb.htm" />
     <Content Include="AllUUIDsWVersion.aspx" />
+    <Content Include="bin\AppAdminSite.dll" />
+    <Content Include="bin\AppAdminSite.pdb" />
+    <Content Include="bin\Debug\AppAdminSite.dll" />
+    <Content Include="bin\Debug\AppAdminSite.pdb" />
+    <Content Include="bin\Debug\GCGCommon.dll" />
+    <Content Include="bin\Debug\GCGCommon.pdb" />
+    <Content Include="bin\Debug\HtmlAgilityPack.dll" />
+    <Content Include="bin\Debug\Interop.SHDocVw.dll" />
+    <Content Include="bin\Debug\Microsoft.mshtml.dll" />
+    <Content Include="bin\GCGCommon.dll" />
+    <Content Include="bin\GCGCommon.pdb" />
+    <Content Include="bin\HtmlAgilityPack.dll" />
+    <Content Include="bin\Interop.SHDocVw.dll" />
+    <Content Include="bin\Microsoft.mshtml.dll" />
+    <Content Include="bin\x86\Release\AppAdminSite.dll" />
+    <Content Include="bin\x86\Release\AppAdminSite.pdb" />
+    <Content Include="bin\x86\Release\GCGCommon.dll" />
+    <Content Include="bin\x86\Release\GCGCommon.pdb" />
+    <Content Include="bin\x86\Release\HtmlAgilityPack.dll" />
+    <Content Include="bin\x86\Release\Interop.SHDocVw.dll" />
+    <Content Include="bin\x86\Release\Microsoft.mshtml.dll" />
     <Content Include="CJMAppWS.asmx" />
     <Content Include="GCGAdminWeb.htm" />
     <Content Include="GCGAdminWebWS.asmx" />
@@ -1680,6 +1701,9 @@
     <Content Include="UUIDHistory.aspx" />
     <Content Include="UUIDLookupsAndPurchases.aspx" />
     <Content Include="GCGC\Admin.Master" />
+    <Content Include="bin\AppAdminSite.dll.config" />
+    <Content Include="bin\Debug\AppAdminSite.dll.config" />
+    <Content Include="bin\x86\Release\AppAdminSite.dll.config" />
     <None Include="GCGWebCSS\jqm-icon-pack-fa.scss" />
     <Content Include="GenericMobileWebCSS\jqm-icon-pack-fa.scss" />
     <None Include="Properties\PublishProfiles\Copy to GCG PC.pubxml" />
