@@ -16,4 +16,5 @@ public class GlobalClass extends Application {
     public static String gloPurchaseType;
     public static String gloLoggedInAs;
     public static String gloGoToPage;
+    public static String gloAdUnitID;
 }

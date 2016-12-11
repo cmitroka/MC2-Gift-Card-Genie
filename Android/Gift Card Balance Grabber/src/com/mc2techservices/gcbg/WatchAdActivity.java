@@ -32,7 +32,7 @@ public class WatchAdActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_watch_ad);
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-2250341510214691/5929167165");
+		mInterstitialAd.setAdUnitId(GlobalClass.gloAdUnitID);
         
 		t.scheduleAtFixedRate(new TimerTask() {
 			public void run() {
@@ -130,9 +130,11 @@ public class WatchAdActivity extends Activity {
 	}
 	private void LogPurchase()
 	{
+		String CurrDate=GeneralFunctions.GetCurrentDate();
+		GeneralFunctions.WriteSharedPreference(this, "WatchAdDate", CurrDate);
 		GlobalClass.gloGoToPage="";
 		String pKey = AppSpecificFunctions.PMMakeKey(GlobalClass.gloLoggedInAs);
-		String pParams = "pGCGKey=" + GlobalClass.gloLoggedInAs + "&pPurchType=Interstitial&pKey="+ pKey + "&pChannel=Android";
+		String pParams = "pGCGKey=" + GlobalClass.gloLoggedInAs + "&pPurchType=Interstitial&pKey="+ pKey + "&pChannel=Android-GCBG";
 		String pURL = GlobalClass.gloWebServiceURL + "/LogPurchase";
 		//pGCGKey=GlobalClass.gloUUID pPurchType		pKey		pChannel
 		AsyncWebCallRunner runner = new AsyncWebCallRunner();
