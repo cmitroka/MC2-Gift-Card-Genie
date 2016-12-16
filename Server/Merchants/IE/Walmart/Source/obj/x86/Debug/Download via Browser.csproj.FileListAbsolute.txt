@@ -1,16 +1,116 @@
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\bin\x86\Debug\Walmart.exe.config
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\obj\x86\Debug\Interop.SHDocVw.dll
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\bin\x86\Debug\Walmart.exe
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\bin\x86\Debug\Walmart.pdb
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\bin\x86\Debug\GCGCommon.dll
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\bin\x86\Debug\Interop.SHDocVw.dll
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\bin\x86\Debug\HtmlAgilityPack.dll
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\bin\x86\Debug\GCGCommon.pdb
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\bin\x86\Debug\AxInterop.SHDocVw.dll
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\obj\x86\Debug\DVB.Main.resources
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\obj\x86\Debug\DVB.Properties.Resources.resources
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\obj\x86\Debug\Walmart.exe
-C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants and Applications\Walmart\Source\obj\x86\Debug\Walmart.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\X R Us\Source\bin\x86\Debug\X R Us.exe.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\X R Us\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\X R Us\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\X R Us\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\bin\x86\Debug\American Eagle.exe.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\bin\x86\Debug\American Eagle.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\bin\x86\Debug\American Eagle.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\American Eagle.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\American Eagle.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\American Eagle\Source\obj\x86\Debug\DVB.DoTyper.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\bin\x86\Debug\AMC Theatres.exe.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\bin\x86\Debug\AMC Theatres.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\bin\x86\Debug\AMC Theatres.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\DVB.DoTyper.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\AMC Theatres.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\AMC Theatres\Source\obj\x86\Debug\AMC Theatres.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Gap\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Gap\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Gap\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Gap\Source\bin\x86\Debug\Gap.exe.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Gap\Source\bin\x86\Debug\Gap.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Gap\Source\bin\x86\Debug\Gap.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Gap\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Gap\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Gap\Source\obj\x86\Debug\DVB.DoTyper.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Gap\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Gap\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Gap\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Gap\Source\obj\x86\Debug\Gap.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Gap\Source\obj\x86\Debug\Gap.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Panera\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Panera\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Panera\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Panera\Source\bin\x86\Debug\Panera.exe.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Panera\Source\bin\x86\Debug\Panera.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Panera\Source\bin\x86\Debug\Panera.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Panera\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Panera\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Panera\Source\obj\x86\Debug\DVB.DoTyper.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Panera\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Panera\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Panera\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Panera\Source\obj\x86\Debug\Panera.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Panera\Source\obj\x86\Debug\Panera.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Home Depot\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Home Depot\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Home Depot\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Home Depot\Source\bin\x86\Debug\Home Depot.exe.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Home Depot\Source\bin\x86\Debug\Home Depot.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Home Depot\Source\bin\x86\Debug\Home Depot.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Home Depot\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Home Depot\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Home Depot\Source\obj\x86\Debug\DVB.DoTyper.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Home Depot\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Home Depot\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Home Depot\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Home Depot\Source\obj\x86\Debug\Home Depot.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\New Merchants\Home Depot\Source\obj\x86\Debug\Home Depot.pdb
+C:\Users\Administrator\Desktop\test\IE\Home Depot\Source\bin\x86\Debug\Home Depot.exe.config
+C:\Users\Administrator\Desktop\test\IE\Home Depot\Source\bin\x86\Debug\Home Depot.exe
+C:\Users\Administrator\Desktop\test\IE\Home Depot\Source\bin\x86\Debug\Home Depot.pdb
+C:\Users\Administrator\Desktop\test\IE\Home Depot\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\test\IE\Home Depot\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\test\IE\Home Depot\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\test\IE\Home Depot\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\test\IE\Home Depot\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\test\IE\Home Depot\Source\obj\x86\Debug\DVB.DoTyper.resources
+C:\Users\Administrator\Desktop\test\IE\Home Depot\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\test\IE\Home Depot\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\test\IE\Home Depot\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\test\IE\Home Depot\Source\obj\x86\Debug\Home Depot.exe
+C:\Users\Administrator\Desktop\test\IE\Home Depot\Source\obj\x86\Debug\Home Depot.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Kohls\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Kohls\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Kohls\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Kohls\Source\bin\x86\Debug\Kohls.exe.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Kohls\Source\bin\x86\Debug\Kohls.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Kohls\Source\bin\x86\Debug\Kohls.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Kohls\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Kohls\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Kohls\Source\obj\x86\Debug\DVB.DoTyper.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Kohls\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Kohls\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Kohls\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Kohls\Source\obj\x86\Debug\Kohls.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Kohls\Source\obj\x86\Debug\Kohls.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Walmart\Source\obj\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Walmart\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Walmart\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Walmart\Source\bin\x86\Debug\Walmart.exe.config
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Walmart\Source\bin\x86\Debug\Walmart.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Walmart\Source\bin\x86\Debug\Walmart.pdb
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Walmart\Source\bin\x86\Debug\Interop.SHDocVw.dll
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Walmart\Source\obj\x86\Debug\Download via Browser.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Walmart\Source\obj\x86\Debug\DVB.DoTyper.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Walmart\Source\obj\x86\Debug\DVB.Main.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Walmart\Source\obj\x86\Debug\DVB.Properties.Resources.resources
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Walmart\Source\obj\x86\Debug\Download via Browser.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Walmart\Source\obj\x86\Debug\Walmart.exe
+C:\Users\Administrator\Desktop\Development\GCG Dev\Merchants\IE\Walmart\Source\obj\x86\Debug\Walmart.pdb
