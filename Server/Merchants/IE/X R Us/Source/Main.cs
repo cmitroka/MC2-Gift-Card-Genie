@@ -108,8 +108,8 @@ namespace DVB
                 }
                 else if (Instruction == 3)
                 {
-                    //OK = DoHandleCAPTCHARqRs("type=rca");
-                    //HandleInstruction(OK);
+                    OK = DoHandleCAPTCHARqRs("image?c");
+                    HandleInstruction(OK);
                 }
                 else if (Instruction == 4)
                 {
@@ -127,7 +127,7 @@ namespace DVB
                         HandleInstruction(OK);
                         return;
                     }
-                    DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{TAB}{ENTER}");
+                    DoHandleTyper(txtCardNumber.Text + "{TAB}" + txtCardPIN.Text + "{TAB}" +txtCAPTCHAAnswer.Text + "{TAB}{TAB}{ENTER}");
                     DoGCGDelay(15, true);                    
                     HandleInstruction(OK);
                 }
