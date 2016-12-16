@@ -137,8 +137,6 @@ namespace AppAdminSite
                 retVal = "-1"+POSDEL+"That username/password entry had a registration problem, try with other values.";
                 return retVal;
             }
-
-
             if (pGCGKey != "")
             {
                 GCGID = "-1";
@@ -162,6 +160,7 @@ namespace AppAdminSite
                 }
             }
             retVal = "1" + POSDEL + pGCGKey + POSDEL + pGCGLogin + POSDEL + pGCGPassword;
+            sqlh.CloseIt();
             return retVal;
         }
 
@@ -200,6 +199,7 @@ namespace AppAdminSite
             {
                 retVal = UpdatedKey;
             }
+            sqlh.CloseIt();
             return retVal;
         }
         public string GCGLogUser(string pGCGKey, string pChannel)
