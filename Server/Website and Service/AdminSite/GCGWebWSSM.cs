@@ -14,7 +14,11 @@ namespace AppAdminSite
             GCGCommon.SQLHelper sqlh = new GCGCommon.SQLHelper(GCGCommon.SQLHelper.MDBBaseLoc.CurrentDomainBaseDirectory, "App_Data\\GCGApp.mdb");
             //AppAdminSite.SQLHelper sqlh = new AppAdminSite.SQLHelper("GCGApp.mdb");
             string[][] data = sqlh.GetMultiValuesOfSQL("SELECT GCGUsersID FROM tblGCGUsers WHERE GCGKey=@P0", pGCGKey);
-            if (CommonForWS.isDatasetBad(data)) return "-1";
+            if (CommonForWS.isDatasetBad(data))
+            {
+                sqlh.CloseIt();
+                return "-1";
+            }
             retVal = data[0][0];
             sqlh.CloseIt();
             return retVal;
