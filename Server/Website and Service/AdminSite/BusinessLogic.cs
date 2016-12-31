@@ -908,7 +908,15 @@ namespace AppAdminSite
                 {
                     pPurchaseType="999";
                 }
-                if (pPurchaseType == "15for1")
+                else if (pPurchaseType == "999")
+                {
+                    pPurchaseType = "999";
+                }
+                else if (pPurchaseType == "15for1")
+                {
+                    pPurchaseType = "15";
+                }
+                else if (pPurchaseType == "15")
                 {
                     pPurchaseType = "15";
                 }

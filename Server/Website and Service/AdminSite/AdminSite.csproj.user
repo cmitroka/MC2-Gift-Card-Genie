@@ -34,7 +34,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58590</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://192.168.0.185/AdminSite</IISUrl>
+          <IISUrl>http://192.168.0.190/AdminSite</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
