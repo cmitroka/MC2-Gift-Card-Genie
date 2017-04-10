@@ -13,7 +13,6 @@ import java.net.URL;
 import android.content.Intent;
 import java.net.URLConnection;
 
-import javax.net.ssl.HttpsURLConnection;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -137,9 +136,9 @@ public class LoginActivity extends Activity {
 					.getIpAddress());
 		} catch (Exception e) {
 		}
-		String pURL = "https://gcg.mc2techservices.com/GCGWebWS.asmx/DemoGCG";
+		String pURL = GlobalClass.gloWebServiceURL+"/DemoGCG";
 		AsyncWebCallRunner runner = new AsyncWebCallRunner();
-		runner.execute("https://gcg.mc2techservices.com/GCGWebWS.asmx/DemoGCG",
+		runner.execute(pURL,
 				"pIP=" + ip);
 	}
 

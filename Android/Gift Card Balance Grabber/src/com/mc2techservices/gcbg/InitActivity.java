@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
 
 import com.android.vending.billing.util.IabHelper;
 import com.android.vending.billing.util.IabResult;
@@ -19,11 +18,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -40,8 +42,17 @@ public class InitActivity extends Activity {
 		GlobalClass.gloGoToPage="";
 		GlobalClass.gloDelim="~_~";
 		GlobalClass.gloxmlns= "xmlns=\"gcg.mc2techservices.com\">";
-		GlobalClass.gloWebServiceURL="https://gcg.mc2techservices.com/GCGWebWS.asmx";
-		GlobalClass.gloWebURL="https://gcg.mc2techservices.com/";
+
+		if (Build.VERSION.SDK_INT >= 24) {  //Build.VERSION_CODES.M Build.VERSION_CODES.N
+			GlobalClass.gloWebServiceURL="http://gcgx.mc2techservices.com/GCGWebWS.asmx";
+			GlobalClass.gloWebURL="http://gcgx.mc2techservices.com/";
+		} 		
+		else
+		{
+			GlobalClass.gloWebServiceURL="https://gcg.mc2techservices.com/GCGWebWS.asmx";
+			GlobalClass.gloWebURL="https://gcg.mc2techservices.com/";
+			
+		}
 		//GlobalClass.gloWebServiceURL="http://192.168.0.186/AdminSite/GCGWebWS.asmx";
 		//GlobalClass.gloWebURL="http://192.168.0.186/AdminSite/";
 		//GlobalClass.gloWebServiceURL="http://10.76.186.221/AdminSite/GCGWebWS.asmx";

@@ -3,6 +3,7 @@ package com.mc2techservices.gcbg;
 import com.mc2techservices.gcbg.R;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,9 +14,11 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
@@ -38,6 +41,9 @@ public class WebformActivity extends Activity {
 		Log.d("WebformActivity", "");
 
 		webView = (WebView) findViewById(R.id.webView1);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+		} 		
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setAllowContentAccess(true);
 		webView.getSettings().setAppCacheEnabled(false);
