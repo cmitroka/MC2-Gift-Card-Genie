@@ -49,7 +49,7 @@ public class PurchaseActivity extends Activity {
         GlobalClass.gloGoToPage="";
 		String pKey = AppSpecificFunctions.PMMakeKey(GlobalClass.gloLoggedInAs);
 		String pParams = "pGCGKey=" + GlobalClass.gloLoggedInAs + "&pPurchType="+ GlobalClass.gloPurchaseType+"&pKey="+ pKey + "&pChannel=GCBG-"+pOrderID;
-		String pURL = "https://gcg.mc2techservices.com/GCGWebWS.asmx/LogPurchase";
+		String pURL = GlobalClass.gloWebServiceURL + "/LogPurchase";
 					//pGCGKey=GlobalClass.gloUUID pPurchType		pKey		pChannel
 		AsyncWebCallRunner runner = new AsyncWebCallRunner();
 		runner.execute(pURL, pParams);		

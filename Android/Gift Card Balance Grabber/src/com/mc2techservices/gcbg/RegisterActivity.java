@@ -3,10 +3,9 @@ package com.mc2techservices.gcbg;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import com.mc2techservices.common.GeneralFunctions;
 import com.mc2techservices.gcbg.GlobalClass;
@@ -66,7 +65,7 @@ public class RegisterActivity extends Activity {
 			String pUsername=pETUsername.getText().toString();
 			String pContact=pETContact.getText().toString();
 			String cmdLine="pGCGLogin=" + pLogin + "&pGCGPassword=" + pPassword + "&pUsersName=" + pUsername + "&pUsersEmail=" + pContact;
-			runner.execute("https://gcg.mc2techservices.com/GCGWebWS.asmx/RegisterUserIns", cmdLine);
+			runner.execute(GlobalClass.gloWebServiceURL+"/RegisterUserIns", cmdLine);
 		}
 		else
 		{
@@ -105,13 +104,13 @@ public class RegisterActivity extends Activity {
 				// Do your long operations here and return the result
 				StringBuffer buffer=new StringBuffer();
 				try {
-					//String url = "https://selfsolve.apple.com/wcResults.do";
+					//String url = "Http://selfsolve.apple.com/wcResults.do";
 					//String urlParameters = "sn=C02G8416DRJM&cn=&locale=&caller=&num=12345";
 					String url = params[0];
 					String urlParameters = params[1];
 
 					URL obj = new URL(url);
-					HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 					//add reuqest header
 					con.setRequestMethod("POST");

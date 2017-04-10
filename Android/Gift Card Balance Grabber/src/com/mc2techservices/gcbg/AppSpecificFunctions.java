@@ -10,8 +10,9 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
-
+import java.net.HttpURLConnection;
 import javax.net.ssl.HttpsURLConnection;
+
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -112,7 +113,7 @@ public class AppSpecificFunctions {
 			String urlParameters = pParams;
 
 			URL obj = new URL(url);
-			HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 			con.setRequestMethod("POST");
 			con.setRequestProperty("User-Agent", USER_AGENT);
