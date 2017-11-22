@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<lint>
-    <issue id="MissingTranslation" severity="warning" />
-    <issue id="NewApi">
-        <ignore path="src/com/mc2techservices/gcbg/WebformActivity.java" />
-    </issue>
-</lint>

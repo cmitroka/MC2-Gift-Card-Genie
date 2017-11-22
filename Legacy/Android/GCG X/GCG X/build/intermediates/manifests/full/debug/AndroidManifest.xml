@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mc2techservices.gcg"
+    android:versionCode="4"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="14" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+    <application
+        android:debuggable="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="GCG X"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.mc2techservices.gcg.AutoStartActivity"
+            android:noHistory="true" >
+        </activity>
+        <activity
+            android:name="com.mc2techservices.gcg.PurchaseOldActivity"
+            android:noHistory="true" >
+        </activity>
+        <activity
+            android:name="com.mc2techservices.gcg.LoginActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.mc2techservices.gcg.RegisterActivity"
+            android:label="Registration" >
+        </activity>
+        <activity
+            android:name="com.mc2techservices.gcg.WebformActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.mc2techservices.gcg.SplashscreenActivity"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.mc2techservices.gcg.ConfirmLoginActivity"
+            android:noHistory="true" >
+        </activity>
+        <activity
+            android:name="com.mc2techservices.gcg.PurchaseActivity"
+            android:noHistory="true" >
+        </activity>
+        <activity
+            android:name="com.mc2techservices.gcg.TestAreaActivity"
+            android:theme="@android:style/android:Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.mc2techservices.gcg.OverlayActivity"
+            android:label="@string/title_activity_overlay"
+            android:theme="@style/TransparentV1" >
+        </activity>
+    </application>
+
+</manifest>

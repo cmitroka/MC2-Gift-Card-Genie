@@ -1,5 +1,0 @@
-Changed
--tblManualRequests
--tblAdsClicked
--qryMerchantsSupported
--tblMerchants (took fields out, can prob use old version too)

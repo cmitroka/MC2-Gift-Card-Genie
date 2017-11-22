@@ -1,9 +1,0 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DVB.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="BBandB_com_mc2techservices_gcg_WebService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">https://gcg.mc2techservices.com/WebService.asmx</Value>
-    </Setting>
-  </Settings>
-</SettingsFile>
