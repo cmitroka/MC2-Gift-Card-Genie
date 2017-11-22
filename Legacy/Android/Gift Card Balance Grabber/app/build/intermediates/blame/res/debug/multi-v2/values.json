@@ -1,0 +1,79 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Dev\\Gift Card Genie\\Android\\Gift Card Balance Grabber\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "map": [
+                {
+                    "source": "C:\\Dev\\Gift Card Genie\\Android\\Gift Card Balance Grabber\\app\\src\\main\\res\\values\\dimens.xml",
+                    "from": {
+                        "startLines": "3,4",
+                        "startColumns": "4,4",
+                        "startOffsets": "92,151",
+                        "endColumns": "57,55",
+                        "endOffsets": "145,202"
+                    },
+                    "to": {
+                        "startLines": "9,10",
+                        "startColumns": "4,4",
+                        "startOffsets": "511,569",
+                        "endColumns": "57,55",
+                        "endOffsets": "564,620"
+                    }
+                },
+                {
+                    "source": "C:\\Dev\\Gift Card Genie\\Android\\Gift Card Balance Grabber\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "5,3,7,4,8,6",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "175,59,298,123,352,229",
+                        "endColumns": "52,62,52,50,77,67",
+                        "endOffsets": "223,117,346,169,425,292"
+                    },
+                    "to": {
+                        "startLines": "11,12,13,14,15,16",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "625,678,741,794,845,923",
+                        "endColumns": "52,62,52,50,77,67",
+                        "endOffsets": "673,736,789,840,918,986"
+                    }
+                },
+                {
+                    "source": "C:\\Dev\\Gift Card Genie\\Android\\Gift Card Balance Grabber\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "27,26,23,24,25,3,5,36,44,29,7,17",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "1224,1182,1038,1087,1141,58,137,1618,1955,1266,238,769",
+                        "endLines": "27,26,23,24,25,3,5,42,44,34,15,21",
+                        "endColumns": "38,40,47,52,39,75,97,12,36,12,12,12",
+                        "endOffsets": "1258,1218,1081,1135,1176,129,230,1947,1987,1610,761,1030"
+                    },
+                    "to": {
+                        "startLines": "3,4,5,6,7,17,18,19,26,27,33,42",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,144,185,233,286,991,1060,1151,1479,1515,1859,2379",
+                        "endLines": "3,4,5,6,7,17,18,25,26,32,41,46",
+                        "endColumns": "38,40,47,52,39,68,90,12,35,12,12,12",
+                        "endOffsets": "139,180,228,281,321,1055,1146,1474,1510,1854,2374,2636"
+                    }
+                },
+                {
+                    "source": "C:\\Dev\\Gift Card Genie\\Android\\Gift Card Balance Grabber\\app\\src\\main\\res\\values\\colors.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "19",
+                        "endColumns": "49",
+                        "endOffsets": "64"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "49",
+                        "endOffsets": "100"
+                    }
+                }
+            ]
+        }
+    ]
+}

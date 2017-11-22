@@ -1,4 +1,0 @@
-C:\Users\chmitro\Desktop\GCG Windows Dev\GCG Rebuild\Server\Merchants\Brinker\Source\bin\x86\Debug\Brinker.exe.config
-C:\Users\chmitro\Desktop\GCG Windows Dev\GCG Rebuild\Server\Merchants\Brinker\Source\obj\x86\Debug\Interop.SHDocVw.dll
-C:\Users\chmitro\Desktop\GCG Windows Dev\GCG Rebuild\Server\Merchants\Brinker\Source\obj\x86\Debug\AxInterop.SHDocVw.dll
-C:\Users\chmitro\Desktop\GCG Windows Dev\GCG Rebuild\Server\Merchants\Brinker\Source\obj\x86\Debug\Download via Browser.csproj.ResolveComReference.cache
