@@ -9,9 +9,6 @@
         android:targetSdkVersion="24"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".gcg"
@@ -69,12 +66,6 @@
             android:name=".ContactActivity"
             android:theme="@style/AppThemeLight"/>
         <activity
-            android:name=".WatchRewardedAd"
-            android:label="@string/title_activity_testarea"/>
-        <activity
-            android:name=".WatchInternalAd"
-            android:label="@string/title_activity_testarea"/>
-        <activity
             android:name=".testarea"
             android:label="@string/title_activity_testarea"/>
         <activity
@@ -82,14 +73,6 @@
             android:label="@string/title_activity_pre_card_type_select">
         </activity>
         <activity android:name=".PasteUserDataActivity">
-        </activity>
-        <activity
-            android:name="com.mc2techservices.ads.AdsDecider"
-            android:label="@string/title_activity_ads_decider">
-        </activity>
-        <activity
-            android:name="com.mc2techservices.ads.AdsSetup"
-            android:label="@string/title_activity_ads_setup">
         </activity>
     </application>
 

@@ -16,8 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.MobileAds;
-import com.mc2techservices.ads.AdsMain;
-import com.mc2techservices.ads.AdsSetup;
 
 public class InitActivity extends Activity {
 	Timer t1;
@@ -35,8 +33,8 @@ public class InitActivity extends Activity {
 		AppSpecific.gloPD="~_~";
 		AppSpecific.gloFinishIt=false;
 		AppSpecific.gloxmlns= "xmlns=\"mc2techservices.com\">";
-		AppSpecific.gloWebURL="http://192.168.199.1/UGCB/";
-		//AppSpecific.gloWebURL="http://ugcb.mc2techservices.com/";
+		//AppSpecific.gloWebURL="http://192.168.199.1/UGCB/";
+		AppSpecific.gloWebURL="http://ugcb.mc2techservices.com/";
 		AppSpecific.gloWebServiceURL=AppSpecific.gloWebURL + "UGCBWS.asmx";
 		MobileAds.initialize(this,"ca-app-pub-2250341510214691~5656960838");
 		ConfigUser();
@@ -50,14 +48,10 @@ public class InitActivity extends Activity {
 		*/
 	    TextView txtAppVersion=(TextView)findViewById(R.id.txtAppVersion);
 		txtAppVersion.setText(GeneralFunctions01.Sys.GetVersion(this));
-		GoToAdTesting();
-
-		/*
 		LogAppLaunch();
 		IsPurchased();
 		Toast.makeText(this,"Screen may freeze 5 seconds; please wait",Toast.LENGTH_SHORT);
 		StartGetCardInfo();
-		*/
 	}
 	private void CompleteOrExit()
 	{
@@ -149,12 +143,6 @@ public class InitActivity extends Activity {
 		startActivity(intent);
 		finish();
 	}
-	private void GoToAdTesting()
-	{
-		Intent intent = new Intent(this, AdsSetup.class);
-		startActivity(intent);
-		finish();
-	}
 	private void GetLookupsRemaining()
 	{
 		//if (!isNetworkConnected()) return;
@@ -203,12 +191,13 @@ public class InitActivity extends Activity {
 							wc1Tmr.cancel();
 							Log.d("APP", "Timed Out");
 							CompleteOrExit();
-						} else if (!wc1.wcWebResponse.equals("...")) {
-							wc1Tmr.cancel();
-							Log.d("APP", "Theres a Response");
-							FinishGetCardInfo();
-							CompleteOrExit();
 						}
+						if (wc1==null) return;
+						if (wc1.wcWebResponse==null) return;
+						Log.d("APP", "Theres a Response");
+						wc1Tmr.cancel();
+						FinishGetCardInfo();
+						CompleteOrExit();
 					}
 				});
 			}
@@ -217,10 +206,6 @@ public class InitActivity extends Activity {
 	private void FinishGetCardInfo()
 	{
 		String AllData=wc1.wcWebResponse;
-		if (AllData.equals("..."))
-		{
-			return;
-		}
 		//Dont proceed if we didn't get much data...
 		if (AllData.length()<500)
 		{

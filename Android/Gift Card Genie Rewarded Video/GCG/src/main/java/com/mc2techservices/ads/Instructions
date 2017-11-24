@@ -1,0 +1,22 @@
+Setup Instructions
+The following need to be brought over:
+
+activity_ads_setup.xml
+activity_watch_internal_ad.xml
+activity_watch_rewarded_ad.xml
+WatchInternalAd
+WatchRewardedAd
+
+From wherever is going to launch into some type of rewarded ad...
+	private void GoToAdTesting()
+	{
+		Intent intent = new Intent(this, AdsSetup.class);
+		startActivity(intent);
+		finish();
+	}
+
+In AdsSetup, modify ShowDetailsOnRewardStructure to display the details about the ad and values per action
+In AdsSetup, modify DetermineAdToUse to decide an which ads to display based on the users ad watches/clicks that day.
+
+
+mAd.loadAd has to be modified with the right ID for the app
