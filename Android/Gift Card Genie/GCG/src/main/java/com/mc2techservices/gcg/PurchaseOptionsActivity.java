@@ -19,7 +19,7 @@ public class PurchaseOptionsActivity extends Activity {
 		CheckIfWatchAdIsAllowed();
 	}
 	public void onWatchAdClicked(View arg0) {
-		//watched=false;
+		watched=false;  //test
 		if (watched)
 		{
             GeneralFunctions01.Oth.Alert(this, "Sorry, you can only do this once a day.");

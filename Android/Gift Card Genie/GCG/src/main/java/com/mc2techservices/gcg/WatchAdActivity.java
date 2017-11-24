@@ -133,13 +133,13 @@ public class WatchAdActivity extends Activity {
 	{
 		String testWatchAdDate=GeneralFunctions01.Cfg.ReadSharedPreference(this, "WatchAdDate");
 		String CurrDate=GeneralFunctions01.Dte.GetCurrentDate();
-		if (!testWatchAdDate.equals(CurrDate))
-		{
+		//if (!testWatchAdDate.equals(CurrDate))
+		//{
 			GeneralFunctions01.Cfg.WriteSharedPreference(this, "WatchAdDate", CurrDate);
-			String pParams = "pUUID=" + AppSpecific.gloUUID + "&pKey=" +AppSpecific.gloKey + "&pDetails=UGCB Android&pAmount=3";
+			String pParams = "pUUID=" + AppSpecific.gloUUID + "&pKey=" +AppSpecific.gloKey + "&pDetails=Android_GCG&pAmount=3";
 			String pURL=AppSpecific.gloWebServiceURL + "/LogLookupIncrease";
 			new GeneralFunctions01.AsyncWebCall().execute(pURL,pParams);
-		}
-		GoToLookup();
+		//}
+		//GoToLookup();
 	}
 }

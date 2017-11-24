@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class AddModCardActivity extends Activity {
@@ -34,6 +37,7 @@ public class AddModCardActivity extends Activity {
 		setContentView(R.layout.activity_add_mod_card);
 		String SGloUCDID=(getIntent().getStringExtra("CardID"));
 		GloCardType=(getIntent().getStringExtra("CardType"));
+		//InformUser();  //test
 		SetupFields();
 		ConfigGeneralCardInfo();
 		EnableCardGeneralInfo(false);
@@ -55,7 +59,27 @@ public class AddModCardActivity extends Activity {
 			HideLookupAndAdjustBalance();
 			HideBalanceHistory();
 		}
+
 	}
+
+	private void InformUser()
+	{
+		int pLookups=GetLookupsAvail();
+		Toast toast = Toast.makeText(this, "Lookups Remaining: " + pLookups, Toast.LENGTH_SHORT);
+		TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+		v.setTextColor(Color.BLACK);
+		toast.show();
+		Toast.makeText(this,"Lookups Remaining: " + pLookups,Toast.LENGTH_SHORT);
+		/*
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Lookups");
+		builder.setMessage(String.valueOf(pLookups));
+		AlertDialog dialog = builder.create();
+		dialog.show();
+		*/
+
+	}
+
 	@Override
 	public void onResume () {
 		super.onResume();
@@ -151,11 +175,30 @@ public class AddModCardActivity extends Activity {
 		LookupBalance();
 	}
 
+	private int GetLookupsAvail()
+	{
+		int retVal=0;
+		String pParams = "pUUID="+AppSpecific.gloUUID;
+		WebComm wc = new WebComm(AppSpecific.gloxmlns);
+		wc.ExecuteWebRequest(AppSpecific.gloWebServiceURL + "/GetLookupsRemaining", pParams);
+		int cnt=0;
+		do {
+			SystemClock.sleep(100);
+			cnt++;
+			if (cnt>50) break;
+			if (!wc.wcWebResponse.equals("...")) break;
+		} while (1==1);
+		int pAmntOfLookups=GeneralFunctions01.Conv.StringToInt(wc.wcWebResponse);
+		retVal=pAmntOfLookups;
+		Toast.makeText(this,"Lookups Remaining: " + retVal,Toast.LENGTH_SHORT);
+		return retVal;
+	}
+
 	private void LookupBalance()
 	{
-		String pParams = "pUUID="+AppSpecific.gloUUID;
-		String LookupsRemaining=GeneralFunctions01.Comm.NonAsyncWebCall(AppSpecific.gloWebServiceURL + "/GetLookupsRemaining", pParams);
-		int pAmntOfLookups=GeneralFunctions01.Conv.StringToInt(LookupsRemaining);
+		int pAmntOfLookups=GetLookupsAvail();
+		//String LookupsRemaining=GeneralFunctions01.Comm.NonAsyncWebCall(AppSpecific.gloWebServiceURL + "/GetLookupsRemaining", pParams);
+		//int pAmntOfLookups=GeneralFunctions01.Conv.StringToInt(LookupsRemaining);
 		String IsOK="";
 		if (pAmntOfLookups>3)
 		{

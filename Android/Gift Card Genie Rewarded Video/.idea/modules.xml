@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/GCG/GCG.iml" filepath="$PROJECT_DIR$/GCG/GCG.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Gift Card Genie.iml" filepath="$PROJECT_DIR$/Gift Card Genie.iml" />
+      <module fileurl="file://C:\Dev\Universal Gift Card Balances\Android\Gift Card Genie\Universal Gift Card Balances.iml" filepath="C:\Dev\Universal Gift Card Balances\Android\Gift Card Genie\Universal Gift Card Balances.iml" />
+      <module fileurl="file://C:\Dev\Universal Gift Card Balances\Android\Universal Gift Card Balances\GCG\app.iml" filepath="C:\Dev\Universal Gift Card Balances\Android\Universal Gift Card Balances\GCG\app.iml" />
+    </modules>
+  </component>
+</project>

@@ -25,7 +25,7 @@ public class WebComm {
     public WebComm(String pXMLNS)
     {
         xmlns=pXMLNS;
-        wcWebResponse = "...";
+        wcWebResponse = null;
     }
     private static String GetResonseData(String DataIn)
     {
@@ -72,7 +72,7 @@ public class WebComm {
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... params) {
-                wcWebResponse = "...";
+                wcWebResponse = null;
                 publishProgress("Sleeping..."); // Calls onProgressUpdate()
                 try {
                     String url = params[0];
@@ -118,8 +118,10 @@ public class WebComm {
 
                     // print result
                     System.out.println(response.toString());
-                    Log.d("GF AsyncWebCall", response.toString());
-                    resp = response.toString();
+                    Log.d("GF AsyncWebCall", "doInBackground Raw Result:" + response.toString());
+                    String Response = GetResonseData(response.toString());
+                    wcWebResponse = Response;
+                    resp = Response;
                 } catch (Exception e) {
                     Log.d("GF AsyncWebCall", "Error 002");
                     Log.d("GF AsyncWebCall", e.getMessage());
@@ -132,10 +134,13 @@ public class WebComm {
             protected void onPostExecute(String result) {
                 //This does come back; what to do with it/how to handle it... not sure.
                 Log.d("GF AsyncWebCall", "onPostExecute");
-                Log.d("GF AsyncWebCall", "onPostExecute Raw Result:" + result);
-                String Response = GetResonseData(result); // "http://AsyncWebCall.mc2techservices.com/Barcodes/9876543321.jpg";
-                Log.d("GF AsyncWebCall", "onPostExecute Clean Response" + Response);
-                wcWebResponse = Response;
+                Log.d("GF AsyncWebCall", "onPostExecute Raw Result:"+result);
+                if (result.contains(xmlns))
+                {
+                    String Response = GetResonseData(result); // "http://AsyncWebCall.mc2techservices.com/Barcodes/9876543321.jpg";
+                    Log.d("GF AsyncWebCall", "onPostExecute Clean Response" + Response);
+                    wcWebResponse = Response;
+                }
             }
 
             @Override
@@ -154,7 +159,7 @@ public class WebComm {
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... params) {
-                wcWebResponse = "...";
+                wcWebResponse = null;
                 publishProgress("Sleeping..."); // Calls onProgressUpdate()
                 try {
                     URL pURL = new URL(pURLIn);

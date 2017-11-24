@@ -1,0 +1,79 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/screen_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+
+        <TextView
+            android:id="@+id/txtOverride"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:onClick="onClickOverride"
+            android:text="Want More Lookups?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/txtAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_horizontal"
+            android:text="Thank you for your interest in the app!  You&apos;ve put in some cards, gotten some successful responses - how about helping us out?  Here are some things you can do!"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/cmdPurchase"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:enabled="true"
+                android:onClick="onPurchaseInfClicked"
+                android:text="Purchase Infinite Lookups" />
+
+            <Button
+                android:id="@+id/cmdWatchAd"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:onClick="onWatchAdClicked"
+                android:text="Watch an ad for 3 Lookups"/>
+
+                        <Button
+                            android:id="@+id/cmdCancel"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:onClick="onClickCancel"
+                            android:text="Cancel" />
+
+                        <Button
+                            android:id="@+id/cmdFailTest"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:onClick="onClickFailTest"
+                            android:text="Fail Test"
+                            android:visibility="gone" />
+            
+            </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
