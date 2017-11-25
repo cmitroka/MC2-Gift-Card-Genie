@@ -18,7 +18,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:clickable="true"
-            android:onClick="onClickOverride"
             android:text="Want More Lookups?"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -42,8 +41,9 @@
             <Button
                 android:id="@+id/cmdPurchase"
                 android:layout_width="250dp"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
                 android:enabled="true"
                 android:onClick="onPurchaseInfClicked"
                 android:text="Purchase Infinite Lookups" />
@@ -51,15 +51,25 @@
             <Button
                 android:id="@+id/cmdWatchAd"
                 android:layout_width="250dp"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_marginBottom="5dp"
+                android:enabled="false"
                 android:onClick="onWatchAdClicked"
-                android:text="Watch an ad for 3 Lookups"/>
+                android:text="Watch an ad for 3 credits" />
 
-                        <Button
+            <Button
+                android:id="@+id/cmdRewardedVideo"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="5dp"
+                android:enabled="false"
+                android:onClick="onRewardedVideoClicked"
+                android:text="Watch Rewarded Video Ad for credits" />
+
+            <Button
                             android:id="@+id/cmdCancel"
                             android:layout_width="250dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="70dp"
                             android:layout_marginBottom="5dp"
                             android:onClick="onClickCancel"
                             android:text="Cancel" />

@@ -28,11 +28,9 @@ import java.util.TimerTask;
 public class WatchRewardedAd extends Activity implements RewardedVideoAdListener {
     private RewardedVideoAd mAd;
     boolean pRewarded;
-    String pBonus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pBonus=(getIntent().getStringExtra("Bonus"));
         setContentView(R.layout.activity_watch_rewarded_ad);
         pRewarded=false;
         mAd = MobileAds.getRewardedVideoAdInstance(this);
@@ -60,18 +58,15 @@ public class WatchRewardedAd extends Activity implements RewardedVideoAdListener
 
     private void LogReward(String pAmnt)
     {
-        String pUUID= AppSpecific.gloUUID;
-        String pKey1= GeneralFunctions01.Text.GetRandomString("ANF",15);
-        String pKey2= Decode.PMConvertIDtoValue(pKey1);
-        String pParams = "pUUID=" + pUUID + "&pKey1=" + pKey1 + "&pKey2=" + pKey2 + "&pDetails=Ad" + pAmnt;
-        String pURL=AppSpecific.gloWebServiceURL + "/LogCredits";
-        //String temp=GeneralFunctions01.Comm.NonAsyncWebCall(pURL,pParams);
+        String pParams = "pUUID=" + AppSpecific.gloUUID + "&pKey=" +AppSpecific.gloKey + "&pDetails=RewardedVideo" + pAmnt + "&pAmount=" + pAmnt;
+        String pURL = AppSpecific.gloWebServiceURL + "/LogLookupIncrease";
         new GeneralFunctions01.AsyncWebCall().execute(pURL,pParams);
+        finish();
     }
     private void LogAdInfo(String pAmnt)
     {
-        if (pAmnt.equals("1")) pAmnt="AdmobAdWatched";
-        if (pAmnt.equals("3")) pAmnt="AdmobAdClicked";
+        if (pAmnt.equals("1")) pAmnt="RewardedVideoWatched";
+        if (pAmnt.equals("2")) pAmnt="RewardedVideoClicked";
         String pUUID=AppSpecific.gloUUID;
         AdsMain am = new AdsMain();
         am.DoWRSetAdInfo00(pUUID,pAmnt,"android_gcg");
@@ -116,8 +111,8 @@ public class WatchRewardedAd extends Activity implements RewardedVideoAdListener
     @Override
     public void onRewardedVideoAdLeftApplication() {
         Log.d("APP", "onRewardedVideoAdLeftApplication");
-        LogAdInfo("3");
-        if (pBonus.equals("1")) LogReward("3");
+        LogAdInfo("2");
+        LogReward("2");
         pRewarded=true;
         //finish();
     }

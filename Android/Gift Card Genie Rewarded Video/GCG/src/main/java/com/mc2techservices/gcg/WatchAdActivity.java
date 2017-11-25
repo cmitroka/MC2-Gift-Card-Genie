@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.mc2techservices.ads.AdsMain;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 public class WatchAdActivity extends Activity {
 
+	private static boolean AdWasClicked;
     InterstitialAd mInterstitialAd;
 	Timer t=new Timer();
 	int	pCounter;
@@ -60,8 +62,17 @@ public class WatchAdActivity extends Activity {
             @Override
             public void onAdLeftApplication() {
                 //Toast.makeText(getApplicationContext(), "Ad left application!", Toast.LENGTH_SHORT).show();
-	    		Log.d("APP", "Ad left application!");
-	    		LogPurchase();
+
+				if (AdWasClicked==true)
+				{
+					finish();
+					return;
+				}
+
+				Log.d("APP", "Ad left application!");
+				AdWasClicked=true;
+				LogPurchase();
+				finish();
             }
  
             @Override
@@ -131,15 +142,19 @@ public class WatchAdActivity extends Activity {
 	}
 	private void LogPurchase()
 	{
-		String testWatchAdDate=GeneralFunctions01.Cfg.ReadSharedPreference(this, "WatchAdDate");
+		AdsMain am=new AdsMain();
+		am.DoWRSetAdInfo00(AppSpecific.gloUUID, "InterstitialAdClicked", "android_gcg");
+
+		//String testWatchAdDate=GeneralFunctions01.Cfg.ReadSharedPreference(this, "WatchAdDate");
 		String CurrDate=GeneralFunctions01.Dte.GetCurrentDate();
-		if (!testWatchAdDate.equals(CurrDate))
-		{
+		//if (!testWatchAdDate.equals(CurrDate))
+		//{
 			GeneralFunctions01.Cfg.WriteSharedPreference(this, "WatchAdDate", CurrDate);
-			String pParams = "pUUID=" + AppSpecific.gloUUID + "&pKey=" +AppSpecific.gloKey + "&pDetails=UGCB Android&pAmount=3";
+			String pParams = "pUUID=" + AppSpecific.gloUUID + "&pKey=" +AppSpecific.gloKey + "&pDetails=InterstitialAd&pAmount=3";
 			String pURL=AppSpecific.gloWebServiceURL + "/LogLookupIncrease";
 			new GeneralFunctions01.AsyncWebCall().execute(pURL,pParams);
-		}
+		//}
 		GoToLookup();
 	}
+
 }

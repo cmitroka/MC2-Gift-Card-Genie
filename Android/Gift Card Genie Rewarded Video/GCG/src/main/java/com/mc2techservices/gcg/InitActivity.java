@@ -198,17 +198,18 @@ public class InitActivity extends Activity {
 					public void run() {
 						wc1Cnt++;
 						Log.d("APP", String.valueOf(wc1Tmr));
+						if (wc1.wcWebResponse==null) return;
 						if (wc1Cnt > 10) {
 							//timed out
 							wc1Tmr.cancel();
 							Log.d("APP", "Timed Out");
 							CompleteOrExit();
-						} else if (!wc1.wcWebResponse.equals("...")) {
-							wc1Tmr.cancel();
-							Log.d("APP", "Theres a Response");
-							FinishGetCardInfo();
-							CompleteOrExit();
 						}
+						Log.d("APP", "Theres a Response");
+						wc1Tmr.cancel();
+						FinishGetCardInfo();
+						CompleteOrExit();
+
 					}
 				});
 			}

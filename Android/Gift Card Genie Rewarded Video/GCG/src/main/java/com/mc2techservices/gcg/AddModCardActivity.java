@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -11,11 +12,16 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mc2techservices.ads.AdsSetup;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class AddModCardActivity extends Activity {
@@ -28,7 +34,10 @@ public class AddModCardActivity extends Activity {
 	EditText txtCDCardNumber;
 	EditText txtCDCardPIN;
 	EditText txtCDOtherInfo;
-
+	Button cmdLookup;
+	WebComm wc2;
+	int pAmntOfLookups;
+	int wc2cnt;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +45,18 @@ public class AddModCardActivity extends Activity {
 		setContentView(R.layout.activity_add_mod_card);
 		String SGloUCDID=(getIntent().getStringExtra("CardID"));
 		GloCardType=(getIntent().getStringExtra("CardType"));
+		cmdLookup= (Button)findViewById(R.id.cmdLookup);
+		pAmntOfLookups=0;
 		SetupFields();
 		ConfigGeneralCardInfo();
 		EnableCardGeneralInfo(false);
+		GetLookupAmntInfo();
 		GloUCDID=GeneralFunctions01.Conv.StringToInt(SGloUCDID);
 		if (GloUCDID>0)
 		{
 			ConfigExistingCard();
 			if (!ShowHistory()) HideBalanceHistory();
-            CheckToEnableCardGeneralInfo();
+			CheckToEnableCardGeneralInfo();
 		}
 		else if (GloUCDID==0)
 		{
@@ -58,6 +70,10 @@ public class AddModCardActivity extends Activity {
 			HideBalanceHistory();
 		}
 	}
+
+
+
+
 	@Override
 	public void onResume () {
 		super.onResume();
@@ -97,11 +113,53 @@ public class AddModCardActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	private void GetLookupAmntInfo()
+	{
+		String pParams = "pUUID="+AppSpecific.gloUUID;
+		wc2=new WebComm(AppSpecific.gloxmlns);
+		wc2.ExecuteWebRequest(AppSpecific.gloWebServiceURL + "/GetLookupsRemaining", pParams);
+		MonitorGetLookupAmntInfo();
+	}
+	private void MonitorGetLookupAmntInfo()
+	{
+		wc2cnt=0;
+		final Timer wc2Tmr=new Timer();
+		wc2Tmr.scheduleAtFixedRate(new TimerTask() {
+			public void run() {
+				runOnUiThread(new Runnable() {
+					public void run() {
+						wc2cnt++;
+						Log.d("APP", String.valueOf(wc2Tmr));
+						if (wc2.wcWebResponse==null) return;
+						if (wc2cnt > 10) {
+							//timed out
+							wc2Tmr.cancel();
+							Log.d("APP", "Timed Out");
+						}
+						wc2Tmr.cancel();
+						cmdLookup.setEnabled(true);
+						ReportRemainingLookups();
+						pAmntOfLookups=GeneralFunctions01.Conv.StringToInt(wc2.wcWebResponse);
+					}
+				});
+			}
+		}, 1, 1000); // 1000 means start delay (1 sec), and the second is the loop delay.
+	}
+	private void ReportRemainingLookups()
+	{
+		Toast toast = Toast.makeText(this, wc2.wcWebResponse+ " Lookups Remaining", Toast.LENGTH_SHORT);
+		TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+		v.setTextColor(Color.BLACK);
+		toast.show();
+	}
+
 	private void EnableCardGeneralInfo(boolean TorF)
 	{
 		txtGCICardType.setEnabled(TorF);
 		txtGCIURL.setEnabled(TorF);
 	}
+
+
 	private String ValidateEntries()
 	{
 		String errMsg="";
@@ -155,9 +213,6 @@ public class AddModCardActivity extends Activity {
 
 	private void LookupBalance()
 	{
-		String pParams = "pUUID="+AppSpecific.gloUUID;
-		String LookupsRemaining=GeneralFunctions01.Comm.NonAsyncWebCall(AppSpecific.gloWebServiceURL + "/GetLookupsRemaining", pParams);
-		int pAmntOfLookups=GeneralFunctions01.Conv.StringToInt(LookupsRemaining);
 		String IsOK="";
 		if (pAmntOfLookups>3)
 		{
@@ -244,18 +299,18 @@ public class AddModCardActivity extends Activity {
 		Intent intent = new Intent(this, WatchAdActivity.class);
 		startActivity(intent);
 	}
-    private void CheckToEnableCardGeneralInfo()
-    {
-        DBAdapter myDb  = new DBAdapter(this);
-        myDb.open();
+	private void CheckToEnableCardGeneralInfo()
+	{
+		DBAdapter myDb  = new DBAdapter(this);
+		myDb.open();
 		String ItExists=myDb.getSingleValAsString("SELECT CICardType FROM tblCardInfo WHERE CICardType='"+txtGCICardType.getText()+"'");
-        myDb.close();
-        if (ItExists.length()==0)
-        {
-            EnableCardGeneralInfo(true);
-        }
+		myDb.close();
+		if (ItExists.length()==0)
+		{
+			EnableCardGeneralInfo(true);
+		}
 
-    }
+	}
 	private void AdjustBalance()
 	{
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -328,7 +383,7 @@ public class AddModCardActivity extends Activity {
 		String[] lines=AllBHData.split("l#d");
 
 
-		
+
 		for (int i = 0; i < lines.length; i++) {
 			String[] vals=lines[i].split("p#d");
 			String pBal=GeneralFunctions01.Text.GetValInArray(vals, 0);

@@ -25,7 +25,7 @@ public class WebComm {
     public WebComm(String pXMLNS)
     {
         xmlns=pXMLNS;
-        wcWebResponse = "...";
+        wcWebResponse = null;
     }
     private static String GetResonseData(String DataIn)
     {
@@ -72,7 +72,7 @@ public class WebComm {
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... params) {
-                wcWebResponse = "...";
+                wcWebResponse = null;
                 publishProgress("Sleeping..."); // Calls onProgressUpdate()
                 try {
                     String url = params[0];
@@ -154,7 +154,7 @@ public class WebComm {
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... params) {
-                wcWebResponse = "...";
+                wcWebResponse = null;
                 publishProgress("Sleeping..."); // Calls onProgressUpdate()
                 try {
                     URL pURL = new URL(pURLIn);
