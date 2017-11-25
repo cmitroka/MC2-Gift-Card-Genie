@@ -3,6 +3,9 @@ package com.mc2techservices.ads;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.mc2techservices.gcg.GeneralFunctions01;
 
@@ -29,8 +32,11 @@ public class AdsMain {
 
     public AdsMain() {
         pXMLNS = "xmlns=\"common.mc2techservices.com\">";
-        pWebServiceURL = "http://www.mc2techservices.com/Common/AdsWS.asmx";
-        pWebAdImagesAddress="http://www.mc2techservices.com/Common/Ads/Android/";
+        //pWebServiceURL = "http://www.mc2techservices.com/Common/AdsWS.asmx";
+        //pWebAdImagesAddress="http://www.mc2techservices.com/Common/Ads/Android/";
+        pWebServiceURL = "http://192.168.199.1/AdsWebservice/AdsWS.asmx";
+        pWebAdImagesAddress="http://192.168.199.1/AdsWebservice/Ads/Android/";
+
     }
     
     public void DoWRGetAdInfo00(String pUUID, String pApp) {
@@ -50,6 +56,24 @@ public class AdsMain {
         String pParams = "pUniqueID=" + pUUID + "&pTypeLogged=" +pTypeLogged+ "&pApp=" + pApp ;
         AsyncWebCallRunner runner = new AsyncWebCallRunner();
         runner.execute(pURL, pParams);
+    }
+        public String GetStringValInArray(String[] pObjIn, int pIndex)
+        {
+            String retVal="";
+            try {
+                retVal=pObjIn[pIndex];
+            }
+            catch (Exception ex) {}
+            return retVal;
+        }
+    public int GetIntValInArray(String[] pObjIn, int pIndex)
+    {
+        int retVal=-999;
+        try {
+            retVal=Integer.parseInt(pObjIn[pIndex]);
+        }
+        catch (Exception ex) {}
+        return retVal;
     }
 
     public class AsyncWebCallRunner extends AsyncTask<String, String, String> {
@@ -151,4 +175,5 @@ public class AdsMain {
         }
 
     }
+
 }

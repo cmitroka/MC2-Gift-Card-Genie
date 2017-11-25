@@ -59,8 +59,7 @@
             android:name=".AboutActivity"
             android:theme="@android:style/android:Theme.Light.NoTitleBar"/>
         <activity
-            android:name=".WatchAdActivity"
-            android:noHistory="true"/>
+            android:name=".WatchAdActivity"/>
         <activity android:name=".PurchaseActivity"/>
         <activity
             android:name=".PurchaseOptionsActivity"

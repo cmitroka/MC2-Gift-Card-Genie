@@ -125,7 +125,7 @@ public class GeneralFunctions01 {
 			{
 				isOnline="1";
 			}
-			String Response = Comm.GetResonseData(result,"A"); //THIS NEEDS NAMESPACE INFO!!!!  FIX LATER!!!
+			String Response = Comm.GetResonseData(result,AppSpecific.gloxmlns); //THIS NEEDS NAMESPACE INFO!!!!  FIX LATER!!!
 			Log.d("GF AsyncWebCall", "onPostExecute Clean Response" + Response);
 		}
 
@@ -341,7 +341,7 @@ public class GeneralFunctions01 {
 				System.out.println(response.toString());
 				Log.d("GF NonAsync Resp:", response.toString());
 				resp=response.toString();
-				resp= Comm.GetResonseData(resp, "A");  //THIS NEEDS NAMESPACE INFO!!!!  FIX LATER!!!
+				resp= Comm.GetResonseData(resp, AppSpecific.gloxmlns);  //THIS NEEDS NAMESPACE INFO!!!!  FIX LATER!!!
 				Log.d("GF NonAsync Clean Resp:", resp);
 			}
 			catch (Exception e)
