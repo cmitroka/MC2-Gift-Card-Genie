@@ -20,7 +20,7 @@ public class ContactActivity extends Activity {
 		Intent email = new Intent(Intent.ACTION_SEND);
 		email.setType("message/rfc822");
 		email.putExtra(Intent.EXTRA_EMAIL, new String[]{"service@mc2techservices.com"});
-		email.putExtra(Intent.EXTRA_SUBJECT, "UGCB Feedback " + pShortUUID);
+		email.putExtra(Intent.EXTRA_SUBJECT, "GCG Feedback " + pShortUUID);
 		email.putExtra(Intent.EXTRA_TEXT, "");
 
 		try {
@@ -36,8 +36,8 @@ public class ContactActivity extends Activity {
 		Intent email = new Intent(Intent.ACTION_SEND);
 		email.setType("message/rfc822");
 		email.putExtra(Intent.EXTRA_EMAIL, new String[]{"service@mc2techservices.com"});
-		email.putExtra(Intent.EXTRA_SUBJECT, "UGCB Bug " + pShortUUID);
 		email.putExtra(Intent.EXTRA_TEXT, "");
+		email.putExtra(Intent.EXTRA_SUBJECT, "GCG Bug " + pShortUUID);
 
 		try {
 		// the user can choose the email client

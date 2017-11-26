@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
         android:gravity="center"
-        android:text="Universal Gift Card Balances"
+        android:text="Gift Card Genie"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Universal Gift Card Balances is a utility to:\n\n1 - Maintain a list of all your gift cards and track their balance.\n2 - Assist in getting/refreshing balances whenever needed.\n\nMost merchants have their own app/website to assist with this, but this app is intended to bring all these separate merchants lookups into one place.\nIt’s simple to use." />
+        android:text="Gift Card Genie is a utility to:\n1 - Maintain a list of all your gift cards and track their balance.\n2 - Assist (partial automation) in getting/refreshing balances whenever needed.\n\nMost merchants have their own app/website to assist with this, but this app is intended to bring all these separate merchants lookups into one place." />
 
     <TextView
         android:id="@+id/textView2"

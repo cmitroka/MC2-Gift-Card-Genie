@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/GCG/GCG.iml" filepath="$PROJECT_DIR$/GCG/GCG.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Gift Card Genie.iml" filepath="$PROJECT_DIR$/Gift Card Genie.iml" />
-    </modules>
-  </component>
-</project>

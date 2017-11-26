@@ -1,8 +1,0 @@
-https://wwws.givex.com/cws/bonappetit/consumer/clp/balance_check.py?start:true
-
-SendKeys.Send("{ENTER}") 'for enter
-SendKeys.Send("{%}") 'for Alt
-SendKeys.Send("{^}") 'for Ctrl
-SendKeys.Send("{+}") 'for shift
-
-SendKeys.Send("^(c)") 'for Ctrl-C

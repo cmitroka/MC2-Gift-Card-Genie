@@ -32,10 +32,10 @@ public class AdsMain {
 
     public AdsMain() {
         pXMLNS = "xmlns=\"common.mc2techservices.com\">";
-        //pWebServiceURL = "http://www.mc2techservices.com/Common/AdsWS.asmx";
-        //pWebAdImagesAddress="http://www.mc2techservices.com/Common/Ads/Android/";
-        pWebServiceURL = "http://192.168.199.1/AdsWebservice/AdsWS.asmx";
-        pWebAdImagesAddress="http://192.168.199.1/AdsWebservice/Ads/Android/";
+        pWebServiceURL = "http://www.mc2techservices.com/Common/AdsWS.asmx";
+        pWebAdImagesAddress="http://www.mc2techservices.com/Common/Ads/Android/";
+        //pWebServiceURL = "http://192.168.199.1/AdsWebservice/AdsWS.asmx";  //test
+        //pWebAdImagesAddress="http://192.168.199.1/AdsWebservice/Ads/Android/";  //test
 
     }
     
