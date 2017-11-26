@@ -228,11 +228,7 @@ public class AddModCardActivity extends Activity {
 
 		if (IsOK.equals(""))
 		{
-			//InformAboutLookup();
-			Intent intent = new Intent(this, AdsSetup.class);
-			intent.putExtra("EntryPoint", "LOOKUP");
-			startActivity(intent);
-			finish();
+			InformAboutLookup();
 		}
 		else
 		{
