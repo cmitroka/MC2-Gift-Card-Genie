@@ -3,21 +3,33 @@ package com.mc2techservices.gcg;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.InputType;
 import android.util.Log;
+import android.view.InputEvent;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.BaseInputConnection;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Timer;
+import java.util.TimerTask;
+
+
 
 public class LookupActivity extends Activity {
 	final Context context = this;
@@ -26,6 +38,10 @@ public class LookupActivity extends Activity {
 	String pLogin;
 	String pPassword;
 	WebView webView;
+
+	int tmrTyperCnt;
+	int tmrTyperLastPosition;
+	String tmrTyperValueToType;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +133,30 @@ public class LookupActivity extends Activity {
 
 		}.start();
 	}
+	private void RunTmrTyper()
+	{
+		tmrTyperCnt=0;
+		tmrTyperLastPosition=0;
+		final Timer tmrInvoker=new Timer();
+		tmrInvoker.scheduleAtFixedRate(new TimerTask() {
+			public void run() {
+				runOnUiThread(new Runnable() {
+					public void run() {
+						tmrTyperCnt++;
+						Log.d("APP", "tmrTyperCnt: " + tmrTyperCnt);
+						if (tmrTyperCnt<250) return;
+						String pTemp="";
+						try {
+						pTemp=tmrTyperValueToType.substring(tmrTyperLastPosition,tmrTyperLastPosition+1);
+					} catch (Exception ex) {tmrInvoker.cancel();}
+					tmrTyperLastPosition++;
+					TypeCharacter(pTemp);
+					}
+				});
+			}
+		}, 1, 1); // 1000 means start delay (1 sec), and the second is the loop delay.
+	}
+
 	private void PasteUserData()
 	{
 		final Dialog dialog = new Dialog(context);
@@ -128,9 +168,8 @@ public class LookupActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				webView.loadUrl("javascript:document.execCommand('insertHtml', false,'" + pCardNum + "');");
-				ShowPasteInfo(pCardNum);
-				//Toast.makeText(getApplicationContext(),"Dismissed..!!",Toast.LENGTH_SHORT).show();
+				tmrTyperValueToType=pCardNum;
+				RunTmrTyper();
 			}
 		});
 
@@ -139,16 +178,16 @@ public class LookupActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				webView.loadUrl("javascript:document.execCommand('insertHtml', false,'" + pCardPIN + "');");
-				ShowPasteInfo(pCardPIN);
+				tmrTyperValueToType=pCardNum;
+				RunTmrTyper();
 			}
 		});
 		Button cmdLogin = (Button) dialog.findViewById(R.id.cmdPLogin);
 		cmdLogin.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				dialog.dismiss();
-				webView.loadUrl("javascript:document.execCommand('insertHtml', false,'" + pLogin + "');");
+				//dialog.dismiss();
+				//webView.loadUrl("javascript:document.execCommand('insertHtml', false,'" + pLogin + "');");
 				ShowPasteInfo(pLogin);
 			}
 		});
@@ -156,11 +195,69 @@ public class LookupActivity extends Activity {
 		cmdPassword.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				dialog.dismiss();
-				webView.loadUrl("javascript:document.execCommand('insertHtml', false,'" + pPassword + "');");
+				//dialog.dismiss();
+				//webView.loadUrl("javascript:document.execCommand('insertHtml', false,'" + pPassword + "');");
 				ShowPasteInfo(pPassword);
 			}
 		});
 		dialog.show();
+	}
+	private void TypeCharacter(String pCharToType)
+	{
+		BaseInputConnection mInputConnection = new BaseInputConnection(webView, true);
+		if (pCharToType.equals("0"))
+		{
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_0, 0));
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, KeyEvent.KEYCODE_0, 0));
+		}
+		else if (pCharToType.equals("1"))
+		{
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_1, 0));
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, KeyEvent.KEYCODE_1, 0));
+		}
+		else if (pCharToType.equals("2"))
+		{
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_2, 0));
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, KeyEvent.KEYCODE_2, 0));
+		}
+		else if (pCharToType.equals("3"))
+		{
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_3, 0));
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, KeyEvent.KEYCODE_3, 0));
+		}
+		else if (pCharToType.equals("4"))
+		{
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_4, 0));
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, KeyEvent.KEYCODE_4, 0));
+		}
+		else if (pCharToType.equals("5"))
+		{
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_5, 0));
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, KeyEvent.KEYCODE_5, 0));
+		}
+		else if (pCharToType.equals("6"))
+		{
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_6, 0));
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, KeyEvent.KEYCODE_6, 0));
+		}
+		else if (pCharToType.equals("7"))
+		{
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_7, 0));
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, KeyEvent.KEYCODE_7, 0));
+		}
+		else if (pCharToType.equals("8"))
+		{
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_8, 0));
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, KeyEvent.KEYCODE_8, 0));
+		}
+		else if (pCharToType.equals("9"))
+		{
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_9, 0));
+			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, KeyEvent.KEYCODE_9, 0));
+		}
+		//mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MENU, 0));
+		//mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_V, 0));
+		//mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MENU, 0));
+		//mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(),android.os.SystemClock.uptimeMillis(),KeyEvent.ACTION_UP, KeyEvent.KEYCODE_V, 0));
 	}
 }

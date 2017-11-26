@@ -1,3 +1,0 @@
-xcopy "$(TargetDir)$(TargetName).exe" "C:\GCG\MerchantEXEs" /i /d /y
-xcopy "$(TargetDir)*.dll" "C:\GCG\MerchantEXEs" /i /d /y
-xcopy "$(TargetDir)*_cfg.txt" "C:\GCG\MerchantEXEs" /i /d /y

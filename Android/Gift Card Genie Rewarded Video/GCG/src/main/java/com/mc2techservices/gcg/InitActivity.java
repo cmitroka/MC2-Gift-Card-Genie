@@ -35,8 +35,8 @@ public class InitActivity extends Activity {
 		AppSpecific.gloPD="~_~";
 		AppSpecific.gloFinishIt=false;
 		AppSpecific.gloxmlns= "xmlns=\"mc2techservices.com\">";
-		AppSpecific.gloWebURL="http://192.168.199.1/UGCB/";
-		//AppSpecific.gloWebURL="http://ugcb.mc2techservices.com/";
+		AppSpecific.gloWebURL="http://192.168.199.1/UGCB/";  //test
+		AppSpecific.gloWebURL="http://ugcb.mc2techservices.com/";
 		AppSpecific.gloWebServiceURL=AppSpecific.gloWebURL + "UGCBWS.asmx";
 		MobileAds.initialize(this,"ca-app-pub-2250341510214691~5656960838");
 		ConfigUser();
@@ -218,7 +218,7 @@ public class InitActivity extends Activity {
 	private void FinishGetCardInfo()
 	{
 		String AllData=wc1.wcWebResponse;
-		if (AllData.equals("..."))
+		if (AllData==null)
 		{
 			return;
 		}

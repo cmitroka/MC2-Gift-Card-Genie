@@ -1,9 +1,0 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GCGCommon.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="GCGCommon_com_mc2techservices_gcg_WebService" Type="System.String" Scope="User">
-      <Value Profile="(Default)">GCGCommon_com_mc2techservices_gcg_WebService</Value>
-    </Setting>
-  </Settings>
-</SettingsFile>

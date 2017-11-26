@@ -1,6 +1,0 @@
-C:\Dev\Gift Card Genie\Server\Website and Service\AdminSite\bin\WebServiceSite.dll.config
-C:\Dev\Gift Card Genie\Server\Website and Service\AdminSite\bin\WebServiceSite.dll
-C:\Dev\Gift Card Genie\Server\Website and Service\AdminSite\bin\WebServiceSite.pdb
-C:\Dev\Gift Card Genie\Server\Website and Service\AdminSite\obj\Debug\WebServiceSite.dll
-C:\Dev\Gift Card Genie\Server\Website and Service\AdminSite\obj\Debug\WebServiceSite.pdb
-C:\Dev\Gift Card Genie\Server\Website and Service\AdminSite\obj\Debug\WebServiceSite.csprojResolveAssemblyReference.cache

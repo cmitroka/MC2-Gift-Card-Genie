@@ -50,13 +50,13 @@ public class AddModCardActivity extends Activity {
 		SetupFields();
 		ConfigGeneralCardInfo();
 		EnableCardGeneralInfo(false);
-		GetLookupAmntInfo();
 		GloUCDID=GeneralFunctions01.Conv.StringToInt(SGloUCDID);
 		if (GloUCDID>0)
 		{
 			ConfigExistingCard();
 			if (!ShowHistory()) HideBalanceHistory();
 			CheckToEnableCardGeneralInfo();
+			GetLookupAmntInfo();
 		}
 		else if (GloUCDID==0)
 		{

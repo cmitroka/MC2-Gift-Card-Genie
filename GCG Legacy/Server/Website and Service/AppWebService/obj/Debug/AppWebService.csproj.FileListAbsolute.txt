@@ -1,1 +1,0 @@
-C:\Dev\Gift Card Genie\Server\Website and Service\AppWebService\obj\Debug\AppWebService.csprojResolveAssemblyReference.cache
