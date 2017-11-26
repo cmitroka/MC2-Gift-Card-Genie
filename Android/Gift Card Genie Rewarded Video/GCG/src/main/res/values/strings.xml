@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="title_activity_testarea">testarea</string>
+    <string name="title_activity_pre_card_type_select">PreCardTypeSelectActivity</string>
+    <string name="title_activity_paste_user_data">PasteUserDataActivity</string>
+    <string name="title_activity_ads_decider">AdsDecider</string>
+    <string name="title_activity_ads_setup">AdsSetup</string>
+</resources>
