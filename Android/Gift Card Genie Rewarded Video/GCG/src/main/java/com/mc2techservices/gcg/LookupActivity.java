@@ -178,7 +178,7 @@ public class LookupActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				tmrTyperValueToType=pCardNum;
+				tmrTyperValueToType=pCardPIN;
 				RunTmrTyper();
 			}
 		});

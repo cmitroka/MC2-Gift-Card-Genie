@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="511cb6ab524d3b1e1b986120bd17647c501a16ab">
+        <dex dex="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_ea9e43d55521bdbfae2774f61225780545e552be\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_a8969688cc6bdcccc85bba8a7d4bc42272292d31\classes.dex" />
+    </item>
+
+</items>
