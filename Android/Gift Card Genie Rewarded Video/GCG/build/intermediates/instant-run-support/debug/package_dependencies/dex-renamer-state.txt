@@ -1,4 +1,4 @@
-#Sat Nov 25 22:25:25 EST 2017
+#Mon Nov 27 23:21:21 EST 2017
 file.59=C\:\\Dev\\Gift_Card_Genie\\Android\\Gift Card Genie Rewarded Video\\GCG\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\internal_impl-24.0.0_3d22d5ac29d8ac39068a5862ea2ccd5ff8d94b96\\classes.dex
 file.58=C\:\\Dev\\Gift_Card_Genie\\Android\\Gift Card Genie Rewarded Video\\GCG\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_386e2351a5265fe4f4ed4118988e8d894e860695\\classes.dex
 file.57=C\:\\Dev\\Gift_Card_Genie\\Android\\Gift Card Genie Rewarded Video\\GCG\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_28bcb636116b2b12e9dadfdeb4208bfb718a39d9\\classes.dex

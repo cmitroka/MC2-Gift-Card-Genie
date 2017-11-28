@@ -3,6 +3,7 @@ package com.mc2techservices.gcg;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Instrumentation;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Timer;
@@ -37,6 +39,7 @@ public class LookupActivity extends Activity {
 	String pCardPIN;
 	String pLogin;
 	String pPassword;
+	String pOther;
 	WebView webView;
 
 	int tmrTyperCnt;
@@ -57,6 +60,7 @@ public class LookupActivity extends Activity {
 		pCardPIN=(getIntent().getStringExtra("CardPIN"));
 		pLogin=(getIntent().getStringExtra("Login"));
 		pPassword=(getIntent().getStringExtra("Password"));
+		pOther=(getIntent().getStringExtra("Other"));
 		Button cmdPasteUserInfo = (Button) findViewById(R.id.cmdPasteUserInfo);
 		Button cmdUpdateBalance = (Button) findViewById(R.id.cmdUpdateBalance);
 		webView = (WebView) findViewById(R.id.webView);
@@ -168,8 +172,16 @@ public class LookupActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				tmrTyperValueToType=pCardNum;
-				RunTmrTyper();
+				try
+				{
+					String keyCommand = "input text "+pCardNum;
+					Runtime runtime = Runtime.getRuntime();
+					Process proc = runtime.exec(keyCommand);
+				}
+				catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+				}
 			}
 		});
 
@@ -178,26 +190,69 @@ public class LookupActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				tmrTyperValueToType=pCardPIN;
-				RunTmrTyper();
+				try
+				{
+					String keyCommand = "input text "+pCardPIN;
+					Runtime runtime = Runtime.getRuntime();
+					Process proc = runtime.exec(keyCommand);
+				}
+				catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+				}
+				//tmrTyperValueToType=pCardPIN;
+				//RunTmrTyper();
 			}
 		});
 		Button cmdLogin = (Button) dialog.findViewById(R.id.cmdPLogin);
 		cmdLogin.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//dialog.dismiss();
-				//webView.loadUrl("javascript:document.execCommand('insertHtml', false,'" + pLogin + "');");
-				ShowPasteInfo(pLogin);
+				dialog.dismiss();
+				try
+				{
+					String keyCommand = "input text "+pLogin;
+					Runtime runtime = Runtime.getRuntime();
+					Process proc = runtime.exec(keyCommand);
+				}
+				catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+				}
 			}
 		});
 		Button cmdPassword = (Button) dialog.findViewById(R.id.cmdPPassword);
 		cmdPassword.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//dialog.dismiss();
-				//webView.loadUrl("javascript:document.execCommand('insertHtml', false,'" + pPassword + "');");
-				ShowPasteInfo(pPassword);
+				dialog.dismiss();
+				try
+				{
+					String keyCommand = "input text "+pPassword;
+					Runtime runtime = Runtime.getRuntime();
+					Process proc = runtime.exec(keyCommand);
+				}
+				catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+				}
+			}
+		});
+		Button cmdOther = (Button) dialog.findViewById(R.id.cmdPOther);
+		cmdOther.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				try
+				{
+					String keyCommand = "input text "+pOther;
+					Runtime runtime = Runtime.getRuntime();
+					Process proc = runtime.exec(keyCommand);
+				}
+				catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+				}
 			}
 		});
 		dialog.show();
@@ -255,9 +310,5 @@ public class LookupActivity extends Activity {
 			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_9, 0));
 			mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, KeyEvent.KEYCODE_9, 0));
 		}
-		//mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MENU, 0));
-		//mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_V, 0));
-		//mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(), android.os.SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MENU, 0));
-		//mInputConnection.sendKeyEvent(new KeyEvent(android.os.SystemClock.uptimeMillis(),android.os.SystemClock.uptimeMillis(),KeyEvent.ACTION_UP, KeyEvent.KEYCODE_V, 0));
 	}
 }

@@ -19,7 +19,7 @@
             android:layout_height="28dp"
             android:layout_weight="1"
             android:onClick="onClickPasteUserData"
-            android:text="Paste User Info..."/>
+            android:text="Paste User Info..." />
 
         <Button
             android:id="@+id/cmdUpdateBalance"

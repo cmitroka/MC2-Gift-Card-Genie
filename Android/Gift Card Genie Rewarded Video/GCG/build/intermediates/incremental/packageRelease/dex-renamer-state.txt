@@ -1,4 +1,4 @@
-#Sun Nov 26 12:44:26 EST 2017
+#Tue Nov 28 00:16:37 EST 2017
 base.0=C\:\\Dev\\Gift_Card_Genie\\Android\\Gift Card Genie Rewarded Video\\GCG\\build\\intermediates\\transforms\\dex\\release\\folders\\1000\\1f\\main
 renamed.1=classes2.dex
 renamed.0=classes.dex

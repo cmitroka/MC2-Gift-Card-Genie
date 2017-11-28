@@ -36,6 +36,12 @@
             android:layout_width="175dp"
             android:layout_height="40dp"
             android:text="Password"/>
+
+        <Button
+            android:id="@+id/cmdPOther"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Other" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
