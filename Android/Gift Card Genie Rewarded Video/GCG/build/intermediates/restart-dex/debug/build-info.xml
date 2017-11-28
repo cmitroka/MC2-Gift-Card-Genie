@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
-    abi="armeabi-v7a,armeabi"
+    abi="x86"
     api-level="24"
     build-mode="COLD"
-    density="xxhdpi"
+    density="420dpi"
     format="10"
     plugin-version="2.3.3"
-    timestamp="1511718022604"
+    timestamp="1511846084269"
     token="-2121221885512804980"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="406" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="27" />
     <task
         name="verifier"
-        duration="0" />
+        duration="12" />
+
+    <artifact
+        location="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\intermediates\split-apk\debug\slices\slice_0.apk"
+        type="SPLIT" />
 
     <build
         build-mode="FULL"
-        timestamp="1511717891494"
+        timestamp="1511842948435"
         verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            type="SPLIT" />
         <artifact
             location="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\intermediates\split-apk\debug\slices\slice_0.apk"
             type="SPLIT" />
@@ -46,9 +53,6 @@
             location="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\intermediates\split-apk\debug\slices\slice_2.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\intermediates\split-apk\debug\slices\slice_3.apk"
-            type="SPLIT" />
-        <artifact
             location="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\intermediates\split-apk\debug\slices\slice_5.apk"
             type="SPLIT" />
         <artifact
@@ -66,7 +70,28 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1511718022604"
-        verifier="COLD_SWAP_REQUESTED" />
+        timestamp="1511846004325"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\intermediates\split-apk\debug\slices\slice_2.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\intermediates\split-apk\debug\slices\slice_4.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\outputs\apk\GCG-debug.apk"
+            type="SPLIT_MAIN" />
+    </build>
+    <build
+        build-mode="COLD"
+        timestamp="1511846084269"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Dev\Gift_Card_Genie\Android\Gift Card Genie Rewarded Video\GCG\build\intermediates\split-apk\debug\slices\slice_0.apk"
+            type="SPLIT" />
+    </build>
 
 </instant-run>

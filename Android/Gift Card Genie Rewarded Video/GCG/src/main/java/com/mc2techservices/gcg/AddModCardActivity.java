@@ -243,6 +243,7 @@ public class AddModCardActivity extends Activity {
 		String pURL=GeneralFunctions01.Text.GetVal(txtGCIURL);
 		String pLogin=GeneralFunctions01.Text.GetVal(txtGCILogin);
 		String pPassword=GeneralFunctions01.Text.GetVal(txtGCIPassword);
+		String pOther=GeneralFunctions01.Text.GetVal(txtCDOtherInfo);
 
 		String pParams = "pUUID=" + AppSpecific.gloUUID + "&pCardType=" + txtGCICardType.getText();
 		new GeneralFunctions01.AsyncWebCall().execute(AppSpecific.gloWebServiceURL + "/LogCardSearch",pParams);
@@ -264,6 +265,7 @@ public class AddModCardActivity extends Activity {
 			intent.putExtra("CardPIN", pCardPIN);
 			intent.putExtra("Login", pLogin);
 			intent.putExtra("Password", pPassword);
+			intent.putExtra("Other", pOther);
 			startActivity(intent);
 		}
 		finish();
